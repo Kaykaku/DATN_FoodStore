@@ -114,7 +114,7 @@ CREATE TABLE food_discounts (
     id bigint IDENTITY(1,1) primary key,
 	food_id bigint not null FOREIGN KEY REFERENCES foods(id),
 	name nvarchar(300) not null,
-	amount bigint not null ,	
+	amount float not null ,	
 	is_fixed bit not null ,	
 	start_date datetime ,
 	end_date datetime ,

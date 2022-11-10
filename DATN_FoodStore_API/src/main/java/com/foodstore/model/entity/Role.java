@@ -3,6 +3,8 @@ package com.foodstore.model.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,9 +45,11 @@ public class Role implements Serializable {
     @Column(name = "is_display", nullable = false)
     private boolean is_display;
     
+	@JsonIgnore
     @OneToMany(mappedBy = "role_u", cascade = CascadeType.ALL) 
     private List<User> users;
     
+	@JsonIgnore
     @OneToMany(mappedBy = "role_p", cascade = CascadeType.ALL) 
     private List<Permission> permissions;
 }

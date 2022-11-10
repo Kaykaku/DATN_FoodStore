@@ -19,8 +19,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "customers")
+public class Customer implements Serializable {
     /**
 	 * 
 	 */

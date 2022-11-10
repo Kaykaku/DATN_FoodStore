@@ -1,12 +1,10 @@
 package com.foodstore.model.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.transaction.Category_food;
-import com.foodstore.model.transaction.Food_discount;
 import com.foodstore.model.transaction.Food_image;
 
 import lombok.AllArgsConstructor;
@@ -23,8 +21,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "foods")
-public class Food implements Serializable {
+@Table(name = "categories")
+public class Category implements Serializable {
     /**
 	 * 
 	 */
@@ -35,29 +33,25 @@ public class Food implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotBlank(message = "Không được bỏ trống name")
+    @NotBlank(message = "Không được bỏ trống tên danh mục")
     @Column(name = "name", nullable = false, length = 300)
     private String name;
-
-    @Column(name = "price", nullable = false)
-    @Min(value = 0, message = "Giá phải lớn hơn 0")
-    private double price;
-
-    @Column(name = "quantity_limit", nullable = false)
-    @Min(value = 0, message = "Số lượng phải lớn hơn hoặc bằng 0")
-    private int quantity_limit;
     
-    @Column(name = "view_count", nullable = false)
-    @Min(value = 0, message = "Lượt xem phải lớn hơn hoặc bằng 0")
-    private int view_count;
-    
+    @Column(name = "display_name", length = 300)
+    private String display_name;
+
     @Column(name = "description", length = 1000)
     private String description;
+    
+    @Column(name = "image_name", length = 300)
+    private String image_name;
+    
+    @Column(name = "color", length = 650)
+    private String color;
     
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date create_date;
-    
     
     @Column(name = "is_display", nullable = false)
     private boolean is_display;
@@ -67,17 +61,9 @@ public class Food implements Serializable {
     
     @ManyToOne 
     @JoinColumn(name = "create_by",nullable = false)
-    private User user_f;
-    
+    private User user_c;
+
 	@JsonIgnore
-    @OneToMany(mappedBy = "food_d", cascade = CascadeType.ALL) 
-    private List<Food_discount> food_discounts;
-    
-	@JsonIgnore
-    @OneToMany(mappedBy = "food_c", cascade = CascadeType.ALL) 
+    @OneToMany(mappedBy = "category_f", cascade = CascadeType.ALL) 
     private List<Category_food> category_foods;
-    
-	@JsonIgnore
-    @OneToMany(mappedBy = "food_i", cascade = CascadeType.ALL) 
-    private List<Food_image> food_images;
 }

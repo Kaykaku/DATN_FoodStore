@@ -1,6 +1,9 @@
-package com.foodstore.model.entity;
+package com.foodstore.model.transaction;
 
 import javax.persistence.*;
+
+import com.foodstore.model.entity.Role;
+import com.foodstore.model.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +17,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "role_permissions")
-public class Role_permission implements Serializable {
+@Table(name = "user_roles")
+public class User_role implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -24,12 +27,12 @@ public class Role_permission implements Serializable {
     private Long id;
 
     @ManyToOne 
-    @JoinColumn(name = "role_id",nullable = false)
-    private Role role_p;
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user_r;
     
     @ManyToOne 
-    @JoinColumn(name = "permission_id",nullable = false)
-    private Permission permission_r;
+    @JoinColumn(name = "role_id",nullable = false)
+    private Role role_u;
     
     @Column(name = "is_display", nullable = false)
     private boolean is_display;
