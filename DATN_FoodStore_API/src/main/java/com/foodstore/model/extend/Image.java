@@ -1,4 +1,4 @@
-package com.foodstore.model.transaction;
+package com.foodstore.model.extend;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,8 +17,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "food_images")
-public class Food_image implements Serializable {
+@Table(name = "images")
+public class Image implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

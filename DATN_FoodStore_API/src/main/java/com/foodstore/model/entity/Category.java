@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.transaction.Category_food;
-import com.foodstore.model.transaction.Food_image;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

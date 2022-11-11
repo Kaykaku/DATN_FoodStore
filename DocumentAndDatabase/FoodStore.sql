@@ -104,13 +104,13 @@ CREATE TABLE category_foods (
 	unique(category_id,food_id)
 );
 go
-CREATE TABLE food_images (
+CREATE TABLE images (
     id bigint IDENTITY(1,1) primary key,
 	food_id bigint not null FOREIGN KEY REFERENCES foods(id),
 	image_name varchar(500) not null unique,
 );
 go
-CREATE TABLE food_discounts (
+CREATE TABLE discounts (
     id bigint IDENTITY(1,1) primary key,
 	food_id bigint not null FOREIGN KEY REFERENCES foods(id),
 	name nvarchar(300) not null,
@@ -147,7 +147,7 @@ CREATE TABLE customer_phone_address (
 	is_default bit not null
 );
 go
-CREATE TABLE food_reviews (
+CREATE TABLE reviews (
     id bigint IDENTITY(1,1) primary key,
 	food_id bigint not null FOREIGN KEY REFERENCES foods(id),
 	customer_id bigint not null FOREIGN KEY REFERENCES customers(id),
@@ -168,11 +168,11 @@ CREATE TABLE cart (
 	quantity int not null
 );
 go
-CREATE TABLE review_comments (
+CREATE TABLE comments (
     id bigint IDENTITY(1,1) primary key,
-	review_id bigint not null FOREIGN KEY REFERENCES food_reviews(id),
-	title bigint not null ,	
-	content datetime ,
+	review_id bigint not null FOREIGN KEY REFERENCES reviews(id),
+	title nvarchar(200) ,	
+	content nvarchar(1000) ,
 	create_date datetime ,
 	update_date datetime ,
 	status bigint not null ,
@@ -181,8 +181,8 @@ CREATE TABLE review_comments (
 go
 CREATE TABLE paymentmethods (
     id bigint IDENTITY(1,1) primary key,
-	name varchar(100) not null unique,
-	description varchar(1000),
+	name nvarchar(100) not null unique,
+	description nvarchar(1000),
 	code nvarchar(100),
 	status bigint ,
 	image_name nvarchar(100) ,
@@ -194,7 +194,7 @@ CREATE TABLE orders (
 	customer_id bigint not null FOREIGN KEY REFERENCES customers(id),
 	payment_id bigint not null FOREIGN KEY REFERENCES paymentmethods(id),
 	order_date datetime not null ,	
-	shipped_date datetime not null ,	
+	shipped_date datetime,	
 	shipped_address nvarchar(500),
 	shipped_phone nvarchar(50),
 	fee float not null,
@@ -214,7 +214,7 @@ CREATE TABLE order_details (
 	is_fixed bit not null,
 	coupon_code varchar(100),	
 	status bigint not null ,
-	memo varchar(1000) ,
+	memo nvarchar(1000) ,
 	is_display bit not null 
 )
 go
@@ -222,6 +222,7 @@ CREATE TABLE notifications (
     id bigint IDENTITY(1,1) primary key,
 	customer_id bigint not null FOREIGN KEY REFERENCES foods(id),
 	order_id bigint not null FOREIGN KEY REFERENCES orders(id),
+	content nvarchar(1000) ,
 	create_at datetime ,
 	is_watched bigint not null ,
 )

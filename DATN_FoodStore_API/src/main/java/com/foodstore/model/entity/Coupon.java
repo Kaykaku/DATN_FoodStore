@@ -27,7 +27,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "foods")
-public class Food implements Serializable {
+public class Coupon implements Serializable {
     /**
 	 * 
 	 */

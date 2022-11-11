@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.foodstore.model.transaction.Cart;
+import com.foodstore.model.transaction.Notification;
+import com.foodstore.model.transaction.Review;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,9 +56,6 @@ public class Customer implements Serializable {
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
-
-    @Column(name = "address", length = 200)
-    private String address;
     
     @Column(name = "remember_token", length = 100)
     private String remember_token;
@@ -70,29 +70,18 @@ public class Customer implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date create_date;
     
-    @Column(name = "create_by", nullable = false)
-    private Long create_by;
-    
     @Column(name = "is_display", nullable = false)
     private boolean is_display;
     
 	@JsonIgnore
-    @OneToMany(mappedBy = "user_p", cascade = CascadeType.ALL) 
-    private List<Permission> permissions;
-    
+    @OneToMany(mappedBy = "customer_cart", cascade = CascadeType.ALL) 
+    private List<Cart> carts;
+	
 	@JsonIgnore
-    @OneToMany(mappedBy = "user_r", cascade = CascadeType.ALL) 
-    private List<Role> roles;
-    
+    @OneToMany(mappedBy = "customer_r", cascade = CascadeType.ALL) 
+    private List<Review> food_reviews;
+	
 	@JsonIgnore
-    @OneToMany(mappedBy = "user_h", cascade = CascadeType.ALL) 
-    private List<History> histories;
-    
-	@JsonIgnore
-    @OneToMany(mappedBy = "user_f", cascade = CascadeType.ALL) 
-    private List<Food> foods;
-    
-	@JsonIgnore
-    @OneToMany(mappedBy = "user_c", cascade = CascadeType.ALL) 
-    private List<Category> categories;
+    @OneToMany(mappedBy = "customer_n", cascade = CascadeType.ALL) 
+    private List<Notification> notifications;
 }

@@ -1,4 +1,4 @@
-package com.foodstore.model.transaction;
+package com.foodstore.model.extend;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -20,8 +20,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "food_discounts")
-public class Food_discount implements Serializable {
+@Table(name = "discounts")
+public class Discount implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
