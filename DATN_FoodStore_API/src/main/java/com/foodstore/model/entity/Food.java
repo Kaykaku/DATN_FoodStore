@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.extend.Discount;
 import com.foodstore.model.extend.Image;
 import com.foodstore.model.transaction.Cart;
-import com.foodstore.model.transaction.Category_food;
-import com.foodstore.model.transaction.Food_coupon;
-import com.foodstore.model.transaction.Order_detail;
+import com.foodstore.model.transaction.CategoryFood;
+import com.foodstore.model.transaction.FoodCoupon;
+import com.foodstore.model.transaction.OrderDetail;
 import com.foodstore.model.transaction.Review;
 
 import lombok.AllArgsConstructor;
@@ -79,7 +79,7 @@ public class Food implements Serializable {
     
 	@JsonIgnore
     @OneToMany(mappedBy = "food_c", cascade = CascadeType.ALL) 
-    private List<Category_food> category_foods;
+    private List<CategoryFood> category_foods;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "food_i", cascade = CascadeType.ALL) 
@@ -95,9 +95,9 @@ public class Food implements Serializable {
 	
 	@JsonIgnore
     @OneToMany(mappedBy = "food_od", cascade = CascadeType.ALL) 
-    private List<Order_detail> order_details;
+    private List<OrderDetail> order_details;
     
     @JsonIgnore
     @OneToMany(mappedBy = "food_cp", cascade = CascadeType.ALL) 
-    private List<Food_coupon> food_coupons;
+    private List<FoodCoupon> food_coupons;
 }

@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "order_details")
-public class Order_detail implements Serializable {
+public class OrderDetail implements Serializable {
     /**
 	 * 
 	 */

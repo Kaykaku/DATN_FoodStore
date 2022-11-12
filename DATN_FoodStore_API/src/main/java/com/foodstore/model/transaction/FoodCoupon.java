@@ -19,7 +19,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "food_coupons")
-public class Food_coupon implements Serializable {
+public class FoodCoupon implements Serializable {
     /**
 	 * 
 	 */

@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.foodstore.model.transaction.User_permission;
-import com.foodstore.model.transaction.User_role;
+import com.foodstore.model.transaction.UserPermission;
+import com.foodstore.model.transaction.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -83,11 +83,11 @@ public class User implements Serializable {
     
 	@JsonIgnore
     @OneToMany(mappedBy = "user_p", cascade = CascadeType.ALL) 
-    private List<User_permission> user_permissions;
+    private List<UserPermission> user_permissions;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "user_r", cascade = CascadeType.ALL) 
-    private List<User_role> user_roles;
+    private List<UserRole> user_roles;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "user_h", cascade = CascadeType.ALL) 

@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "customer_phone_address")
-public class Customer_phone_address implements Serializable {
+public class PhoneAddress implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

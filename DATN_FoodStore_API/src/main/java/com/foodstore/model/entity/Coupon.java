@@ -5,8 +5,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.foodstore.model.transaction.Customer_coupon;
-import com.foodstore.model.transaction.Food_coupon;
+import com.foodstore.model.transaction.CustomerCoupon;
+import com.foodstore.model.transaction.FoodCoupon;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -83,9 +83,9 @@ public class Coupon implements Serializable {
     
     @JsonIgnore
     @OneToMany(mappedBy = "coupon_f", cascade = CascadeType.ALL) 
-    private List<Food_coupon> food_coupons;
+    private List<FoodCoupon> food_coupons;
     
     @JsonIgnore
     @OneToMany(mappedBy = "coupon_c", cascade = CascadeType.ALL) 
-    private List<Customer_coupon> customer_coupons;
+    private List<CustomerCoupon> customer_coupons;
 }

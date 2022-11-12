@@ -4,8 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.foodstore.model.extend.PhoneAddress;
 import com.foodstore.model.transaction.Cart;
-import com.foodstore.model.transaction.Customer_coupon;
+import com.foodstore.model.transaction.CustomerCoupon;
 import com.foodstore.model.transaction.Notification;
 import com.foodstore.model.transaction.Review;
 
@@ -74,6 +75,11 @@ public class Customer implements Serializable {
     @Column(name = "is_display", nullable = false)
     private boolean is_display;
     
+    
+	@JsonIgnore
+    @OneToMany(mappedBy = "customer_pa", cascade = CascadeType.ALL) 
+    private List<PhoneAddress> phoneAddresses;
+	
 	@JsonIgnore
     @OneToMany(mappedBy = "customer_cart", cascade = CascadeType.ALL) 
     private List<Cart> carts;
@@ -88,5 +94,5 @@ public class Customer implements Serializable {
 	
     @JsonIgnore
     @OneToMany(mappedBy = "customer_cp", cascade = CascadeType.ALL) 
-    private List<Customer_coupon> customer_coupons;
+    private List<CustomerCoupon> customer_coupons;
 }

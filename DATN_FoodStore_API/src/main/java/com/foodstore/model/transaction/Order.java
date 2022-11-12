@@ -74,7 +74,7 @@ public class Order implements Serializable {
     
 	@JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) 
-    private List<Order_detail> order_details;
+    private List<OrderDetail> order_details;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "order_n", cascade = CascadeType.ALL) 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.foodstore.model.transaction.Category_food;
+import com.foodstore.model.transaction.CategoryFood;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -64,5 +64,5 @@ public class Category implements Serializable {
 
 	@JsonIgnore
     @OneToMany(mappedBy = "category_f", cascade = CascadeType.ALL) 
-    private List<Category_food> category_foods;
+    private List<CategoryFood> category_foods;
 }

@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.foodstore.model.transaction.Role_permission;
-import com.foodstore.model.transaction.User_role;
+import com.foodstore.model.transaction.RolePermission;
+import com.foodstore.model.transaction.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,9 +49,9 @@ public class Role implements Serializable {
     
 	@JsonIgnore
     @OneToMany(mappedBy = "role_u", cascade = CascadeType.ALL) 
-    private List<User_role> user_roles;
+    private List<UserRole> user_roles;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "role_p", cascade = CascadeType.ALL) 
-    private List<Role_permission> role_permissions;
+    private List<RolePermission> role_permissions;
 }
