@@ -234,7 +234,7 @@ CREATE TABLE coupons (
 	description nvarchar(1000),
 	user_limit bigint not null ,	
 	food_limit bigint not null ,	
-	amount bigint not null ,	
+	amount float not null ,	
 	is_fixed bit not null ,	
 	start_date datetime ,
 	end_date datetime ,

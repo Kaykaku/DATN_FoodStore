@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.foodstore.model.transaction.User_permission;
+import com.foodstore.model.transaction.User_role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -81,11 +83,11 @@ public class User implements Serializable {
     
 	@JsonIgnore
     @OneToMany(mappedBy = "user_p", cascade = CascadeType.ALL) 
-    private List<Permission> permissions;
+    private List<User_permission> user_permissions;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "user_r", cascade = CascadeType.ALL) 
-    private List<Role> roles;
+    private List<User_role> user_roles;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "user_h", cascade = CascadeType.ALL) 
@@ -98,4 +100,8 @@ public class User implements Serializable {
 	@JsonIgnore
     @OneToMany(mappedBy = "user_c", cascade = CascadeType.ALL) 
     private List<Category> categories;
+	
+	@JsonIgnore
+    @OneToMany(mappedBy = "user_cp", cascade = CascadeType.ALL) 
+    private List<Coupon> coupons;
 }

@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.transaction.Cart;
+import com.foodstore.model.transaction.Customer_coupon;
 import com.foodstore.model.transaction.Notification;
 import com.foodstore.model.transaction.Review;
 
@@ -84,4 +85,8 @@ public class Customer implements Serializable {
 	@JsonIgnore
     @OneToMany(mappedBy = "customer_n", cascade = CascadeType.ALL) 
     private List<Notification> notifications;
+	
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer_cp", cascade = CascadeType.ALL) 
+    private List<Customer_coupon> customer_coupons;
 }

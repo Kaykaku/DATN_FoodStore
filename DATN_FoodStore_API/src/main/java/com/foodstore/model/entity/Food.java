@@ -9,6 +9,7 @@ import com.foodstore.model.extend.Discount;
 import com.foodstore.model.extend.Image;
 import com.foodstore.model.transaction.Cart;
 import com.foodstore.model.transaction.Category_food;
+import com.foodstore.model.transaction.Food_coupon;
 import com.foodstore.model.transaction.Order_detail;
 import com.foodstore.model.transaction.Review;
 
@@ -95,4 +96,8 @@ public class Food implements Serializable {
 	@JsonIgnore
     @OneToMany(mappedBy = "food_od", cascade = CascadeType.ALL) 
     private List<Order_detail> order_details;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "food_cp", cascade = CascadeType.ALL) 
+    private List<Food_coupon> food_coupons;
 }

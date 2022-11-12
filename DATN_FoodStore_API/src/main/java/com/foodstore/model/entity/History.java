@@ -38,6 +38,6 @@ public class History implements Serializable {
     @Column(name = "table_name" ,nullable = false, length = 100)
     private String table_name;
     
-    @Column(name = "table_name" ,nullable = true, length = 1000)
+    @Column(name = "memo" ,nullable = true, length = 1000)
     private String memo;
 }
