@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.foodstore.model.extend.History;
 import com.foodstore.model.transaction.UserPermission;
 import com.foodstore.model.transaction.UserRole;
 
