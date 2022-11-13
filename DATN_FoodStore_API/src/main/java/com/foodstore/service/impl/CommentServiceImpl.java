@@ -3,7 +3,10 @@ package com.foodstore.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.foodstore.dao.CommentDAO;
 import com.foodstore.model.extend.Comment;
@@ -15,33 +18,39 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired private CommentDAO commentDAO;
 	
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Comment getById(Long id) {
-		// TODO Auto-generated method stub
-		return commentDAO.findById(id).get();
+		return commentDAO.findById(id).orElse(null);
 	}
 
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public List<Comment> getAll() {
-		// TODO Auto-generated method stub
 		return commentDAO.findAll();
 	}
 
 	@Override
-	public Comment create(Comment cart) {
-		// TODO Auto-generated method stub
-		return commentDAO.save(cart);
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Comment create(Comment entiy) {
+		return commentDAO.save(entiy);
 	}
 
 	@Override
-	public Comment update(Comment cart) {
-		// TODO Auto-generated method stub
-		return commentDAO.save(cart);
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Comment update(Comment entiy) {
+		return commentDAO.save(entiy);
 	}
 
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		commentDAO.deleteById(id);
+	}
+
+	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Page<Comment> getAll(Pageable pageable) {
+		return commentDAO.findAll(pageable);
 	}
 
 }

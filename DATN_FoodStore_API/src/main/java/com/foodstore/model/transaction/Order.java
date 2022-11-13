@@ -6,6 +6,9 @@ import javax.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.entity.Customer;
 import com.foodstore.model.entity.Paymentmethod;
+import com.foodstore.util.constraints.Display;
+import com.foodstore.util.constraints.OrderStatus;
+import com.foodstore.util.constraints.Watch;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,7 +46,7 @@ public class Order implements Serializable {
 
     @Column(name = "order_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date order_date;
+    private Date order_date = new Date();
     
     @Column(name = "shipped_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -56,7 +59,7 @@ public class Order implements Serializable {
     private String shipped_phone;
 
     @Column(name = "fee", nullable = false)
-    @Min(value = 0, message = "Phí phải lớn hơn 0")
+    @Min(value = 0, message = "Phí phải lớn hoặc bằng 0")
     private double fee;
     
     @Column(name = "paid_date")
@@ -64,19 +67,16 @@ public class Order implements Serializable {
     private Date paid_date;
     
     @Column(name = "status", nullable = false)
-    private int status;
+    private int status = OrderStatus.WAITING;
     
     @Column(name = "is_watched", nullable = false)
-    private boolean is_watched;
+    private boolean is_watched = Watch.NOTYET;
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) 
     private List<OrderDetail> order_details;
     
-	@JsonIgnore
-    @OneToMany(mappedBy = "order_n", cascade = CascadeType.ALL) 
-    private List<Notification> notifications;
 }

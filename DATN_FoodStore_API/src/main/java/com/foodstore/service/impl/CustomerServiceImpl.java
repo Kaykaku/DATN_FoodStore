@@ -1,11 +1,11 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.CustomerDAO;
@@ -15,38 +15,42 @@ import com.foodstore.service.CustomerService;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-	@Autowired
-	private CustomerDAO customerDAO;
-
+	@Autowired private CustomerDAO customerDAO;
+	
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Customer getById(Long id) {
-		Optional<Customer> result = customerDAO.findById(id);
-		return result.isPresent() ? result.get() : null;
+		return customerDAO.findById(id).orElse(null);
 	}
 
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public List<Customer> getAll() {
 		return customerDAO.findAll();
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
-	public Customer create(Customer cart) {
-		return customerDAO.save(cart);
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Customer create(Customer entiy) {
+		return customerDAO.save(entiy);
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
-	public Customer update(Customer cart) {
-		return customerDAO.save(cart);
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Customer update(Customer entiy) {
+		return customerDAO.save(entiy);
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public void delete(Long id) {
-		if (id != null) {
-			customerDAO.deleteById(id);
-		}
+		customerDAO.deleteById(id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Page<Customer> getAll(Pageable pageable) {
+		return customerDAO.findAll(pageable);
 	}
 
 }

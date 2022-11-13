@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.foodstore.model.entity.Permission;
 import com.foodstore.model.entity.Role;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,5 +36,5 @@ public class RolePermission implements Serializable {
     private Permission permission_r;
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
 }

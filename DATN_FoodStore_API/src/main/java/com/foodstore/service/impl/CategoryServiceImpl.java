@@ -3,7 +3,10 @@ package com.foodstore.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.foodstore.dao.CategoryDAO;
 import com.foodstore.model.entity.Category;
@@ -15,33 +18,38 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired private CategoryDAO categoryDAO;
 	
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Category getById(Long id) {
-		// TODO Auto-generated method stub
-		return categoryDAO.findById(id).get();
+		return categoryDAO.findById(id).orElse(null);
 	}
 
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public List<Category> getAll() {
-		// TODO Auto-generated method stub
 		return categoryDAO.findAll();
 	}
 
 	@Override
-	public Category create(Category cart) {
-		// TODO Auto-generated method stub
-		return categoryDAO.save(cart);
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Category create(Category entiy) {
+		return categoryDAO.save(entiy);
 	}
 
 	@Override
-	public Category update(Category cart) {
-		// TODO Auto-generated method stub
-		return categoryDAO.save(cart);
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Category update(Category entiy) {
+		return categoryDAO.save(entiy);
 	}
 
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		categoryDAO.deleteById(id);
 	}
 
+	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Page<Category> getAll(Pageable pageable) {
+		return categoryDAO.findAll(pageable);
+	}
 }

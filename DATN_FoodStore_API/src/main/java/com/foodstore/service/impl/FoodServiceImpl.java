@@ -1,11 +1,11 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.FoodDAO;
@@ -15,37 +15,41 @@ import com.foodstore.service.FoodService;
 @Service
 public class FoodServiceImpl implements FoodService {
 
-	@Autowired
-	private FoodDAO foodDAO;
-
+	@Autowired private FoodDAO foodDAO;
+	
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Food getById(Long id) {
-		Optional<Food> result = foodDAO.findById(id);
-		return result.isPresent() ? result.get() : null;
+		return foodDAO.findById(id).orElse(null);
 	}
 
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public List<Food> getAll() {
 		return foodDAO.findAll();
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
-	public Food create(Food cart) {
-		return foodDAO.save(cart);
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Food create(Food entiy) {
+		return foodDAO.save(entiy);
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
-	public Food update(Food cart) {
-		return foodDAO.save(cart);
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Food update(Food entiy) {
+		return foodDAO.save(entiy);
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public void delete(Long id) {
-		if (id != null) {
-			foodDAO.deleteById(id);
-		}
+		foodDAO.deleteById(id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Page<Food> getAll(Pageable pageable) {
+		return foodDAO.findAll(pageable);
 	}
 }

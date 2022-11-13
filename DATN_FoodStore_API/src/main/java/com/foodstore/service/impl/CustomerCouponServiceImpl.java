@@ -1,11 +1,12 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.CustomerCouponDAO;
@@ -14,38 +15,64 @@ import com.foodstore.service.CustomerCouponService;
 
 @Service
 public class CustomerCouponServiceImpl implements CustomerCouponService {
-
-	@Autowired
-	private CustomerCouponDAO customerCouponDAO;
-
+	@Autowired private CustomerCouponDAO customerCouponDAO;
+	
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public CustomerCoupon getById(Long id) {
-		Optional<CustomerCoupon> result = customerCouponDAO.findById(id);
-		return result.isPresent() ? result.get() : null;
+		return customerCouponDAO.findById(id).orElse(null);
 	}
 
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public List<CustomerCoupon> getAll() {
 		return customerCouponDAO.findAll();
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
-	public CustomerCoupon create(CustomerCoupon cart) {
-		return customerCouponDAO.save(cart);
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public CustomerCoupon create(CustomerCoupon entiy) {
+		return customerCouponDAO.save(entiy);
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
-	public CustomerCoupon update(CustomerCoupon cart) {
-		return customerCouponDAO.save(cart);
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public CustomerCoupon update(CustomerCoupon entiy) {
+		return customerCouponDAO.save(entiy);
 	}
 
-	@Transactional(rollbackOn = { Throwable.class })
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public void delete(Long id) {
-		if (id != null) {
-			customerCouponDAO.deleteById(id);
-		}
+		customerCouponDAO.deleteById(id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Page<CustomerCoupon> getAll(Pageable pageable) {
+		return customerCouponDAO.findAll(pageable);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Page<CustomerCoupon> getByCustomerId(Pageable pageable, Long id) {
+		return customerCouponDAO.findByCustomerId(pageable,id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Page<CustomerCoupon> getByCouponId(Pageable pageable, Long id) {
+		return customerCouponDAO.findByCouponId(pageable,id);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Page<CustomerCoupon> getByStatus(Pageable pageable, int status) {
+		return customerCouponDAO.findByStatus(pageable,status);
+	}
+
+	@Override
+	public CustomerCoupon getByCustomerIdAndCouponId(Long customerId, Long couponId) {
+		return customerCouponDAO.findByCustomerIdAndCouponId(customerId,couponId).orElse(null);
 	}
 }

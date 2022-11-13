@@ -1,9 +1,11 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.foodstore.dao.CartDAO;
 import com.foodstore.model.transaction.Cart;
@@ -15,33 +17,56 @@ public class CartServiceImpl implements CartService {
 	@Autowired private CartDAO cartDAO;
 	
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Cart getById(Long id) {
-		// TODO Auto-generated method stub
-		return cartDAO.findById(id).get();
+		return cartDAO.findById(id).orElse(null);
 	}
 
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public List<Cart> getAll() {
-		// TODO Auto-generated method stub
 		return cartDAO.findAll();
 	}
 
 	@Override
-	public Cart create(Cart cart) {
-		// TODO Auto-generated method stub
-		return cartDAO.save(cart);
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Cart create(Cart entiy) {
+		return cartDAO.save(entiy);
 	}
 
 	@Override
-	public Cart update(Cart cart) {
-		// TODO Auto-generated method stub
-		return cartDAO.save(cart);
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Cart update(Cart entiy) {
+		return cartDAO.save(entiy);
 	}
 
 	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		cartDAO.deleteById(id);
 	}
 
+	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Page<Cart> getAll(Pageable pageable) {
+		return cartDAO.findAll(pageable);
+	}
+
+	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Page<Cart> getByCustomerId(Pageable pageable, Long id) {
+		return cartDAO.findByCustomerId(pageable,id);
+	}
+
+	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Page<Cart> getByFoodId(Pageable pageable, Long id) {
+		return cartDAO.findByFoodId(pageable,id);
+	}
+
+	@Override
+	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	public Cart getByCustomerIdAndFoodId(Long customerId, Long foodId) {
+		return cartDAO.findByCustomerIdAndFoodId(customerId,foodId).orElse(null);
+	}
 }

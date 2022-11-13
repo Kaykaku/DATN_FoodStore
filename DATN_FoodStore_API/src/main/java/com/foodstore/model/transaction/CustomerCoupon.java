@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.foodstore.model.entity.Coupon;
 import com.foodstore.model.entity.Customer;
+import com.foodstore.util.constraints.CouponStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,11 +19,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "food_coupons")
+@Table(name = "customer_coupons")
 public class CustomerCoupon implements Serializable {
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,8 +38,8 @@ public class CustomerCoupon implements Serializable {
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    private Date create_date = new Date();
     
     @Column(name = "status",nullable = false)
-    private int status;   
+    private int status = CouponStatus.OPEN;   
 }
