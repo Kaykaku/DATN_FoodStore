@@ -7,4 +7,6 @@ public class CouponStatus {
 	public static final int USED = 3;
 	public static final int OUTOFDATE = 4;
 	public static final int BLOCK = 5;
+	
+	private CouponStatus() {}
 }
