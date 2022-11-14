@@ -4,10 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.foodstore.model.extend.Notification;
 import com.foodstore.model.extend.PhoneAddress;
 import com.foodstore.model.transaction.Cart;
 import com.foodstore.model.transaction.CustomerCoupon;
-import com.foodstore.model.transaction.Notification;
 import com.foodstore.model.transaction.Review;
 
 import lombok.AllArgsConstructor;

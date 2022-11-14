@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.foodstore.model.entity.Coupon;
 import com.foodstore.model.entity.Food;
+import com.foodstore.util.constraints.CouponStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,8 +41,8 @@ public class FoodCoupon implements Serializable {
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    private Date create_date = new Date();
     
     @Column(name = "status",nullable = false)
-    private int status;   
+    private int status = CouponStatus.NOTUSE;    
 }

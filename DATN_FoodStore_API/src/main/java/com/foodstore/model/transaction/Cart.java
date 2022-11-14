@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.foodstore.model.entity.Customer;
 import com.foodstore.model.entity.Food;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +35,9 @@ public class Cart implements Serializable {
     @JoinColumn(name = "customer_id",nullable = false)
     private Customer customer_cart;
     
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+    
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
 }

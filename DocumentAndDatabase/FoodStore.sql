@@ -221,7 +221,8 @@ go
 CREATE TABLE notifications (
     id bigint IDENTITY(1,1) primary key,
 	customer_id bigint not null FOREIGN KEY REFERENCES foods(id),
-	order_id bigint not null FOREIGN KEY REFERENCES orders(id),
+	record_id bigint not null ,	
+	table_name varchar(100) not null,
 	content nvarchar(1000) ,
 	create_at datetime ,
 	is_watched bigint not null ,
