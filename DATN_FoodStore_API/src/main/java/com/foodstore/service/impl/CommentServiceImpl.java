@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,45 +12,45 @@ import com.foodstore.dao.CommentDAO;
 import com.foodstore.model.extend.Comment;
 import com.foodstore.service.CommentService;
 
-
 @Service
 public class CommentServiceImpl implements CommentService {
-	@Autowired private CommentDAO commentDAO;
-	
+	@Autowired
+	private CommentDAO commentDAO;
+
 	@Override
-	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	@Transactional(rollbackFor = { Exception.class, Throwable.class })
 	public Comment getById(Long id) {
 		return commentDAO.findById(id).orElse(null);
 	}
 
 	@Override
-	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	@Transactional(rollbackFor = { Exception.class, Throwable.class })
 	public List<Comment> getAll() {
 		return commentDAO.findAll();
 	}
 
 	@Override
-	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	@Transactional(rollbackFor = { Exception.class, Throwable.class })
 	public Comment create(Comment entiy) {
 		return commentDAO.save(entiy);
 	}
 
 	@Override
-	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	@Transactional(rollbackFor = { Exception.class, Throwable.class })
 	public Comment update(Comment entiy) {
 		return commentDAO.save(entiy);
 	}
 
 	@Override
-	@Transactional(rollbackFor = {Exception.class, Throwable.class})
+	@Transactional(rollbackFor = { Exception.class, Throwable.class })
 	public void delete(Long id) {
 		commentDAO.deleteById(id);
 	}
 
 	@Override
-	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getAll(Pageable pageable) {
-		return commentDAO.findAll(pageable);
+	@Transactional(rollbackFor = { Exception.class, Throwable.class })
+	public Page<Comment> getAll(int pageSize, int pageNumber) {
+		return commentDAO.findAll(PageRequest.of(pageNumber - 1, pageSize));
 	}
 
 }

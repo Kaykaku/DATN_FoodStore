@@ -1,11 +1,12 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.CustomerDAO;
@@ -15,42 +16,43 @@ import com.foodstore.service.CustomerService;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-	@Autowired private CustomerDAO customerDAO;
-	
+	@Autowired
+	private CustomerDAO customerDAO;
+
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Customer getById(Long id) {
 		return customerDAO.findById(id).orElse(null);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public List<Customer> getAll() {
 		return customerDAO.findAll();
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Customer create(Customer entiy) {
 		return customerDAO.save(entiy);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Customer update(Customer entiy) {
 		return customerDAO.save(entiy);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public void delete(Long id) {
 		customerDAO.deleteById(id);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Customer> getAll(Pageable pageable) {
-		return customerDAO.findAll(pageable);
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public Page<Customer> getAll(int pageSize, int pageNumber) {
+		return customerDAO.findAll(PageRequest.of(pageNumber - 1, pageSize));
 	}
 
 }
