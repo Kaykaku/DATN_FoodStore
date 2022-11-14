@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.foodstore.dao.CustomerDAO;
 import com.foodstore.model.entity.Customer;
 import com.foodstore.service.CustomerService;
+import com.foodstore.util.constraints.Display;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -53,6 +54,22 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Page<Customer> getAll(int pageSize, int pageNumber) {
 		return customerDAO.findAll(PageRequest.of(pageNumber - 1, pageSize));
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public List<Customer> getByIsDisPlay() {
+		return customerDAO.findByIsDisplay(Display.SHOW);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public Page<Customer> getByIsDisplay(int pageSize, int pageNumber) throws Exception {
+		if (pageNumber >= 1) {
+			return customerDAO.findByIsDisplay(Display.SHOW, PageRequest.of(pageNumber - 1, pageSize));
+		} else {
+			throw new Exception("Số trang phải lớn hơn 0!");
+		}
 	}
 
 }

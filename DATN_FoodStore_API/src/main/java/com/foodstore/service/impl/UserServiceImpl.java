@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.foodstore.dao.UserDAO;
 import com.foodstore.model.entity.User;
 import com.foodstore.service.UserService;
+import com.foodstore.util.constraints.Display;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,5 +53,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Page<User> getAll(int pageSize, int pageNumber) {
 		return userDAO.findAll(PageRequest.of(pageNumber - 1, pageSize));
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public List<User> getByIsDisPlay() {
+		return userDAO.findByIsDisplay(Display.SHOW);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public Page<User> getByIsDisplay(int pageSize, int pageNumber) throws Exception {
+		if (pageNumber >= 1) {
+			return userDAO.findByIsDisplay(Display.SHOW, PageRequest.of(pageNumber - 1, pageSize));
+		} else {
+			throw new Exception("Số trang phải lớn hơn 0!");
+		}
 	}
 }
