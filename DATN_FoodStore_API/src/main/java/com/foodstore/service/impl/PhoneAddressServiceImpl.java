@@ -2,6 +2,7 @@ package com.foodstore.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -74,9 +75,9 @@ public class PhoneAddressServiceImpl implements PhoneAddressService {
 	public Page<PhoneAddress> findByFilter(Pageable pageable, String keyword, Optional<Long> customerId,
 			Optional<Boolean> is_address, Optional<Boolean> is_default) {
 		List<PhoneAddress> list = phoneAddressDAO.findByKeyword(keyword);
-		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_pa().getId() == customerId.get()).toList();
-		if(is_address.isPresent()) list = list.stream().filter(o-> o.is_address() == is_address.get()).toList();
-		if(is_default.isPresent()) list = list.stream().filter(o-> o.is_default() == is_default.get()).toList();
+		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_pa().getId() == customerId.get()).collect(Collectors.toList());
+		if(is_address.isPresent()) list = list.stream().filter(o-> o.is_address() == is_address.get()).collect(Collectors.toList());
+		if(is_default.isPresent()) list = list.stream().filter(o-> o.is_default() == is_default.get()).collect(Collectors.toList());
 		return new PageImpl<PhoneAddress>(list, pageable, list.size());
 	}
 

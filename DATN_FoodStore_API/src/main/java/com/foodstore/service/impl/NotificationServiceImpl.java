@@ -3,6 +3,7 @@ package com.foodstore.service.impl;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -84,11 +85,11 @@ public class NotificationServiceImpl implements NotificationService {
 			Optional<Long> customerId, Optional<Date> create_at, Optional<Long> record_id,
 			Optional<Boolean> is_watched) {
 		List<Notification> list = notificationDAO.findByKeyword(keyword);
-		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).toList();
-		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_n().getId() == customerId.get()).toList();
-		if(create_at.isPresent()) list = list.stream().filter(o-> o.getCreate_at() == create_at.get()).toList();
-		if(record_id.isPresent()) list = list.stream().filter(o-> o.getRecord_id() == record_id.get()).toList();
-		if(is_watched.isPresent()) list = list.stream().filter(o-> o.is_watched() == is_watched.get()).toList();
+		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).collect(Collectors.toList());
+		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_n().getId() == customerId.get()).collect(Collectors.toList());
+		if(create_at.isPresent()) list = list.stream().filter(o-> o.getCreate_at() == create_at.get()).collect(Collectors.toList());
+		if(record_id.isPresent()) list = list.stream().filter(o-> o.getRecord_id() == record_id.get()).collect(Collectors.toList());
+		if(is_watched.isPresent()) list = list.stream().filter(o-> o.is_watched() == is_watched.get()).collect(Collectors.toList());
 		return new PageImpl<Notification>(list, pageable, list.size());
 	}
 }

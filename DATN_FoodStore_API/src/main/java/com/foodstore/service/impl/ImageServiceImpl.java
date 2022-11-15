@@ -2,6 +2,7 @@ package com.foodstore.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -69,7 +70,7 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public Page<Image> findByFilter(Pageable pageable, String keyword, Optional<Long> foodId) {
 		List<Image> list = imageDAO.findByKeyword(keyword);
-		if(foodId.isPresent()) list = list.stream().filter(o-> o.getFood_i().getId() == foodId.get()).toList();
+		if(foodId.isPresent()) list = list.stream().filter(o-> o.getFood_i().getId() == foodId.get()).collect(Collectors.toList());
 		return new PageImpl<Image>(list, pageable, list.size());
 	}
 

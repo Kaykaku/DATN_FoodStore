@@ -3,6 +3,7 @@ package com.foodstore.service.impl;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -66,10 +67,10 @@ public class HistoryServiceImpl implements HistoryService {
 	public Page<History> findByFilter(Pageable pageable,String keyword, String table_name, Optional<Long> userid,
 			Optional<Date> create_date, Optional<Long> record_id) {
 		List<History> list = historyDAO.findAllByKeyword(keyword);
-		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).toList();
-		if(userid.isPresent()) list = list.stream().filter(o-> o.getUser_h().getId() == userid.get()).toList();
-		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == create_date.get()).toList();
-		if(record_id.isPresent()) list = list.stream().filter(o-> o.getRecord_id() == record_id.get()).toList();
+		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).collect(Collectors.toList());
+		if(userid.isPresent()) list = list.stream().filter(o-> o.getUser_h().getId() == userid.get()).collect(Collectors.toList());
+		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == create_date.get()).collect(Collectors.toList());
+		if(record_id.isPresent()) list = list.stream().filter(o-> o.getRecord_id() == record_id.get()).collect(Collectors.toList());
 		return new PageImpl<History>(list, pageable, list.size());
 	}
 
