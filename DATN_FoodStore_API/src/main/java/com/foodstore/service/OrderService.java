@@ -18,6 +18,11 @@ public interface OrderService extends IService<Order> {
 	
 	Page<Order> getByCustomerIdAndPaymentmethodId(Pageable pageable,Long customerId , Long paymentmethodId);
 	
+	Page<Order> getByDisplayStatus(Pageable pageable, boolean isDisplay);
+	
+	Page<Order> getByOrderStatus(Pageable pageable, int status);
+	
+	Page<Order> getByWatchStatus(Pageable pageable, boolean isWatched);
 	/*
 	 * Page<Order> getByAllStatus(Pageable pageable,Optional<Boolean>
 	 * isDisplay,Optional<Boolean> status,Optional<Boolean> isWatched);

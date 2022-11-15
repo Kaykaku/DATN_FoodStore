@@ -22,6 +22,15 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 	@Query("Select o From Order o Where o.paymentmethod.id=?1 and o.paymentmethod.id=?2")
 	Page<Order> findByCustomerIdAndPaymentmethodId(Pageable pageable,Long customerId , Long paymentmethodId);
 	
+	
+	@Query("Select o From Order o Where o.is_display=?1")
+	Page<Order> findByDisplayStatus(Pageable pageable,Boolean isDisplay);
+	
+	@Query("Select o From Order o Where o.status=?1")
+	Page<Order> findByOrderStatus(Pageable pageable,int status);
+	
+	@Query("Select o From Order o Where o.is_watched=?2")
+	Page<Order> findByWatchStatus(Pageable pageable,Boolean isWatched);
 	/*
 	 * @Query("Select o From Order o Where " +
 	 * "o.is_display=?1 and o.status=?2 and o.is_watched=?3") Page<Order>

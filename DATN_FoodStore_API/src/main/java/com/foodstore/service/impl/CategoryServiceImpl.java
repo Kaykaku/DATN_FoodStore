@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,8 +50,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional(rollbackFor = { Exception.class, Throwable.class })
-	public Page<Category> getAll(int pageSize, int pageNumber) {
-		return categoryDAO.findAll(PageRequest.of(pageNumber - 1, pageSize));
+	public Page<Category> getAll(Pageable pageable) {
+		return categoryDAO.findAll(pageable);
 	}
 
 	@Override
@@ -62,11 +62,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional(rollbackFor = { Exception.class, Throwable.class })
-	public Page<Category> getByIsDisplay(int pageSize, int pageNumber) throws Exception {
-		if (pageNumber >= 1) {
-			return categoryDAO.findByIsDisplay(Display.SHOW, PageRequest.of(pageNumber - 1, pageSize));
-		} else {
-			throw new Exception("Số trang phải lớn hơn 0!");
-		}
+	public Page<Category> getByIsDisplay(Pageable pageable) throws Exception {
+		return categoryDAO.findByIsDisplay(Display.SHOW, pageable);
 	}
+
+
 }
