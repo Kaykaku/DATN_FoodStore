@@ -56,7 +56,7 @@ public class Category implements Serializable {
     private boolean is_display;
     
     @Column(name = "status")
-    private long status;
+    private long type;
     
     @ManyToOne 
     @JoinColumn(name = "create_by",nullable = false)

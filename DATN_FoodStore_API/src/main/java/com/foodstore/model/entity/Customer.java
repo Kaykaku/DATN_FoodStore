@@ -49,9 +49,9 @@ public class Customer implements Serializable {
     @Column(name = "gender", nullable = false)
     private boolean gender;
     
-    @Column(name = "birthdate")
+    @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
-    private Date birthdate;
+    private Date birthday;
 
     @Column(name = "avatar", length = 100)
     private String avatar;
