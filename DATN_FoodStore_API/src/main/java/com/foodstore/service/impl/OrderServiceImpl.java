@@ -1,6 +1,7 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Order getById(Long id) {
 		return orderDAO.findById(id).orElse(null);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Page<Order> getAllByOrderIdLike(Pageable pageable,String id) {
+		return orderDAO.findAllByOrderIdLike(pageable, id);
 	}
 
 	@Override
@@ -70,23 +77,5 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Page<Order> getByCustomerIdAndPaymentmethodId(Pageable pageable, Long customerId, Long paymentmethodId){
 		return orderDAO.findByCustomerIdAndPaymentmethodId(pageable, customerId,paymentmethodId);
-	}
-
-	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByDisplayStatus(Pageable pageable, boolean isDisplay) {
-		return orderDAO.findByDisplayStatus(pageable, isDisplay);
-	}
-
-	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByOrderStatus(Pageable pageable, int status) {
-		return orderDAO.findByOrderStatus(pageable, status);
-	}
-
-	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByWatchStatus(Pageable pageable, boolean isWatched) {
-		return orderDAO.findByWatchStatus(pageable, isWatched);
 	}
 }

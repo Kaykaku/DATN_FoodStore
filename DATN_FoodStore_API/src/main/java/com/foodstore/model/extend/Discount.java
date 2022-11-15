@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 
 import com.foodstore.model.entity.Food;
 import com.foodstore.model.entity.User;
+import com.foodstore.util.constraints.Amount;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,11 +44,11 @@ public class Discount implements Serializable {
     private double amount;
     
     @Column(name = "is_fixed", nullable = false)
-    private boolean is_fixed;
+    private boolean is_fixed = Amount.PERCENT;
     
     @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date start_date;
+    private Date start_date = new Date();
     
     @Column(name = "end_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -54,11 +56,11 @@ public class Discount implements Serializable {
     
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    private Date create_date = new Date();
     
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
     
     @ManyToOne 
     @JoinColumn(name = "create_by",nullable = false)

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 
 import com.foodstore.model.entity.Food;
+import com.foodstore.util.constraints.Amount;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,18 +41,18 @@ public class OrderDetail implements Serializable {
 
     @Column(name = "price", nullable = false)
     @Min(value = 0, message = "Giá phải lớn hơn 0")
-    private double price;
+    private double price =0;
 
     @Column(name = "quantity", nullable = false)
     @Min(value = 0, message = "Số lượng phải lớn hơn hoặc bằng 0")
-    private int quantity_limit;
+    private int quantity= 0;
     
     @Column(name = "discount_amount", nullable = false)
     @Min(value = 0, message = "Lượng giảm giá phải lớn hơn 0")
-    private double amount;
+    private double amount = 0;
     
     @Column(name = "is_fixed", nullable = false)
-    private boolean is_fixed;
+    private boolean is_fixed = Amount.PERCENT;
     
     @Column(name = "coupon_code", length = 100)
     private String coupon_code;
@@ -62,5 +64,5 @@ public class OrderDetail implements Serializable {
     private int status;
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
 }

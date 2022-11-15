@@ -41,7 +41,7 @@ public class Comment implements Serializable {
     
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    private Date create_date = new Date();
     
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
