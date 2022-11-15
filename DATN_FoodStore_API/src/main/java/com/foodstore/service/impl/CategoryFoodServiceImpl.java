@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,8 +50,8 @@ public class CategoryFoodServiceImpl implements CategoryFoodService {
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<CategoryFood> getAll(Pageable pageable) {
-		return categoryFoodDAO.findAll(pageable);
+	public Page<CategoryFood> getAll(int pageSize, int pageNumber) {
+		return categoryFoodDAO.findAll(PageRequest.of(pageNumber - 1, pageSize));
 	}
 
 	@Override

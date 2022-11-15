@@ -10,7 +10,7 @@ public interface IService<T> {
 
 	List<T> getAll();
 	
-	Page<T> getAll(Pageable pageable);
+	Page<T> getAll(int pageSize, int pageNumber);
 
 	T create(T cart);
 
