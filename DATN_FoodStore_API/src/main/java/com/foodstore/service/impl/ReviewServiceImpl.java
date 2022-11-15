@@ -63,10 +63,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.findByCustomerId(pageable,id);
 	}
 
-	@Override
-	public Review getByCustomerIdAndFoodId(Pageable pageable, Long customerId, Long foodId) {
-		return reviewDAO.findByCustomerIdAndFoodId(pageable,customerId,foodId).orElse(null);
-	}
+//	@Override
+//	public Review getByCustomerIdAndFoodId(Pageable pageable, Long customerId, Long foodId) {
+//		return reviewDAO.findByCustomerIdAndFoodId(pageable,customerId,foodId).orElse(null);
+//	}
 
 //	@Override
 //	public Page<Review> getByAllStatus(Pageable pageable, int status, boolean isFavorite, boolean isDisplay) {
