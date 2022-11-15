@@ -26,5 +26,5 @@ public interface CommentDAO extends JpaRepository<Comment, Long>{
 			+ " Where c.review.id like %?1%"
 			+ " or title like %?1%"
 			+ " or content like %?1%")
-	List<Comment> findAllByKeyword(Pageable pageable,String keyword);
+	List<Comment> findAllByKeyword(String keyword);
 }

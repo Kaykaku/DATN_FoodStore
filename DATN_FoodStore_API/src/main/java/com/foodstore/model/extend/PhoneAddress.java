@@ -3,6 +3,7 @@ package com.foodstore.model.extend;
 import javax.persistence.*;
 
 import com.foodstore.model.entity.Customer;
+import com.foodstore.util.constraints.Contact;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,11 +31,11 @@ public class PhoneAddress implements Serializable {
     private Customer customer_pa;
     
     @Column(name = "is_address", nullable = false)
-    private boolean is_address;
+    private boolean is_address = Contact.ADDRESS;
     
     @Column(name = "phone_or_address", length = 500)
     private String phone_or_address;
     
     @Column(name = "is_default", nullable = false)
-    private boolean is_default;
+    private boolean is_default = false;
 }

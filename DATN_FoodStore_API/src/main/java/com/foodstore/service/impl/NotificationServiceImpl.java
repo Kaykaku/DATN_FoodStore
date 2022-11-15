@@ -1,11 +1,14 @@
 package com.foodstore.service.impl;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +72,23 @@ public class NotificationServiceImpl implements NotificationService {
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Page<Notification> findByTableName(Pageable pageable,String table_name) {
 		return notificationDAO.findByTableName(pageable,table_name);
+	}
+
+	@Override
+	public Page<Notification> findByKeyword(Pageable pageable, String keyword) {
+		return notificationDAO.findByKeyword(pageable, keyword);
+	}
+
+	@Override
+	public Page<Notification> findByFilter(Pageable pageable, String keyword, String table_name,
+			Optional<Long> customerId, Optional<Date> create_at, Optional<Long> record_id,
+			Optional<Boolean> is_watched) {
+		List<Notification> list = notificationDAO.findByKeyword(keyword);
+		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).toList();
+		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_n().getId() == customerId.get()).toList();
+		if(create_at.isPresent()) list = list.stream().filter(o-> o.getCreate_at() == create_at.get()).toList();
+		if(record_id.isPresent()) list = list.stream().filter(o-> o.getRecord_id() == record_id.get()).toList();
+		if(is_watched.isPresent()) list = list.stream().filter(o-> o.is_watched() == is_watched.get()).toList();
+		return new PageImpl<Notification>(list, pageable, list.size());
 	}
 }

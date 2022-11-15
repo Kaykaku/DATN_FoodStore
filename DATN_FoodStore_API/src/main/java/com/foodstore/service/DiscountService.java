@@ -1,12 +1,12 @@
 package com.foodstore.service;
 
-import java.util.List;
+import java.sql.Date;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.foodstore.model.extend.Comment;
 import com.foodstore.model.extend.Discount;
 
 
@@ -14,7 +14,9 @@ import com.foodstore.model.extend.Discount;
 public interface DiscountService extends IService<Discount> {
 	Page<Discount> getByFoodId(Pageable pageable,Long id);
 	
-	Page<Comment> getByKeyword(Pageable pageable,String keyword);
+	Page<Discount> getByKeyword(Pageable pageable,String keyword);
 	
-	List<Comment> getByKeyword(String keyword);
+	Page<Discount> getByFilter(Pageable pageable,String keyword 
+			,Optional<Boolean> is_fixed , Optional<Date> start_date , Optional<Date> end_date 
+			, Optional<Boolean> isDisplay , Optional<Long> userId);
 }

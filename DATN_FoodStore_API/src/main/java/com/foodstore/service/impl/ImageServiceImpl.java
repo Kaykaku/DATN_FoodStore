@@ -1,11 +1,13 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +54,23 @@ public class ImageServiceImpl implements ImageService {
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Page<Image> getAll(Pageable pageable) {
 		return imageDAO.findAll(pageable);
+	}
+
+	@Override
+	public Page<Image> findByFoodId(Pageable pageable, Long id) {
+		return imageDAO.findByFoodId(pageable,id);
+	}
+
+	@Override
+	public Page<Image> findByKeyword(Pageable pageable, String keyword) {
+		return imageDAO.findByKeyword(pageable,keyword);
+	}
+
+	@Override
+	public Page<Image> findByFilter(Pageable pageable, String keyword, Optional<Long> foodId) {
+		List<Image> list = imageDAO.findByKeyword(keyword);
+		if(foodId.isPresent()) list = list.stream().filter(o-> o.getFood_i().getId() == foodId.get()).toList();
+		return new PageImpl<Image>(list, pageable, list.size());
 	}
 
 }

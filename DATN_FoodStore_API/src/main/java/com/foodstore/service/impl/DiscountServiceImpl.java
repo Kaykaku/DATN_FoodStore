@@ -1,15 +1,18 @@
 package com.foodstore.service.impl;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.DiscountDAO;
-import com.foodstore.model.extend.Comment;
 import com.foodstore.model.extend.Discount;
 import com.foodstore.service.DiscountService;
 
@@ -61,15 +64,20 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Comment> getByKeyword(Pageable pageable, String keyword) {
+	public Page<Discount> getByKeyword(Pageable pageable, String keyword) {
 		return discountDAO.findByKeyword(pageable,keyword);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public List<Comment> getByKeyword(String keyword) {
-		return discountDAO.findByKeyword(keyword);
+	public Page<Discount> getByFilter(Pageable pageable, String keyword, Optional<Boolean> is_fixed,
+			Optional<Date> start_date, Optional<Date> end_date, Optional<Boolean> isDisplay, Optional<Long> userId) {
+		List<Discount> list = discountDAO.findByKeyword(keyword);
+		if(is_fixed.isPresent()) list = list.stream().filter(o-> o.is_fixed() == is_fixed.get()).toList();
+		if(start_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == start_date.get()).toList();
+		if(end_date.isPresent()) list = list.stream().filter(o-> o.getEnd_date() == end_date.get()).toList();
+		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).toList();
+		if(userId.isPresent()) list = list.stream().filter(o-> o.getUser_d().getId() == userId.get()).toList();
+		return new PageImpl<Discount>(list, pageable, list.size());
 	}
 
 }
