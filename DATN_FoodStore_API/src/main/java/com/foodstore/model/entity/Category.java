@@ -55,7 +55,7 @@ public class Category implements Serializable {
     @Column(name = "is_display", nullable = false)
     private boolean is_display;
     
-    @Column(name = "status")
+    @Column(name = "type")
     private long type;
     
     @ManyToOne 

@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.foodstore.model.entity.Category;
 
-
 @Service
 public interface CategoryService extends IService<Category> {
-	
+
 	List<Category> getByIsDisPlay();
-	
-	Page<Category> getByIsDisplay(Pageable pageable)throws Exception;
+
+	Page<Category> getByIsDisplay(Pageable pageable) throws Exception;
+
+	Page<Category> getByKeyword(String keyword, Pageable pageable) throws Exception;
+
 }

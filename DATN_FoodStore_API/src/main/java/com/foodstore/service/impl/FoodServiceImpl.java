@@ -11,45 +11,64 @@ import org.springframework.stereotype.Service;
 import com.foodstore.dao.FoodDAO;
 import com.foodstore.model.entity.Food;
 import com.foodstore.service.FoodService;
+import com.foodstore.util.constraints.Display;
 
 @Service
 public class FoodServiceImpl implements FoodService {
 
-	@Autowired private FoodDAO foodDAO;
-	
+	@Autowired
+	private FoodDAO foodDAO;
+
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Food getById(Long id) {
 		return foodDAO.findById(id).orElse(null);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public List<Food> getAll() {
 		return foodDAO.findAll();
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Food create(Food entiy) {
 		return foodDAO.save(entiy);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Food update(Food entiy) {
 		return foodDAO.save(entiy);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public void delete(Long id) {
 		foodDAO.deleteById(id);
 	}
 
 	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Page<Food> getAll(Pageable pageable) {
 		return foodDAO.findAll(pageable);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public List<Food> getByIsDisplayAndQuantity() {
+		return foodDAO.findByIsDisplayAndQuantity(Display.SHOW, 0);
+	}
+
+	@Override
+	public Page<Food> getByIsDisplayAndQuantity(Pageable pageable) throws Exception {
+
+		return foodDAO.findByIsDisplayAndQuantity(Display.SHOW, 0, pageable);
+	}
+
+	@Override
+	public Page<Food> getByKeyword(String keyword, Pageable pageable) throws Exception {
+		return foodDAO.findByKeyword(keyword, Display.SHOW, 0, pageable);
 	}
 }

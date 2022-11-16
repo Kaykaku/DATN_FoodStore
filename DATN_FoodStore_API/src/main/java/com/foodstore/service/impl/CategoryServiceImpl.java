@@ -66,5 +66,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.findByIsDisplay(Display.SHOW, pageable);
 	}
 
+	@Override
+	public Page<Category> getByKeyword(String keyword, Pageable pageable) throws Exception {
+		return categoryDAO.findByKeyword(keyword, Display.SHOW, pageable);
+	}
 
 }
