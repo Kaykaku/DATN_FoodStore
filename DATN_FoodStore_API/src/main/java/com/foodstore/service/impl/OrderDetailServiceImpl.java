@@ -1,6 +1,8 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +78,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public Page<OrderDetail> getByAllStatus(Pageable pageable, int status) {
 		List<OrderDetail> list = orderDetailDAO.findAll();
 		return new PageImpl<OrderDetail>(
-				list.stream().filter(c->c.getStatus()==status).toList()
+				list.stream().filter(c->c.getStatus()==status).collect(Collectors.toList())
 				, pageable
 				, list.size());
 	}
@@ -86,7 +88,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public Page<OrderDetail> getByAllStatus(Pageable pageable, boolean isDislay) {
 		List<OrderDetail> list = orderDetailDAO.findAll();
 		return new PageImpl<OrderDetail>(
-				list.stream().filter(c->c.is_display()==isDislay).toList()
+				list.stream().filter(c->c.is_display()==isDislay).collect(Collectors.toList())
 				, pageable
 				, list.size());
 	}
@@ -96,7 +98,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public Page<OrderDetail> getByAllStatus(Pageable pageable, boolean isDislay, int status) {
 		List<OrderDetail> list = orderDetailDAO.findAll();
 		return new PageImpl<OrderDetail>(
-				list.stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).toList()
+				list.stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).collect(Collectors.toList())
 				, pageable
 				, list.size());
 	}

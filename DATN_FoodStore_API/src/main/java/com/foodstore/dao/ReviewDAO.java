@@ -18,8 +18,8 @@ public interface ReviewDAO extends JpaRepository<Review, Long>{
 	@Query("Select o From Review o Where o.customer_r.id=?1")
 	Page<Review> findByCustomerId(Pageable pageable,Long id);
 	
-	@Query("Select o From Review o Where o.food_od.id=?1 and o.order.id=?2")
-	Optional<Review> findByCustomerIdAndFoodId(Pageable pageable, Long customerId,Long foodId );
+//	@Query("Select o From Review o Where o.customer_r.id=?1 and o.food_r.id=?2")
+//	Optional<Review> findByCustomerIdAndFoodId(Pageable pageable, Long customerId,Long foodId );
 	
 	//Fix later
 	/*

@@ -13,7 +13,7 @@ public interface ReviewService extends IService<Review> {
 	
 	Page<Review> getByCustomerId(Pageable pageable,Long id);
 	
-	Review getByCustomerIdAndFoodId(Pageable pageable, Long customerId,Long foodId );
+	//Review getByCustomerIdAndFoodId(Pageable pageable, Long customerId,Long foodId );
 	
 //	Page<Review> getByAllStatus(Pageable pageable,int status ,boolean isFavorite ,boolean isDisplay);
 }

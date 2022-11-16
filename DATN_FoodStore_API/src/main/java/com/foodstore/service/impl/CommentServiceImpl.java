@@ -3,6 +3,7 @@ package com.foodstore.service.impl;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -71,21 +72,21 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Page<Comment> getByKeyword(Pageable pageable, String keyword, int status) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.getStatus()==status).toList();
+		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.getStatus()==status).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Page<Comment> getByKeyword(Pageable pageable, String keyword, boolean isDislay) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay).toList();
+		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Page<Comment> getByKeyword(Pageable pageable, String keyword, int status, boolean isDislay) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).toList();
+		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
@@ -94,9 +95,9 @@ public class CommentServiceImpl implements CommentService {
 	public Page<Comment> getByFilter(Pageable pageable, String keyword, Optional<Integer> status,
 			Optional<Date> createDate, Optional<Boolean> isDisplay) {
 		List<Comment> list = commentDAO.findAllByKeyword(keyword);
-		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).toList();
-		if(createDate.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == createDate.get()).toList();
-		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).toList();
+		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).collect(Collectors.toList());
+		if(createDate.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == createDate.get()).collect(Collectors.toList());
+		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
