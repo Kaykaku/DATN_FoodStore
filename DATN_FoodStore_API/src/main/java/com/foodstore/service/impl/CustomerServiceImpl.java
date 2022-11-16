@@ -64,4 +64,16 @@ public class CustomerServiceImpl implements CustomerService {
 	public Page<Customer> getByIsDisplay(Pageable pageable) throws Exception {
 		return customerDAO.findByIsDisplay(Display.SHOW, pageable);
 	}
+	
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public void deleteLogical(Long id) throws Exception {
+		customerDAO.deleteLogical(Display.HIDE, id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public Page<Customer> getByKeyword(String keyword, Pageable pageable) throws Exception {
+		return customerDAO.findByKeyword(keyword, Display.SHOW, pageable);
+	}
 }

@@ -71,4 +71,10 @@ public class FoodServiceImpl implements FoodService {
 	public Page<Food> getByKeyword(String keyword, Pageable pageable) throws Exception {
 		return foodDAO.findByKeyword(keyword, Display.SHOW, 0, pageable);
 	}
+	
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public void deleteLogical(Long id) throws Exception {
+		foodDAO.deleteLogical(Display.HIDE, id);
+	}
 }

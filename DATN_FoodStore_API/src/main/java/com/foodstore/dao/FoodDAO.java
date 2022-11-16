@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +24,7 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 			+ "LIKE %?1% AND f.is_display = ?2 AND f.quantity_limit > ?3")
 	Page<Food> findByKeyword(String keyword, Boolean isDisplay, Integer quantityLimit, Pageable pageable);
 
+	@Modifying(clearAutomatically = true)
+	@Query("UPDATE Food f SET f.is_display = ?1 WHERE f.id = ?2")
+	void deleteLogical(Boolean isDisplay, Long id);
 }

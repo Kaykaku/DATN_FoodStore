@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.foodstore.dao.RoleDAO;
 import com.foodstore.model.entity.Role;
 import com.foodstore.service.RoleService;
+import com.foodstore.util.constraints.Display;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -51,5 +52,23 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Page<Role> getAll(Pageable pageable) {
 		return roleDAO.findAll(pageable);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public List<Role> getByIsDisplay() {
+		return roleDAO.findByIsDisplay(Display.SHOW);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Role getByNameAndDisplayName(String name, String displayName) {
+		return roleDAO.findByNameAndDisplayName(name, displayName, Display.SHOW);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public void deleteLogical(Long id) throws Exception {
+		roleDAO.deleteLogical(Display.HIDE, id);
 	}
 }

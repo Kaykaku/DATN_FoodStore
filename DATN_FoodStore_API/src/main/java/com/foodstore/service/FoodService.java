@@ -17,4 +17,5 @@ public interface FoodService extends IService<Food> {
 
 	Page<Food> getByKeyword(String keyword, Pageable pageable) throws Exception;
 
+	void deleteLogical(Long id) throws Exception;
 }

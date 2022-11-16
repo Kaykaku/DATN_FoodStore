@@ -66,4 +66,21 @@ public class UserServiceImpl implements UserService {
 	public Page<User> getByIsDisplay(Pageable pageable) throws Exception {
 		return userDAO.findByIsDisplay(Display.SHOW, pageable);
 	}
+	
+	@Override
+	public User getByUsername(String username) {
+		return userDAO.findByUsername(username, Display.SHOW);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public void deleteLogical(Long id) throws Exception {
+		userDAO.deleteLogical(Display.HIDE, id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public Page<User> getByKeyword(String keyword, Pageable pageable) throws Exception {
+		return userDAO.findByKeyword(keyword, Display.SHOW, pageable);
+	}
 }

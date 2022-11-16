@@ -13,4 +13,8 @@ public interface CustomerService extends IService<Customer> {
 	List<Customer> getByIsDisPlay();
 
 	Page<Customer> getByIsDisplay(Pageable pageable) throws Exception;
+	
+	void deleteLogical(Long id) throws Exception;
+
+	Page<Customer> getByKeyword(String keyword, Pageable pageable) throws Exception;
 }
