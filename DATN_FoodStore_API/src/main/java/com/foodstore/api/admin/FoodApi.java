@@ -1,6 +1,7 @@
 package com.foodstore.api.admin;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -27,7 +28,7 @@ import com.foodstore.service.FoodService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/foods")
 @Slf4j
 public class FoodApi {
 
@@ -83,6 +84,9 @@ public class FoodApi {
 
 	@PostMapping("/add")
 	public ResponseEntity<Food> doCreate(@Valid @RequestBody Food foodReq) {
+		foodReq.setView_count(0);
+		foodReq.setCreate_date(new Date());
+		
 		Food foodResp = foodService.create(foodReq);
 		try {
 			if (ObjectUtils.isNotEmpty(foodResp)) {
