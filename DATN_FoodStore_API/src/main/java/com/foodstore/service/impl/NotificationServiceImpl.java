@@ -59,31 +59,31 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Notification> getByCustomerId(Pageable pageable, Long id) {
-		return notificationDAO.findByCustomerId(pageable,id);
+	public Page<Notification> getByCustomerId(Long id,Pageable pageable) {
+		return notificationDAO.findByCustomerId(id,pageable);
 	}
 	
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Notification> getBySeenStatus(Pageable pageable, boolean isSeen) {
-		return notificationDAO.findBySeenStatus(pageable,isSeen);
+	public Page<Notification> getBySeenStatus(boolean isSeen,Pageable pageable) {
+		return notificationDAO.findBySeenStatus(isSeen,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Notification> findByTableName(Pageable pageable,String table_name) {
-		return notificationDAO.findByTableName(pageable,table_name);
+	public Page<Notification> findByTableName(String table_name,Pageable pageable) {
+		return notificationDAO.findByTableName(table_name,pageable);
 	}
 
 	@Override
-	public Page<Notification> findByKeyword(Pageable pageable, String keyword) {
-		return notificationDAO.findByKeyword(pageable, keyword);
+	public Page<Notification> findByKeyword(String keyword,Pageable pageable) {
+		return notificationDAO.findByKeyword( keyword,pageable);
 	}
 
 	@Override
-	public Page<Notification> findByFilter(Pageable pageable, String keyword, String table_name,
+	public Page<Notification> findByFilter( String keyword, String table_name,
 			Optional<Long> customerId, Optional<Date> create_at, Optional<Long> record_id,
-			Optional<Boolean> is_watched) {
+			Optional<Boolean> is_watched,Pageable pageable) {
 		List<Notification> list = notificationDAO.findByKeyword(keyword);
 		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).collect(Collectors.toList());
 		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_n().getId() == customerId.get()).collect(Collectors.toList());

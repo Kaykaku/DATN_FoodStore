@@ -15,11 +15,11 @@ import com.foodstore.model.extend.Discount;
 @Repository
 public interface DiscountDAO extends JpaRepository<Discount, Long>{
 	@Query("Select c From Discount c Where c.food_d.id=?1")
-	Page<Discount> findByFoodId(Pageable pageable, Long id);
+	Page<Discount> findByFoodId( Long id,Pageable pageable);
 	
 	@Query("Select c From Discount c"
 			+ " Where c.name like %?1%")
-	Page<Discount> findByKeyword(Pageable pageable,String keyword);
+	Page<Discount> findByKeyword(String keyword,Pageable pageable);
 	
 	@Query("Select c From Discount c"
 			+ " Where c.name like %?1%")
@@ -27,7 +27,7 @@ public interface DiscountDAO extends JpaRepository<Discount, Long>{
 	
 	@Query("Select c From Discount c"
 			+ " Where c.name like %?1% AND c.is_display = ?2")
-	Page<Discount> findByDisplayStatus(Pageable pageable,String keyword , boolean displayStatus);
+	Page<Discount> findByDisplayStatus(String keyword , boolean displayStatus,Pageable pageable);
 	
 	@Query("Select c From Discount c"
 			+ " Where c.name like %?1% AND c.is_display = ?2")

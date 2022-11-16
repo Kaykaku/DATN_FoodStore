@@ -12,13 +12,13 @@ import com.foodstore.model.transaction.OrderDetail;
 @Repository
 public interface OrderDetailDAO extends JpaRepository<OrderDetail, Long>{
 	@Query("Select o From OrderDetail o Where o.food_od.id=?1")
-	Page<OrderDetail> findByFoodId(Pageable pageable,Long id);
+	Page<OrderDetail> findByFoodId(Long id,Pageable pageable);
 	
 	@Query("Select o From OrderDetail o Where o.order.id=?1")
-	Page<OrderDetail> findByOrderId(Pageable pageable,Long id);
+	Page<OrderDetail> findByOrderId(Long id,Pageable pageable);
 	
 	@Query("Select o From OrderDetail o Where o.food_od.id=?1 and o.order.id=?2")
-	Page<OrderDetail> findByFoodIdAndOrderId(Pageable pageable,Long foodId , Long orderId);
+	Page<OrderDetail> findByFoodIdAndOrderId(Long foodId , Long orderId,Pageable pageable);
 	
 	//Fix later
 	/*

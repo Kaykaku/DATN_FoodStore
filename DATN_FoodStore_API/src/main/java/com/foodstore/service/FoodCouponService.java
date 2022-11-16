@@ -10,11 +10,11 @@ import com.foodstore.model.transaction.FoodCoupon;
 
 @Service
 public interface FoodCouponService extends IService<FoodCoupon> {
-	Page<FoodCoupon> getByFoodId(Pageable pageable,Long id);
+	Page<FoodCoupon> getByFoodId(Long id,Pageable pageable);
 	
-	Page<FoodCoupon> getByCouponId(Pageable pageable,Long id);
+	Page<FoodCoupon> getByCouponId(Long id,Pageable pageable);
 	
-	Page<FoodCoupon> getByStatus(Pageable pageable,int status);
+	Page<FoodCoupon> getByStatus(int status,Pageable pageable);
 	
 	CustomerCoupon getByFoodIdAndCouponId(Long foodId ,Long couponId);
 }

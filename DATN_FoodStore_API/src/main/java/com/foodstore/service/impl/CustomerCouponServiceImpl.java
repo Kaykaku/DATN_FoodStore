@@ -55,20 +55,20 @@ public class CustomerCouponServiceImpl implements CustomerCouponService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<CustomerCoupon> getByCustomerId(Pageable pageable, Long id) {
-		return customerCouponDAO.findByCustomerId(pageable,id);
+	public Page<CustomerCoupon> getByCustomerId( Long id,Pageable pageable) {
+		return customerCouponDAO.findByCustomerId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<CustomerCoupon> getByCouponId(Pageable pageable, Long id) {
-		return customerCouponDAO.findByCouponId(pageable,id);
+	public Page<CustomerCoupon> getByCouponId( Long id,Pageable pageable) {
+		return customerCouponDAO.findByCouponId(id,pageable);
 	}
 	
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<CustomerCoupon> getByStatus(Pageable pageable, int status) {
-		return customerCouponDAO.findByStatus(pageable,status);
+	public Page<CustomerCoupon> getByStatus(int status,Pageable pageable) {
+		return customerCouponDAO.findByStatus(status,pageable);
 	}
 
 	@Override

@@ -10,21 +10,21 @@ import com.foodstore.model.transaction.Order;
 
 @Service
 public interface OrderService extends IService<Order> {
-	Page<Order> getByCustomerId(Pageable pageable,Long id);
+	Page<Order> getByCustomerId(Long id,Pageable pageable);
 	
-	Page<Order> getAllByOrderIdLike(Pageable pageable,String id);
+	Page<Order> getAllByOrderIdLike(String id,Pageable pageable);
 	
-	Page<Order> getByPaymentmethodId(Pageable pageable,Long id);
+	Page<Order> getByPaymentmethodId(Long id,Pageable pageable);
 	
-	Page<Order> getByCustomerIdAndPaymentmethodId(Pageable pageable,Long customerId , Long paymentmethodId);
+	Page<Order> getByCustomerIdAndPaymentmethodId(Long customerId , Long paymentmethodId,Pageable pageable);
 	
-	Page<Order> getByDisplayStatus(Pageable pageable, boolean isDisplay);
+	Page<Order> getByDisplayStatus( boolean isDisplay,Pageable pageable);
 	
-	Page<Order> getByOrderStatus(Pageable pageable, int status);
+	Page<Order> getByOrderStatus( int status,Pageable pageable);
 	
-	Page<Order> getByWatchStatus(Pageable pageable, boolean isWatched);
+	Page<Order> getByWatchStatus( boolean isWatched,Pageable pageable);
 	/*
-	 * Page<Order> getByAllStatus(Pageable pageable,Optional<Boolean>
-	 * isDisplay,Optional<Boolean> status,Optional<Boolean> isWatched);
+	 * Page<Order> getByAllStatus(Optional<Boolean>
+	 * isDisplay,Optional<Boolean> status,Optional<Boolean> isWatched,Pageable pageable);
 	 */
 }

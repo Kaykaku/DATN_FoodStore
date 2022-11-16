@@ -9,15 +9,15 @@ import com.foodstore.model.transaction.OrderDetail;
 
 @Service
 public interface OrderDetailService extends IService<OrderDetail> {
-	Page<OrderDetail> getByFoodId(Pageable pageable,Long id);
+	Page<OrderDetail> getByFoodId(Long id,Pageable pageable);
 	
-	Page<OrderDetail> getByOrderId(Pageable pageable,Long id);
+	Page<OrderDetail> getByOrderId(Long id,Pageable pageable);
 	
-	Page<OrderDetail> getByFoodIdAndOrderId(Pageable pageable,Long foodId , Long orderId);
+	Page<OrderDetail> getByFoodIdAndOrderId(Long foodId , Long orderId,Pageable pageable);
 	
-	Page<OrderDetail> getByAllStatus(Pageable pageable,boolean isDisplay);
+	Page<OrderDetail> getByAllStatus(boolean isDisplay,Pageable pageable);
 	
-	Page<OrderDetail> getByAllStatus(Pageable pageable,int status);
+	Page<OrderDetail> getByAllStatus(int status,Pageable pageable);
 	
-	Page<OrderDetail> getByAllStatus(Pageable pageable,boolean isDisplay,int status);
+	Page<OrderDetail> getByAllStatus(boolean isDisplay,int status,Pageable pageable);
 }

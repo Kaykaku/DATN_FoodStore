@@ -57,23 +57,23 @@ public class PhoneAddressServiceImpl implements PhoneAddressService {
 	}
 
 	@Override
-	public Page<PhoneAddress> findByCustomerId(Pageable pageable, Long id) {
-		return phoneAddressDAO.findByCustomerId(pageable,id);
+	public Page<PhoneAddress> findByCustomerId(Long id,Pageable pageable) {
+		return phoneAddressDAO.findByCustomerId(id,pageable);
 	}
 
 	@Override
-	public Page<PhoneAddress> findByContactType(Pageable pageable, Boolean contactType) {
-		return phoneAddressDAO.findByContactType(pageable,contactType);
+	public Page<PhoneAddress> findByContactType(Boolean contactType,Pageable pageable) {
+		return phoneAddressDAO.findByContactType(contactType,pageable);
 	}
 
 	@Override
-	public Page<PhoneAddress> findByKeyword(Pageable pageable, String keyword) {
-		return phoneAddressDAO.findByKeyword(pageable,keyword);
+	public Page<PhoneAddress> findByKeyword(String keyword,Pageable pageable) {
+		return phoneAddressDAO.findByKeyword(keyword,pageable);
 	}
 
 	@Override
-	public Page<PhoneAddress> findByFilter(Pageable pageable, String keyword, Optional<Long> customerId,
-			Optional<Boolean> is_address, Optional<Boolean> is_default) {
+	public Page<PhoneAddress> findByFilter(String keyword, Optional<Long> customerId,
+			Optional<Boolean> is_address, Optional<Boolean> is_default,Pageable pageable) {
 		List<PhoneAddress> list = phoneAddressDAO.findByKeyword(keyword);
 		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_pa().getId() == customerId.get()).collect(Collectors.toList());
 		if(is_address.isPresent()) list = list.stream().filter(o-> o.is_address() == is_address.get()).collect(Collectors.toList());

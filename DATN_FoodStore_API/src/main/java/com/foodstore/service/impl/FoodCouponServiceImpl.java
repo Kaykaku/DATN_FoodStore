@@ -57,20 +57,20 @@ public class FoodCouponServiceImpl implements FoodCouponService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<FoodCoupon> getByFoodId(Pageable pageable, Long id) {
-		return foodCouponDAO.findByFoodId(pageable,id);
+	public Page<FoodCoupon> getByFoodId(Long id,Pageable pageable) {
+		return foodCouponDAO.findByFoodId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<FoodCoupon> getByCouponId(Pageable pageable, Long id) {
-		return foodCouponDAO.findByCouponId(pageable,id);
+	public Page<FoodCoupon> getByCouponId(Long id,Pageable pageable) {
+		return foodCouponDAO.findByCouponId(id,pageable);
 	}
 	
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<FoodCoupon> getByStatus(Pageable pageable, int status) {
-		return foodCouponDAO.findByStatus(pageable,status);
+	public Page<FoodCoupon> getByStatus( int status,Pageable pageable) {
+		return foodCouponDAO.findByStatus(status,pageable);
 	}
 
 	@Override

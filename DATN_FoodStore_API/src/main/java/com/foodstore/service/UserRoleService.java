@@ -9,11 +9,11 @@ import com.foodstore.model.transaction.UserRole;
 
 @Service
 public interface UserRoleService extends IService<UserRole> {
-	Page<UserRole> getByUserId(Pageable pageable,Long id);
+	Page<UserRole> getByUserId(Long id,Pageable pageable);
 	
-	Page<UserRole> getByRoleId(Pageable pageable,Long id);
+	Page<UserRole> getByRoleId(Long id,Pageable pageable);
 	
-	Page<UserRole> getByDisplayStatus(Pageable pageable,boolean isDisplay);	
+	Page<UserRole> getByDisplayStatus(boolean isDisplay,Pageable pageable);	
 	
 	UserRole getByUserIdAndRoleId(Long userId ,Long roleId);
 }

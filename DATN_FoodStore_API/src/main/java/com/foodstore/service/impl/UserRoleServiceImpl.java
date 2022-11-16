@@ -57,20 +57,20 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<UserRole> getByUserId(Pageable pageable, Long id) {
-		return userRoleDAO.findByUserId(pageable,id);
+	public Page<UserRole> getByUserId( Long id,Pageable pageable) {
+		return userRoleDAO.findByUserId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<UserRole> getByRoleId(Pageable pageable, Long id) {
-		return userRoleDAO.findByRoleId(pageable,id);
+	public Page<UserRole> getByRoleId(Long id,Pageable pageable) {
+		return userRoleDAO.findByRoleId(id,pageable);
 	}
 	
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<UserRole> getByDisplayStatus(Pageable pageable, boolean isDisplay) {
-		return userRoleDAO.findByDisplayStatus(pageable,isDisplay);
+	public Page<UserRole> getByDisplayStatus( boolean isDisplay,Pageable pageable) {
+		return userRoleDAO.findByDisplayStatus(isDisplay,pageable);
 	}
 
 	@Override

@@ -54,13 +54,13 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public Page<Review> getByFoodId(Pageable pageable, Long id) {
-		return reviewDAO.findByFoodId(pageable,id);
+	public Page<Review> getByFoodId( Long id,Pageable pageable) {
+		return reviewDAO.findByFoodId(id,pageable);
 	}
 
 	@Override
-	public Page<Review> getByCustomerId(Pageable pageable, Long id) {
-		return reviewDAO.findByCustomerId(pageable,id);
+	public Page<Review> getByCustomerId(Long id,Pageable pageable) {
+		return reviewDAO.findByCustomerId(id,pageable);
 	}
 
 //	@Override

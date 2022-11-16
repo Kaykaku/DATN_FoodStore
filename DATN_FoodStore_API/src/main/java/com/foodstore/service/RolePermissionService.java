@@ -9,11 +9,11 @@ import com.foodstore.model.transaction.RolePermission;
 
 @Service
 public interface RolePermissionService extends IService<RolePermission> {
-	Page<RolePermission> getByPermissionId(Pageable pageable,Long id);
+	Page<RolePermission> getByPermissionId(Long id,Pageable pageable);
 	
-	Page<RolePermission> getByRoleId(Pageable pageable,Long id);
+	Page<RolePermission> getByRoleId(Long id,Pageable pageable);
 	
-	Page<RolePermission> getByDisplayStatus(Pageable pageable,boolean isDisplay);
+	Page<RolePermission> getByDisplayStatus(boolean isDisplay,Pageable pageable);
 	
 	RolePermission getByRoleIdAndPermissionId(Long roleId ,Long permissionId);
 }

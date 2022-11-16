@@ -10,12 +10,12 @@ import com.foodstore.model.extend.PhoneAddress;
 
 @Service
 public interface PhoneAddressService extends IService<PhoneAddress> {
-	Page<PhoneAddress> findByCustomerId(Pageable pageable,Long id);
+	Page<PhoneAddress> findByCustomerId(Long id,Pageable pageable);
 	
-	Page<PhoneAddress> findByContactType(Pageable pageable,Boolean contactType);
+	Page<PhoneAddress> findByContactType(Boolean contactType,Pageable pageable);
 	
-	Page<PhoneAddress> findByKeyword(Pageable pageable,String keyword);
+	Page<PhoneAddress> findByKeyword(String keyword,Pageable pageable);
 	
-	Page<PhoneAddress> findByFilter(Pageable pageable,String keyword 
-			, Optional<Long> customerId , Optional<Boolean> is_address ,Optional<Boolean> is_default);
+	Page<PhoneAddress> findByFilter(String keyword 
+			, Optional<Long> customerId , Optional<Boolean> is_address ,Optional<Boolean> is_default,Pageable pageable);
 }

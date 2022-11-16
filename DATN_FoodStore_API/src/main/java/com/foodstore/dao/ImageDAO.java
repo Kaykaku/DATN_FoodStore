@@ -14,11 +14,11 @@ import com.foodstore.model.extend.Image;
 @Repository
 public interface ImageDAO extends JpaRepository<Image, Long>{
 	@Query("Select o From Image o Where o.food_i.id=?1")
-	Page<Image> findByFoodId(Pageable pageable,Long id);
+	Page<Image> findByFoodId(Long id,Pageable pageable);
 	
 	@Query("Select o From Image o"
 			+ " Where o.image_name like %?1%")
-	Page<Image> findByKeyword(Pageable pageable,String keyword);
+	Page<Image> findByKeyword(String keyword,Pageable pageable);
 	
 	@Query("Select o From Image o"
 			+ " Where o.image_name like %?1%")

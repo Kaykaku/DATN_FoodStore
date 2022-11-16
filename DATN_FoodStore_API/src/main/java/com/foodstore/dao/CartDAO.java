@@ -16,10 +16,10 @@ public interface CartDAO extends JpaRepository<Cart, Long>{
 	Page<Cart> findAll(Pageable pageable);
 	
 	@Query("Select c From Cart c Where c.customer_cart.id=?1")
-	Page<Cart> findByCustomerId(Pageable pageable,Long id);
+	Page<Cart> findByCustomerId(Long id,Pageable pageable);
 	
 	@Query("Select c From Cart c Where c.food_cart.id=?1")
-	Page<Cart> findByFoodId(Pageable pageable,Long id);
+	Page<Cart> findByFoodId(Long id,Pageable pageable);
 	
 	@Query("Select c From Cart c Where c.customer_cart.id=?1 and c.food_cart.id=?2")
 	Optional<Cart> findByCustomerIdAndFoodId(Long customerId ,Long foodId);
