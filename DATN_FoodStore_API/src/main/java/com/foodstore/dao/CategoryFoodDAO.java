@@ -13,10 +13,10 @@ import com.foodstore.model.transaction.CategoryFood;
 @Repository
 public interface CategoryFoodDAO extends JpaRepository<CategoryFood, Long>{
 	@Query("Select c From CategoryFood c Where c.category_f.id=?1")
-	Page<CategoryFood> findByCategoryId(Pageable pageable,Long id);
+	Page<CategoryFood> findByCategoryId(Long id,Pageable pageable);
 	
 	@Query("Select c From CategoryFood c Where c.food_c.id=?1")
-	Page<CategoryFood> findByFoodId(Pageable pageable,Long id);
+	Page<CategoryFood> findByFoodId(Long id,Pageable pageable);
 	
 	@Query("Select c From CategoryFood c Where c.category_f.id=?1 and c.food_c.id=?2")
 	Optional<CategoryFood> findByCategoryIdAndFoodId(Long categoryId ,Long foodId);

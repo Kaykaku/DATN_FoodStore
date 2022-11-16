@@ -14,14 +14,14 @@ import com.foodstore.model.extend.History;
 @Repository
 public interface HistoryDAO extends JpaRepository<History, Long>{
 	@Query("Select o From History o Where o.user_h.id=?1")
-	Page<History> findByUserId(Pageable pageable,Long id);
+	Page<History> findByUserId(Long id,Pageable pageable);
 	
 	@Query("Select o From History o Where o.table_name=?1")
-	Page<History> findByTableName(Pageable pageable,String name);
+	Page<History> findByTableName(String name,Pageable pageable);
 	
 	@Query("Select o From History o"
 			+ " Where o.memo like %?1%")
-	Page<History> findByKeyword(Pageable pageable,String keyword);
+	Page<History> findByKeyword(String keyword,Pageable pageable);
 	
 	@Query("Select o From History o"
 			+ " Where o.memo like %?1%")

@@ -55,14 +55,14 @@ public class CategoryFoodServiceImpl implements CategoryFoodService {
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<CategoryFood> getByCategoryId(Pageable pageable, Long id) {
-		return categoryFoodDAO.findByCategoryId(pageable,id);
+	public Page<CategoryFood> getByCategoryId( Long id,Pageable pageable) {
+		return categoryFoodDAO.findByCategoryId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<CategoryFood> getByFoodId(Pageable pageable, Long id) {
-		return categoryFoodDAO.findByFoodId(pageable,id);
+	public Page<CategoryFood> getByFoodId(Long id,Pageable pageable) {
+		return categoryFoodDAO.findByFoodId(id,pageable);
 	}
 
 	@Override

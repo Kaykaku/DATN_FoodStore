@@ -9,11 +9,11 @@ import com.foodstore.model.transaction.Review;
 
 @Service
 public interface ReviewService extends IService<Review> {
-	Page<Review> getByFoodId(Pageable pageable,Long id);
+	Page<Review> getByFoodId(Long id,Pageable pageable);
 	
-	Page<Review> getByCustomerId(Pageable pageable,Long id);
+	Page<Review> getByCustomerId(Long id,Pageable pageable);
 	
-	//Review getByCustomerIdAndFoodId(Pageable pageable, Long customerId,Long foodId );
+	//Review getByCustomerIdAndFoodId( Long customerId,Long foodId ,Pageable pageable);
 	
-//	Page<Review> getByAllStatus(Pageable pageable,int status ,boolean isFavorite ,boolean isDisplay);
+//	Page<Review> getByAllStatus(int status ,boolean isFavorite ,boolean isDisplay,Pageable pageable);
 }

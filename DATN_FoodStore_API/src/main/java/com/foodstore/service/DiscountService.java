@@ -12,11 +12,11 @@ import com.foodstore.model.extend.Discount;
 
 @Service
 public interface DiscountService extends IService<Discount> {
-	Page<Discount> getByFoodId(Pageable pageable,Long id);
+	Page<Discount> getByFoodId(Long id,Pageable pageable);
 	
-	Page<Discount> getByKeyword(Pageable pageable,String keyword);
+	Page<Discount> getByKeyword(String keyword,Pageable pageable);
 	
-	Page<Discount> getByFilter(Pageable pageable,String keyword 
+	Page<Discount> getByFilter(String keyword 
 			,Optional<Boolean> is_fixed , Optional<Date> start_date , Optional<Date> end_date 
-			, Optional<Boolean> isDisplay , Optional<Long> userId);
+			, Optional<Boolean> isDisplay , Optional<Long> userId,Pageable pageable);
 }

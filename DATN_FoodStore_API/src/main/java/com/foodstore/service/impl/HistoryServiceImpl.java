@@ -59,13 +59,13 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public Page<History> findByKeyword(Pageable pageable, String keyword) {
-		return historyDAO.findByKeyword(pageable, keyword);
+	public Page<History> findByKeyword( String keyword,Pageable pageable) {
+		return historyDAO.findByKeyword(keyword,pageable);
 	}
 
 	@Override
-	public Page<History> findByFilter(Pageable pageable,String keyword, String table_name, Optional<Long> userid,
-			Optional<Date> create_date, Optional<Long> record_id) {
+	public Page<History> findByFilter(String keyword, String table_name, Optional<Long> userid,
+			Optional<Date> create_date, Optional<Long> record_id,Pageable pageable) {
 		List<History> list = historyDAO.findAllByKeyword(keyword);
 		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).collect(Collectors.toList());
 		if(userid.isPresent()) list = list.stream().filter(o-> o.getUser_h().getId() == userid.get()).collect(Collectors.toList());
@@ -75,12 +75,12 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public Page<History> findByUserId(Pageable pageable, Long id) {
-		return historyDAO.findByUserId(pageable, id);
+	public Page<History> findByUserId(Long id,Pageable pageable) {
+		return historyDAO.findByUserId(id,pageable);
 	}
 
 	@Override
-	public Page<History> findByTableName(Pageable pageable, String name) {
-		return historyDAO.findByTableName(pageable, name);
+	public Page<History> findByTableName(String name,Pageable pageable) {
+		return historyDAO.findByTableName(name,pageable);
 	}
 }

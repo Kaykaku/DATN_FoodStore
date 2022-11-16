@@ -57,25 +57,25 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<OrderDetail> getByFoodId(Pageable pageable, Long id) {
-		return orderDetailDAO.findByOrderId(pageable, id);
+	public Page<OrderDetail> getByFoodId(Long id,Pageable pageable) {
+		return orderDetailDAO.findByOrderId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<OrderDetail> getByOrderId(Pageable pageable, Long id) {
-		return orderDetailDAO.findByOrderId(pageable, id);
+	public Page<OrderDetail> getByOrderId(Long id,Pageable pageable) {
+		return orderDetailDAO.findByOrderId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<OrderDetail> getByFoodIdAndOrderId(Pageable pageable, Long customerId, Long paymentmethodId){
-		return orderDetailDAO.findByFoodIdAndOrderId(pageable, customerId,paymentmethodId);
+	public Page<OrderDetail> getByFoodIdAndOrderId(Long customerId, Long paymentmethodId,Pageable pageable){
+		return orderDetailDAO.findByFoodIdAndOrderId(customerId,paymentmethodId,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<OrderDetail> getByAllStatus(Pageable pageable, int status) {
+	public Page<OrderDetail> getByAllStatus(int status,Pageable pageable) {
 		List<OrderDetail> list = orderDetailDAO.findAll();
 		return new PageImpl<OrderDetail>(
 				list.stream().filter(c->c.getStatus()==status).collect(Collectors.toList())
@@ -85,7 +85,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<OrderDetail> getByAllStatus(Pageable pageable, boolean isDislay) {
+	public Page<OrderDetail> getByAllStatus(boolean isDislay,Pageable pageable) {
 		List<OrderDetail> list = orderDetailDAO.findAll();
 		return new PageImpl<OrderDetail>(
 				list.stream().filter(c->c.is_display()==isDislay).collect(Collectors.toList())
@@ -95,7 +95,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<OrderDetail> getByAllStatus(Pageable pageable, boolean isDislay, int status) {
+	public Page<OrderDetail> getByAllStatus(boolean isDislay, int status,Pageable pageable) {
 		List<OrderDetail> list = orderDetailDAO.findAll();
 		return new PageImpl<OrderDetail>(
 				list.stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).collect(Collectors.toList())

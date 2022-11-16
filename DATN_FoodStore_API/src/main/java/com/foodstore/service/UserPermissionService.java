@@ -9,11 +9,11 @@ import com.foodstore.model.transaction.UserPermission;
 
 @Service
 public interface UserPermissionService extends IService<UserPermission> {
-	Page<UserPermission> getByUserId(Pageable pageable,Long id);
+	Page<UserPermission> getByUserId(Long id,Pageable pageable);
 	
-	Page<UserPermission> getByPermissionId(Pageable pageable,Long id);
+	Page<UserPermission> getByPermissionId(Long id,Pageable pageable);
 	
-	Page<UserPermission> getByDisplayStatus(Pageable pageable,boolean isDisplay);
+	Page<UserPermission> getByDisplayStatus(boolean isDisplay,Pageable pageable);
 	
 	UserPermission getByUserIdAndPermissionId(Long userId ,Long permissionId);
 }

@@ -11,30 +11,30 @@ import com.foodstore.model.transaction.Order;
 @Repository
 public interface OrderDAO extends JpaRepository<Order, Long>{
 	@Query("Select o From Order o Where o.customer_o.id=?1")
-	Page<Order> findByCustomerId(Pageable pageable,Long id);
+	Page<Order> findByCustomerId(Long id,Pageable pageable);
 	
 	@Query("Select o From Order o Where o.customer_o.id like %?1%")
-	Page<Order> findAllByOrderIdLike(Pageable pageable,String id);
+	Page<Order> findAllByOrderIdLike(String id,Pageable pageable);
 	
 	@Query("Select o From Order o Where o.paymentmethod.id=?1")
-	Page<Order> findByPaymentmethodId(Pageable pageable,Long id);
+	Page<Order> findByPaymentmethodId(Long id,Pageable pageable);
 	
 	@Query("Select o From Order o Where o.paymentmethod.id=?1 and o.paymentmethod.id=?2")
-	Page<Order> findByCustomerIdAndPaymentmethodId(Pageable pageable,Long customerId , Long paymentmethodId);
+	Page<Order> findByCustomerIdAndPaymentmethodId(Long customerId , Long paymentmethodId,Pageable pageable);
 	
 	
 	@Query("Select o From Order o Where o.is_display=?1")
-	Page<Order> findByDisplayStatus(Pageable pageable,Boolean isDisplay);
+	Page<Order> findByDisplayStatus(Boolean isDisplay,Pageable pageable);
 	
 	@Query("Select o From Order o Where o.status=?1")
-	Page<Order> findByOrderStatus(Pageable pageable,int status);
+	Page<Order> findByOrderStatus(int status,Pageable pageable);
 	
 	@Query("Select o From Order o Where o.is_watched=?2")
-	Page<Order> findByWatchStatus(Pageable pageable,Boolean isWatched);
+	Page<Order> findByWatchStatus(Boolean isWatched,Pageable pageable);
 	/*
 	 * @Query("Select o From Order o Where " +
 	 * "o.is_display=?1 and o.status=?2 and o.is_watched=?3") Page<Order>
-	 * findByAllStatus(Pageable pageable,boolean isDisplay,int status,boolean
+	 * findByAllStatus(boolean isDisplay,int status,boolean
 	 * isWatched);
 	 */
 }

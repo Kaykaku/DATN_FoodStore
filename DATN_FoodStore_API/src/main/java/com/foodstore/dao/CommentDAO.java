@@ -14,13 +14,13 @@ import com.foodstore.model.extend.Comment;
 @Repository
 public interface CommentDAO extends JpaRepository<Comment, Long>{
 	@Query("Select c From Comment c Where c.review.id=?1")
-	Page<Comment> findByReviewId(Pageable pageable,Long id);
+	Page<Comment> findByReviewId(Long id,Pageable pageable);
 	
 	@Query("Select c From Comment c"
 			+ " Where c.review.id like %?1%"
 			+ " or title like %?1%"
 			+ " or content like %?1%")
-	Page<Comment> findByKeyword(Pageable pageable,String keyword);
+	Page<Comment> findByKeyword(String keyword,Pageable pageable);
 	
 	@Query("Select c From Comment c"
 			+ " Where c.review.id like %?1%"

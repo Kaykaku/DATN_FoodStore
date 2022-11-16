@@ -9,9 +9,9 @@ import com.foodstore.model.transaction.CategoryFood;
 
 @Service
 public interface CategoryFoodService extends IService<CategoryFood> {
-	Page<CategoryFood> getByCategoryId(Pageable pageable,Long id);
+	Page<CategoryFood> getByCategoryId(Long id,Pageable pageable);
 	
-	Page<CategoryFood> getByFoodId(Pageable pageable,Long id);
+	Page<CategoryFood> getByFoodId(Long id,Pageable pageable);
 	
 	CategoryFood getByCategoryIdAndFoodId(Long categoryId ,Long foodId);
 }

@@ -60,18 +60,18 @@ public class DiscountServiceImpl implements DiscountService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Discount> getByFoodId(Pageable pageable, Long id) {
-		return discountDAO.findByFoodId(pageable,id);
+	public Page<Discount> getByFoodId( Long id,Pageable pageable) {
+		return discountDAO.findByFoodId(id,pageable);
 	}
 
 	@Override
-	public Page<Discount> getByKeyword(Pageable pageable, String keyword) {
-		return discountDAO.findByKeyword(pageable,keyword);
+	public Page<Discount> getByKeyword( String keyword,Pageable pageable) {
+		return discountDAO.findByKeyword(keyword,pageable);
 	}
 
 	@Override
-	public Page<Discount> getByFilter(Pageable pageable, String keyword, Optional<Boolean> is_fixed,
-			Optional<Date> start_date, Optional<Date> end_date, Optional<Boolean> isDisplay, Optional<Long> userId) {
+	public Page<Discount> getByFilter(String keyword, Optional<Boolean> is_fixed,Optional<Date> start_date
+			, Optional<Date> end_date, Optional<Boolean> isDisplay, Optional<Long> userId,Pageable pageable ) {
 		List<Discount> list = discountDAO.findByKeyword(keyword);
 		if(is_fixed.isPresent()) list = list.stream().filter(o-> o.is_fixed() == is_fixed.get()).collect(Collectors.toList());
 		if(start_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == start_date.get()).collect(Collectors.toList());

@@ -12,12 +12,12 @@ import com.foodstore.model.extend.History;
 
 @Service
 public interface HistoryService extends IService<History> {
-	Page<History> findByUserId(Pageable pageable,Long id);
+	Page<History> findByUserId(Long id,Pageable pageable);
 	
-	Page<History> findByTableName(Pageable pageable,String name);
+	Page<History> findByTableName(String name,Pageable pageable);
 	
-	Page<History> findByKeyword(Pageable pageable,String keyword);
+	Page<History> findByKeyword(String keyword,Pageable pageable);
 	
-	Page<History> findByFilter(Pageable pageable,String keyword , String table_name 
-			, Optional<Long> userid , Optional<Date> create_date , Optional<Long> record_id);
+	Page<History> findByFilter(String keyword , String table_name 
+			, Optional<Long> userid , Optional<Date> create_date , Optional<Long> record_id,Pageable pageable);
 }

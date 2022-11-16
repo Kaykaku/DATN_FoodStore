@@ -54,14 +54,14 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Cart> getByCustomerId(Pageable pageable, Long id) {
-		return cartDAO.findByCustomerId(pageable,id);
+	public Page<Cart> getByCustomerId( Long id,Pageable pageable) {
+		return cartDAO.findByCustomerId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Cart> getByFoodId(Pageable pageable, Long id) {
-		return cartDAO.findByFoodId(pageable,id);
+	public Page<Cart> getByFoodId(Long id,Pageable pageable) {
+		return cartDAO.findByFoodId(id,pageable);
 	}
 
 	@Override

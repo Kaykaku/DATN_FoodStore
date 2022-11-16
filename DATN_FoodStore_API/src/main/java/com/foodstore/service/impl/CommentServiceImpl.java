@@ -59,41 +59,41 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getByReviewId(Pageable pageable, Long id) {
-		return commentDAO.findByReviewId(pageable,id);
+	public Page<Comment> getByReviewId( Long id,Pageable pageable) {
+		return commentDAO.findByReviewId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getByKeyword(Pageable pageable, String keyword) {
-		return commentDAO.findByKeyword(pageable,keyword);
+	public Page<Comment> getByKeyword(String keyword,Pageable pageable) {
+		return commentDAO.findByKeyword(keyword, pageable);
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getByKeyword(Pageable pageable, String keyword, int status) {
+	public Page<Comment> getByKeyword(String keyword, int status,Pageable pageable) {
 		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.getStatus()==status).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getByKeyword(Pageable pageable, String keyword, boolean isDislay) {
+	public Page<Comment> getByKeyword(String keyword, boolean isDislay,Pageable pageable ) {
 		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getByKeyword(Pageable pageable, String keyword, int status, boolean isDislay) {
+	public Page<Comment> getByKeyword(String keyword, int status, boolean isDislay,Pageable pageable) {
 		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getByFilter(Pageable pageable, String keyword, Optional<Integer> status,
-			Optional<Date> createDate, Optional<Boolean> isDisplay) {
+	public Page<Comment> getByFilter(String keyword, Optional<Integer> status,
+			Optional<Date> createDate, Optional<Boolean> isDisplay,Pageable pageable) {
 		List<Comment> list = commentDAO.findAllByKeyword(keyword);
 		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).collect(Collectors.toList());
 		if(createDate.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == createDate.get()).collect(Collectors.toList());

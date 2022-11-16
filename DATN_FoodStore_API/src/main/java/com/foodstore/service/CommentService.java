@@ -12,15 +12,15 @@ import com.foodstore.model.extend.Comment;
 
 @Service
 public interface CommentService extends IService<Comment> {
-	Page<Comment> getByReviewId(Pageable pageable,Long id);
+	Page<Comment> getByReviewId(Long id,Pageable pageable);
 	
-	Page<Comment> getByKeyword(Pageable pageable,String keyword);
+	Page<Comment> getByKeyword(String keyword,Pageable pageable);
 	
-	Page<Comment> getByFilter(Pageable pageable,String keyword ,Optional<Integer> status , Optional<Date> createDate , Optional<Boolean> isDisplay);
+	Page<Comment> getByFilter(String keyword ,Optional<Integer> status , Optional<Date> createDate , Optional<Boolean> isDisplay,Pageable pageable);
 	
-	Page<Comment> getByKeyword(Pageable pageable,String keyword ,int status);
+	Page<Comment> getByKeyword(String keyword ,int status,Pageable pageable);
 	
-	Page<Comment> getByKeyword(Pageable pageable,String keyword ,boolean isDislay);
+	Page<Comment> getByKeyword(String keyword ,boolean isDislay,Pageable pageable);
 	
-	Page<Comment> getByKeyword(Pageable pageable,String keyword ,int status ,boolean isDislay);
+	Page<Comment> getByKeyword(String keyword ,int status ,boolean isDislay,Pageable pageable);
 }

@@ -26,8 +26,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getAllByOrderIdLike(Pageable pageable,String id) {
-		return orderDAO.findAllByOrderIdLike(pageable, id);
+	public Page<Order> getAllByOrderIdLike(String id,Pageable pageable) {
+		return orderDAO.findAllByOrderIdLike(id,pageable);
 	}
 
 	@Override
@@ -62,37 +62,37 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByCustomerId(Pageable pageable, Long id) {
-		return orderDAO.findByCustomerId(pageable, id);
+	public Page<Order> getByCustomerId(Long id,Pageable pageable) {
+		return orderDAO.findByCustomerId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByPaymentmethodId(Pageable pageable, Long id) {
-		return orderDAO.findByPaymentmethodId(pageable, id);
+	public Page<Order> getByPaymentmethodId(Long id,Pageable pageable) {
+		return orderDAO.findByPaymentmethodId(id,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByCustomerIdAndPaymentmethodId(Pageable pageable, Long customerId, Long paymentmethodId){
-		return orderDAO.findByCustomerIdAndPaymentmethodId(pageable, customerId,paymentmethodId);
+	public Page<Order> getByCustomerIdAndPaymentmethodId(Long customerId, Long paymentmethodId , Pageable pageable){
+		return orderDAO.findByCustomerIdAndPaymentmethodId( customerId,paymentmethodId,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByDisplayStatus(Pageable pageable, boolean isDisplay) {
-		return orderDAO.findByDisplayStatus(pageable, isDisplay);
+	public Page<Order> getByDisplayStatus( boolean isDisplay,Pageable pageable) {
+		return orderDAO.findByDisplayStatus(isDisplay,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByOrderStatus(Pageable pageable, int status) {
-		return orderDAO.findByOrderStatus(pageable, status);
+	public Page<Order> getByOrderStatus(int status,Pageable pageable) {
+		return orderDAO.findByOrderStatus(status,pageable);
 	}
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<Order> getByWatchStatus(Pageable pageable, boolean isWatched) {
-		return orderDAO.findByWatchStatus(pageable, isWatched);
+	public Page<Order> getByWatchStatus(boolean isWatched,Pageable pageable) {
+		return orderDAO.findByWatchStatus(isWatched,pageable);
 	}
 }

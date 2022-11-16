@@ -12,9 +12,9 @@ import com.foodstore.model.extend.Image;
 
 @Service
 public interface ImageService extends IService<Image> {
-	Page<Image> findByFoodId(Pageable pageable,Long id);
+	Page<Image> findByFoodId(Long id,Pageable pageable);
 	
-	Page<Image> findByKeyword(Pageable pageable,String keyword);
+	Page<Image> findByKeyword(String keyword,Pageable pageable);
 	
-	Page<Image> findByFilter(Pageable pageable,String keyword , Optional<Long> foodId );
+	Page<Image> findByFilter(String keyword , Optional<Long> foodId ,Pageable pageable);
 }
