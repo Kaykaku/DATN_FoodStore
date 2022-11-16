@@ -67,6 +67,12 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public Customer getByUsername(String username) {
+		return customerDAO.findByUsername(username, Display.SHOW);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public void deleteLogical(Long id) throws Exception {
 		customerDAO.deleteLogical(Display.HIDE, id);
 	}

@@ -20,6 +20,9 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
 	@Query("SELECT c FROM Customer c WHERE c.is_display = ?1")
 	Page<Customer> findByIsDisplay(Boolean isDisplay, Pageable pageable);
 	
+	@Query("SELECT c FROM Customer c WHERE c.username = ?1 AND c.is_display = ?2")
+	Customer findByUsername(String username, Boolean isDisplay);
+	
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE Customer c SET c.is_display = ?1 WHERE c.id = ?2")
 	void deleteLogical(Boolean isDisplay, Long id);
