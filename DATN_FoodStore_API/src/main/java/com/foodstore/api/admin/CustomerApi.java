@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.foodstore.model.entity.Customer;
 import com.foodstore.service.CustomerService;
 
@@ -50,6 +51,25 @@ public class CustomerApi {
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	@GetMapping("/findByKeyword")
+	public ResponseEntity<?> doGetAllByKeyword(
+			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
+			@RequestParam(value = "size", required = false) int pageSize) {
+		List<Customer> customers = new ArrayList<>();
+		try {
+			Page<Customer> pageCustomers = customerService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
+			customers = pageCustomers.getContent();
+			if (customers.size() > 0) {
+				return ResponseEntity.ok(customers);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
@@ -63,18 +83,19 @@ public class CustomerApi {
 
 	@PostMapping("/add")
 	public ResponseEntity<?> doCreate(@Valid @RequestBody Customer customerReq) {
-		Customer customerResp = customerService.create(customerReq);
 		try {
-			if (ObjectUtils.isNotEmpty(customerResp)) {
-				log.info("Create Successfully! ---> " + customerResp.getUsername());
-				return new ResponseEntity<>(customerResp, HttpStatus.CREATED);
+			if (customerService.getByUsername(customerReq.getUsername()) != null) {
+				log.error("Username đã tồn tại!");
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			} else {
+				log.info("Create Successfully!");
+				return new ResponseEntity<>(customerService.create(customerReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
 			log.error("Create Failed! ---> " + ex.getMessage());
 		}
 
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
 	}
 
 	@PutMapping("/update/{id}")
@@ -95,7 +116,7 @@ public class CustomerApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			customerService.delete(id);
+			customerService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {

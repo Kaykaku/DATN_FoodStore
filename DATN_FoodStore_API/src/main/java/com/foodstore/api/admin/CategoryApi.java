@@ -63,7 +63,7 @@ public class CategoryApi {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
-	@GetMapping("findByKeyword")
+	@GetMapping("/findByKeyword")
 	public ResponseEntity<?> doGetAllByKeyword(
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
@@ -125,7 +125,7 @@ public class CategoryApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			categoryService.delete(id);
+			categoryService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {

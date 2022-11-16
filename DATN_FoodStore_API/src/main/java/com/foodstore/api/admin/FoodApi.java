@@ -27,7 +27,7 @@ import com.foodstore.service.FoodService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/foods")
 @Slf4j
 public class FoodApi {
 	
@@ -52,7 +52,7 @@ public class FoodApi {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
-	@GetMapping("findByKeyword")
+	@GetMapping("/findByKeyword")
 	public ResponseEntity<?> doGetAllByKeyword(
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
@@ -114,7 +114,7 @@ public class FoodApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			foodService.delete(id);
+			foodService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {
