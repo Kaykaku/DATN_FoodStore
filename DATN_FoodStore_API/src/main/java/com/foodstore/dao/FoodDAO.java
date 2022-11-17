@@ -27,4 +27,7 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE Food f SET f.is_display = ?1 WHERE f.id = ?2")
 	void deleteLogical(Boolean isDisplay, Long id);
+
+	@Query("SELECT f FROM Food f WHERE f.is_display = ?1 AND f.quantity_limit > ?2 ORDER BY f.create_date DESC")
+	Page<Food> getNewProduct(Boolean isDisplay, Integer quantityLimit, Pageable pageable);
 }
