@@ -1,7 +1,6 @@
 package com.foodstore.controller.admin;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,31 +20,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Food;
-import com.foodstore.service.FoodService;
+import com.foodstore.model.entity.Customer;
+import com.foodstore.service.CustomerService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("/api/foods")
+@Controller
+@RequestMapping("/admin/customer")
 @Slf4j
-public class FoodApi {
+public class CustomerController {
 
-@Autowired
-	private FoodService foodService;
-	
+	@Autowired
+	private CustomerService customerService;
+
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<Food> foods = new ArrayList<>();
+		List<Customer> customers = new ArrayList<>();
 		try {
-			Page<Food> pageFoods = foodService.getByIsDisplayAndQuantity(PageRequest.of(pageNumber - 1, pageSize));
-			foods = pageFoods.getContent();
-			if (foods.size() > 0) {
-				return ResponseEntity.ok(foods);
+			Page<Customer> pageCustomers = customerService.getByIsDisplay(PageRequest.of(pageNumber - 1, pageSize));
+			customers = pageCustomers.getContent();
+			if (customers.size() > 0) {
+				return ResponseEntity.ok(customers);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -58,12 +57,12 @@ public class FoodApi {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<Food> foods = new ArrayList<>();
+		List<Customer> customers = new ArrayList<>();
 		try {
-			Page<Food> pageFoods = foodService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
-			foods = pageFoods.getContent();
-			if (foods.size() > 0) {
-				return ResponseEntity.ok(foods);
+			Page<Customer> pageCustomers = customerService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
+			customers = pageCustomers.getContent();
+			if (customers.size() > 0) {
+				return ResponseEntity.ok(customers);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -74,39 +73,38 @@ public class FoodApi {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
-		Food categoryResp = foodService.getById(id);
-		if (ObjectUtils.isEmpty(categoryResp)) {
+		Customer customerResp = customerService.getById(id);
+		if (ObjectUtils.isEmpty(customerResp)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok(categoryResp);
+		return ResponseEntity.ok(customerResp);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Food> doCreate(@Valid @RequestBody Food foodReq) {
-		foodReq.setView_count(0);
-		foodReq.setCreate_date(new Date());
-		
-		Food foodResp = foodService.create(foodReq);
+	public ResponseEntity<?> doCreate(@Valid @RequestBody Customer customerReq) {
 		try {
-			if (ObjectUtils.isNotEmpty(foodResp)) {
-				log.info("Create Successfully! ---> " + foodResp.getName());
-				return new ResponseEntity<>(foodResp, HttpStatus.CREATED);
+			if (customerService.getByUsername(customerReq.getUsername()) != null) {
+				log.error("Username đã tồn tại!");
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			} else {
+				log.info("Create Successfully!");
+				return new ResponseEntity<>(customerService.create(customerReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
-			log.error("Create Failed! --->" + ex.getMessage());
+			log.error("Create Failed! ---> " + ex.getMessage());
 		}
 
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody Food foodReq, @PathVariable("id") Long id) {
-		Food currentFood = foodService.getById(id);
+	public ResponseEntity<?> doUpdate(@RequestBody Customer customerReq, @PathVariable("id") Long id) {
+		Customer currentCustomer = customerService.getById(id);
 		try {
-			if (ObjectUtils.isNotEmpty(currentFood)) {
-				log.info("Update Successfully!");
-				return new ResponseEntity<>(foodService.update(foodReq), HttpStatus.OK);
+			if (ObjectUtils.isNotEmpty(currentCustomer)) {
+				log.info("Update Successfully! --->");
+				return new ResponseEntity<>(customerService.update(customerReq), HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Update Failed! ---> " + ex.getMessage());
@@ -118,7 +116,7 @@ public class FoodApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			foodService.deleteLogical(id);
+			customerService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {

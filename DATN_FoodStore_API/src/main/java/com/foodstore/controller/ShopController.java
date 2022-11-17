@@ -12,7 +12,7 @@ import com.foodstore.service.FoodService;
 
 @RestController()
 @RequestMapping("/api/shop")
-public class ShopApi {
+public class ShopController {
 
 	@Autowired
 	private FoodService foodService;

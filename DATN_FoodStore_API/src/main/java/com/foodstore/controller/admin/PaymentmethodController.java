@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,50 +16,49 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Role;
-import com.foodstore.service.RoleService;
+import com.foodstore.model.entity.Paymentmethod;
+import com.foodstore.service.PaymentmethodService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("/api/roles")
+@Controller
+@RequestMapping("/admin/paymentmethods")
 @Slf4j
-public class RoleApi {
+public class PaymentmethodController {
 
 	@Autowired
-	private RoleService roleService;
+	private PaymentmethodService paymentService;
 
 	@GetMapping("")
 	public ResponseEntity<?> doGetAll() {
-		List<Role> roles = roleService.getByIsDisplay();
-		if (roles.size() == 0 || roles.isEmpty()) {
+		List<Paymentmethod> payments = paymentService.getByIsDisplay();
+		if (payments.size() == 0 || payments.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 
-		return ResponseEntity.ok(roles);
+		return ResponseEntity.ok(payments);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
-		Role roleResp = roleService.getById(id);
-		if (ObjectUtils.isEmpty(roleResp)) {
+		Paymentmethod paymentResp = paymentService.getById(id);
+		if (ObjectUtils.isEmpty(paymentResp)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok(roleResp);
+		return ResponseEntity.ok(paymentResp);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> doCreate(@Valid @RequestBody Role roleReq) {
+	public ResponseEntity<?> doCreate(@Valid @RequestBody Paymentmethod paymentReq) {
 		try {
-			if (roleService.getByNameAndDisplayName(roleReq.getName(), roleReq.getDisplay_name()) != null) {
-				log.error("Name hoặc Display Name đã tồn tại!");
+			if (paymentService.getByName(paymentReq.getName()) != null) {
+				log.error("Name đã tồn tại!");
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
 				log.info("Create Successfully!");
-				return new ResponseEntity<>(roleService.create(roleReq), HttpStatus.CREATED);
+				return new ResponseEntity<>(paymentService.create(paymentReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
 			log.error("Create Failed! --->" + ex.getMessage());
@@ -68,12 +68,12 @@ public class RoleApi {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody Role roleReq, @PathVariable("id") Long id) {
-		Role currentRole = roleService.getById(id);
+	public ResponseEntity<?> doUpdate(@RequestBody Paymentmethod paymentReq, @PathVariable("id") Long id) {
+		Paymentmethod currentPayment = paymentService.getById(id);
 		try {
-			if (ObjectUtils.isNotEmpty(currentRole)) {
+			if (ObjectUtils.isNotEmpty(currentPayment)) {
 				log.info("Update Successfully!");
-				return new ResponseEntity<>(roleService.update(roleReq), HttpStatus.OK);
+				return new ResponseEntity<>(paymentService.update(paymentReq), HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Update Failed! ---> " + ex.getMessage());
@@ -85,7 +85,7 @@ public class RoleApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			roleService.deleteLogical(id);
+			paymentService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {
