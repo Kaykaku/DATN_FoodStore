@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Page Header-->
+    <header class="section page-header">
+      <!-- RD Navbar-->
+      <div class="rd-navbar-wrap">
+        <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
+          data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static"
+          data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static"
+          data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static"
+          data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px"
+          data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+          <div class="rd-navbar-inner-outer">
+            <div class="rd-navbar-inner">
+              <!-- RD Navbar Panel-->
+              <div class="rd-navbar-panel">
+                <!-- RD Navbar Toggle-->
+                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                <!-- RD Navbar Brand-->
+                <div class="rd-navbar-brand"><a class="brand" href="index.html">
+                    <h3 style="font-family: Asfalto;">FoodStore</h3>
+                  </a></div>
+              </div>
+              <div class="rd-navbar-right rd-navbar-nav-wrap">
+                <div class="rd-navbar-aside">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search"
+                    style="height: 10px; width: 500px;">
+                  <ul class="rd-navbar-contacts-2">
+                    <li>
+                      <div class="unit unit-spacing-xs">
+                        <div class="unit-body"><a class="address" th:href="@{/login}">Đăng nhập</a></div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="unit unit-spacing-xs">
+                        <div class="unit-body"><a class="address" th:href="@{/signup}">Đăng ký</a></div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="rd-navbar-main">
+                  <!-- RD Navbar Nav-->
+                  <ul class="rd-navbar-nav">
+                    <li class="rd-nav-item active"><a class="rd-nav-link" th:href="@{/index}">Trang chủ</a>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" th:href="@{/shop}">Sản phẩm</a>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="gioithieu.html">Giới thiệu</a>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" th:href="@{/contact}">Liên hệ</a>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+              <div class="rd-navbar-project-hamburger rd-navbar-project-hamburger-open rd-navbar-fixed-element-1">
+                <div class="" style="font-size: 30px; margin-top: -15px;"><a th:href="@{/cart}"><span
+                      class="fa fa-shopping-bag"></span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- Swiper-->
+    <section class="section swiper-container swiper-slider swiper-slider-2 swiper-slider-3" data-loop="true"
+      data-autoplay="5000" data-simulate-touch="false" data-slide-effect="fade">
+      <div class="swiper-wrapper text-sm-left">
+        <div class="swiper-slide context-dark" th:data-slide-bg="@{/assets/user/images/banner1.jpg}">
+          <div class="swiper-slide-caption section-md">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-9 col-md-8 col-lg-7 col-xl-7 offset-lg-1 offset-xxl-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide context-dark" th:data-slide-bg="@{/assets/user/images/banner2.jpg}">
+          <div class="swiper-slide-caption section-md">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-9 col-md-8 col-lg-7 col-xl-7 offset-lg-1 offset-xxl-0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Swiper Pagination-->
+      <div class="swiper-pagination" data-bullet-custom="true"></div>
+      <!-- Swiper Navigation-->
+      <div class="swiper-button-prev">
+        <div class="preview">
+          <div class="preview__img"></div>
+        </div>
+        <div class="swiper-button-arrow"></div>
+      </div>
+      <div class="swiper-button-next">
+        <div class="swiper-button-arrow"></div>
+        <div class="preview">
+          <div class="preview__img"></div>
+        </div>
+      </div>
+    </section>
+</body>
+</html>

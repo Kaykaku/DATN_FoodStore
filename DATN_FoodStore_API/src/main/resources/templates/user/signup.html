@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
+<body>
+<!--Form login-->
+        <div class="container" style="text-align: left;">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="login-form">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Đăng ký</h5>
+                        <form>
+                            <div class="form-group">
+                                <label for="">Tên đăng nhập</label>
+                                <input type="text" class=" form-input" id=""placeholder="Tên đăng nhập">
+                            </div>
+                            <div class="form-group">
+                                <label for="1"> Mật khẩu</label>
+                                <input type="password" class="form-input" id=""
+                                    placeholder="Mật khẩu">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Họ và tên</label>
+                                <input type="text" class=" form-input" id="" placeholder="Họ và tên">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Số điện thoai</label>
+                                <input type="tel" class=" form-input" id="" placeholder="Số điện thoại">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tên đăng nhập</label>
+                                <input type="email" class=" form-input" id="exampleInputEmail1" placeholder="Email">
+                            </div>
+                            <button type="submit" class="btn btn-primary"> Đăng ký</button>
+                            <hr class="my-4">
+
+                            <p class="text-center text-muted mt-5 mb-0 ">Bạn đã có tài khoản? <a href="dangnhap.html"
+                                    class="fw-bold text-body"><u>Đăng nhập ngay!</u></a></p>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
