@@ -1,4 +1,4 @@
-package com.foodstore.api;
+package com.foodstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import com.foodstore.service.FoodService;
 
 @RestController()
 @RequestMapping("/api/shop")
-public class ShopApi {
+public class ShopController {
 
 	@Autowired
 	private FoodService foodService;

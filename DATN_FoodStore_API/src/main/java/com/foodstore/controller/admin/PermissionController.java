@@ -1,4 +1,4 @@
-package com.foodstore.api.admin;
+package com.foodstore.controller.admin;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,50 +16,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Paymentmethod;
-import com.foodstore.service.PaymentmethodService;
+import com.foodstore.model.entity.Permission;
+import com.foodstore.service.PermissionService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("/api/paymentmethods")
+@Controller
+@RequestMapping("/admin/permission")
 @Slf4j
-public class PaymentmethodApi {
+public class PermissionController {
 
 	@Autowired
-	private PaymentmethodService paymentService;
+	private PermissionService permissionService;
 
 	@GetMapping("")
 	public ResponseEntity<?> doGetAll() {
-		List<Paymentmethod> payments = paymentService.getByIsDisplay();
-		if (payments.size() == 0 || payments.isEmpty()) {
+		List<Permission> permissions = permissionService.getByIsDisplay();
+		if (permissions.size() == 0 || permissions.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 
-		return ResponseEntity.ok(payments);
+		return ResponseEntity.ok(permissions);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
-		Paymentmethod paymentResp = paymentService.getById(id);
-		if (ObjectUtils.isEmpty(paymentResp)) {
+		Permission permissionResp = permissionService.getById(id);
+		if (ObjectUtils.isEmpty(permissionResp)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok(paymentResp);
+		return ResponseEntity.ok(permissionResp);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> doCreate(@Valid @RequestBody Paymentmethod paymentReq) {
+	public ResponseEntity<?> doCreate(@Valid @RequestBody Permission permissionReq) {
 		try {
-			if (paymentService.getByName(paymentReq.getName()) != null) {
-				log.error("Name đã tồn tại!");
+			if (permissionService.getByNameAndDisplayName(permissionReq.getName(),
+					permissionReq.getDisplay_name()) != null) {
+				log.error("Name hoặc Display Name đã tồn tại!");
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
 				log.info("Create Successfully!");
-				return new ResponseEntity<>(paymentService.create(paymentReq), HttpStatus.CREATED);
+				return new ResponseEntity<>(permissionService.create(permissionReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
 			log.error("Create Failed! --->" + ex.getMessage());
@@ -68,12 +69,12 @@ public class PaymentmethodApi {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody Paymentmethod paymentReq, @PathVariable("id") Long id) {
-		Paymentmethod currentPayment = paymentService.getById(id);
+	public ResponseEntity<?> doUpdate(@RequestBody Permission permissionReq, @PathVariable("id") Long id) {
+		Permission currentPermission = permissionService.getById(id);
 		try {
-			if (ObjectUtils.isNotEmpty(currentPayment)) {
+			if (ObjectUtils.isNotEmpty(currentPermission)) {
 				log.info("Update Successfully!");
-				return new ResponseEntity<>(paymentService.update(paymentReq), HttpStatus.OK);
+				return new ResponseEntity<>(permissionService.update(permissionReq), HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Update Failed! ---> " + ex.getMessage());
@@ -85,7 +86,7 @@ public class PaymentmethodApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			paymentService.deleteLogical(id);
+			permissionService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {

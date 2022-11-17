@@ -1,4 +1,4 @@
-package com.foodstore.api.admin;
+package com.foodstore.controller.admin;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,51 +16,49 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Permission;
-import com.foodstore.service.PermissionService;
+import com.foodstore.model.entity.Role;
+import com.foodstore.service.RoleService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("/api/permissions")
+@Controller
+@RequestMapping("/admin/role")
 @Slf4j
-public class PermissionApi {
+public class RoleController {
 
 	@Autowired
-	private PermissionService permissionService;
+	private RoleService roleService;
 
 	@GetMapping("")
 	public ResponseEntity<?> doGetAll() {
-		List<Permission> permissions = permissionService.getByIsDisplay();
-		if (permissions.size() == 0 || permissions.isEmpty()) {
+		List<Role> roles = roleService.getByIsDisplay();
+		if (roles.size() == 0 || roles.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 
-		return ResponseEntity.ok(permissions);
+		return ResponseEntity.ok(roles);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
-		Permission permissionResp = permissionService.getById(id);
-		if (ObjectUtils.isEmpty(permissionResp)) {
+		Role roleResp = roleService.getById(id);
+		if (ObjectUtils.isEmpty(roleResp)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok(permissionResp);
+		return ResponseEntity.ok(roleResp);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> doCreate(@Valid @RequestBody Permission permissionReq) {
+	public ResponseEntity<?> doCreate(@Valid @RequestBody Role roleReq) {
 		try {
-			if (permissionService.getByNameAndDisplayName(permissionReq.getName(),
-					permissionReq.getDisplay_name()) != null) {
+			if (roleService.getByNameAndDisplayName(roleReq.getName(), roleReq.getDisplay_name()) != null) {
 				log.error("Name hoặc Display Name đã tồn tại!");
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
 				log.info("Create Successfully!");
-				return new ResponseEntity<>(permissionService.create(permissionReq), HttpStatus.CREATED);
+				return new ResponseEntity<>(roleService.create(roleReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
 			log.error("Create Failed! --->" + ex.getMessage());
@@ -69,12 +68,12 @@ public class PermissionApi {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody Permission permissionReq, @PathVariable("id") Long id) {
-		Permission currentPermission = permissionService.getById(id);
+	public ResponseEntity<?> doUpdate(@RequestBody Role roleReq, @PathVariable("id") Long id) {
+		Role currentRole = roleService.getById(id);
 		try {
-			if (ObjectUtils.isNotEmpty(currentPermission)) {
+			if (ObjectUtils.isNotEmpty(currentRole)) {
 				log.info("Update Successfully!");
-				return new ResponseEntity<>(permissionService.update(permissionReq), HttpStatus.OK);
+				return new ResponseEntity<>(roleService.update(roleReq), HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Update Failed! ---> " + ex.getMessage());
@@ -86,7 +85,7 @@ public class PermissionApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			permissionService.deleteLogical(id);
+			roleService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {
