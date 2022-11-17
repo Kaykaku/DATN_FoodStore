@@ -51,6 +51,25 @@ public class UserApi {
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	@GetMapping("/findByKeyword")
+	public ResponseEntity<?> doGetAllByKeyword(
+			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
+			@RequestParam(value = "size", required = false) int pageSize) {
+		List<User> users = new ArrayList<>();
+		try {
+			Page<User> pageUsers = userService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
+			users = pageUsers.getContent();
+			if (users.size() > 0) {
+				return ResponseEntity.ok(users);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
@@ -64,11 +83,13 @@ public class UserApi {
 
 	@PostMapping("/add")
 	public ResponseEntity<?> doCreate(@Valid @RequestBody User userReq) {
-		User userResp = userService.create(userReq);
 		try {
-			if (ObjectUtils.isNotEmpty(userResp)) {
-				log.info("Create Successfully! ---> " + userResp.getUsername());
-				return new ResponseEntity<>(userResp, HttpStatus.CREATED);
+			if (userService.getByUsername(userReq.getUsername()) != null) {
+				log.error("Username đã tồn tại!");
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			} else {
+				log.info("Create Successfully!");
+				return new ResponseEntity<>(userService.create(userReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
 			log.error("Create Failed! ---> " + ex.getMessage());
@@ -94,12 +115,13 @@ public class UserApi {
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
-		if (id != null) {
-			userService.delete(id);
-			log.info("Detele Successfully!");
+		try {
+			userService.deleteLogical(id);
+			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception ex) {
+			log.error("Delete Failed ---> " + ex.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

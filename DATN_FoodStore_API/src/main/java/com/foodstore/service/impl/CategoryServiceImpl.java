@@ -70,5 +70,11 @@ public class CategoryServiceImpl implements CategoryService {
 	public Page<Category> getByKeyword(String keyword, Pageable pageable) throws Exception {
 		return categoryDAO.findByKeyword(keyword, Display.SHOW, pageable);
 	}
+	
+	@Override
+	@Transactional(rollbackFor = { Exception.class, Throwable.class })
+	public void deleteLogical(Long id) throws Exception {
+		categoryDAO.deleteLogical(Display.HIDE, id);
+	}
 
 }

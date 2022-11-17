@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.foodstore.dao.PaymentmethodDAO;
 import com.foodstore.model.entity.Paymentmethod;
 import com.foodstore.service.PaymentmethodService;
+import com.foodstore.util.constraints.Display;
 
 @Service
 public class PaymentmethodServiceImpl implements PaymentmethodService {
@@ -52,5 +53,23 @@ public class PaymentmethodServiceImpl implements PaymentmethodService {
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Page<Paymentmethod> getAll(Pageable pageable) {
 		return paymentmethodDAO.findAll(pageable);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public List<Paymentmethod> getByIsDisplay() {
+		return paymentmethodDAO.findByIsDisplay(Display.SHOW);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public void deleteLogical(Long id) throws Exception {
+		paymentmethodDAO.deleteLogical(Display.HIDE, id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = { Exception.class, Throwable.class })
+	public Paymentmethod getByName(String name) {
+		return paymentmethodDAO.findByName(Display.SHOW, name);
 	}
 }
