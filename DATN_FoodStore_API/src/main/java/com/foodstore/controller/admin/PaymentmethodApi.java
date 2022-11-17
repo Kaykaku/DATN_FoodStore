@@ -1,4 +1,4 @@
-package com.foodstore.api.admin;
+package com.foodstore.controller.admin;
 
 import java.util.List;
 

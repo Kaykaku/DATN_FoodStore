@@ -1,4 +1,4 @@
-package com.foodstore.api;
+package com.foodstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

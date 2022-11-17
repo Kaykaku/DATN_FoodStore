@@ -1,4 +1,4 @@
-package com.foodstore.api.admin;
+package com.foodstore.controller.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,29 +21,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Category;
-import com.foodstore.service.CategoryService;
+import com.foodstore.model.entity.User;
+import com.foodstore.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/users")
 @Slf4j
-public class CategoryApi {
-	
+public class UserApi {
+
 	@Autowired
-	private CategoryService categoryService;
-	
+	private UserService userService;
+
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<Category> categories = new ArrayList<>();
+		List<User> users = new ArrayList<>();
 		try {
-			Page<Category> pageCategories = categoryService.getByIsDisplay(PageRequest.of(pageNumber - 1, pageSize));
-			categories = pageCategories.getContent();
-			if (categories.size() > 0) {
-				return ResponseEntity.ok(categories);
+			Page<User> pageUsers = userService.getByIsDisplay(PageRequest.of(pageNumber - 1, pageSize));
+			users = pageUsers.getContent();
+			if (users.size() > 0) {
+				return ResponseEntity.ok(users);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -57,12 +57,12 @@ public class CategoryApi {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<Category> categories = new ArrayList<>();
+		List<User> users = new ArrayList<>();
 		try {
-			Page<Category> pageCategories = categoryService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
-			categories = pageCategories.getContent();
-			if (categories.size() > 0) {
-				return ResponseEntity.ok(categories);
+			Page<User> pageUsers = userService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
+			users = pageUsers.getContent();
+			if (users.size() > 0) {
+				return ResponseEntity.ok(users);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -73,36 +73,38 @@ public class CategoryApi {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
-		Category categoryResp = categoryService.getById(id);
-		if (ObjectUtils.isEmpty(categoryResp)) {
+		User userResp = userService.getById(id);
+		if (ObjectUtils.isEmpty(userResp)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok(categoryResp);
+		return ResponseEntity.ok(userResp);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Category> doCreate(@Valid @RequestBody Category categoryReq) {
-		Category categoryResp = categoryService.create(categoryReq);
+	public ResponseEntity<?> doCreate(@Valid @RequestBody User userReq) {
 		try {
-			if (ObjectUtils.isNotEmpty(categoryResp)) {
-				log.info("Create Successfully! ---> " + categoryResp.getName());
-				return new ResponseEntity<>(categoryResp, HttpStatus.CREATED);
+			if (userService.getByUsername(userReq.getUsername()) != null) {
+				log.error("Username đã tồn tại!");
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			} else {
+				log.info("Create Successfully!");
+				return new ResponseEntity<>(userService.create(userReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
-			log.error("Create Failed! --->" + ex.getMessage());
+			log.error("Create Failed! ---> " + ex.getMessage());
 		}
 
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody Category categoryReq, @PathVariable("id") Long id) {
-		Category currentCategory = categoryService.getById(id);
+	public ResponseEntity<?> doUpdate(@RequestBody User userReq, @PathVariable("id") Long id) {
+		User currentUser = userService.getById(id);
 		try {
-			if (ObjectUtils.isNotEmpty(currentCategory)) {
+			if (ObjectUtils.isNotEmpty(currentUser)) {
 				log.info("Update Successfully!");
-				return new ResponseEntity<>(categoryService.update(categoryReq), HttpStatus.OK);
+				return new ResponseEntity<>(userService.update(userReq), HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Update Failed! ---> " + ex.getMessage());
@@ -114,7 +116,7 @@ public class CategoryApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			categoryService.deleteLogical(id);
+			userService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {
@@ -122,5 +124,4 @@ public class CategoryApi {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
 }

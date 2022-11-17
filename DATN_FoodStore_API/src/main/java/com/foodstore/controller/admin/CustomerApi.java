@@ -1,4 +1,4 @@
-package com.foodstore.api.admin;
+package com.foodstore.controller.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,29 +21,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.User;
-import com.foodstore.service.UserService;
+import com.foodstore.model.entity.Customer;
+import com.foodstore.service.CustomerService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/customers")
 @Slf4j
-public class UserApi {
+public class CustomerApi {
 
 	@Autowired
-	private UserService userService;
+	private CustomerService customerService;
 
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<User> users = new ArrayList<>();
+		List<Customer> customers = new ArrayList<>();
 		try {
-			Page<User> pageUsers = userService.getByIsDisplay(PageRequest.of(pageNumber - 1, pageSize));
-			users = pageUsers.getContent();
-			if (users.size() > 0) {
-				return ResponseEntity.ok(users);
+			Page<Customer> pageCustomers = customerService.getByIsDisplay(PageRequest.of(pageNumber - 1, pageSize));
+			customers = pageCustomers.getContent();
+			if (customers.size() > 0) {
+				return ResponseEntity.ok(customers);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -57,12 +57,12 @@ public class UserApi {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<User> users = new ArrayList<>();
+		List<Customer> customers = new ArrayList<>();
 		try {
-			Page<User> pageUsers = userService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
-			users = pageUsers.getContent();
-			if (users.size() > 0) {
-				return ResponseEntity.ok(users);
+			Page<Customer> pageCustomers = customerService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
+			customers = pageCustomers.getContent();
+			if (customers.size() > 0) {
+				return ResponseEntity.ok(customers);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -73,23 +73,23 @@ public class UserApi {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
-		User userResp = userService.getById(id);
-		if (ObjectUtils.isEmpty(userResp)) {
+		Customer customerResp = customerService.getById(id);
+		if (ObjectUtils.isEmpty(customerResp)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok(userResp);
+		return ResponseEntity.ok(customerResp);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> doCreate(@Valid @RequestBody User userReq) {
+	public ResponseEntity<?> doCreate(@Valid @RequestBody Customer customerReq) {
 		try {
-			if (userService.getByUsername(userReq.getUsername()) != null) {
+			if (customerService.getByUsername(customerReq.getUsername()) != null) {
 				log.error("Username đã tồn tại!");
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
 				log.info("Create Successfully!");
-				return new ResponseEntity<>(userService.create(userReq), HttpStatus.CREATED);
+				return new ResponseEntity<>(customerService.create(customerReq), HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
 			log.error("Create Failed! ---> " + ex.getMessage());
@@ -99,12 +99,12 @@ public class UserApi {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody User userReq, @PathVariable("id") Long id) {
-		User currentUser = userService.getById(id);
+	public ResponseEntity<?> doUpdate(@RequestBody Customer customerReq, @PathVariable("id") Long id) {
+		Customer currentCustomer = customerService.getById(id);
 		try {
-			if (ObjectUtils.isNotEmpty(currentUser)) {
-				log.info("Update Successfully!");
-				return new ResponseEntity<>(userService.update(userReq), HttpStatus.OK);
+			if (ObjectUtils.isNotEmpty(currentCustomer)) {
+				log.info("Update Successfully! --->");
+				return new ResponseEntity<>(customerService.update(customerReq), HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Update Failed! ---> " + ex.getMessage());
@@ -116,7 +116,7 @@ public class UserApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			userService.deleteLogical(id);
+			customerService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {

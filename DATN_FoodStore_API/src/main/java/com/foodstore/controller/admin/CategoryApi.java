@@ -1,4 +1,4 @@
-package com.foodstore.api.admin;
+package com.foodstore.controller.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,29 +21,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Customer;
-import com.foodstore.service.CustomerService;
+import com.foodstore.model.entity.Category;
+import com.foodstore.service.CategoryService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/categories")
 @Slf4j
-public class CustomerApi {
-
+public class CategoryApi {
+	
 	@Autowired
-	private CustomerService customerService;
-
+	private CategoryService categoryService;
+	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<Customer> customers = new ArrayList<>();
+		List<Category> categories = new ArrayList<>();
 		try {
-			Page<Customer> pageCustomers = customerService.getByIsDisplay(PageRequest.of(pageNumber - 1, pageSize));
-			customers = pageCustomers.getContent();
-			if (customers.size() > 0) {
-				return ResponseEntity.ok(customers);
+			Page<Category> pageCategories = categoryService.getByIsDisplay(PageRequest.of(pageNumber - 1, pageSize));
+			categories = pageCategories.getContent();
+			if (categories.size() > 0) {
+				return ResponseEntity.ok(categories);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -57,12 +57,12 @@ public class CustomerApi {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false) int pageSize) {
-		List<Customer> customers = new ArrayList<>();
+		List<Category> categories = new ArrayList<>();
 		try {
-			Page<Customer> pageCustomers = customerService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
-			customers = pageCustomers.getContent();
-			if (customers.size() > 0) {
-				return ResponseEntity.ok(customers);
+			Page<Category> pageCategories = categoryService.getByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
+			categories = pageCategories.getContent();
+			if (categories.size() > 0) {
+				return ResponseEntity.ok(categories);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -73,38 +73,36 @@ public class CustomerApi {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> doGetById(@PathVariable("id") Long id) {
-		Customer customerResp = customerService.getById(id);
-		if (ObjectUtils.isEmpty(customerResp)) {
+		Category categoryResp = categoryService.getById(id);
+		if (ObjectUtils.isEmpty(categoryResp)) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		return ResponseEntity.ok(customerResp);
+		return ResponseEntity.ok(categoryResp);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> doCreate(@Valid @RequestBody Customer customerReq) {
+	public ResponseEntity<Category> doCreate(@Valid @RequestBody Category categoryReq) {
+		Category categoryResp = categoryService.create(categoryReq);
 		try {
-			if (customerService.getByUsername(customerReq.getUsername()) != null) {
-				log.error("Username đã tồn tại!");
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			} else {
-				log.info("Create Successfully!");
-				return new ResponseEntity<>(customerService.create(customerReq), HttpStatus.CREATED);
+			if (ObjectUtils.isNotEmpty(categoryResp)) {
+				log.info("Create Successfully! ---> " + categoryResp.getName());
+				return new ResponseEntity<>(categoryResp, HttpStatus.CREATED);
 			}
 		} catch (Exception ex) {
-			log.error("Create Failed! ---> " + ex.getMessage());
+			log.error("Create Failed! --->" + ex.getMessage());
 		}
 
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody Customer customerReq, @PathVariable("id") Long id) {
-		Customer currentCustomer = customerService.getById(id);
+	public ResponseEntity<?> doUpdate(@RequestBody Category categoryReq, @PathVariable("id") Long id) {
+		Category currentCategory = categoryService.getById(id);
 		try {
-			if (ObjectUtils.isNotEmpty(currentCustomer)) {
-				log.info("Update Successfully! --->");
-				return new ResponseEntity<>(customerService.update(customerReq), HttpStatus.OK);
+			if (ObjectUtils.isNotEmpty(currentCategory)) {
+				log.info("Update Successfully!");
+				return new ResponseEntity<>(categoryService.update(categoryReq), HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			log.error("Update Failed! ---> " + ex.getMessage());
@@ -116,7 +114,7 @@ public class CustomerApi {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> doDelete(@PathVariable("id") Long id) {
 		try {
-			customerService.deleteLogical(id);
+			categoryService.deleteLogical(id);
 			log.info("Detele " + id + " Successfully!");
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception ex) {
@@ -124,4 +122,5 @@ public class CustomerApi {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+
 }
