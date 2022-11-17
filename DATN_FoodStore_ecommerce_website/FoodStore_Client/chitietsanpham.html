@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chitietsanpham.css">
     <!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
@@ -102,7 +103,7 @@
                             <a class="dropdown-toggle unit-body" href="#" id="navbardrop" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"></a>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="capnhatthongtin.htmlhtml">Thông tin </a>
+                              <a class="dropdown-item" href="capnhatthongtin.html">Thông tin </a>
                               <a class="dropdown-item" href="doimatkhau.html">Đổi mật khẩu</a>
                               <a class="dropdown-item" href="quenmatkhau.html">Quên mật khẩu</a>
                             </div>
@@ -174,96 +175,101 @@
                 </div>
             </div>
         </section>
-        <!-- What We Offer-->
-        <section class="section section-md bg-default">
-            <div class="container">
-                <h4 class="oh-desktop">Danh mục</h4>
-                <div class="row row-md row-30">
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInUp">
-                                <div class="services-terri-figure"><img src="images/danhmuc1.jpg" alt="" width="370"
-                                        height="278" />
+
+        
+
+        <!--Detail-->
+        <main role="main">
+            <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
+            <div class="container mt-4 mb-5">
+                <div id="thongbao" class="alert alert-danger d-none face" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+    
+                <div class="card">
+                    <div class="container-fliud">
+                        <form>
+                            <div class="wrapper row">
+                                <div class="preview col-md-6">
+                                    <div class="preview-pic tab-content">
+                                        <div class="tab-pane" id="pic-1">
+                                            <img src="images/danhmuc5.jpg">
+                                        </div>
+                                        <div class="tab-pane" id="pic-2">
+                                            <img src="images/danhmuc5.jpg">
+                                        </div>
+                                        <div class="tab-pane active" id="pic-3">
+                                            <img src="images/danhmuc5.jpg">
+                                        </div>
+                                    </div>
+                                    <ul class="preview-thumbnail nav nav-tabs">
+                                        <li class="active">
+                                            <a data-target="#pic-1" data-toggle="tab" class="">
+                                                <img src="images/danhmuc5.jpg">
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-target="#pic-2" data-toggle="tab" class="">
+                                                <img src="images/danhmuc5.jpg">
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-target="#pic-3" data-toggle="tab" class="active">
+                                                <img src="images/danhmuc5.jpg">
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Cà phê</a></h5>
+                                <div class="details col-md-6 text-left">
+                                    <h6 class="product-title">Trà sữa truyền thống</h6>
+                                    <div class="rating">
+                                        <div class="stars">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                        <span class="review-no">999 reviews</span>
+                                    </div>
+                                    <p class="product-description">Bao gồm topping trân châu và thạch. </p>
+                                    <small class="text-muted">Giá cũ: <s><span>35.000 vnđ</span></s></small>
+                                    <p class="price">Giá hiện tại: <span>29.000 vnđ</span></p>
+                                    <p class="sizes">sizes:
+                                        <span class="size" data-toggle="tooltip" title="cỡ Nhỏ">s</span>
+                                        <span class="size" data-toggle="tooltip" title="cỡ Trung bình">m</span>
+                                        <span class="size" data-toggle="tooltip" title="cỡ Lớn">l</span>
+                                    </p>
+                                    <div class="form-group">
+                                        <label for="soluong">Số lượng đặt mua:</label>
+                                        <input type="number" class="form-input" id="soluong" name="soluong">
+                                    </div>
+                                    <div class="action">
+                                        <a class="add-to-cart btn btn-default">Thêm vào giỏ hàng</a>
+                                        <a class="like btn btn-default" href="#"><span class="fa fa-heart"></span></a>
+                                    </div>
                                 </div>
-                            </article>
-                        </div>
+    
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><img src="images/danhmuc2.jpg" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Pizza</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInUp">
-                                <div class="services-terri-figure"><img src="images/danhmuc3.jpg" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Bánh mì</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><img src="images/danhmuc4.jpg" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Cơm tấm</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInUp">
-                                <div class="services-terri-figure"><img src="images/danhmuc5.jpg" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Trà sữa</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><img src="images/danhmuc6.jpg" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Gà rán</a></h5>
-                                </div>
-                            </article>
+                </div>
+    
+                <div class="card text-left">
+                    <div class="container-fluid">
+                        <h5>Thông tin chi tiết về Sản phẩm</h5>
+                        <div class="row">
+                            <div class="col">
+                                ...
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!--Detail-->
-        
-
+            <!-- End block content -->
+        </main>
 
         <!-- Page Footer-->
         <footer class="section footer-modern context-dark footer-modern-2">
