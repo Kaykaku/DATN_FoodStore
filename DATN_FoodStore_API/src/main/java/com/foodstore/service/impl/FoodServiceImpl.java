@@ -77,4 +77,9 @@ public class FoodServiceImpl implements FoodService {
 	public void deleteLogical(Long id) throws Exception {
 		foodDAO.deleteLogical(Display.HIDE, id);
 	}
+	
+	@Override
+	public Page<Food> getNewProduct(Pageable pageable) {
+		return foodDAO.getNewProduct(Display.SHOW, 0, pageable);
+	}
 }

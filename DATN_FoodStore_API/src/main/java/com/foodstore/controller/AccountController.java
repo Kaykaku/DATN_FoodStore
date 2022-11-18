@@ -9,7 +9,7 @@ public class AccountController {
 	@GetMapping("/login")
 	public String doShowLogin() {
 		return "user/login";
-	}
+	} 
 	
 	@GetMapping("/signup")
 	public String doShowSignUp() {
