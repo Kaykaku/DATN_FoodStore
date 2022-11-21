@@ -1,5 +1,7 @@
 package com.foodstore;
 
+import java.io.IOException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,12 @@ public class DatnFoodStoreApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DatnFoodStoreApiApplication.class, args);
+		Runtime rt = Runtime.getRuntime();
+	      try {
+	    	  rt.exec("cmd /c start chrome.exe http://localhost:8080/home/index");
+	      } catch (IOException e) {
+	          e.printStackTrace();
+	      }
 	}
 
 }
