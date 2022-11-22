@@ -1,0 +1,308 @@
+<!-- Content wrapper -->
+<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+.image-main-title {
+	color: #2d2d2d;
+	text-align: center;
+	text-transform: capitalize;
+	padding: 0.7em 0;
+}
+
+.image-container {
+	padding: 1em 0;
+	float: left;
+	width: auto;
+}
+
+.image-container .image-title {
+	color: #1a1a1a;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.image-content {
+	position: relative;
+	width: max-content;
+	max-width: 400px;
+	margin: auto;
+	overflow: hidden;
+}
+
+.image-content .image-content-overlay {
+	background: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	height: 99%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	-moz-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+}
+
+.image-content:hover .image-content-overlay {
+	opacity: 1;
+}
+
+.image-content-details {
+	position: absolute;
+	text-align: center;
+	padding-left: 1em;
+	padding-right: 1em;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+.image-content:hover .image-content-details {
+	top: 50%;
+	left: 50%;
+	opacity: 1;
+}
+
+.image-content-details h3 {
+	color: #fff;
+	font-weight: 500;
+	letter-spacing: 0.15em;
+	margin-bottom: 0.5em;
+	text-transform: uppercase;
+}
+
+.image-content-details p {
+	color: #fff;
+	font-size: 0.8em;
+}
+
+.image-fadeIn-bottom {
+	top: 80%;
+}
+
+.image-fadeIn-top {
+	top: 20%;
+}
+
+.image-fadeIn-left {
+	left: 20%;
+}
+
+.image-fadeIn-right {
+	left: 80%;
+}
+</style>
+<div class="content-wrapper">
+	<!-- Content -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd"
+			aria-labelledby="offcanvasEndLabel" style="width: auto;">
+			<div class="offcanvas-header">
+				<h5 id="offcanvasEndLabel" class="offcanvas-title">Order
+					Information</h5>
+				<button type="button" class="btn-close text-reset"
+					data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body my-auto mx-0 flex-grow-0">
+				<div class="row">
+					<div class="col-5">
+						<table class="table table-borderless">
+							<tbody>
+								<tr>
+									<td class="col-3"><small class="text-light fw-semibold">OrderID</small></td>
+									<td class="py-3">
+										<h6 class="mb-0">#{{form.id}}</h6>
+									</td>
+								</tr>
+								<tr>
+									<td><small class="text-light fw-semibold">Username</small></td>
+									<td class="py-3">
+										<h6 class="mb-0">{{form.account.username}}</h6>
+									</td>
+								</tr>
+								<tr>
+									<td><small class="text-light fw-semibold">Address</small></td>
+									<td class="py-3">
+										<h6 class="mb-0">{{form.address}}</h6>
+									</td>
+								</tr>
+								<tr>
+									<td><small class="text-light fw-semibold">Date</small></td>
+									<td class="py-3">
+										<h6 class="mb-0">{{form.createDate|date:'dd-MM-yyyy'}}</h6>
+									</td>
+								</tr>
+								<tr>
+									<td><small class="text-light fw-semibold">Status</small></td>
+									<td class="py-3"><span class="badge bg-primary"
+										ng-if="form.status==0">Order confirmation</span> <span
+										class="badge bg-warning" ng-if="form.status==1">Packaging
+											products</span> <span class="badge bg-info" ng-if="form.status==2">Delivery</span>
+										<span class="badge bg-success" ng-if="form.status==3">Successful
+											Order</span> <span class="badge bg-danger" ng-if="form.status==4">Canceled
+											Order</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-7">
+						<div class="row">
+							<style>
+.demo-inline-spacing>* {
+	margin: 0 !important;
+}
+</style>
+							<div class="demo-inline-spacing d-flex justify-content-center">
+								<span class="badge bg-label-primary" ng-if="form.status==0">Order
+									confirmation</span> <span class="badge bg-label-warning"
+									ng-if="form.status==1">Packaging products</span> <span
+									class="badge bg-label-info" ng-if="form.status==2">Delivery</span>
+								<span class="badge bg-label-success" ng-if="form.status==3">Successful
+									Order</span> <span class="badge bg-label-danger"
+									ng-if="form.status==4">Canceled Order</span> <i
+									class='bx bx-chevrons-right'></i> <span
+									class="badge bg-label-primary" ng-if="form.status+1==0">Order
+									confirmation</span> <span class="badge bg-label-warning"
+									ng-if="form.status+1==1">Packaging products</span> <span
+									class="badge bg-label-info" ng-if="form.status+1==2">Delivery</span>
+								<span class="badge bg-label-success" ng-if="form.status+1==3">Successful
+									Order</span> <span class="badge bg-label-danger"
+									ng-if="form.status+1==4">Canceled Order</span>
+							</div>
+						</div>
+						<button ng-click="updateStatus(form)"
+							class="col-5 offset-1 mt-2 btn btn-info">
+							<i class='bx bxs-save mb-1'></i>Update Order
+						</button>
+						<button ng-click="cancel(form)" class="col-5 mt-2 btn  btn-danger">
+							<i class="bx bx-trash mb-1"></i>Cancel Order
+						</button>
+					</div>
+				</div>
+
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Image</th>
+								<th>Name</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody class="table-border-bottom-0" ng-init='total=0'>
+							<tr class="table-success" ng-repeat="item in details">
+								<td>{{item.id }}</td>
+								<td>
+									<ul
+										class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+										<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+											data-bs-placement="top" class="avatar avatar-xl pull-up"
+											title="${item.name}"><img
+											ng-src="/images/{{item.product.image}}" alt="Avatar"
+											class="rounded" /></li>
+									</ul>
+								</td>
+								<td><strong>{{item.product.name }}</strong></td>
+								<td>${{item.price }}</td>
+								<td>{{item.quantity }}</td>
+								<td
+									ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>${{item.quantity*item.price}}</strong></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th>Total</th>
+								<th style="font-size: 16px;"><strong>${{total}}</strong></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- Contextual Classes -->
+		<div class="card">
+			<h5 class="card-header">Table orders</h5>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Create Date</th>
+							<th>Username</th>
+							<th width="20%">Address</th>
+							<th>Status</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody class="table-border-bottom-0" ng-init="getItems('2')">
+						<tr class="table-info" ng-repeat="item in pager.items"
+							ng-click="edit2(item)" data-bs-toggle="offcanvas"
+							data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
+							<td><strong>{{item.id
+									}}</strong></td>
+							<td>{{item.createDate|date:'dd-MM-yyyy'}}</td>
+							<td><strong>{{item.account.username}}</strong></td>
+							<td>{{item.address }}</td>
+							<td><span class="badge bg-primary" ng-if="item.status==0">Order
+									confirmation</span> <span class="badge bg-warning"
+								ng-if="item.status==1">Packaging products</span> <span
+								class="badge bg-info" ng-if="item.status==2">Delivery</span> <span
+								class="badge bg-success" ng-if="item.status==3">Successful
+									Order</span> <span class="badge bg-danger" ng-if="item.status==4">Canceled
+									Order</span></td>
+							<td><button ng-click="updateStatus(item)"
+									class=" btn btn-info">
+									<i class='bx bxs-save mb-1'></i>Update
+								</button>
+								<button ng-click="cancel(item)"
+									class="btn btn-danger">
+									<i class="bx bx-trash mb-1"></i>Cancel 
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="justify-content-center mt-2 mb-2 w-100"
+					style="text-align: center;">
+					<button ng-click="pager.first()" class="btn btn-info">
+						<i class='bx bxs-chevrons-left mb-1'></i>
+					</button>
+					<button ng-click="pager.previous()" class="btn btn-info">
+						<i class='bx bxs-chevron-left mb-1'></i>
+					</button>
+					<button class="btn btn-success">{{pager.page+1}} of
+						{{pager.count}}</button>
+					<button ng-click="pager.next()" class="btn btn-info">
+						<i class='bx bxs-chevron-right mb-1'></i>
+					</button>
+					<button ng-click="pager.last()" class="btn btn-info">
+						<i class='bx bxs-chevrons-right mb-1'></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="content-backdrop fade"></div>
+</div>
+<!-- Content wrapper -->
+<!-- / Layout page -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-menu-toggle"></div>

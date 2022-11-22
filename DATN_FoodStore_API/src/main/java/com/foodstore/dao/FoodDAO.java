@@ -23,6 +23,9 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 	@Query("SELECT f FROM Food f WHERE f.name "
 			+ "LIKE %?1% AND f.is_display = ?2 AND f.quantity_limit > ?3")
 	Page<Food> findByKeyword(String keyword, Boolean isDisplay, Integer quantityLimit, Pageable pageable);
+	
+	@Query("SELECT f FROM Food f WHERE f.name LIKE %?1%")
+	List<Food> findByKeyword(String keyword);
 
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE Food f SET f.is_display = ?1 WHERE f.id = ?2")

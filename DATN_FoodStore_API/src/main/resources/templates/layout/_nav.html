@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+	<nav
+		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+		id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="/home/index">Minishop</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="/home/index"
+						class="nav-link pl-0 ">[[#{menu.home}]]</a></li>
+					<li class="nav-item"><a href="/shop/all" class="nav-link pl-0 ">[(#{menu.shop})]</a></li>
+					<li class="nav-item"><a href="/home/about" class="nav-link pl-0 ">[[#{menu.about}]]</a></li>
+					<li class="nav-item"><a href="/home/contact" class="nav-link pl-0 ">[[#{menu.contact}]]</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle pl-0 " href="#" id="dropdown06"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[[#{menu.language}]]</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown06">
+							<a class="dropdown-item" href="?lang=en">English</a>
+							<a class="dropdown-item" href="?lang=vi">Tiếng Việt</a>
+						</div></li>
+					<li class="nav-item cta cta-colored"><a
+						class="nav-link cart js-show-cart"><span
+							class="icon-shopping_cart"></span>[{{cart.count}}]</a></li>
+							<li class="nav-item"><a href="/security/login/form" class="nav-link" th:unless="${#request.remoteUser}">[[#{menu.login}]]</a></li>
+					
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle " href="#" id="dropdown04"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#request.remoteUser}">[[${#request.remoteUser}]]</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown04">
+							<a th:if="${!#request.isUserInRole('CUS')}" class="dropdown-item" href="/admin">[[#{menu.administration}]]</a>
+							<a class="dropdown-item" href="/cart/view">[[#{menu.cart}]]</a>
+							<a class="dropdown-item" href="/user/order/list">[[#{menu.order}]]</a>
+							<a class="dropdown-item" href="/security/logoff">[[#{menu.logout}]]</a>
+						</div></li>
+						<li class="nav-item dropdown cta cta-colored" ><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown05"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#request.remoteUser}"><i class="icon-bell"></i>([[${news==null?0: #lists.size(news)}]])</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown05" >
+							<a class="dropdown-item" style="font-size: 12px;width: 250px;white-space: normal;" th:each="n:${news}"  th:href="@{|/user/order/detail/${n.id}?read=true|}">
+							[[#{menu.new1}]] #[[${n.id}]] [[#{menu.new2}]]
+							<span class="badge badge-primary" th:if="${n.status==0}" style="font-size: 12px;">[[#{order.status0}]]</span>
+							<span class="badge badge-warning" th:if="${n.status==1}" style="font-size: 12px;">[[#{order.status1}]]</span>
+							<span class="badge badge-info" th:if="${n.status==2}" style="font-size: 12px;">[[#{order.status2}]]</span>
+							<span class="badge badge-success" th:if="${n.status==3}" style="font-size: 12px;">[[#{order.status3}]]</span>
+							<span class="badge badge-danger" th:if="${n.status==4}" style="font-size: 12px;">[[#{order.status4}]]</span>
+							</a>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Cart -->
+	<div class="wrap-header-cart js-panel-cart">
+		<div class="s-full js-hide-cart"></div>
+
+		<div class="header-cart flex-col-l p-l-65 p-r-25">
+			<div class="header-cart-title flex-w flex-sb-m p-b-8">
+				<span class="mtext-103 cl2">[[#{menu.cart}]]</span>
+
+				<div
+					class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart"
+					style="width: 10px; height: 10px">
+					<i class="zmdi zmdi-close"></i>
+				</div>
+			</div>
+
+			<div class="header-cart-content flex-w js-pscroll"
+				style="overflow-x: hidden;">
+				<ul class="header-cart-wrapitem w-full pl-0" >
+					<li class="header-cart-item flex-w flex-t m-b-12" ng-repeat="item in cart.items"><a
+						href="" ng-click="cart.remove(item.id)">
+							<div class="header-cart-item-img">
+								<img src="/images/{{item.image}}" alt="IMG">
+							</div>
+					</a>
+						<div class="header-cart-item-txt p-t-8">
+							<a href="/shop/{{item.category.id}}/{{item.id}}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+								{{item.name}} </a> <span class="header-cart-item-info">
+								{{item.qty}} x ${{item.price}} </span>
+						</div></li>
+				</ul>
+
+				<div class="w-full">
+					<div class="header-cart-quantity w-full">{{cart.count}}
+						item(s)</div>
+					<div class="header-cart-total w-full p-b-40">Total:
+						${{cart.amount}}</div>
+
+					<div class="header-cart-buttons flex-w w-full">
+						<a href="/cart/view"
+							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+							[[#{menu.viewcart}]] </a> <a href="/cart/checkout"
+							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+							[[#{menu.checkout}]] </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- END nav -->
+</body>
+</html>

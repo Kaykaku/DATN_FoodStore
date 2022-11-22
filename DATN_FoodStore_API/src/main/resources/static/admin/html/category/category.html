@@ -1,0 +1,309 @@
+<!-- Content wrapper -->
+<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+.image-main-title {
+	color: #2d2d2d;
+	text-align: center;
+	text-transform: capitalize;
+	padding: 0.7em 0;
+}
+
+.image-container {
+	padding: 1em 0;
+	float: left;
+	width: auto;
+}
+
+.image-container .image-title {
+	color: #1a1a1a;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.image-content {
+	position: relative;
+	width: max-content;
+	max-width: 400px;
+	margin: auto;
+	overflow: hidden;
+}
+
+.image-content .image-content-overlay {
+	background: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	height: 99%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	-moz-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+}
+
+.image-content:hover .image-content-overlay {
+	opacity: 1;
+}
+
+.image-content-details {
+	position: absolute;
+	text-align: center;
+	padding-left: 1em;
+	padding-right: 1em;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+.image-content:hover .image-content-details {
+	top: 50%;
+	left: 50%;
+	opacity: 1;
+}
+
+.image-content-details h3 {
+	color: #fff;
+	font-weight: 500;
+	letter-spacing: 0.15em;
+	margin-bottom: 0.5em;
+	text-transform: uppercase;
+}
+
+.image-content-details p {
+	color: #fff;
+	font-size: 0.8em;
+}
+
+.image-fadeIn-bottom {
+	top: 80%;
+}
+
+.image-fadeIn-top {
+	top: 20%;
+}
+
+.image-fadeIn-left {
+	left: 20%;
+}
+
+.image-fadeIn-right {
+	left: 80%;
+}
+</style>
+<div class="content-wrapper">
+	<!-- Content -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="row">
+		<div class="col-xl-12">
+                  <div class="nav-align-top mb-4">
+                    <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+                      <li class="nav-item">
+                        <button
+                          type="button"
+                          class="nav-link active"
+                          role="tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#navs-pills-justified-home"
+                          aria-controls="navs-pills-justified-home"
+                          aria-selected="true"
+                        >
+                          <i class="tf-icons bx bx-home"></i> Home
+                          <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span>
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          type="button"
+                          class="nav-link"
+                          role="tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#navs-pills-justified-profile"
+                          aria-controls="navs-pills-justified-profile"
+                          aria-selected="false"
+                        >
+                          <i class="tf-icons bx bx-user"></i> Profile
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          type="button"
+                          class="nav-link"
+                          role="tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#navs-pills-justified-messages"
+                          aria-controls="navs-pills-justified-messages"
+                          aria-selected="false"
+                        >
+                          <i class="tf-icons bx bx-message-square"></i> Messages
+                        </button>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+   
+					<div
+						class="card-header d-flex align-items-center justify-content-between">
+						<h5 class="mb-0">Category Information Form</h5>
+					</div>
+					<div class="card-body">
+						<div>
+							<div class="row mb-3">
+								<label class="col-sm-2 col-form-label"
+									for="basic-icon-default-fullname">Id</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<span id="id" class="input-group-text"><i
+											class="bx bx-purchase-tag"></i></span> <input class="form-control"
+											ng-model="form.id"  placeholder="Auto"
+											aria-label="John Doe" aria-describedby="id" />
+									</div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label class="col-sm-2 col-form-label"
+									for="basic-icon-default-fullname">Name</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<span id="basic-icon-default-fullname2"
+											class="input-group-text"><i class="bx bx-shopping-bag"></i></span>
+										<input type="text" class="form-control" ng-model="form.name"
+											placeholder="Name" aria-label="John Doe"
+											aria-describedby="basic-icon-default-fullname2" />
+									</div>
+									<!--<div class="form-text badge bg-label-danger">abc</div>-->
+								</div>
+							</div>
+							<div class="row justify-content-center">
+								<div class="col-sm-10 offset-2"><button  ng-click="create()"
+										class="btn btn-primary"}>
+										<i class="bx bx-plus mb-1"></i>&nbspCreate
+									</button>
+									<button  ng-click="update()"
+										class="btn btn-primary"}>
+										<i class="bx bx-save mb-1"></i>&nbspUpdate
+									</button>
+
+									<button ng-click="delete(form)"
+										class="btn btn-outline-danger">
+										<i class="bx bx-trash mb-1"></i>&nbspDelete
+									</button>
+
+									
+									<button ng-click="reset()" class="btn btn-info">
+										<i class="bx bx-refresh mb-1"></i>&nbspClear
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+                        <h5 class="card-header">Table Category
+				<div class="row mt-3">
+					<div class="col-sm-8">
+						<div class="input-group input-group-merge">
+							<span id="id" class="input-group-text"><i
+								class="bx bx-search"></i></span> <input class="form-control"
+								 placeholder="Sreach" ng-model="keyword" ng-change="load(0)"
+								aria-label="John Doe" aria-describedby="id" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<input class="form-control" type="date" ng-model="create_date" ng-change="load(0)" value="2022-01-01" id="html5-date-input" >
+					</div>
+					<div class="col-md-2">
+						<div class="">
+							<select  class="form-select" ng-model="display" ng-change="load(0)">
+								<option ng-value ="-1" selected="selected">All</option>
+								<option ng-value ="true" >SHOW</option>
+								<option ng-value ="false">HIDE</option>
+							</select>
+
+						</div>
+					</div>
+				</div>
+			</h5>
+			
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>		
+							<th>Image</th>				
+							<th>Name</th>
+							<th>Display Name</th>
+							<th>Description</th>
+							<th>Create Date</th>
+							<th>STATUS</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody class="table-border-bottom-0">
+						<tr class="table-primary" ng-repeat="item in items.content" ng-click="edit(item)">
+							<td>{{item.id }}</td>	
+							<td>{{item.image_name}}</td>			
+							<td><strong>{{item.name }}</strong></td>			
+							<td><strong>{{item.display_name }}</strong></td>		
+							<td><strong>{{item.description }}</strong></td>		
+							<td><strong>{{item.create_date|date:'dd-MM-yyyy'}}</strong></td>	
+							<td>{{item._display ? "SHOW" : "HIDE"}}</td>		
+							<td><button ng-click="delete(item)"
+										class="btn btn-outline-danger">
+										<i class="bx bx-trash mb-1"></i>
+									</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="justify-content-center mt-2 mb-2 w-100" style="text-align: center;">
+					<button ng-click="first()" class="btn btn-info">
+						<i class='bx bxs-chevrons-left mb-1' ></i>
+					</button>
+					<button ng-click="previous()" class="btn btn-info">
+						<i class='bx bxs-chevron-left mb-1' ></i>
+					</button>
+					<button class="btn btn-success">{{items.pageable.pageNumber+1}} of
+						{{items.totalPages}}</button>
+					<button ng-click="next()" class="btn btn-info">
+						<i class='bx bxs-chevron-right mb-1' ></i>
+					</button>
+					<button ng-click="last()" class="btn btn-info">
+						<i class='bx bxs-chevrons-right mb-1' ></i>
+					</button>
+				</div>
+			</div>
+                      </div>
+                      <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
+                        <p>
+                          Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies
+                          cupcake gummi bears cake chocolate.
+                        </p>
+                        <p class="mb-0">
+                          Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie brownie cake. Sweet
+                          roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
+                          jelly-o tart brownie jelly.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>					
+		</div>
+	</div>
+	<div class="content-backdrop fade"></div>
+</div>
+<!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-menu-toggle"></div>

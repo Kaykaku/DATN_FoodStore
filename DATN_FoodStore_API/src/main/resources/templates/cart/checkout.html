@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org"
+	th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+<title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	th:href="@{/shopz/css/open-iconic-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/animate.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/owl.theme.default.min.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/magnific-popup.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/aos.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/ionicons.min.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/bootstrap-datepicker.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/jquery.timepicker.css}">
+
+
+<link rel="stylesheet" th:href="@{/shopz/css/flaticon.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/icomoon.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/style.css}">
+</head>
+
+<body class="goto-here">
+	<div th:replace="/layout/_header_title.html"></div>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-10 ftco-animate">
+					<form action="#" class="billing-form">
+						<h3 class="mb-4 billing-heading">[[#{cart.bill}]]</h3>
+						<div class="row align-items-end">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="firstname">[[#{cart.purchaser}]]:</label> <div type="text" id="username" style="align-items: center;"
+										class="form-control" th:utext="${#request.remoteUser}" disabled="disabled"></div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="lastname">[[#{cart.date}]]:</label> <input type="text"
+										class="form-control" placeholder="" value="{{order.createDate | date:'dd-MM-yyyy'}}" disabled="disabled">
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="lastname">[[#{cart.address}]]:</label> <textarea type="text"
+										ng-model="order.address" rows="3" cols="10" class="form-control"></textarea>
+								</div>
+							</div>						
+						</div>
+					</form>
+					<!-- END -->
+
+
+
+					<div class="row mt-5 pt-3 d-flex">
+						<div class="col-md-6 d-flex">
+							<div class="cart-detail cart-total bg-light p-3 p-md-4">
+								<h3 class="billing-heading mb-4">[[#{cart.carttotal}]]</h3>
+								<p class="d-flex" ng-repeat="item in cart.items">
+									<span>{{item.name}}</span><span>x{{item.qty}}</span> <span style="text-align: right;">${{item.qty*item.price}}</span>
+								</p>								
+								<hr>
+								<p class="d-flex total-price">
+									<span>[[#{cart.total}]]</span> <span style="text-align: right;">${{cart.amount}}</span>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="cart-detail bg-light p-3 p-md-4">
+								<h3 class="billing-heading mb-4">[[#{cart.confirm}]]</h3>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="checkbox">
+											<label><input type="checkbox" value="" class="mr-2">
+												[[#{cart.terms}]]</label>
+										</div>
+									</div>
+								</div>
+								<p>
+									<a href="" ng-click="order.purchase()" class="btn btn-primary py-3 px-4">[[#{cart.place}]]</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- .col-md-8 -->
+			</div>
+		</div>
+	</section>
+	<!-- .section -->
+</body>
+
+</html>

@@ -67,11 +67,11 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 		return rolePermissionDAO.findByRoleId(id,pageable);
 	}
 	
-	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<RolePermission> getByDisplayStatus(boolean isDisplay,Pageable pageable) {
-		return rolePermissionDAO.findByDisplayStatus(isDisplay,pageable);
-	}
+//	@Override
+//	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+//	public Page<RolePermission> getByDisplayStatus(boolean isDisplay,Pageable pageable) {
+//		return rolePermissionDAO.findByDisplayStatus(isDisplay,pageable);
+//	}
 
 	@Override
 	public RolePermission getByRoleIdAndPermissionId(Long roleId, Long permissionId) {

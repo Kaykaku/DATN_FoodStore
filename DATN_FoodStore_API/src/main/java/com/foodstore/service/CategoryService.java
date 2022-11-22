@@ -1,6 +1,8 @@
 package com.foodstore.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,5 +19,8 @@ public interface CategoryService extends IService<Category> {
 
 	Page<Category> getByKeyword(String keyword, Pageable pageable) throws Exception;
 
+
 	void deleteLogical(Long id) throws Exception;
+	
+	Page<Category> getByFilter(String keyword ,Optional<Long> create_date ,Optional<Long> create_by,Optional<Boolean> is_display ,Optional<Integer> type ,Pageable pageable);
 }

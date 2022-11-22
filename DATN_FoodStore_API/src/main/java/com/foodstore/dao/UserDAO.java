@@ -1,6 +1,7 @@
 package com.foodstore.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +21,11 @@ public interface UserDAO extends JpaRepository<User, Long> {
 	@Query("SELECT u FROM Category u WHERE u.is_display = ?1")
 	Page<User> findByIsDisplay(Boolean isDisplay, Pageable pageable);
 	
-	@Query("SELECT u FROM User u WHERE u.username = ?1 AND u.is_display = ?2")
-	User findByUsername(String username, Boolean isDisplay);
+	@Query("SELECT u FROM User u WHERE u.username = ?1")
+	Optional<User> findByUsername(String username);
+	
+	@Query("SELECT u FROM User u WHERE u.email = ?1")
+	Optional<User> findByEmail(String email);
 
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE User u SET u.is_display = ?1 WHERE u.id = ?2")

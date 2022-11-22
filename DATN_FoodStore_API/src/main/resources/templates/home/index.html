@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/magnific-popup.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/aos.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/jquery.timepicker.css}">
+
+
+    <link rel="stylesheet" th:href="@{/shopz/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/style.css}">
+</head>
+
+<body class="goto-here">
+	<div th:replace="/layout/_banner.html"></div>
+	<div th:replace="/layout/_service.html"></div>
+	<section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <h2 class="mb-4">[[#{home.title}]]</h2>
+                 
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                    <div class="product d-flex flex-column">
+                        <a th:href="@{|/shop/${p.category.id}/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.image}|}" style="height: 255px;" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3">
+                            <div class="d-flex">
+                                <div class="cat w-100">
+                                    <span>[[${p.category.name}]]</span>
+                                </div>
+                            
+                            </div>
+                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <div class="pricing">
+                                <p class="price"><span>$[[${p.price}]]</span></p>
+                            </div>
+                            <p class="bottom-area d-flex px-3">
+                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:href="@{|/shop/${p.category.id}/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div th:replace="/layout/_collection.html"></div>
+    <div th:replace="/layout/_deal.html"></div>
+    <div th:replace="/layout/_feedback.html"></div>
+    <div th:replace="/layout/_follow.html"></div>
+</body>
+
+</html>

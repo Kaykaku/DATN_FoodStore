@@ -13,7 +13,7 @@ public interface UserPermissionService extends IService<UserPermission> {
 	
 	Page<UserPermission> getByPermissionId(Long id,Pageable pageable);
 	
-	Page<UserPermission> getByDisplayStatus(boolean isDisplay,Pageable pageable);
+	//Page<UserPermission> getByDisplayStatus(boolean isDisplay,Pageable pageable);
 	
 	UserPermission getByUserIdAndPermissionId(Long userId ,Long permissionId);
 }

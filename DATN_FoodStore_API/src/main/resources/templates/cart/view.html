@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/magnific-popup.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/aos.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/jquery.timepicker.css}">
+
+
+    <link rel="stylesheet" th:href="@{/shopz/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/style.css}">
+</head>
+
+<body class="goto-here">
+	<div th:replace="/layout/_header_title.html"></div>
+	<section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list" style="overflow-x:hidden; ">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>&nbsp;</th>
+						        <th>&nbsp;</th>
+						        <th>[[#{cart.product}]]</th>
+						        <th>[[#{cart.price}]]</th>
+						        <th>[[#{cart.quantity}]]</th>
+						        <th>[[#{cart.total}]]</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="text-center" ng-repeat="item in cart.items">
+						        <td class="product-remove"><a href="" ng-click="cart.remove(item.id)"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><div class="img" style="background-image:url(/images/{{item.image}});"></div></td>
+						        
+						        <td class="product-name">
+						        	<h3>{{item.name}}</h3>
+						        </td>
+						        
+						        <td class="price">${{item.price}}</td>
+						        
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+					             	<input type="number" name="quantity" class="quantity form-control input-number" ng-change="cart.saveToLocalStorage()" ng-model="item.qty" min="1" max="100">
+					          	</div>
+					          </td>
+						        
+						        <td class="total">${{item.qty*item.price}}</td>
+						      </tr><!-- END TR-->
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		<div class="row justify-content-end">
+    			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    					<h3>[[#{cart.carttotal}]]</h3>
+    					<p class="d-flex total-price">
+    						<span>[[#{cart.total}]]</span>
+    						<span style="text-align: right;">${{cart.amount}}</span>
+    					</p>
+    				</div>
+    				<p class="text-center"><a href="/cart/checkout" class="btn btn-primary py-3 px-4">[[#{cart.proceed}]]</a></p>
+    			</div>
+    		</div>
+			</div>
+		</section>
+</body>
+
+</html>

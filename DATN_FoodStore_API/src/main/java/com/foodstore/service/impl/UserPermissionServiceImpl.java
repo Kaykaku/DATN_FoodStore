@@ -67,11 +67,11 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 		return userPermissionDAO.findByPermissionId(id,pageable);
 	}
 	
-	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<UserPermission> getByDisplayStatus( boolean isDisplay,Pageable pageable) {
-		return userPermissionDAO.findByDisplayStatus(isDisplay,pageable);
-	}
+//	@Override
+//	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+//	public Page<UserPermission> getByDisplayStatus( boolean isDisplay,Pageable pageable) {
+//		return userPermissionDAO.findByDisplayStatus(isDisplay,pageable);
+//	}
 
 	@Override
 	public UserPermission getByUserIdAndPermissionId(Long userId, Long permissionId) {

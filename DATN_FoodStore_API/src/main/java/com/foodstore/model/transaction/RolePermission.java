@@ -35,6 +35,8 @@ public class RolePermission implements Serializable {
     @JoinColumn(name = "permission_id",nullable = false)
     private Permission permission_r;
     
-    @Column(name = "is_display", nullable = false)
-    private boolean is_display = Display.SHOW;
+	/*
+	 * @Column(name = "is_display", nullable = false) private boolean is_display =
+	 * Display.SHOW;
+	 */
 }

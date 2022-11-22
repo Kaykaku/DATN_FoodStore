@@ -16,6 +16,8 @@ public interface CustomerService extends IService<Customer> {
 	
 	Customer getByUsername(String username);
 	
+	Customer getByEmail(String email);
+	
 	void deleteLogical(Long id) throws Exception;
 
 	Page<Customer> getByKeyword(String keyword, Pageable pageable) throws Exception;

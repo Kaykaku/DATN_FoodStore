@@ -42,4 +42,8 @@ public class HomeController {
 		return "user/index";
 	}
 	
+	@GetMapping({"admin","admin/home/index"})
+	public String admin(Model model) {
+		return "redirect:/admin/html/index.html";
+	}
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/magnific-popup.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/aos.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/jquery.timepicker.css}">
+
+
+    <link rel="stylesheet" th:href="@{/shopz/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/style.css}">
+</head>
+
+<body class="goto-here">
+	<div th:replace="/layout/_header_title.html"></div>
+	<section class="ftco-section contact-section bg-light">
+      <div class="container">
+      	<div class="row d-flex mb-5 contact-info">
+          <div class="w-100"></div>
+          <div class="col-md-3 d-flex">
+          	<div class="info bg-white p-4">
+	            <p><span>[[#{contact.address}]]:</span> [[#{menu.location}]]</p>
+	          </div>
+          </div>
+          <div class="col-md-3 d-flex">
+          	<div class="info bg-white p-4">
+	            <p><span>[[#{contact.phone}]]:</span> <a href="tel://1234567920">+ 0123 456 789</a></p>
+	          </div>
+          </div>
+          <div class="col-md-3 d-flex">
+          	<div class="info bg-white p-4">
+	            <p><span>[[#{contact.email}]]:</span> <a href="mailto:info@yoursite.com">LUCDTPS17380@FPT.EDU.VN</a></p>
+	          </div>
+          </div>
+          <div class="col-md-3 d-flex">
+          	<div class="info bg-white p-4">
+	            <p><span>Website</span> <a href="#">minishop.com</a></p>
+	          </div>
+          </div>
+        </div>
+        <div class="row block-9">
+          
+
+          <div class="col-md-8 offset-2 d-flex">
+          	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4552266534197!2d106.62506012197403!3d10.852939067543893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529b6a2b351a5%3A0x11690ada8c36f9bc!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIFRo4buxYyBow6BuaCBGUFQgUG9seXRlY2huaWMgVFAuSENNIChDUzMp!5e0!3m2!1svi!2s!4v1659898131409!5m2!1svi!2s" width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section> 
+    <div th:replace="/layout/_feedback.html"></div>
+    <div th:replace="/layout/_follow.html"></div>
+</body>
+
+</html>

@@ -13,7 +13,7 @@ public interface RolePermissionService extends IService<RolePermission> {
 	
 	Page<RolePermission> getByRoleId(Long id,Pageable pageable);
 	
-	Page<RolePermission> getByDisplayStatus(boolean isDisplay,Pageable pageable);
+	//Page<RolePermission> getByDisplayStatus(boolean isDisplay,Pageable pageable);
 	
 	RolePermission getByRoleIdAndPermissionId(Long roleId ,Long permissionId);
 }
