@@ -67,11 +67,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 		return userRoleDAO.findByRoleId(id,pageable);
 	}
 	
-	@Override
-	@Transactional(rollbackOn = {Exception.class, Throwable.class})
-	public Page<UserRole> getByDisplayStatus( boolean isDisplay,Pageable pageable) {
-		return userRoleDAO.findByDisplayStatus(isDisplay,pageable);
-	}
+//	@Override
+//	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+//	public Page<UserRole> getByDisplayStatus( boolean isDisplay,Pageable pageable) {
+//		return userRoleDAO.findByDisplayStatus(isDisplay,pageable);
+//	}
 
 	@Override
 	public UserRole getByUserIdAndRoleId(Long userId, Long roleId) {

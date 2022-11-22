@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org"
+	th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+<title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body class="goto-here">
+	<div th:replace="/layout/_header_title.html"></div>
+	<section class="ftco-section ftco-cart">
+		<div class="container">
+			<div class="row justify-content-start">
+				<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+					<div class="cart-total mb-3">
+						<h3>[[#{order.total1}]]</h3>
+						<p class="d-flex total-price ">
+							<span class="col-md-8">[[#{order.amount}]] :</span> <span class="col-md-4" style="text-align: right;">[[${#lists.size(orders)}]] order(s)</span>
+						</p>
+						<p class="d-flex total-price">
+							<span class="col-md-8">[[#{order.total2}]] :</span> <span class="col-md-4" style="text-align: right;">$[[${totalAmount}]]</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 ftco-animate">
+					<div class="cart-list" style="overflow-x: hidden;">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr class="text-center">
+									<th style="width: 5%;">&nbsp;</th>
+									<th>[[#{order.orderid}]]</th>
+									<th>[[#{order.date}]]</th>
+									<th>[[#{order.address}]]</th>
+									<th>[[#{order.quantity}]]</th>
+									<th>[[#{order.total3}]]</th>
+									<th style="width: 5%;">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="text-center" th:each="order,state:${orders}">
+									<td class="price">[[${state.index+1}]]</td>
+									<td class="price"><strong>[[${order.id}]]</strong></td>
+									<td class="price">
+										[[${#dates.format(order.createDate,'dd-MM-yyyy')}]]</td>
+									<td class="product-name"><h3>[[${order.address}]]</h3></td>
+									<td class="price" style="font-size: 20px;"><th:block th:switch="${order.status}">
+											<span class="badge badge-primary" th:case="0">[[#{order.status0}]]</span>
+											<span class="badge badge-warning" th:case="1">[[#{order.status1}]]</span>
+											<span class="badge badge-info" th:case="2">[[#{order.status2}]]</span>
+											<span class="badge badge-success" th:case="3">[[#{order.status3}]]</span>
+											<span class="badge badge-danger" th:case="4">[[#{order.status4}]]</span>
+										</th:block></td>
+									<td class="price"><strong>$[[${#aggregates.sum(order.orderDetails.![price*quantity])}]]</strong>
+									</td>
+									<td class="product-remove"><a
+										th:href="@{|/user/order/detail/${order.id}|}"><span
+											class="ion-ios-search"></span></a></td>
+								</tr>
+								<!-- END TR-->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+</body>
+
+</html>

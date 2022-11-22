@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/magnific-popup.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/aos.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shopz/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/jquery.timepicker.css}">
+
+
+    <link rel="stylesheet" th:href="@{/shopz/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/shopz/css/style.css}">
+</head>
+
+<body class="goto-here">
+	<div th:replace="/layout/_header_title.html"></div>
+	<div th:replace="/layout/_service.html"></div>
+	<section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/shopz/images/about.jpg);">
+						<a href="https://www.youtube.com/watch?v=XHZ3kKlpCWw" class="icon popup-vimeo d-flex justify-content-center align-items-center">
+							<span class="icon-play"></span>
+						</a>
+					</div>
+					<div class="col-md-7 py-md-5 wrap-about pb-md-5 ftco-animate">
+	          <div class="heading-section-bold mb-4 mt-md-5">
+	          	<div class="ml-md-0">
+		            <h2 class="mb-4">[[#{about.title}]]</h2>
+	            </div>
+	          </div>
+	          <div class="pb-md-5 pb-4">
+							<p>[[#{about.content}]]</p>
+							<p><a href="#" class="btn btn-primary">[[#{collection.button}]]</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+    <div th:replace="/layout/_feedback.html"></div>
+    <div th:replace="/layout/_follow.html"></div>
+</body>
+
+</html>

@@ -1,6 +1,8 @@
 package com.foodstore.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -69,7 +71,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User getByUsername(String username) {
-		return userDAO.findByUsername(username, Display.SHOW);
+		return userDAO.findByUsername(username).orElse(null);
 	}
 
 	@Override
@@ -82,5 +84,20 @@ public class UserServiceImpl implements UserService {
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Page<User> getByKeyword(String keyword, Pageable pageable) throws Exception {
 		return userDAO.findByKeyword(keyword, Display.SHOW, pageable);
+	}
+
+	@Override
+	public String[] getAllPermission(String username) {
+		User user = userDAO.findByUsername(username).orElse(null);
+		if(user == null)return null;
+		Set<String> set = new HashSet<>();
+		user.getUser_roles().forEach(r ->r.getRole_u().getRole_permissions().forEach(p -> set.add(p.getPermission_r().getName())));
+		user.getUser_permissions().forEach(p ->set.add(p.getPermission_u().getName()));
+		return set.toArray(new String[0]);
+	}
+
+	@Override
+	public User getByEmail(String email) {
+		return userDAO.findByEmail(email).orElse(null);
 	}
 }

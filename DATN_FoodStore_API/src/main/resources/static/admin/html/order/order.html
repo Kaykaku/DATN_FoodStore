@@ -1,0 +1,338 @@
+<!-- Content wrapper -->
+<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+.image-main-title {
+	color: #2d2d2d;
+	text-align: center;
+	text-transform: capitalize;
+	padding: 0.7em 0;
+}
+
+.image-container {
+	padding: 1em 0;
+	float: left;
+	width: auto;
+}
+
+.image-container .image-title {
+	color: #1a1a1a;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.image-content {
+	position: relative;
+	width: max-content;
+	max-width: 400px;
+	margin: auto;
+	overflow: hidden;
+}
+
+.image-content .image-content-overlay {
+	background: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	height: 99%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	-moz-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+}
+
+.image-content:hover .image-content-overlay {
+	opacity: 1;
+}
+
+.image-content-details {
+	position: absolute;
+	text-align: center;
+	padding-left: 1em;
+	padding-right: 1em;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+.image-content:hover .image-content-details {
+	top: 50%;
+	left: 50%;
+	opacity: 1;
+}
+
+.image-content-details h3 {
+	color: #fff;
+	font-weight: 500;
+	letter-spacing: 0.15em;
+	margin-bottom: 0.5em;
+	text-transform: uppercase;
+}
+
+.image-content-details p {
+	color: #fff;
+	font-size: 0.8em;
+}
+
+.image-fadeIn-bottom {
+	top: 80%;
+}
+
+.image-fadeIn-top {
+	top: 20%;
+}
+
+.image-fadeIn-left {
+	left: 20%;
+}
+
+.image-fadeIn-right {
+	left: 80%;
+}
+</style>
+<div class="content-wrapper">
+	<!-- Content -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="row">
+			<div class="col-5">
+				<div class="card mb-4">
+					<div
+						class="card-header d-flex align-items-center justify-content-between">
+						<h5 class="mb-0">Order Information Form</h5>
+					</div>
+					<div class="card-body">
+						<div>
+							<div class="row mb-3">
+								<label class="col-sm-3 col-form-label"
+									for="basic-icon-default-fullname">Id</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<span id="id" class="input-group-text"
+											style="background-color: #ECEEF1;"><i
+											class="bx bx-purchase-tag"></i></span> <input class="form-control"
+											ng-model="form.id" disabled="true" placeholder="Auto"
+											aria-label="John Doe" aria-describedby="id" />
+									</div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label class="col-sm-3 col-form-label"
+									for="basic-icon-default-fullname">Username</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<span id="basic-icon-default-fullname2"
+											class="input-group-text"><i class='bx bx-tag'></i></span> <input
+											type="text" class="form-control"
+											ng-model="form.account.username" placeholder="Name"
+											aria-label="John Doe"
+											aria-describedby="basic-icon-default-fullname2" />
+									</div>
+									<!--<div class="form-text badge bg-label-danger">abc</div>-->
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label class="col-sm-3 col-form-label"
+									for="basic-icon-default-fullname">Address</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<span id="price" class="input-group-text"><i
+											class='bx bx-location-plus'></i></span> <input type="text"
+											class="form-control" ng-model="form.address"
+											placeholder="HCM city" aria-label="0.0"
+											aria-describedby="price" />
+									</div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label class="col-sm-3 col-form-label" for="creation">Creation</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<span id="creation" style="background-color: #ECEEF1;"
+											class="input-group-text"><i class="bx bx-calendar"></i></span>
+										<input type="datetime" id="creation" class="form-control"
+											ng-model="form.createDate" disabled="true"
+											placeholder="01/01/1990" aria-label="ACME Inc."
+											aria-describedby="basic-icon-default-company2" />
+									</div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label class="col-sm-3 col-form-label"
+									for="basic-icon-default-company">Status</label>
+								<div class="col-sm-9">
+									<div class="form-check form-check-inline mb-2 mt-1">
+										<input class="form-check-input" type="radio" id="z1"
+											ng-model="form.status" ng-value="0" /> <label class="" for="z1">Order
+											confirmation</label>
+									</div>
+									<div class="form-check form-check-inline mb-2 mt-1">
+										<input class="form-check-input" type="radio" id="z2"
+											ng-model="form.status" ng-value="1" /> <label class="" for="z2">Order
+											Packing</label>
+									</div>
+									<div class="form-check form-check-inline mb-2 mt-1">
+										<input class="form-check-input" type="radio" id="z3"
+											ng-model="form.status" ng-value="2" /> <label class="" for="z3">Shipping</label>
+									</div>
+									<div class="form-check form-check-inline mb-2 mt-1">
+										<input class="form-check-input" type="radio" id="z4"
+											ng-model="form.status" ng-value="3" /> <label class="" for="z4">Order
+											Successful</label>
+									</div>
+									<div class="form-check form-check-inline mb-2 mt-1">
+										<input class="form-check-input" type="radio" id="z5"
+											ng-model="form.status" ng-value="4" /> <label class="" for="z5">Order
+											Canceled</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row justify-content-center">
+								<div class="col-sm-10 offset-2">
+									<button ng-click="update()" class="btn btn-primary"}>
+										<i class="bx bx-save mb-1"></i>&nbspUpdate
+									</button>
+
+									<button ng-click="delete(form)" class="btn btn-outline-danger">
+										<i class="bx bx-trash mb-1"></i>&nbspDelete
+									</button>
+
+
+									<button ng-click="reset()" class="btn btn-info">
+										<i class="bx bx-refresh mb-1"></i>&nbspClear
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-7">
+				<div class="card mb-4">
+					<h5 class="card-header pb-0">Order Detail</h5>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Image</th>
+										<th>Name</th>
+										<th>Price</th>
+										<th>Quantity</th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody class="table-border-bottom-0" ng-init='total=0'>
+									<tr class="table-success" ng-repeat="item in details">
+										<td>{{item.id }}</td>
+										<td>
+											<ul
+												class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+												<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+													data-bs-placement="top" class="avatar avatar-xl pull-up"
+													title="${item.name}"><img
+													ng-src="/images/{{item.product.image}}" alt="Avatar"
+													class="rounded" /></li>
+											</ul>
+										</td>
+										<td><strong>{{item.product.name }}</strong></td>
+										<td>${{item.price }}</td>
+										<td>{{item.quantity }}</td>
+										<td ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>${{item.quantity*item.price}}</strong></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th>Total</th>
+										<th style="font-size: 16px;"><strong>${{total}}</strong></th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Contextual Classes -->
+		<div class="card">
+			<h5 class="card-header">Table orders</h5>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Create Date</th>
+							<th>Username</th>
+							<th>Address</th>
+							<th>Status</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody class="table-border-bottom-0">
+						<tr class="table-primary" ng-repeat="item in pager.items" ng-click="edit(item)">
+							<td><span class="badge bg-label-success" ng-if="!item.read1 && item.status==0">New</span><strong> {{item.id }}</strong></td>
+							<td>{{item.createDate|date:'dd-MM-yyyy'}}</td>
+							<td><strong>{{item.account.username}}</strong></td>
+							<td>{{item.address }}</td>
+							<td>
+								<span class="badge bg-primary" ng-if="item.status==0">Order confirmation</span>
+								<span class="badge bg-warning" ng-if="item.status==1">Packaging products</span>
+								<span class="badge bg-info" ng-if="item.status==2">Delivery</span>
+								<span class="badge bg-success" ng-if="item.status==3">Successful Order</span>
+								<span class="badge bg-danger" ng-if="item.status==4">Canceled Order</span>
+							</td>
+							<td><button ng-click="delete(item)"
+										class="btn btn-outline-danger">
+										<i class="bx bx-trash mb-1"></i>
+									</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="justify-content-center mt-2 mb-2 w-100"
+					style="text-align: center;">
+					<button ng-click="pager.first()" class="btn btn-info">
+						<i class='bx bxs-chevrons-left mb-1'></i>
+					</button>
+					<button ng-click="pager.previous()" class="btn btn-info">
+						<i class='bx bxs-chevron-left mb-1'></i>
+					</button>
+					<button class="btn btn-success">{{pager.page+1}} of
+						{{pager.count}}</button>
+					<button ng-click="pager.next()" class="btn btn-info">
+						<i class='bx bxs-chevron-right mb-1'></i>
+					</button>
+					<button ng-click="pager.last()" class="btn btn-info">
+						<i class='bx bxs-chevrons-right mb-1'></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="content-backdrop fade"></div>
+</div>
+<!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-menu-toggle"></div>

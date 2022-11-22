@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org"
+	th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+<title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	th:href="@{/shopz/css/open-iconic-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/animate.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/owl.theme.default.min.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/magnific-popup.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/aos.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/ionicons.min.css}">
+
+<link rel="stylesheet" th:href="@{/shopz/css/bootstrap-datepicker.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/jquery.timepicker.css}">
+
+
+<link rel="stylesheet" th:href="@{/shopz/css/flaticon.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/icomoon.css}">
+<link rel="stylesheet" th:href="@{/shopz/css/style.css}">
+</head>
+
+<body class="goto-here">
+	<div th:replace="/layout/_header_title.html"></div>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-12 ftco-animate">
+					<form action="#" class="billing-form">
+						<h3 class="mb-4 billing-heading" style="font-size: 24px;">[[#{cart.bill}]]
+						<th:block th:switch="${order.status}">
+											<span class="badge badge-primary" th:case="0">[[#{order.status0}]]</span>
+											<span class="badge badge-warning" th:case="1">[[#{order.status1}]]</span>
+											<span class="badge badge-info" th:case="2">[[#{order.status2}]]</span>
+											<span class="badge badge-success" th:case="3">[[#{order.status3}]]</span>
+											<span class="badge badge-danger" th:case="4">[[#{order.status4}]]</span>
+										</th:block></h3>
+						<div class="row align-items-end">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="firstname">[[#{order.orderID}]]:</label> <input type="text" style="font-weight: bolder;"
+										class="form-control" placeholder="" th:value="${order.id}"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="firstname">[[#{cart.purchaser}]]:</label> <input type="text" style="font-weight: bolder;"
+										class="form-control" placeholder=""
+										th:value="${order.account.username}" disabled="disabled">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="lastname">[[#{order.date}]]</label> <input type="text" style="font-weight: bolder;"
+										class="form-control" placeholder=""
+										th:value="${#dates.format(order.createDate,'dd-MM-yyyy')}"
+										disabled="disabled">
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="lastname">[[#{cart.address}]]:</label>
+									<textarea type="text"  rows="3"
+										cols="10" class="form-control" disabled="disabled" style="font-weight: bolder;">[[${order.address}]]</textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="billing-form">
+						<div class="col-md-12 ftco-animate">
+							<div class="cart-list" style="overflow-x: hidden;">
+								<table class="table">
+									<thead class="thead-primary">
+										<tr class="text-center">
+											<th>&nbsp;</th>
+											<th>&nbsp;</th>
+											<th>[[#{cart.product}]]</th>
+									        <th>[[#{cart.price}]]</th>
+									        <th>[[#{cart.quantity}]]</th>
+									        <th>[[#{cart.total}]]</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="text-center"
+											th:each="item,state:${order.orderDetails}">
+											<td class="price">[[${state.index+1}]]</td>
+											<td class="image-prod"><div class="img" 
+													th:style="@{|background-image:url(/images/${item.product.image});width:200px !important;|}"></div></td>
+											<td class="product-name">
+												<h3>[[${item.product.name}]]</h3>
+											</td>
+											<td class="price">$[[${item.price}]]</td>
+											<td class="quantity">[[${item.quantity}]]
+											</td>
+											<td class="total"><strong> $[[${item.quantity * item.price}]]</strong></td>
+										</tr>
+										<!-- END TR-->
+									</tbody>
+									<tfoot class="thead-primary">
+										<tr class="text-center">
+											<th>&nbsp;</th>
+											<th>&nbsp;</th>
+											<th>&nbsp;</th>
+											<th>&nbsp;</th>								
+											<th>[[#{cart.total}]]</th>
+											<th>$[[${#aggregates.sum(order.orderDetails.![price*quantity])}]]</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- .col-md-8 -->
+			</div>
+		</div>
+	</section>
+	<!-- .section -->
+</body>
+
+</html>

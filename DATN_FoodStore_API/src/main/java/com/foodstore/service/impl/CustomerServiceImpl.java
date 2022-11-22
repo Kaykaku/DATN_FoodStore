@@ -82,4 +82,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public Page<Customer> getByKeyword(String keyword, Pageable pageable) throws Exception {
 		return customerDAO.findByKeyword(keyword, Display.SHOW, pageable);
 	}
+
+	@Override
+	public Customer getByEmail(String email) {
+		return customerDAO.findByEmail(email).orElse(null);
+	}
 }

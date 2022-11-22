@@ -19,8 +19,11 @@ public interface RolePermissionDAO extends JpaRepository<RolePermission, Long>{
 	@Query("Select r From RolePermission r Where r.permission_r.id=?1")
 	Page<RolePermission> findByPermissionId(Long id,Pageable pageable);
 	
-	@Query("Select r From RolePermission r Where r.is_display=?1")
-	Page<RolePermission> findByDisplayStatus(boolean isDisplay,Pageable pageable);
+	/*
+	 * @Query("Select r From RolePermission r Where r.is_display=?1")
+	 * Page<RolePermission> findByDisplayStatus(boolean isDisplay,Pageable
+	 * pageable);
+	 */
 	
 	@Query("Select r From RolePermission r Where r.role_p.id=?1 and r.permission_r.id=?2")
 	Optional<RolePermission> findByRoleIdAndPermissionId(Long roleId ,Long permissionId);

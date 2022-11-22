@@ -19,8 +19,11 @@ public interface UserPermissionDAO extends JpaRepository<UserPermission, Long>{
 	@Query("Select u From UserPermission u Where u.permission_u.id=?1")
 	Page<UserPermission> findByPermissionId(Long id,Pageable pageable);
 	
-	@Query("Select u From UserPermission u Where u.is_display=?1")
-	Page<UserPermission> findByDisplayStatus(boolean isDisplay,Pageable pageable);
+	/*
+	 * @Query("Select u From UserPermission u Where u.is_display=?1")
+	 * Page<UserPermission> findByDisplayStatus(boolean isDisplay,Pageable
+	 * pageable);
+	 */
 	
 	@Query("Select u From UserPermission u Where u.user_p.id=?1 and u.permission_u.id=?2")
 	Optional<UserPermission> findByUserIdAndPermissionId(Long userId ,Long permissionId);

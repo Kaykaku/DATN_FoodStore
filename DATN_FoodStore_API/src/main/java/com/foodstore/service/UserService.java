@@ -15,8 +15,12 @@ public interface UserService extends IService<User> {
 	Page<User> getByIsDisplay(Pageable pageable) throws Exception;
 	
 	User getByUsername(String username);
+	
+	User getByEmail(String email);
 
 	void deleteLogical(Long id) throws Exception;
 
 	Page<User> getByKeyword(String keyword, Pageable pageable) throws Exception;
+	
+	String[] getAllPermission(String username);
 }

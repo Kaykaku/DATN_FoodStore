@@ -1,6 +1,7 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import com.foodstore.dao.CategoryDAO;
 import com.foodstore.model.entity.Category;
 import com.foodstore.service.CategoryService;
 import com.foodstore.util.constraints.Display;
+import com.foodstore.util.convert.Convert;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -77,4 +79,16 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryDAO.deleteLogical(Display.HIDE, id);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Page<Category> getByFilter(String keyword, Optional<Long> create_date, Optional<Long> create_by,
+			Optional<Boolean> is_display, Optional<Integer> type, Pageable pageable) {
+		List<Category> list = categoryDAO.findByKeyword(keyword.trim());
+		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >= create_date.get()).toList();
+		if(create_by.isPresent()) list = list.stream().filter(o-> o.getUser_c().getId() <= create_by.get()).toList();
+		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();
+		if(type.isPresent()) list = list.stream().filter(o-> o.getType() >= type.get()).toList();
+		Page<Category> page =(Page<Category>) Convert.toPage(list, pageable);
+		return page ;
+	}
 }

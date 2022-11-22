@@ -1,6 +1,7 @@
 package com.foodstore.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,9 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
 	
 	@Query("SELECT c FROM Customer c WHERE c.username = ?1 AND c.is_display = ?2")
 	Customer findByUsername(String username, Boolean isDisplay);
+	
+	@Query("SELECT u FROM Customer u WHERE u.email = ?1")
+	Optional<Customer> findByEmail(String email);
 	
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE Customer c SET c.is_display = ?1 WHERE c.id = ?2")

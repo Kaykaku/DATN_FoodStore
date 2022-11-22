@@ -13,7 +13,7 @@ public interface UserRoleService extends IService<UserRole> {
 	
 	Page<UserRole> getByRoleId(Long id,Pageable pageable);
 	
-	Page<UserRole> getByDisplayStatus(boolean isDisplay,Pageable pageable);	
+	//Page<UserRole> getByDisplayStatus(boolean isDisplay,Pageable pageable);	
 	
 	UserRole getByUserIdAndRoleId(Long userId ,Long roleId);
 }

@@ -69,8 +69,8 @@ public class User implements Serializable {
     @Column(name = "code", length = 100)
     private String code;
    
-    @Column(name = "status")
-    private long status;
+    @Column(name = "status", nullable = true)
+    private long status = 0;
     
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -105,4 +105,5 @@ public class User implements Serializable {
 	@JsonIgnore
     @OneToMany(mappedBy = "user_cp", cascade = CascadeType.ALL) 
     private List<Coupon> coupons;
+	
 }

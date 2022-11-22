@@ -35,6 +35,8 @@ public class UserRole implements Serializable {
     @JoinColumn(name = "role_id",nullable = false)
     private Role role_u;
     
-    @Column(name = "is_display", nullable = false)
-    private boolean is_display= Display.SHOW;
+	/*
+	 * @Column(name = "is_display", nullable = false) private boolean is_display=
+	 * Display.SHOW;
+	 */
 }

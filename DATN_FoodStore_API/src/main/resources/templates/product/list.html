@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org"
+	th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<body class="goto-here">
+	<div th:replace="/layout/_header_title.html"></div>
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-10 order-md-last">
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex"
+							th:each="p,state:${items.content}">
+							<div class="product d-flex flex-column">
+								<a th:href="@{|/shop/${p.category.id}/${p.id}|}"
+									class="img-prod" style="text-align: center;"><img
+									class="img-fluid" th:src="@{|/images/${p.image}|}"
+									style="height: 255px;" alt="Colorlib Template">
+									<div class="overlay"></div> </a>
+								<div class="text py-3 pb-4 px-3">
+									<div class="d-flex">
+										<div class="cat w-100">
+											<span>[[${p.category.name}]]</span>
+										</div>
+
+									</div>
+									<h3>
+										<a href="#">[[${p.name}]]</a>
+									</h3>
+									<div class="pricing">
+										<p class="price">
+											<span>$[[${p.price}]]</span>
+										</p>
+									</div>
+									<p class="bottom-area d-flex px-3">
+										<a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" 
+											class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i>
+										</span></a> <a th:href="@{|/shop/${p.category.id}/${p.id}|}"
+											class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i
+												class="ion-ios-cart ml-1"></i></span></a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-5">
+						<div class="col text-center">
+							<div class="block-27">
+								<ul>
+									<li><a href="#">&lt;</a></li>
+									<li th:each="p : ${#numbers.sequence(1, items.totalPages, 1)}" th:class="${items.number+1==p?'active':''}" ><a th:href="@{|/shop/${cid==''?'all':cid}?page=${p}&sortBy=${sortBy}|}">[[${p}]]</a></li>																
+									<li><a href="#">&gt;</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-lg-2">
+					<div class="sidebar">
+						<div class="sidebar-box-2 mb-1">
+							<h2 class="heading">[[#{product.sortby}]]</h2>
+							<form method="get" class="colorlib-form-2" th:action="@{|/shop/${cid==''?'all':cid}|}">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div class="form-field">
+												<i class="icon icon-arrow-down3"></i> <select name="sortBy" onchange="this.form.submit()"
+													id="people" class="form-control">
+													<option th:each="sb : ${sortList}" th:value="${sb.value}" th:selected="${sortBy==sb.value}">[[${sb.key}]]</option>
+												</select>
+											</div>
+										</div>
+									</div>									
+								</div>
+							</form>
+						</div>
+						<div class="sidebar-box-2 mb-1">
+							<h2 class="heading">[[#{product.category}]]</h2>
+							<div class="fancy-collapse-panel">
+								<div class="panel-group" id="accordion" role="tablist"
+									aria-multiselectable="true">
+									<div class="panel panel-default">                   
+                                        <div  class="panel-collapse collapse show" >
+                                            <div class="panel-body">
+                                                <ul class="pl-0">
+                                                	<li style="font-size: 14px;"><a href="/shop/all" th:style="${cid} ==''?'color:#dbcc8f;':''">All</a></li>                                                    
+                                                    <li th:each="c:${cates}" style="font-size: 14px;"><a th:href="@{|/shop/${c.id}|}" th:style="${c.id==cid?'color:#dbcc8f;':''}">[[${c.name}]]</a></li>                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+						</div>											
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div th:replace="/layout/_follow.html"></div>
+</body>
+
+</html>
