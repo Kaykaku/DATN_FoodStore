@@ -1,5 +1,6 @@
 package com.foodstore.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +19,12 @@ public interface RolePermissionDAO extends JpaRepository<RolePermission, Long>{
 	
 	@Query("Select r From RolePermission r Where r.permission_r.id=?1")
 	Page<RolePermission> findByPermissionId(Long id,Pageable pageable);
+	
+	@Query("Select r From RolePermission r Where r.role_p.id=?1")
+	List<RolePermission> findByRoleId(Long id);
+	
+	@Query("Select r From RolePermission r Where r.permission_r.id=?1")
+	List<RolePermission> findByPermissionId(Long id);
 	
 	/*
 	 * @Query("Select r From RolePermission r Where r.is_display=?1")

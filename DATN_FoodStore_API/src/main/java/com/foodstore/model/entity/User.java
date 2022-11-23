@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.extend.History;
 import com.foodstore.model.transaction.UserPermission;
 import com.foodstore.model.transaction.UserRole;
+import com.foodstore.util.constraints.Display;
+import com.foodstore.util.constraints.Gender;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,7 +47,7 @@ public class User implements Serializable {
     private String fullname;
     
     @Column(name = "gender", nullable = false)
-    private boolean gender;
+    private boolean gender = Gender.MALE;
     
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
@@ -74,13 +76,13 @@ public class User implements Serializable {
     
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    private Date create_date = new Date();
     
-    @Column(name = "create_by", nullable = false)
+    @Column(name = "create_by")
     private Long create_by;
     
-    @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    @Column(name = "is_display")
+    private boolean is_display = Display.SHOW;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "user_p", cascade = CascadeType.ALL) 

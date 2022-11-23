@@ -47,12 +47,17 @@ app.controller("category-ctrl", function($scope, $http,$location) {
         }
         $scope.image ="";
     }
+    
+    $scope.tab = function(tab) {
+        document.getElementById(tab).click();
+    }
 
     //Hiển thị lên form
     $scope.edit = function(item) {
 		$scope.showToast('warning','Edit category '+$scope.form.id);
         $scope.form = angular.copy(item);
         $scope.image ="";
+		$scope.tab('tab2');
     }
 
     //Thêm sản phẩm

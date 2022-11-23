@@ -1,6 +1,7 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -13,6 +14,7 @@ import com.foodstore.dao.RoleDAO;
 import com.foodstore.model.entity.Role;
 import com.foodstore.service.RoleService;
 import com.foodstore.util.constraints.Display;
+import com.foodstore.util.convert.Convert;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -70,5 +72,17 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public void deleteLogical(Long id) throws Exception {
 		roleDAO.deleteLogical(Display.HIDE, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Page<Role> getByFilter(String keyword, Optional<Long> create_date, Optional<Long> create_by,
+			Optional<Boolean> is_display, Pageable pageable) {
+		List<Role> list = roleDAO.findByKeyword(keyword.trim());
+		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date()==null || o.getCreate_date().getTime() >= create_date.get()).toList();
+		if(create_by.isPresent()) list = list.stream().filter(o->o.getCreate_by()==null || o.getCreate_by() == create_by.get()).toList();
+		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();
+		Page<Role> page =(Page<Role>) Convert.toPage(list, pageable);
+		return page ;
 	}
 }

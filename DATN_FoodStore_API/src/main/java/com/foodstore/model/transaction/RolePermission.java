@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import com.foodstore.model.entity.Permission;
 import com.foodstore.model.entity.Role;
-import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

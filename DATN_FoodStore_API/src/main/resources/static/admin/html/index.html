@@ -209,6 +209,12 @@
 							class="menu-icon tf-icons bx bx-shield"></i>
 							<div data-i18n="Form Elements">Authority & Role</div>
 					</a></li>
+					</a></li>
+					<li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Authority','menu-item':selectedTab !='Authority'}" ng-click="selectedTab = 'Authority'"><a
+						href="#!role" class="menu-link"> <i
+							class="menu-icon tf-icons bx bx-shield"></i>
+							<div data-i18n="Form Elements">Role</div>
+					</a></li>
 					<li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Category','menu-item':selectedTab !='Category'}" ng-click="selectedTab = 'Category'"><a
 						href="#!category" class="menu-link"> <i
 							class="menu-icon tf-icons bx bx-category"></i>
@@ -344,6 +350,7 @@
 	<script src="../js/dashboard-ctrl.js"></script>
 	<script src="../js/category-ctrl.js"></script>
 	<script src="../js/order-ctrl.js"></script>
+	<script src="../js/role-ctrl.js"></script>
 </body>
 
 </html>

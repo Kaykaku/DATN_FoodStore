@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
 			Optional<Boolean> is_display, Optional<Integer> type, Pageable pageable) {
 		List<Category> list = categoryDAO.findByKeyword(keyword.trim());
 		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >= create_date.get()).toList();
-		if(create_by.isPresent()) list = list.stream().filter(o-> o.getUser_c().getId() <= create_by.get()).toList();
+		if(create_by.isPresent()) list = list.stream().filter(o-> o.getUser_c().getId() == create_by.get()).toList();
 		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();
 		if(type.isPresent()) list = list.stream().filter(o-> o.getType() >= type.get()).toList();
 		Page<Category> page =(Page<Category>) Convert.toPage(list, pageable);

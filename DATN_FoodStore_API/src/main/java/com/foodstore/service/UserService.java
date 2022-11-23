@@ -1,6 +1,7 @@
 package com.foodstore.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,12 @@ public interface UserService extends IService<User> {
 
 	void deleteLogical(Long id) throws Exception;
 
-	Page<User> getByKeyword(String keyword, Pageable pageable) throws Exception;
-	
 	String[] getAllPermission(String username);
+	
+	Page<User> getByFilter(String keyword, Optional<Boolean> gender, Optional<Long> birth_date,Optional<Long> create_date ,Optional<Long> create_by,Optional<Boolean> is_display ,Optional<Integer> status,Optional<Long> role_id  , Pageable pageable);
+	
+	List<User> getByFilter(String keyword , Optional<Boolean> gender , Optional<Long> birth_date,Optional<Long> create_date ,Optional<Long> create_by,Optional<Boolean> is_display ,Optional<Integer> status,Optional<Long> role_id  );
+	
+	List<User> getByKeyword(String keyword);
+	
 }

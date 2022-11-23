@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.transaction.RolePermission;
 import com.foodstore.model.transaction.UserRole;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,13 +40,13 @@ public class Role implements Serializable {
     
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    private Date create_date = new Date();
     
     @Column(name = "create_by", nullable = false)
     private Long create_by;
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
     
 	@JsonIgnore
     @OneToMany(mappedBy = "role_u", cascade = CascadeType.ALL) 

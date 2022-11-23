@@ -22,4 +22,7 @@ public interface PermissionDAO extends JpaRepository<Permission, Long> {
 	@Query("UPDATE Permission p SET p.is_display = ?1 WHERE p.id = ?2")
 	void deleteLogical(Boolean isDisplay, Long id);
 
+	@Query("SELECT c FROM Permission c WHERE c.name LIKE %?1% "
+			+ "or c.display_name LIKE %?1%")
+	List<Permission> findByKeyword(String keyword);
 }

@@ -74,8 +74,21 @@ public class UserRoleServiceImpl implements UserRoleService {
 //	}
 
 	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public UserRole getByUserIdAndRoleId(Long userId, Long roleId) {
 		return userRoleDAO.findByUserIdAndRoleId(userId,roleId).orElse(null);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public List<UserRole> getByUserId(Long id) {
+		return userRoleDAO.findByUserId(id);
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public List<UserRole> getByRoleId(Long id) {
+		return userRoleDAO.findByRoleId(id);
 	}
 
 }

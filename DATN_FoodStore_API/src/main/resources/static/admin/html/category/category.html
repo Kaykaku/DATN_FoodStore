@@ -107,12 +107,12 @@
                 <div class="nav-align-top mb-4">
                     <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
                         <li class="nav-item">
-                            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-list" aria-controls="navs-pills-justified-home" aria-selected="true">
+                            <button id="tab1" type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-list" aria-controls="navs-pills-justified-home" aria-selected="true">
                           <i class="tf-icons bx bx-home"></i> Categories List
                         </button>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-details" aria-controls="navs-pills-justified-profile" aria-selected="false">
+                            <button id="tab2" type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-details" aria-controls="navs-pills-justified-profile" aria-selected="false">
                           <i class="tf-icons bx bx-detail"></i> View Details
                         </button>
                         </li>
@@ -179,7 +179,7 @@
                                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Name</label>
                                                 <div class="col-sm-10">
                                                     <div class="input-group input-group-merge">
-                                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-shopping-bag"></i></span>
+                                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class='bx bx-tag' ></i></span>
                                                         <input type="text" class="form-control" ng-model="form.name" placeholder="Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                                     </div>
                                                     <!--<div class="form-text badge bg-label-danger">abc</div>-->
@@ -189,8 +189,8 @@
                                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Display Name</label>
                                                 <div class="col-sm-10">
                                                     <div class="input-group input-group-merge">
-                                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-shopping-bag"></i></span>
-                                                        <input type="text" class="form-control" ng-model="form.display_name" placeholder="Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
+                                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class='bx bx-tag-alt' ></i></span>
+                                                        <input type="text" class="form-control" ng-model="form.display_name" placeholder="Display Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                                     </div>
                                                     <!--<div class="form-text badge bg-label-danger">abc</div>-->
                                                 </div>
@@ -199,8 +199,8 @@
                                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Description</label>
                                                 <div class="col-sm-10">
                                                     <div class="input-group input-group-merge">
-                                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-shopping-bag"></i></span>
-                                                        <input type="text" class="form-control" ng-model="form.description" placeholder="Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
+                                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class='bx bx-text' ></i></span>
+                                                        <input type="text" class="form-control" ng-model="form.description" placeholder="Description" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                                     </div>
                                                     <!--<div class="form-text badge bg-label-danger">abc</div>-->
                                                 </div>
@@ -221,8 +221,8 @@
                                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Create By</label>
                                                 <div class="col-sm-10">
                                                     <div class="input-group input-group-merge">
-                                                        <span id="basic-icon-default-fullname2" class="input-group-text" style="background-color: #ECEEF1;"><i class="bx bx-shopping-bag"></i></span>
-                                                        <input type="text" class="form-control" disabled="disabled" ng-value="form.user_c.username" placeholder="Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
+                                                        <span id="basic-icon-default-fullname2" class="input-group-text" style="background-color: #ECEEF1;"><i class='bx bx-user-circle' ></i></span>
+                                                        <input type="text" class="form-control" disabled="disabled" ng-value="form.user_c.username" placeholder="Auto" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                                     </div>
                                                     <!--<div class="form-text badge bg-label-danger">abc</div>-->
                                                 </div>
@@ -252,14 +252,14 @@
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center">
-                                                <div class="col-sm-10 offset-2"><button ng-click="create()" class="btn btn-primary" }>
+                                                <div class="col-sm-10 offset-2"><button ng-hide="form.id" ng-click="create()" class="btn btn-primary" }>
 										<i class="bx bx-plus mb-1"></i>&nbspCreate
 									</button>
-                                                    <button ng-click="update()" class="btn btn-primary" }>
+                                                    <button ng-hide="!form.id" ng-click="update()" class="btn btn-primary" }>
 										<i class="bx bx-save mb-1"></i>&nbspUpdate
 									</button>
 
-                                                    <button ng-click="delete(form)" class="btn btn-outline-danger">
+                                                    <button ng-hide="!form.id" ng-click="delete(form)" class="btn btn-outline-danger">
 										<i class="bx bx-trash mb-1"></i>&nbspDelete
 									</button>
 
@@ -278,6 +278,9 @@
                         <div class="tab-pane fade  show active" id="navs-pills-justified-list" role="tabpanel">
                             <!-- tab1 -->
                             <h5 class="card-header">Table Category
+                            		<button class="btn btn-primary" ng-click="tab('tab2');reset()">
+										<i class="bx bx-plus mb-1 ml-2"></i>&nbspCreate
+									</button>                            
                                 <div class="row mt-3">
                                     <div class="col-sm-8">
                                         <div class="input-group input-group-merge">
@@ -316,16 +319,25 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        <tr class="table-primary" ng-repeat="item in items.content" ng-click="edit(item)">
+                                        <tr class="table-light" ng-repeat="item in items.content" ng-click="edit(item)">
                                             <td>{{item.id }}</td>
-                                            <td>{{item.image_name}}</td>
+                                            <td>
+												<ul
+													class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+														data-bs-placement="top" class="avatar avatar-xl pull-up"
+														title="{{item.image_name}}"><img
+														ng-src="/images/{{item.image_name}}" alt="Avatar"
+														class="rounded" /></li>
+												</ul>
+											</td>
                                             <td><strong>{{item.name }}</strong></td>
                                             <td><strong>{{item.display_name }}</strong></td>
                                             <td><strong>{{item.description }}</strong></td>
                                             <td><strong>{{item.create_date|date:'dd-MM-yyyy'}}</strong></td>
                                             <td>
                                                 <span class="badge bg-primary" ng-if="item._display==1">SHOW</span>
-                                                <span class="badge bg-warning" ng-if="item._display==0">HIDE</span>
+                                                <span class="badge bg-warning" ng-if="item._display==0">HIDE</span></td>
                                                 <td><button ng-click="delete(item)" class="btn btn-outline-danger">
 										<i class="bx bx-trash mb-1"></i>
 									</button>

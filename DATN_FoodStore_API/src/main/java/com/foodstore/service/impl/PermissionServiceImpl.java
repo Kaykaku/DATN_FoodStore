@@ -1,6 +1,7 @@
 package com.foodstore.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -13,6 +14,7 @@ import com.foodstore.dao.PermissionDAO;
 import com.foodstore.model.entity.Permission;
 import com.foodstore.service.PermissionService;
 import com.foodstore.util.constraints.Display;
+import com.foodstore.util.convert.Convert;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
@@ -72,5 +74,21 @@ public class PermissionServiceImpl implements PermissionService {
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public void deleteLogical(Long id) throws Exception {
 		permissionDAO.deleteLogical(Display.HIDE, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Page<Permission> getByFilter(String keyword,Optional<Boolean> is_display, Pageable pageable) {
+		List<Permission> list = permissionDAO.findByKeyword(keyword.trim());
+		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();
+		Page<Permission> page =(Page<Permission>) Convert.toPage(list, pageable);
+		return page ;
+	}
+	
+	@Override
+	public List<Permission> getByFilter(String keyword,Optional<Boolean> is_display) {
+		List<Permission> list = permissionDAO.findByKeyword(keyword.trim());
+		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();
+		return list;
 	}
 }

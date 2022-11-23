@@ -48,6 +48,10 @@ app.config(function($routeProvider) {
             templateUrl: "../html/authority/authority.html",
             controller: "authority-ctrl"
         })
+        .when("/role", {
+            templateUrl: "../html/authority/role.html",
+            controller: "role-ctrl"
+        })
         .when("/unauthorized", {
             templateUrl: "../html/authority/unauthorized.html",
             controller: "authority-ctrl"

@@ -1,8 +1,8 @@
 package com.foodstore.controller.rest;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,29 +23,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Role;
 import com.foodstore.model.entity.User;
-import com.foodstore.model.transaction.RolePermission;
-import com.foodstore.service.RolePermissionService;
-import com.foodstore.service.RoleService;
+import com.foodstore.model.transaction.UserRole;
+import com.foodstore.service.UserRoleService;
 import com.foodstore.service.UserService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/role")
-public class RoleRestController {
+@RequestMapping("/rest/user")
+public class UserRestController {
 	
-	@Autowired
-	private RoleService roleService;
-	@Autowired
-	private RolePermissionService rolePermissionService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> doGetAll() {
+	public ResponseEntity<?> doGetAllByPaginate(
+			@RequestParam(value = "page") Optional<Integer> page,
+			@RequestParam(value = "size") Optional<Integer> size) {
 		try {
-			List<Role> pageCategories = roleService.getAll();
+			Page<User> pageCategories = userService.getAll(PageRequest.of(page.orElse(0), size.orElse(10)));
 			return ResponseEntity.ok(pageCategories);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -58,20 +56,28 @@ public class RoleRestController {
 	public ResponseEntity<?> doGetByFilter(
 			@RequestParam(value = "keyword") Optional<String> keyword,
 			@RequestParam(value = "create_date") Optional<Long> create_date,
+			@RequestParam(value = "gender") Optional<Boolean> gender,
+			@RequestParam(value = "birthday") Optional<Long> birthday,
 			@RequestParam(value = "create_by") Optional<Long> create_by,
 			@RequestParam(value = "is_display") Optional<Boolean> is_display,
+			@RequestParam(value = "status") Optional<Integer> status,
+			@RequestParam(value = "role_id") Optional<Long> role_id,
 			@RequestParam(value = "page") Optional<Integer> page,
 			@RequestParam(value = "size") Optional<Integer> size,
 			@RequestParam(value = "sort") Optional<String> sort) {
 		try {
 			
-			Page<Role> pageCategories = roleService.getByFilter(
+			Page<User> userPage = userService.getByFilter(
 					keyword.orElse("")
+					,gender
+					,birthday
 					,create_date
 					,create_by
 					,is_display
+					,status
+					,role_id
 					,PageRequest.of(page.orElse(0), size.orElse(10),Sort.by(sort.orElse("id")).descending()));
-			return ResponseEntity.ok(pageCategories);
+			return ResponseEntity.ok(userPage);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -79,44 +85,41 @@ public class RoleRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
-	
-	@GetMapping("/{id}")
-	public Role getById(@PathVariable("id")Long id){	
-		return roleService.getById(id);
-	}
-	
-	@GetMapping("/permission/{id}")
-	public List<RolePermission> getPermissionsByRole(@PathVariable("id")Long id){	
-		return rolePermissionService.getByRoleId(id);
-	}
-	
-	@PostMapping("/permission/create")
-	public RolePermission addPermission(@RequestBody RolePermission rolePermission) {
-		return rolePermissionService.create(rolePermission);
-	}
-	
-	@DeleteMapping("/permission/delete/{id}")
-	public void deletePermission(@PathVariable("id")Long id) {
-		rolePermissionService.delete(id);
-	}
-	
 	@PostMapping("/create")
-	public Role create(@RequestBody Role role) {
-		role.setCreate_date(new Date());
+	public User create(@RequestBody User user) {
+		user.setCreate_date(new Date());
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = userService.getByUsername(((UserDetails)principal).getUsername());
-		role.setCreate_by(user.getId());
-		return roleService.create(role);
+		User currentUser = userService.getByUsername(((UserDetails)principal).getUsername());
+		user.setCreate_by(currentUser.getId());
+		return userService.create(user);
 	}
 	
 	@PutMapping("/update/{id}")
-	public Role update(@RequestBody Role role,@PathVariable("id")Integer id) {
-		return roleService.update(role);
+	public User update(@RequestBody User user,@PathVariable("id")Integer id) {
+		return userService.update(user);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
-		roleService.delete(id);
+		userService.delete(id);
+	}
+	@GetMapping("/role/all")
+	public List<UserRole> getRoleByAllUser(){	
+		return userRoleService.getAll();
 	}
 	
+	@GetMapping("/role/{id}")
+	public List<UserRole> getRoleByUser(@PathVariable("id")Long id){	
+		return userRoleService.getByUserId(id);
+	}
+	
+	@PostMapping("/role/create")
+	public UserRole addPermission(@RequestBody UserRole userRole) {
+		return userRoleService.create(userRole);
+	}
+	
+	@DeleteMapping("/role/delete/{id}")
+	public void deletePermission(@PathVariable("id")Long id) {
+		userRoleService.delete(id);
+	}
 }

@@ -17,8 +17,9 @@ public interface RoleDAO extends JpaRepository<Role, Long> {
 	@Query("SELECT r FROM Role r WHERE r.name = ?1 AND r.display_name = ?2 AND r.is_display = ?3")
 	Role findByNameAndDisplayName(String name, String displayName, Boolean isDisplay);
 	
-	@Query("SELECT r FROM Role r WHERE r.name = ?1 AND r.display_name = ?2 AND r.is_display = ?3")
-	List<Role> findByKeyword(String name, String displayName, Boolean isDisplay);
+	@Query("SELECT c FROM Role c WHERE c.name LIKE %?1% "
+			+ "or c.display_name LIKE %?1%")
+	List<Role> findByKeyword(String keyword);
 
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE Role r SET r.is_display = ?1 WHERE r.id = ?2")
