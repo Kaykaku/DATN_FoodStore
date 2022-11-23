@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foodstore.model.transaction.CategoryFood;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,17 +47,17 @@ public class Category implements Serializable {
     private String image_name;
     
     @Column(name = "color", length = 650)
-    private String color;
+    private String color = "#111111";
     
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date create_date;
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
     
     @Column(name = "type")
-    private long type;
+    private long type = 0;
     
     @ManyToOne 
     @JoinColumn(name = "create_by",nullable = false)

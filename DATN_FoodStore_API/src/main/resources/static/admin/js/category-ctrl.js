@@ -1,10 +1,12 @@
-app.controller("category-ctrl", function($scope, $http) {
+app.controller("category-ctrl", function($scope, $http,$location) {
     $scope.items = [];
     $scope.form = {};
     $scope.cates = [];
     $scope.keyword ="";
     $scope.create_date;
-    $scope.displa="-1";
+    $scope.display="-1";
+    $scope.sort="id";
+    $scope.image;
 
     $scope.initialize = function() {
             //load categories
@@ -12,8 +14,12 @@ app.controller("category-ctrl", function($scope, $http) {
         $http.get(link).then(resp => {
             $scope.items = resp.data;
             $scope.page = $scope.items.pageable.pageNumber
-        })
-        
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })        
     }
 
 	$scope.load = function(pageNumber) {
@@ -21,10 +27,16 @@ app.controller("category-ctrl", function($scope, $http) {
 			if($scope.keyword) link +="&keyword="+ $scope.keyword ;
 			if($scope.display !='-1') link +="&is_display="+ $scope.display ;
 			if($scope.create_date) link +="&create_date="+ $scope.create_date.getTime() ;
+			if($scope.sort) link +="&sort="+ $scope.sort ;
 	        $http.get(link).then(resp => {
-            $scope.items = resp.data;
-            console.log($scope.items)
-        })
+	            $scope.items = resp.data;
+	            console.log($scope.items)
+	        }).catch(err => {
+	            if(err.status == 403){
+					$scope.showToast('danger',"You are not authorized to perform this action!!!");
+					$location.path("/unauthorized");
+				}
+	        })
     }
 
     //Xoá form
@@ -33,53 +45,89 @@ app.controller("category-ctrl", function($scope, $http) {
             id: '',
             name: '',
         }
+        $scope.image ="";
     }
 
     //Hiển thị lên form
     $scope.edit = function(item) {
 		$scope.showToast('warning','Edit category '+$scope.form.id);
         $scope.form = angular.copy(item);
+        $scope.image ="";
     }
 
     //Thêm sản phẩm
     $scope.create = function() {
         var item = angular.copy($scope.form);
-        $http.post(url + '/rest/category', item).then(resp => {
-            $scope.items.push(resp.data);
+        item.is_display= item._display;
+        item._display = null;
+        console.log(item)
+        $http.post(url + '/rest/category/create', item).then(resp => {
+            $scope.load(0);
             $scope.reset();
             $scope.showToast('success','Add new category successful '+item.id);
             console.log(resp.data);
         }).catch(err => {
-            $scope.showToast('danger','Add new category failed '+item.id);
-            console.log("Error ", err);
+			if(err.status == 405){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				//$location.path("/unauthorized");
+			}else{
+				$scope.showToast('danger','Add new category failed '+item.id);
+            	console.log("Error ", err);
+			}
+            
         })
     }
 
     //Update sản phẩm
     $scope.update = function() {
         var item = angular.copy($scope.form);
-        $http.put(url + '/rest/category' + item.id, item).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
-            $scope.items[index] = item;
+        $http.put(url + '/rest/category/update/' + item.id, item).then(resp => {
+            $scope.load(0);
             $scope.showToast('info','Update category successful '+item.id);
             console.log(resp.data);
         }).catch(err => {
+			if(err.status == 405){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				//$location.path("/unauthorized");
+			}else{
             $scope.showToast('danger','Update new category failed '+item.id);
             console.log("Error ", err);
+            }
         })
     }
 
     //Remove sản phẩm
     $scope.delete = function(item) {
-        $http.delete(url + `/rest/category/${item.id}`).then(resp => {
-            var index = $scope.items.findIndex(p => p.id == item.id);
-            $scope.items.splice(index, 1);
+        $http.delete(url + `/rest/category/delete/${item.id}`).then(resp => {
+            $scope.load(0);
             $scope.reset();
             $scope.showToast('dark','Delete category successful '+item.id);
             console.log(resp.data);
         }).catch(err => {
+			if(err.status == 405){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				//$location.path("/unauthorized");
+			}else{
             $scope.showToast('danger','Delete category failed '+item.id);
             console.log("Error ", err);
+            }
+        })
+    }
+    
+    //Upload Hình
+    $scope.imageChanged = function(files) {
+        var data = new FormData();
+        data.append('file', files[0]);
+
+        $http.post(url + '/rest/upload/images', data, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(resp => {
+            $scope.form.image_name = resp.data.name;
+            $scope.image = resp.data.name;
+        }).catch(err => {
+            $scope.showToast('danger','Upload image error ');
+            console.log("Error ", err)
         })
     }
 

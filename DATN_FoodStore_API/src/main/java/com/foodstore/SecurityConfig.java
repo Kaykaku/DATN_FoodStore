@@ -60,7 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/user/**").authenticated()
 			.antMatchers("/cart/checkout").authenticated()
 			.antMatchers("/admin/**").authenticated()//.hasAnyRole("STAF","DIRE")
-			.antMatchers("/rest/authorities").authenticated()//.hasRole("DIRE")
+			.antMatchers("/rest/category/filter").hasRole("CAT01")
+			.antMatchers("/rest/category/update/**").hasRole("CAT02")
+			.antMatchers("/rest/category/create/**").hasRole("CAT03")
+			.antMatchers("/rest/category/delete/**").hasRole("CAT04")
 			.anyRequest().permitAll();
 		
 		http.formLogin()

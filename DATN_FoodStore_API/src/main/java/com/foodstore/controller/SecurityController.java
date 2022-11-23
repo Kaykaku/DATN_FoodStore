@@ -1,7 +1,5 @@
 package com.foodstore.controller;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -72,16 +70,18 @@ public class SecurityController {
 	
 	  @RequestMapping("login2/success") public String
 	  loginOauth2(OAuth2AuthenticationToken oauth2) { 
-		  String email=oauth2.getPrincipal().getAttribute("email"); 
-		  String name=oauth2.getPrincipal().getAttribute("name"); 
+		  String username; 
+		  String email=oauth2.getPrincipal().getAttribute("email"); 	
 		  String password=Long.toHexString(System.currentTimeMillis()); 
 		  Object account ;
 		  String[] roles = null;
 		  account= userService.getByEmail(email);
 		  if(account == null) {
 			  account = customerService.getByEmail(email);
+			  username = ((Customer)account).getUsername();
 			  roles = new String[]{"CUS"};
 		  }else {
+			  username = ((com.foodstore.model.entity.User)account).getUsername();
 			  roles = userService.getAllPermission(((com.foodstore.model.entity.User) account).getUsername());
 		  }
 		  
@@ -95,9 +95,12 @@ public class SecurityController {
 			 * .collect(Collectors.toList()).toArray(new String[0]); }
 			 */
 		  
-		  
+		  System.out.println("Login : "+username);
+		  for (String string : roles) {
+			System.out.println(string);
+		  }
 		  UserDetails user =
-		  User.withUsername(email).password(password).roles(roles).build();
+		  User.withUsername(username).password(password).roles(roles).build();
 		  Authentication authentication = new  UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
 		  SecurityContextHolder.getContext().setAuthentication(authentication);
 		  return "forward:/security/login/success"; }

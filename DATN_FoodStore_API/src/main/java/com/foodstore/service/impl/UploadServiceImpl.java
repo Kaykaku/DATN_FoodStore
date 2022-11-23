@@ -1,6 +1,7 @@
 package com.foodstore.service.impl;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 
@@ -13,25 +14,26 @@ import com.foodstore.service.UploadService;
 @Service
 public class UploadServiceImpl implements UploadService {
 
-	@Autowired
-	private ServletContext app;
+	@Autowired private ServletContext app;
 
 	@Override
 	public File save(MultipartFile file, String folder) {
-		File dir = new File(app.getRealPath("/assets/" + folder));
-		if (!dir.exists()) {
+		File dir = Paths.get(app.getRealPath("/"),folder).toFile();
+		if(!dir.exists()) {
 			dir.mkdirs();
 		}
+		String s = System.currentTimeMillis() + file.getOriginalFilename();
+		String filename = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
 
-		String name = file.getOriginalFilename();
 		try {
-			File savedFile = new File(dir, name);
+			File savedFile = new File(dir,filename);
 			file.transferTo(savedFile);
-			System.out.println(savedFile.getAbsolutePath());
+			System.out.println("file directory: "+savedFile.getAbsolutePath());
 			return savedFile;
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
+		
 	}
 
 }

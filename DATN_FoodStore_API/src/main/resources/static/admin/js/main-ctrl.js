@@ -14,7 +14,7 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 	let selectedType, selectedPlacement, toastPlacement;
 	$scope.showToast = function(type, message) {
 		function toastDispose(toast) {
-			console.log(123)
+
 			if (toast && toast._element !== null) {
 
 				if (toastPlacementExample) {
@@ -24,7 +24,6 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 				toast.dispose();
 			}
 		}
-		console.log(toastPlacementExample)
 
 		if (toastPlacement) {
 			toastDispose(toastPlacement);
@@ -57,7 +56,7 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 
 	$scope.showNew()
 	setInterval(() => {
-		$scope.showNew()
+		//$scope.showNew()
 	}, 3000)
 	$scope.initialize()
 })

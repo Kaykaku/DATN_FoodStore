@@ -21,7 +21,7 @@ app.controller("account-ctrl",function($scope,$http,$location){
 		$http.get("/rest/authorities?admin=true").then(resp=>{
 			$scope.authorities = resp.data;
 		}).catch(err=>{
-			$location.path("/unauthorized");
+			//$location.path("/unauthorized");
 		})
 		
 		$scope.reset();
