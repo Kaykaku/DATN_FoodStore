@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dangnhap.css">
+
     <!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
@@ -23,9 +23,22 @@
 
 </head>
 <style>
-label {
-    font-weight: bold;
-}
+    label {
+        font-weight: bold;
+    }
+
+    .qmk>a:hover {
+        text-decoration: underline;
+    }
+
+    div .nav li a {
+        background-color: whitesmoke;
+        color: black;
+    }
+
+    div ul li a:hover {
+        color: blue;
+    }
 </style>
 </style>
 
@@ -69,74 +82,80 @@ label {
         <header class="section page-header">
             <!-- RD Navbar-->
             <div class="rd-navbar-wrap">
-              <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
-                data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static"
-                data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static"
-                data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static"
-                data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px"
-                data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-                <div class="rd-navbar-inner-outer">
-                  <div class="rd-navbar-inner">
-                    <!-- RD Navbar Panel-->
-                    <div class="rd-navbar-panel">
-                      <!-- RD Navbar Toggle-->
-                      <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                      <!-- RD Navbar Brand-->
-                      <div class="rd-navbar-brand"><a class="brand" href="index.html">
-                          <h3 style="font-family: Asfalto;">FoodStore</h3>
-                        </a></div>
-                    </div>
-                    <div class="rd-navbar-right rd-navbar-nav-wrap">
-                      <div class="rd-navbar-aside">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search"
-                          style="height: 10px; width: 350px;">
-                        <ul class="rd-navbar-contacts-2">
-                          <li>
-                            <div class="unit unit-spacing-xs">
-                              <div class="unit-body"><a class="address" href="dangnhap.html">Đăng nhập</a></div>
+                <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
+                    data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed"
+                    data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed"
+                    data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static"
+                    data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static"
+                    data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px" data-xxl-stick-up-offset="56px"
+                    data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+                    <div class="rd-navbar-inner-outer">
+                        <div class="rd-navbar-inner">
+                            <!-- RD Navbar Panel-->
+                            <div class="rd-navbar-panel">
+                                <!-- RD Navbar Toggle-->
+                                <button class="rd-navbar-toggle"
+                                    data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                                <!-- RD Navbar Brand-->
+                                <div class="rd-navbar-brand"><a class="brand" href="index.html">
+                                        <h3 style="font-family: Asfalto;">FoodStore</h3>
+                                    </a></div>
                             </div>
-                          </li>
-                          <li>
-                            <div class="unit unit-spacing-xs">
-                              <div class="unit-body"><a class="address" href="dangky.html">Đăng ký</a></div>
+                            <div class="rd-navbar-right rd-navbar-nav-wrap">
+                                <div class="rd-navbar-aside">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..."
+                                        aria-label="Search" style="height: 10px; width: 350px;">
+                                    <ul class="rd-navbar-contacts-2">
+                                        <li>
+                                            <div class="unit unit-spacing-xs">
+                                                <div class="unit-body"><a class="address" href="dangnhap.html">Đăng
+                                                        nhập</a></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="unit unit-spacing-xs">
+                                                <div class="unit-body"><a class="address" href="dangky.html">Đăng ký</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a><span class=" fa-user-circle-o"></span></a>
+                                            <a class="dropdown-toggle unit-body" href="#" id="navbardrop"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="thongtin.html">Thông tin </a>
+                                                <a class="dropdown-item" href="doimatkhau.html">Đổi mật khẩu</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="rd-navbar-main">
+                                    <!-- RD Navbar Nav-->
+                                    <ul class="rd-navbar-nav">
+                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">Trang
+                                                chủ</a>
+                                        </li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="sanpham.html">Sản phẩm</a>
+                                        </li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="gioithieu.html">Giới
+                                                thiệu</a>
+                                        </li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="lienhe.html">Liên hệ</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                          </li>
-                          <li>
-                            <a><span class=" fa-user-circle-o"></span></a>
-                            <a class="dropdown-toggle unit-body" href="#" id="navbardrop"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="thongtin.html">Thông tin </a>
-                                <a class="dropdown-item" href="doimatkhau.html">Đổi mật khẩu</a>
+                            <div
+                                class="rd-navbar-project-hamburger rd-navbar-project-hamburger-open rd-navbar-fixed-element-1">
+                                <div class="" style="font-size: 30px; margin-top: -15px;"><a href="giohang.html"><span
+                                            class="fa fa-shopping-bag"></span></a>
+                                </div>
                             </div>
-                        </li>
-                          </li>                   
-                        </ul>
-                      </div>
-                      <div class="rd-navbar-main">
-                        <!-- RD Navbar Nav-->
-                        <ul class="rd-navbar-nav">
-                          <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">Trang chủ</a>
-                          </li>
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="sanpham.html">Sản phẩm</a>
-                          </li>
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="gioithieu.html">Giới thiệu</a>
-                          </li>
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="lienhe.html">Liên hệ</a>
-                          </li>
-                        </ul>
-                      </div>
+                        </div>
                     </div>
-                    <div class="rd-navbar-project-hamburger rd-navbar-project-hamburger-open rd-navbar-fixed-element-1">
-                      <div class="" style="font-size: 30px; margin-top: -15px;"><a href="giohang.html"><span
-                            class="fa fa-shopping-bag"></span></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </nav>
+                </nav>
             </div>
-          </header>
+        </header>
         <!-- Swiper-->
         <section class="section swiper-container swiper-slider swiper-slider-2 swiper-slider-3" data-loop="true"
             data-autoplay="5000" data-simulate-touch="false" data-slide-effect="fade">
@@ -181,40 +200,86 @@ label {
 
 
         <!--Form login-->
-        <div class="container" style="text-align: left;">
+        <div class="container mt-5 mb-5">
             <div class="row">
-                <div class="col-md-7 offset-md-3">
-                    <div class="login-form">
-                        <h5 class="card-title text-center mb-5 fw-light fs-5">Đăng ký</h5>
-                        <form>
-                            <div class="form-group">
-                                <label for="">Tên đăng nhập*</label>
-                                <input type="text" class=" form-input" id=""placeholder="Tên đăng nhập">
-                            </div>
-                            <div class="form-group">
-                                <label for="1"> Mật khẩu*</label>
-                                <input type="password" class="form-input" id=""
-                                    placeholder="Mật khẩu">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Họ và tên*</label>
-                                <input type="text" class=" form-input" id="" placeholder="Họ và tên">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Số điện thoai*</label>
-                                <input type="tel" class=" form-input" id="" placeholder="Số điện thoại">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email*</label>
-                                <input type="email" class=" form-input" id="exampleInputEmail1" placeholder="Email">
-                            </div>
-                            <button type="submit" class="btn btn-primary"> Đăng ký</button>
-                            <hr class="my-4">
-
-                            <p class="text-center text-muted mt-5 mb-0 ">Bạn đã có tài khoản? <a href="dangnhap.html"
-                                    class="fw-bold text-body"><u>Đăng nhập ngay!</u></a></p>
-
-                        </form>
+                <div class="col-sm-6 text-left mb-3">
+                    <h5>Kho voucher</h5>
+                </div>
+                <div class="col-sm-6 text-right"><button class="btn-primary w-50"
+                        style="background-color: white; color: black; border: 1px solid black;">Tìm thêm
+                        voucher</button></div>
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tatca">Tất cả</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#daLuu">Đã lưu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#daSuDung">Đã sử dụng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#daHetHan">Đã hết hạn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row text-left tab-content">
+                <div class="col-sm-6 mb-3">
+                    <div class="card">
+                        <table class=" table-bordered">
+                            <tbody>
+                                <tr style="height: 90px;" class="text-center">
+                                    <td style="width: 40%;">Mã voucher</td>
+                                    <td style="width: 40%;">Tên voucher</td>
+                                    <td style="width: 20%;"><button class="btn"
+                                            style="background: whitesmoke;">Lưu</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <table class=" table-bordered">
+                            <tbody>
+                                <tr style="height: 90px;" class="text-center">
+                                    <td style="width: 40%;">Mã voucher</td>
+                                    <td style="width: 40%;">Tên voucher</td>
+                                    <td style="width: 20%;"><button class="btn"
+                                            style="background: whitesmoke;">Lưu</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <div class="card">
+                        <table class=" table-bordered">
+                            <tbody>
+                                <tr style="height: 90px;" class="text-center">
+                                    <td style="width: 40%;">Mã voucher</td>
+                                    <td style="width: 40%;">Tên voucher</td>
+                                    <td style="width: 20%;"><button class="btn"
+                                            style="background: whitesmoke;">Lưu</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <table class=" table-bordered">
+                            <tbody>
+                                <tr style="height: 90px;" class="text-center">
+                                    <td style="width: 40%;">Mã voucher</td>
+                                    <td style="width: 40%;">Tên voucher</td>
+                                    <td style="width: 20%;"><button class="btn"
+                                            style="background: whitesmoke;">Lưu</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -240,7 +305,8 @@ label {
                         </div>
                         <div class="col-md-6 col-lg-4 col-xl-3">
                             <h5 class="footer-modern-title oh-desktop"><span
-                                    class="d-inline-block wow slideInLeft">Thông tin</span>
+                                    class="d-inline-block wow slideInLeft">Thông
+                                    tin</span>
                             </h5>
                             <ul class="footer-modern-list d-inline-block d-sm-block wow fadeInUp">
                                 <li><a href="gioithieu.html">Giới thiệu</a></li>
