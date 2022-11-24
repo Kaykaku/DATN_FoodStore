@@ -158,5 +158,9 @@ public class FoodServiceImpl implements FoodService {
 				, Optional.empty(), Optional.empty(), Optional.of(Display.SHOW), pageableWithSort);
 	}
 
+	@Override
+	public Page<Food> findByCategoryName(String name, Pageable pageable) {
+		return foodDAO.findByCategoryName(name, pageable);
+	}
 
 }

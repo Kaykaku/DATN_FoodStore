@@ -38,6 +38,6 @@ public class Cart implements Serializable {
     @Column(name = "quantity", nullable = false)
     private int quantity;
     
-    @Column(name = "is_display", nullable = false)
-    private boolean is_display = Display.SHOW;
+//    @Column(name = "is_display", nullable = false)
+//    private boolean is_display = Display.SHOW;
 }

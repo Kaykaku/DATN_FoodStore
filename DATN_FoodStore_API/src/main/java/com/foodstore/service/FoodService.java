@@ -34,4 +34,6 @@ public interface FoodService extends IService<Food> {
 	Page<Food> getTopViewProducts (Pageable pageable); 	
 	
 	Page<Food> getByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Date> createDate , Optional<Integer> status , Optional<Boolean> isDisplay ,Pageable pageable);
+
+	Page<Food> findByCategoryName(String name, Pageable pageable);
 }
