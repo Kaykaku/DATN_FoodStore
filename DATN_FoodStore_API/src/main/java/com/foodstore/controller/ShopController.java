@@ -30,7 +30,7 @@ public class ShopController {
 	@GetMapping("/shop")
 	public String doShowShop(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
-			@RequestParam(value = "size", required = false, defaultValue = "8") int pageSize) {
+			@RequestParam(value = "size", required = false, defaultValue = "9") int pageSize) {
 		List<Food> foods = new ArrayList<>();
 		try {
 			Page<Food> pageFoods = foodService.getByIsDisplayAndQuantity(PageRequest.of(pageNumber - 1, pageSize));
@@ -46,10 +46,9 @@ public class ShopController {
 	}
 
 	@GetMapping("/search")
-	public String doSearchProduct(Model model, 
-			@RequestParam(value = "keyword", required = false) Optional<String> kw,
+	public String doSearchProduct(Model model, @RequestParam(value = "keyword", required = false) Optional<String> kw,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
-			@RequestParam(value = "size", required = false, defaultValue = "8") int pageSize) {
+			@RequestParam(value = "size", required = false, defaultValue = "9") int pageSize) {
 		List<Food> foods = new ArrayList<>();
 		try {
 			String keyword = kw.orElse(session.getAttribute("keyword"));
@@ -74,5 +73,28 @@ public class ShopController {
 			model.addAttribute("food", food);
 		}
 		return "user/productDetail";
+	}
+
+	@GetMapping("/byCategory/{name}")
+	public String doShowProdByCate(@PathVariable("name") String name, Model model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
+			@RequestParam(value = "size", required = false, defaultValue = "9") int pageSize) {
+		List<Food> foods = new ArrayList<>();
+		try {
+			Page<Food> pageFoods = foodService.findByCategoryName(name, PageRequest.of(pageNumber - 1, pageSize));
+			foods = pageFoods.getContent();
+			model.addAttribute("totalPages", pageFoods.getTotalPages());
+			model.addAttribute("currentPage", pageNumber);
+		} catch (Exception ex) {
+			foods = foodService.getAll();
+			ex.printStackTrace();
+		}
+		model.addAttribute("foods", foods);
+		return "user/shop";
+	}
+	
+	@GetMapping("/myOrder")
+	public String doShowOrder() {
+		return "user/myOrder";
 	}
 }

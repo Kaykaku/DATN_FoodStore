@@ -19,6 +19,16 @@ public class HomeController {
 	
 	@Autowired
 	private FoodService foodService;
+	
+	@GetMapping("/contact-us")
+	public String doShowContact() {
+		return "user/contact";
+	}
+	
+	@GetMapping("/introduce")
+	public String doShowIntroduce() {
+		return "user/introduce";
+	}
 
 	@GetMapping(value = { "/", "", "/home", "/home/index" })
 	public String doRedirect() {
