@@ -1,5 +1,6 @@
 package com.foodstore.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -23,4 +24,10 @@ public interface CartDAO extends JpaRepository<Cart, Long>{
 	
 	@Query("Select c From Cart c Where c.customer_cart.id=?1 and c.food_cart.id=?2")
 	Optional<Cart> findByCustomerIdAndFoodId(Long customerId ,Long foodId);
+
+	@Query("Select c From Cart c Where c.customer_cart.username = ?1")
+	Page<Cart> getByCustomerName(String username, Pageable pageable);
+
+	@Query("Select c From Cart c Where c.customer_cart.username = ?1")
+	List<Cart> getByCustomerName(String username);
 }

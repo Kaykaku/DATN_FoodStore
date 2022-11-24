@@ -33,4 +33,7 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 
 	@Query("SELECT f FROM Food f WHERE f.is_display = ?1 AND f.quantity_limit > ?2 ORDER BY f.create_date DESC")
 	Page<Food> getNewProduct(Boolean isDisplay, Integer quantityLimit, Pageable pageable);
+	
+	@Query("SELECT f.food_c FROM CategoryFood f WHERE f.category_f.name = ?1")
+	Page<Food> findByCategoryName(String name, Pageable pageable);
 }
