@@ -1,0 +1,131 @@
+/*----------------------------------------*/
+/*  18 - Components - Social Link
+/*----------------------------------------*/
+.social-link {
+	padding-top: 25px;
+	> ul {
+		> li {
+			display: inline-block;
+			padding-right: 25px;
+			&:last-child {
+				padding-right: 0;
+			}
+			> a {
+				font-size: 22px;
+				display: block;
+			}
+		}
+	}
+}
+
+.social-link-2 {
+    position: absolute;
+    transform: rotate(-90deg);
+    right: -135px;
+	padding-top: 0;
+	@include breakpoint(lg-device){
+		right: -150px;
+	}
+	@include breakpoint(max-md_device){
+		right: -105px;
+	}
+	> ul{
+		> li{
+			@include breakpoint(max-md_device){
+				padding-right: 15px;
+				> a{
+					font-size: 16px;
+				}
+			}
+		}
+	}
+}
+
+.social-with_navigation{
+	position: absolute;
+    bottom: 110px;
+    right: 0;
+	width: 100%;
+	@include breakpoint(max-lg_device){
+		bottom: 30px;
+	}
+	.social-link-3{
+		position: absolute;
+		right: 0;
+		bottom: 35px;
+		border-bottom: 1px solid $text-color;
+		padding-bottom: 10px;
+		padding-right: 45px;
+		@include breakpoint(max-xxs_device){
+			padding-right: 15px;
+			bottom: 25px;
+		}
+		> ul{
+			> li{
+				display: inline-block;
+				margin-right: 15px;
+				&:last-child{
+					margin-right: 0;
+				}
+				@include breakpoint(max-xxs_device){
+					margin-right: 10px;
+				}
+				> a{
+					@include breakpoint(max-xxs_device){
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.social-link-4 {
+	padding-top: 25px;
+	text-align: center;
+	@include breakpoint (max-small) {
+		padding: 30px 0;
+	}
+	@include breakpoint (xx-small) {
+		text-align: left;
+	}
+	> ul {
+		> li {
+			display: inline-block;
+			padding-right: 10px;
+			> a {
+				background-color: $border-color;
+				border: 1px solid $border-color;
+				font-size: 18px;
+				display: block;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				border-radius: 100%;
+			}
+		}
+	}
+	&.square-style{
+		> ul{
+			> li{
+				> a{
+					border-radius: 0;
+				}
+			}
+		}
+	}
+	&.align-left{
+		text-align: left;
+	}
+	&.border-style{
+		> ul{
+			> li{
+				> a{
+					background-color: transparent;
+					border: 1px solid $border-color;
+				}
+			}
+		}
+	}
+}

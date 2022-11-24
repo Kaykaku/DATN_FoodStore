@@ -1,0 +1,196 @@
+/*----------------------------------------*/
+/*  13 - Components - Banner
+/*----------------------------------------*/
+.banner-item{
+	.banner-img{
+		a{
+			img{
+				width: 100%;
+			}
+		}
+	}
+}
+.banner-area{
+	[class*="banner-wrap"]{
+		&:last-child{
+			padding-top: 30px;
+		}
+		[class*="col-"]{
+			&:not(:last-child){
+				.banner-item{
+					@include breakpoint(max-sm_device){
+						padding-bottom: 30px;
+					}
+				}
+			}
+		}
+	}
+	.specific-banner_item{
+		@include breakpoint(max-sm_device){
+			padding-top: 30px;
+		}
+	}
+	[class*="custom-xxs-col"]{
+		&:first-child{
+			@include breakpoint(max-xxs_device){
+				padding-bottom: 30px;
+			}
+		}
+	}
+}
+
+/* ---Banner Area Two--- */
+.banner-area-2{
+	[class*="col-"]{
+		&:not(:last-child){
+			.banner-item{
+				@include breakpoint(max-sm_device){
+					padding-bottom: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Banner Area Four--- */
+.banner-area-4{
+	[class*="banner-wrap"]{
+		&:first-child{
+			[class*="custom-xxs-col"]{
+				&:first-child{
+					@include breakpoint(max-xxs_device){
+						padding-bottom: 30px;
+					}
+				}
+			}
+		}
+		&:last-child{
+			padding-top: 30px;
+			@include breakpoint(max-xxs_device){
+				padding: 30px 0;
+			}
+		}
+	}
+}
+
+/* ---Banner Area Five--- */
+.banner-area-5{
+	[class*="custom-xxs-col"]{
+		&:first-child{
+			.banner-item{
+				@include breakpoint(max-xxs_device){
+					padding-bottom: 30px;
+				}
+			}
+		}
+	}
+	.banner-wrap{
+		[class*="col-"]{
+			&:not(:last-child){
+				padding-bottom: 30px;
+			}
+		}
+	}
+}
+
+/* ---Banner Area Six--- */
+.banner-area-6{
+	[class*="custom-xxs-col"]{
+		&:first-child{
+			.banner-item{
+				@include breakpoint(max-xxs_device){
+					padding-bottom: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Banner Area Seven--- */
+.banner-area-7{
+	[class*="col-"]{
+		&:not(:last-child){
+			.banner-item{
+				@include breakpoint(max-sm_device){
+					padding-bottom: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Banner Area Nine--- */
+.banner-area-9{
+	[class*="banner-wrap"]{
+		&:not(:last-child){
+			padding-bottom: 30px;
+		}
+	}
+}
+
+/* ---Banner Area Ten | Countdown Banner--- */
+.countdown-banner{
+	.banner-img{
+		position: relative;
+	}
+	.banner-content{
+		position: absolute;
+		top: 50px;
+		right: 50px;
+		text-align: center;
+		@include breakpoint(max-xxs_device){
+			top: 30px;
+			right: 30px;
+		}
+		span{
+			display: block;
+			padding-bottom: 10px;
+			font-size: 18px;
+			@include breakpoint(max-xxs_device){
+				font-size: 11px;
+				line-height: 1;
+				padding-bottom: 0;
+			}
+		}
+		h3{
+			margin-bottom: 0;
+			@include breakpoint(max-xxs_device){
+				font-size: 16px;
+			}
+		}
+		.countdown-wrap-2{
+			.countdown.item-4{
+				.countdown__item{
+					padding: 15px 0;
+				}
+			}
+		}
+		a{
+			&.quicky-btn{
+				@include breakpoint(max-xs_device){
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Banner Area Eleven--- */
+.banner-area-11{
+	.banner-custom_col-1{
+		flex: 0 0 38.75%;
+		max-width: 38.75%;
+		@include breakpoint(max-xs_device){
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+	}
+	.banner-custom_col-2{
+		flex: 0 0 22.5%;
+		max-width: 22.5%;
+		@include breakpoint(max-xs_device){
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+	}
+}

@@ -1,0 +1,351 @@
+/*----------------------------------------*/
+/*  11 - Components - Slider
+/*----------------------------------------*/
+.home-slider {
+    .slide-item{
+		display: flex !important;
+		align-items: center;
+		.inner-slide{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			.slide-content{
+				> h2{
+					font-size: 55px;
+					font-weight: 400;
+					margin-bottom: 20px;
+					line-height: 40px;
+					@include breakpoint(max-xs_device){
+						font-size: 35px;
+					}
+					@include breakpoint(max-xxs_device){
+						font-size: 25px;
+					}
+				}
+				> p{
+					margin-bottom: 25px;
+					font-size: 18px;
+					line-height: 26px;
+					&.short-desc{
+						max-width: 60%;
+						@include breakpoint(max-md_device){
+							max-width: 85%;
+						}
+						@include breakpoint(max-xs_device){
+							max-width: 100%;
+							font-size: 14px;
+						}
+					}
+				}
+				&.slide-content_right{
+					display: flex;
+					flex-direction: column;
+					align-items: flex-end;
+					text-align: right;
+					> p{
+						&.short-desc{
+							max-width: 60%;
+							text-align: right;
+							@include breakpoint(max-md_device){
+								max-width: 85%;
+							}
+						}
+					}
+				}
+			}
+			&.inner-slide-2{
+				.slider-img{
+					&.left-side_img{
+						margin-top: -10%;
+						margin-left: -8%;
+						@include breakpoint(max-xl_device){
+							margin-left: 0;
+						}
+						@include breakpoint(max-xxs_device){
+							width: 80%;
+						}
+					}
+					&.right-side_img{
+						margin-bottom: -10%;
+						margin-right: -8%;
+						@include breakpoint(max-xl_device){
+							margin-bottom: 0;
+							margin-right: 0;
+						}
+						@include breakpoint(max-xxs_device){
+							width: 80%;
+						}
+					}
+				}
+				.slide-content{
+					text-align: center;
+					> h2{
+						font-weight: 700;
+						font-size: 80.04px;
+						line-height: 80.04px;
+						@include breakpoint(max-md_device){
+							font-size: 40px;
+							line-height: 40px;
+						}
+						@include breakpoint(max-xs_device){
+							font-size: 25px;
+							line-height: 25px;
+						}
+						@include breakpoint(max-xxs_device){
+							font-size: 20px;
+							line-height: 21px;
+							margin-bottom: 10px;
+						}
+					}
+					> p{
+						&.short-desc-2{
+							font-size: 24.01px;
+							line-height: 36.02px;
+							max-width: 85%;
+							margin: 0 auto 25px;
+							@include breakpoint(max-md_device){
+								font-size: 16px;
+								line-height: 24px;
+								max-width: 100%;
+							}
+							@include breakpoint(max-xs_device){
+								font-size: 14px;
+							}
+							@include breakpoint(max-xxs_device){
+								font-size: 12px;
+								line-height: 20px;
+								margin-bottom: 5px;
+							}
+						}
+					}
+					a{
+						&.quicky-btn{
+							@include breakpoint(max-xxs_device){
+								font-size: 14px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.tty-slick-text-btn{
+		@include breakpoint(max-xs_device){
+			display: none !important;
+		}
+	}
+	&.home-slider-2{
+		.inner-slide{
+			.slide-content{
+				> p{
+					&.short-desc{
+						@include breakpoint(max-md_device){
+							max-width: 55%;
+						}
+						@include breakpoint(max-xxs_device){
+							max-width: 90%;
+						}
+					}
+				}
+			}
+		}
+	}
+	&.home-slider-3{
+		.slide-item{
+			.inner-slide{
+				.slide-content{
+					@include breakpoint(max-xl_device){
+						align-items: center;
+					}
+					> h2{
+						&.freestyle-script{
+							@include breakpoint(max-xxs_device){
+								font-size: 27px !important;
+							}
+						}
+					}
+					> p{
+						&.short-desc{
+							@include breakpoint(max-lg_device){
+								max-width: 75%;
+								text-align: center;
+							}
+							@include breakpoint(max-md_device){
+								max-width: 100%;
+							}
+							@include breakpoint(max-sm_device){
+								font-size: 14px;
+							}
+							@include breakpoint(max-xxs_device){
+								font-size: 11px;
+							}
+						}
+					}
+					.slide-btn{
+						.quicky-btn{
+							&:before{
+								@include breakpoint (max-lg_device){
+									display: none;
+								}
+							}
+						}
+					}
+				}
+			}
+			.social-link-2{
+				@include breakpoint(max-sm_device){
+					transform: rotate(0deg);
+					right: auto;
+					left: 30px;
+					top: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Slider Area Four--- */
+.slider-area-4{
+	.home-slider-4{
+		.slide-item{
+			background-position: right;
+			.inner-slide{
+				.slide-content{
+					&.slide-content_absolute{
+						position: absolute;
+						left: auto;
+						right: -5%;
+						@include breakpoint(max-lg_device){
+							right: -30%;
+						}
+						@include breakpoint(max-md_device){
+							right: -50%;
+						}
+						@include breakpoint(max-sm_device){
+							right: auto;
+							left: 5%;
+						}
+						> p{
+							&.short-desc{
+								max-width: 50%;
+								@include breakpoint(max-sm_device){
+									max-width: 100%;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&.custom-dots{
+			.slick-dots{
+				@include breakpoint(max-md_device){
+					bottom: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Home One--- */
+.bg-1 {
+	background-image: url('../images/slider/bg/1-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 755px;
+	@include breakpoint(max-lg_device){
+		min-height: 450px;
+	}
+	@include breakpoint(max-xxs_device){
+		min-height: 380px;
+	}
+}
+/* ---Home Two--- */
+.bg-2,
+.bg-3 {
+	background-image: url('../images/slider/bg/2-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 750px;
+	@include breakpoint(max-xxl_device){
+		min-height: 580px;
+	}
+	@include breakpoint(max-xl_device){
+		min-height: 390px;
+	}
+	@include breakpoint(max-md_device){
+		min-height: 300px;
+	}
+	@include breakpoint(max-sm_device){
+		background-position: left;
+		min-height: 450px;
+	}
+	@include breakpoint(max-sm_device){
+		min-height: 380px;
+	}
+}
+.bg-3 {
+	background-image: url('../images/slider/bg/2-2.jpg');
+}
+/* ---Home Three--- */
+.bg-4 {
+	background-image: url('../images/slider/bg/3-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 750px;
+	@include breakpoint(max-lg_device){
+		min-height: 450px;
+	}
+	@include breakpoint(max-xxs_device){
+		min-height: 380px;
+	}
+}
+/* ---Home Four--- */
+.bg-5 {
+	background-image: url('../images/slider/bg/4-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 755px;
+	@include breakpoint(max-lg_device){
+		min-height: 450px;
+	}
+	@include breakpoint(max-xxs_device){
+		min-height: 380px;
+	}
+}
+/* ---Home Five--- */
+.bg-6,
+.bg-7 {
+	background-image: url('../images/slider/bg/5-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 755px;
+	@include breakpoint(max-lg_device){
+		min-height: 450px;
+	}
+	@include breakpoint(max-xxs_device){
+		min-height: 380px;
+	}
+}
+.bg-7 {
+	background-image: url('../images/slider/bg/5-2.jpg');
+}
+/* ---Home Six--- */
+.bg-8 {
+	background-image: url('../images/slider/bg/6-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 755px;
+	@include breakpoint(max-lg_device){
+		min-height: 450px;
+	}
+	@include breakpoint(max-xxs_device){
+		min-height: 380px;
+	}
+}

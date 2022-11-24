@@ -1,0 +1,337 @@
+/*----------------------------------------*/
+/*  25 - Section - Header
+/*----------------------------------------*/
+
+/* ---Header Right Area--- */
+.header-right_area{
+    display: flex;
+    align-items: center;
+    > ul{
+        > li{
+            display: inline-block;
+            margin-right: 35px;
+            &:last-child{
+                margin-right: 0;
+            }
+            @include dropdown;
+            &.user-setting_wrap{
+                position: relative;
+                @include breakpoint(max-md_device){
+                    display: none;
+                }
+                .quicky-dropdown{
+                    top: 60px;
+                    left: auto;
+                    right: 0;
+                    > li{
+                        @include submenu;
+                        > ul{
+                            > li{
+                                &:hover{
+                                    padding-left: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.minicart-wrap{
+                > a{
+                    border: 0;
+                    padding: 0;
+                    > .minicart-count_area{
+                        display: flex;
+                        > i{
+                            padding-right: 10px;
+                            font-size: 25px;
+                        }
+                        p{
+                            &.total-price{
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+            &.mobile-menu_wrap{
+                vertical-align: top;
+                > a{
+                    > i{
+                        vertical-align: text-bottom;
+                        font-size: 23px;
+                    }
+                }
+            }
+            > a{
+                > i{
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}
+
+/* ---Header Bottom Area--- */
+.main-nav{
+    > ul{
+        > li{
+            display: inline-block;
+            @include dropdown;
+            margin-right: 45px;
+            > ul{
+                &.quicky-dropdown{
+                    > li{
+                        @include submenu;
+                    }
+                }
+            }
+            > a{
+                padding: 22px 0;
+                display: block;
+                line-height: 45px;
+                > i{
+                    margin-left: 5px;
+                }
+            }
+            &.mh-sticker_wrap{
+                position: relative;
+                > span{
+                    position: relative;
+                    &.mh-sticker{
+                        background-color: $primary-color-4;
+                        color: $white-color;
+                        position: absolute;
+                        width: 35px;
+                        height: 19px;
+                        line-height: 20px;
+                        display: block;
+                        top: 10px;
+                        left: 0;
+                        font-size: 10px;
+                        text-align: center;
+                        text-transform: uppercase;
+                        cursor: text;
+                        &:before{
+                            content: "";
+                            border-top: 2px solid transparent;
+                            border-bottom: 8px solid $primary-color-4;
+                            border-left: 2px solid transparent;
+                            border-right: 2px solid $primary-color-4;
+                            width: 20px;
+                            height: 20px;
+                            line-height: 20px;
+                            position: absolute;
+                            bottom: 3px;
+                            left: 3px;
+                            transform: skew(0deg, 45deg);
+                            z-index: -1;
+                        }
+                    }
+                }
+            }
+            &.megamenu-holder {
+                .quicky-megamenu_wrap {
+                    box-shadow: 0 0 7px 0.5px rgba(0, 0, 0, 0.15);
+                    background: $buttery-white;
+                    display: block;
+                    @extend %basetransition;
+                    transform-origin: 0 0 0;
+                    transform: scaleY(0);
+                    visibility: hidden;
+                    opacity: 0;
+                    position: absolute;
+                    width: 100%;
+                    left: 0;
+                    right: auto;
+                    top: 100%;
+                    z-index: 999;
+                    .quicky-megamenu {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 30px 30px 0;
+                        > li {
+                            width: 33.33%;
+                            > span {
+                                &.megamenu-title {
+                                    border-bottom: 1px solid $border-color;
+                                    position: relative;
+                                    font-weight: 500;
+                                    font-size: 18px;
+                                    display: inline-block;
+                                    line-height: 40px;
+                                    @include breakpoint (normal) {
+                                        font-size: 15px;
+                                    }
+                                }
+                            }
+                            > ul {
+                                > li {
+                                    padding-left: 0;
+                                    @extend %basetransition;
+                                    > a {
+                                        display: block;
+                                        line-height: 35px;
+                                        font-size: 16px;
+                                    }
+                                    &:hover{
+                                        padding-left: 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .main-menu_bg{
+                    padding-top: 20px;
+                    img{
+                        width: 100%;
+                    }
+                }
+                &:hover{
+                    .quicky-megamenu_wrap{
+                        visibility: visible;
+                        opacity: 1;
+                        transform: scaleY(1);
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+/* ---Header Contact--- */
+.header-contact{
+    display: flex;
+    align-items: center;
+    > i{
+        font-size: 30px;
+    }
+    .contact-content{
+        padding-left: 15px;
+        p{
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* ---Main Header--- */
+.main-header{
+    .main-header_nav{
+        display: flex;
+        justify-content: space-between;
+        @include breakpoint(max-md_device){
+            padding: 22px 0;
+        }
+        @include breakpoint(max-xxs_device){
+            display: block;
+        }
+        .header-logo_area{
+            display: flex;
+            align-items: center;;
+            @include breakpoint(max-xxs_device){
+                justify-content: center;
+                padding-bottom: 20px;
+            }
+        }
+    }
+}
+
+/* ---Main Header Two--- */
+.main-header_area-2{
+    .main-header_nav{
+        .main-menu_area{
+            > nav{
+                &.main-nav{
+                    > ul{
+                        > li{
+                            @include breakpoint(lg-device){
+                                margin-right: 30px;
+                            }
+                            &:last-child{
+                                @include breakpoint(lg-device){
+                                    margin-right: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .header-sticky{
+        .container-fluid{
+            padding: 0 70px;
+            @include breakpoint(max-sm_device){
+                padding: 0 50px;
+            }
+            @include breakpoint(max-sm_device){
+                padding: 0 15px;
+            }
+        }
+    }
+}
+
+/* ---Main Header Three--- */
+.main-header_area-3{
+    .container-fluid{
+        padding: 0 70px;
+        @include breakpoint(max-sm_device){
+            padding: 0 30px;
+        }
+        @include breakpoint(max-xxs_device){
+            padding: 0 15px;
+        }
+    }
+    .main-nav > ul > li{
+        @include breakpoint(max-lg_device){
+            margin-right: 25px;
+        }
+    }
+}
+
+/* ---Sticky Header--- */
+.header-sticky{
+    background-color: $white-color;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    @include transition(all 300ms ease-in 0s);
+    z-index: 99;
+    display: none;
+    &.sticky {
+        animation: 800ms ease-in-out 0s normal none 1 running slideInDown;
+        display: block;
+        @include breakpoint(max-xs_device){
+            position: static;
+        }
+    }
+    .sticky-header_nav{
+        padding: 0;
+        @include breakpoint(max-md_device){
+            padding: 20px 0;
+        }
+        .header-logo_area{
+            > a {
+                > img{
+                    max-width: 120px;
+                }
+            }
+        }
+        .main-menu_area{
+            > nav{
+                &.main-nav{
+                    > ul{
+                        > li{
+                            @include breakpoint(max-lg_device){
+                                margin-right: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

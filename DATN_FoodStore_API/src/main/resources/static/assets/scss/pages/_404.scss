@@ -1,0 +1,61 @@
+/*----------------------------------------*/
+/*  41 - Pages - 404
+/*----------------------------------------*/
+.error404-area {
+	padding: 75px 0 100px;
+	.search-error-wrapper {
+		h1 {
+			font-size: 120px;
+			margin-bottom: 0;
+            padding-bottom: 22px;
+            line-height: 1;
+		}
+		h2 {
+			font-size: 28px;
+			margin-bottom: 0;
+			padding-bottom: 20px;
+		}
+		> p {
+			margin: 0 auto 0;
+			max-width: 520px;
+			font-size: 16px;
+		}
+		.error-form {
+			.inner-error_form {
+				position: relative;
+				width: 275px;
+				margin: 22px auto 30px;
+				input {
+                    border: 1px solid $border-color;
+					font-size: 13px;
+					position: relative;
+					width: 270px;
+					height: 40px;
+					line-height: 40px;
+					padding: 0 40px 0 15px;
+				}
+			}
+		}
+		.error-search_btn {
+			background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+			border: medium none;
+			padding: 8px 20px;
+			position: absolute;
+			right: 0;
+            top: 0;
+            font-size: 20px;
+		}
+		.error-btn {
+			background-color: #ddeee9;
+			box-shadow: none;
+			display: inline-block;
+			font-size: 12px;
+			font-weight: bold;
+			height: 40px;
+			line-height: 40px;
+			padding: 0 30px;
+			text-transform: uppercase;
+			@extend %basetransition;
+		}
+	}
+}

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Freestyle Script';
+    src: url('../../fonts/FREESCPT.eot');
+    src: url('../../fonts/FREESCPT.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/FREESCPT.woff2') format('woff2'),
+         url('../../fonts/FREESCPT.woff') format('woff'),
+         url('../../fonts/FREESCPT.ttf')  format('truetype'),
+         url('../../fonts/FREESCPT.svg#Freestyle Script') format('svg');
+}

@@ -1,0 +1,1077 @@
+/*----------------------------------------*/
+/*  03 - Utilities - Helper
+/*----------------------------------------*/
+/* ---Quicky's Container--- */
+.container{
+	@include breakpoint(min-xl_device){
+		max-width: 1170px;
+	}
+}
+/* ---Quicky's Wrapper Boxed Layout--- */
+.wrapper-boxed_layout{
+	width: calc(100% - 140px);
+	margin: 0 auto;
+	@include breakpoint(max-sm_device){
+		width: calc(100% - 30px);
+	}
+	.container-fluid{
+		padding: 0;
+	}
+}
+
+/* ---Quicky's Custom Column--- */
+
+.custom-xxs-col{
+	@include breakpoint(max-xxs_device){
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}
+
+/* ---Additional Font Family--- */
+.freestyle-script{
+	font-family: $additional-font_family;
+	font-size: 72px !important;
+	@include breakpoint(max-sm_device){
+		font-size: 45px !important;
+	}
+}
+
+/* ---Quicky's Section Space--- */
+
+// Padding Top
+.pt-170{
+	padding-top: 170px;
+}
+.pt-160{
+	padding-top: 160px;
+}
+.pt-150{
+	padding-top: 150px;
+}
+.pt-140{
+	padding-top: 140px;
+}
+.pt-100{
+	padding-top: 100px;
+}
+.pt-95{
+	padding-top: 95px;
+}
+.pt-90{
+	padding-top: 90px;
+}
+.pt-85{
+	padding-top: 85px;
+}
+.pt-55{
+	padding-top: 55px;
+}
+.pt-60{
+	padding-top: 60px;
+}
+.pt-30{
+	padding-top: 30px;
+}
+.pt-25{
+	padding-top: 25px;
+}
+
+// For Medium Device
+@include breakpoint(max-md_device){
+	.pt-md-160{
+		padding-top: 160px !important;
+	}
+	.pt-md-155{
+		padding-top: 155px !important;
+	}
+	.pt-md-100{
+		padding-top: 100px;
+	}
+	.pt-md-90{
+		padding-top: 90px;
+	}
+	.pt-md-30{
+		padding-top: 30px;
+	}
+}
+
+// For Small Device
+@include breakpoint(max-sm_device){
+	.pt-sm-30{
+		padding-top: 30px;
+	}
+}
+// For X Small Device
+@include breakpoint(max-xs_device){
+	.pt-xs-30{
+		padding-top: 30px;
+	}
+	.pt-xs-25{
+		padding-top: 25px;
+	}
+}
+
+// Padding Bottom
+.pb-170{
+	padding-bottom: 170px;
+}
+.pb-160{
+	padding-bottom: 160px;
+}
+.pb-150{
+	padding-bottom: 150px;
+}
+.pb-140{
+	padding-bottom: 140px;
+}
+.pb-100{
+	padding-bottom: 100px;
+}
+.pb-95{
+	padding-bottom: 95px;
+}
+.pb-90{
+	padding-bottom: 90px;
+}
+.pb-55{
+	padding-bottom: 55px;
+}
+.pb-60{
+	padding-bottom: 60px;
+}
+.pb-30{
+	padding-bottom: 30px;
+}
+.pb-25{
+	padding-bottom: 25px;
+}
+
+// For Medium Device
+@include breakpoint(max-md_device){
+	.pb-md-160{
+		padding-bottom: 160px !important;
+	}
+	.pb-md-155{
+		padding-bottom: 155px !important;
+	}
+	.pb-md-150{
+		padding-bottom: 150px !important;
+	}
+	.pb-md-90{
+		padding-bottom: 90px;
+	}
+	.pb-md-30{
+		padding-bottom: 30px;
+	}
+}
+
+// For X Small Device
+@include breakpoint(max-xs_device){
+	.pb-xs-30{
+		padding-bottom: 30px;
+	}
+}
+
+// Padding Left & Right
+.plr-10{
+	padding: 0 10px;
+}
+
+// Padding Top & Bottom
+.ptb-170{
+	padding: 170px 0;
+}
+.ptb-160{
+	padding: 160px 0;
+}
+.ptb-150{
+	padding: 150px 0;
+}
+.ptb-140{
+	padding: 140px 0;
+}
+.ptb-100{
+	padding: 100px 0;
+}
+.ptb-95{
+	padding: 95px 0;
+}
+.ptb-90{
+	padding: 90px 0;
+}
+.ptb-30{
+	padding: 30px 0;
+}
+
+// Margin Top
+.mt-30{
+	margin-top: 30px;
+}
+.mt-25{
+	margin-top: 25px;
+}
+
+// For XX Small Device
+.mt-xxs-30{
+	@include breakpoint(max-xxs_device){
+		margin-top: 30px;
+	}
+}
+
+// For XX Small Device
+.mb-xs-30{
+	@include breakpoint(max-xs_device){
+		margin-bottom: 25px;
+	}
+}
+
+// Margin Right
+.mr-0{
+	margin-right: 0;
+}
+
+// For Medium Device
+.mr-md_0{
+	@include breakpoint(max-md_device){
+		margin-right: 0 !important;
+	}
+}
+
+/* ----Home Boxed Layout--- */
+.boxed-layout{
+	display: block;
+	margin: 60px auto;
+	width: 1290px;
+	@include breakpoint(xl-device){
+		width: 1170px;
+	}
+	@include breakpoint(lg-device){
+		width: 970px;
+		margin: 40px auto;
+	}
+	@include breakpoint(md-device){
+		width: 730px;
+		margin: 40px auto;
+	}
+	@include breakpoint(max-sm_device){
+		width: 480px;
+		margin: 30px auto;
+	}
+	@include breakpoint(max-xxs_device){
+		width: 100%;
+		margin: 20px auto;
+	}
+
+}
+
+/* ---Quicky's Preloader---*/
+.loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: $black-color;
+	z-index: 9999999999999;
+	.middle {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		.loader {
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			position: absolute;
+			z-index: 3;
+			top: 50%;
+			animation: loader 2s infinite ease;
+		}
+
+		.loader-inner {
+			vertical-align: top;
+			display: inline-block;
+			width: 100%;
+			animation: loader-inner 2s infinite ease-in;
+		}
+	}
+}
+
+@keyframes loader {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	25% {
+		transform: rotate(180deg);
+	}
+
+	50% {
+		transform: rotate(180deg);
+	}
+
+	75% {
+		transform: rotate(360deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes loader-inner {
+	0% {
+		height: 0%;
+	}
+
+	25% {
+		height: 0%;
+	}
+
+	50% {
+		height: 100%;
+	}
+
+	75% {
+		height: 100%;
+	}
+
+	100% {
+		height: 0%;
+	}
+}
+
+/* ---Base Transition--- */
+%basetransition {
+	@include transition(all .3s ease-in);
+}
+
+/* ---Section Title--- */
+.section-title{
+	text-align: center;
+	> h3{
+		&.heading{
+			margin-bottom: 15px;
+			font-size: 36.05px;
+			@include breakpoint(max-xxs_device){
+				font-size: 30px;
+			}
+		}
+	}
+	> p{
+		&.short-desc{
+			font-size: 15.2px;
+			max-width: 37%;
+			margin: 0 auto 40px;
+			@include breakpoint(max-lg_device){
+				max-width: 45%;
+			}
+			@include breakpoint(max-md_device){
+				max-width: 60%;
+			}
+			@include breakpoint(max-sm_device){
+				max-width: 80%;
+			}
+			@include breakpoint(max-xs_device){
+				max-width: 90%;
+			}
+			@include breakpoint(max-xxs_device){
+				max-width: 100%;
+			}
+		}
+	}
+	.section-icon{
+		background-image: url('../images/section-title/icon/1.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		min-height: 30px;
+		margin-bottom: 30px;
+	}
+}
+
+/* ---Product Sticker---*/
+.sticker,
+.sticker-2 {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	font-size: 15px;
+	text-align: center;
+	text-transform: uppercase;
+	cursor: text;
+	&.sticker-2{
+		left: auto;
+		right: 20px;
+	}
+	&.red-color{
+		color: $red-color;
+	}
+}
+
+/* ---Tooltip--- */
+.tooltip{
+	z-index: 10;
+}
+.tooltip-inner {
+	padding: 0 10px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	border-radius: .25rem;
+	font-size: 10px;
+}
+.tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before,
+.tooltip.bs-tooltip-top .arrow::before {
+	content: "";
+	border-width: 5px 5px 0;
+}
+
+.tooltip-inner {
+	background-color: $text-color;
+}
+.tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before,
+.tooltip.bs-tooltip-top .arrow::before {
+	border-top-color: $text-color;
+}
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before,
+.bs-tooltip-bottom .arrow::before {
+	border-bottom-color: $text-color;
+}
+.tooltip.bs-tooltip-auto[x-placement^=right] .arrow::before,
+.tooltip.bs-tooltip-right .arrow::before {
+	border-right-color: $text-color;
+}
+.bs-tooltip-auto[x-placement^=left] .arrow::before,
+.bs-tooltip-left .arrow::before {
+	border-left-color: $text-color;
+}
+
+/* ---Spacing Between Slide Item---*/
+.slick-gutter{
+	&-30{
+		.slick-list {
+			margin: 0 -15px;
+			.slick-slide {
+				padding: 0 15px;
+			}
+		}
+	}
+}
+
+/* ---Slick Disabled Cursor Point--- */
+.slick-disabled {
+	cursor: not-allowed !important; 
+}
+
+/* ---Tab Content & Pane Fix--- */
+.tab-content {
+	width: 100%;
+	.tab-pane {
+		display: block;
+		height: 0;
+		max-width: 100%;
+		visibility: hidden;
+		overflow: hidden;
+		opacity: 0;
+		&.active {
+			height: auto;
+			visibility: visible;
+			opacity: 1;
+			overflow: visible;
+			@extend %basetransition;
+		}
+	}
+}
+
+/*-- Scroll To Top --*/
+
+.scroll-to-top{
+    background-color: $text-color;
+    color: $white-color;
+    position: fixed;
+    right: 50px;
+	bottom: 50px;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+    z-index: 999;
+    font-size: 20px;
+    overflow: hidden;
+    display: block;
+	text-align: center;
+	opacity: 0;
+	visibility: hidden;
+	animation:  quickySlideInDown 1s normal;
+	@include transition(all 300ms ease);
+	&.show{
+		opacity: 1;
+		visibility: visible;
+		animation: quickySlideInUp 1s normal;
+	}
+	i{
+		@extend %basetransition;
+		color: $white-color;
+		font-size: 16px;
+		display: inline-block;
+	}
+	&:hover{
+		> i{
+			animation: quickySlideInUp 1s infinite;
+		}
+	}
+}
+
+// Rating Box
+.rating-box {
+	> ul {
+		> li {
+			display: inline-block;
+			> i {
+				font-size: 16px;
+			}
+		}
+	}
+	&.gamboge-color{
+		> ul{
+			> li{
+				> i{
+					color: $gamboge-color;
+				}
+			}
+		}
+	}
+}
+
+/* ---Quicky's Pagination--- */
+.quicky-paginatoin-area {
+	padding-top: 30px;
+	.quicky-pagination-box {
+		li {
+			display: inline-block;
+			> a {
+				border: 1px solid $border-color;
+				padding: 9px 15px;
+				display: block;
+			}
+		}
+	}
+	.product-select-box {
+		display: flex;
+		justify-content: flex-end;
+		.product-short {
+			display: flex;
+			align-items: center;
+			> p {
+				all: inherit;
+				padding-right: 15px;
+			}
+			> span {
+				padding-left: 15px;
+			}
+		}
+	}
+}
+
+/* ---Tag--- */
+.quicky-tags_list {
+	li {
+		display: inline-block;
+		margin-bottom: 5px;
+		a {
+			font-size: 14px;
+			border: 1px solid $border-color;
+			padding: 5px 15px;
+			display: block;
+			line-height: 20px;
+		}
+	}
+}
+
+/* ---Quantity--- */
+.quantity {
+	.cart-plus-minus {
+		position: relative;
+		width: 76px;
+		text-align: left;
+		> .cart-plus-minus-box {
+			border: 1px solid $border-color;
+			height: 46px;
+			text-align: center;
+			width: 48px;
+			background: $white-color;
+		}
+		> .qtybutton {
+			border-bottom: 1px solid $border-color;
+			border-right: 1px solid $border-color;
+			border-top: 1px solid $border-color;
+			cursor: pointer;
+			height: 23px;
+			line-height: 20px;
+			position: absolute;
+			text-align: center;
+			@extend %basetransition;
+			width: 28px;
+			line-height: 21px;
+			&:hover {
+				background: $white-smoke_color;
+			}
+			&.dec {
+				bottom: 0;
+				right: 0;
+			}
+			&.inc {
+				border-bottom: none;
+				top: 0;
+				right: 0;
+			}
+		}
+	}
+}
+
+/* ---Color List Area--- */
+.color-list_area {
+	border: 1px solid $border-color;
+	padding: 25px;
+	@include breakpoint (max-sm_device) {
+		padding: 15px;
+	}
+	.color-list_heading {
+		padding-bottom: 15px;
+		> h4 {
+			text-transform: uppercase;
+			margin-bottom: 0;
+			@include breakpoint (max-xs_device) {
+				font-size: 14px;
+			}
+		}
+	}
+	.sub-title {
+		display: block;
+		padding-bottom: 20px;
+	}
+	.color-list {
+		display: -webkit-inline-box;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		position: relative;
+		@include breakpoint(max-xxs_device){
+			padding-bottom: 25px;
+			overflow: hidden;
+		}
+		.single-color {
+			border: 1px solid $border-color;
+			display: inline-block;
+			margin-right: 5px;
+			padding: 2px;
+			width: 25px;
+			height: 25px;
+			span {
+				width: 100%;
+				height: 100%;
+				&.bg-red_color {
+					background-color: $red-color;
+					display: block;
+				}
+				&.burnt-orange_color {
+					background-color: $burnt-orange_color;
+					display: block;
+				}
+				&.brown_color {
+					background-color: $brown-color;
+					display: block;
+				}
+				&.raw-umber_color {
+					background-color: $raw-umber_color;
+					display: block;
+				}
+				&.black_color {
+					background-color: $black-color;
+					display: block;
+				}
+				&.golden_color {
+					background-color: $primary-color;
+					display: block;
+				}
+			}
+			&.active {
+				border-color: $primary-color;
+				.color-text {
+					color: $text-color;
+					display: block;
+				}
+			}
+		}
+		.color-text {
+			position: absolute;
+			right: -150px;
+			width: auto !important;
+			top: 0;
+			display: none;
+			@include breakpoint (max-xs_device) {
+				right: -110px;
+			}
+			@include breakpoint(max-xxs_device){
+				right: auto;
+				left: 0;
+				top: 30px;
+			}
+		}
+	}
+}
+
+/* ---Range Slider--- */
+.price-filter {
+	margin-top: 35px;
+	.ui-widget-content {
+		background-color: $border-color;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+		cursor: pointer;
+		height: 10px;
+		margin: 0 0 25px;
+		width: 100%;
+		border-top-left-radius: 25px;
+		-moz-border-radius-topleft: 25px;
+		border-top-right-radius: 25px;
+		-moz-border-radius-topright: 25px;
+		border-bottom-left-radius: 25px;
+		-moz-border-radius-bottomleft: 25px;
+		border-bottom-right-radius: 25px;
+		-moz-border-radius-bottomright: 25px;
+	}
+	.ui-slider-range {
+		border: none;
+		box-shadow: none;
+		height: 100%;
+	}
+	.ui-slider-handle {
+		background: $white-color;
+		display: block;
+		outline: none;
+		width: 20px;
+		height: 20px;
+		line-height: 15px;
+		margin: 0;
+		text-align: center;
+		top: 50%;
+		border-radius: 100%;
+		box-shadow: 0px 0px 6.65px .35px rgba(0, 0, 0, 0.15);
+		-webkit-transform: translate(0, -50%);
+		transform: translate(0, -50%);
+		cursor: e-resize;
+		@extend %basetransition;
+		&:last-child {
+			-webkit-transform: translate(-100%, -50%);
+			transform: translate(-100%, -50%);
+		}
+	}
+	.price-slider-amount {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		.label-input {
+			label {
+				font-size: 14px;
+				margin: 0;
+				text-transform: capitalize;
+			}
+			input {
+				background: transparent none repeat scroll 0 0;
+				border: medium none;
+				box-shadow: none;
+				font-size: 14px;
+				height: inherit;
+				padding-left: 5px;
+				width: 99px;
+			}
+			.filter-btn {
+				border: 1px solid $border-color;
+				width: 85px;
+				height: 40px;
+				line-height: 39px;
+				border-radius: 50px;
+				@extend %basetransition;
+				@include breakpoint(lg-device){
+					margin-top: 25px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Countdown--- */
+.countdown-wrap {
+	.countdown{
+		&.item-4{
+			.countdown__item{
+				display: inline-block;
+				position: relative;
+				padding: 10px 0;
+				text-align: center;
+				margin-left: 15px;
+				&:first-child{
+					margin-left: 0;
+				}
+				span {
+					&.countdown__time {
+						color: $text-color;
+						font-size: 24px;
+						@include breakpoint (lg-device) {
+							font-size: 16px;
+						}
+						@include breakpoint (max-sm_device) {
+							font-size: 14px;
+						}
+					}
+					&.daysLeft{
+						font-size: 30px;
+						@include breakpoint (lg-device) {
+							font-size: 20px;
+						}
+						@include breakpoint (max-sm_device) {
+							font-size: 16px;
+						}
+						@include breakpoint (max-xxs_device) {
+							font-size: 14px;
+						}
+					}
+					&.daysText{
+						font-size: 30px;
+						text-transform: capitalize;
+						@include breakpoint (max-sm_device) {
+							font-size: 16px;
+						}
+						@include breakpoint (max-xxs_device) {
+							font-size: 14px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* ---Countdown Style Two--- */
+.countdown-wrap-2 {
+	.countdown{
+		&.item-4{
+			.countdown__item{
+				display: inline-block;
+				position: relative;
+				padding: 25px 0;
+				text-align: center;
+				margin-left: 35px;
+				&:first-child{
+					margin-left: 0;
+				}
+				@include breakpoint(max-xs_device){
+					padding: 0 !important;
+					margin-left: 15px;
+				}
+				span {
+					@include breakpoint(max-xs_device){
+						font-size: 11px;
+					}
+					&.countdown__time {
+						color: $text-color;
+						font-size: 24px;
+						display: block;
+						border-bottom: 1px solid $text-color;
+						padding-bottom: 5px;
+						@include breakpoint (lg-device) {
+							font-size: 16px;
+						}
+						@include breakpoint (max-sm_device) {
+							font-size: 14px;
+						}
+						@include breakpoint(max-xs_device){
+							font-size: 11px;
+						}
+					}
+				}
+			}
+			[class*="countdown__item"]:not(:first-child){
+				&:before{
+					content: ":";
+					position: absolute;
+					top: 50%;
+					left: -20px;
+					transform: translateY(-50%);
+					font-size: 25px;
+					@include breakpoint(max-xs_device){
+						left: -10px;
+						font-size: 20px;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* ---Image hover effect--- */
+.img-hover_effect{
+	position: relative;
+	&:before{
+		bottom: 0;
+		content: "";
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		@include transition(all 0.5s ease 0s);
+		z-index: 1;
+	}
+	&:after{
+		bottom: 0;
+		content: "";
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		@include transition(all 0.5s ease 0s);
+		z-index: 1;
+	}
+	&:hover{
+		&:before{
+			background-color: rgba(255, 255, 255, 0.3);
+			left: 50%;
+			right: 50%;
+		}
+		&:after{
+			background-color: rgba(255, 255, 255, 0.3);
+			bottom: 50%;
+			top: 50%;
+		}
+	}
+}
+
+/* ---Global Overlay--- */
+.global-overlay {
+	background-color: rgba($text-color, .9);
+	@extend %basetransition;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 99;
+	visibility: hidden;
+	&.overlay-open {
+		visibility: visible;
+		cursor: url(../images/menu/icon/light-close.png) 16 16, pointer;
+	}
+}
+
+/* ---Nice Select Customization--- */
+.myniceselect {
+	&.nice-select {
+		padding: 0;
+		margin: 0;
+		height: auto;
+		line-height: auto;
+		span {
+			height: 40px;
+			line-height: 40px;
+			display: inline-block;
+			padding: 0 60px;
+		}
+		.list {
+			width: 100%;
+		}
+	}
+}
+
+/* ---Quicky's Slick Dots--- */
+.slick-dots {
+	position: absolute;
+	bottom: 30px;
+	left: auto;
+	right: 120px;
+	text-align: center;
+	padding: 0 30px;
+	z-index: 8;
+	@include breakpoint(max-xl_device){
+		right: 100px;
+		padding: 0;
+	}
+	@include breakpoint(max-md_device){
+		right: 80px;
+	}
+	li {
+		border: 1px solid $black-color;
+		display: inline-block;
+		cursor: pointer;
+		font-size: 0;
+		width: 12px;
+		height: 12px;
+		border-radius: 100%;
+		@extend %basetransition;
+		&:first-child{
+			margin-right: 15px;
+		}
+		button {
+			border: none;
+		}
+		&.slick-active {
+			background-color: $black-color;
+		}
+	}
+}
+
+.custom-dots{
+	.slick-dots{
+		position: absolute;
+		right: 147px;
+		bottom: 110px;
+		padding: 0;
+		@include breakpoint(max-lg_device){
+			bottom: 30px;
+		}
+		@include breakpoint(max-xxs_device){
+			bottom: 20px;
+			right: 65px;
+		}
+		> li{
+			border: 0;
+			font-size: 14px;
+			&.slick-active{
+				border: 0;
+				background-color: transparent;
+				button{
+					font-weight: 700;
+				}
+			}
+			&:hover{
+				background-color: unset !important;
+				button{
+					font-weight: 700;
+				}
+			}
+		}
+	}
+	&.custom-dots-2{
+		> ul{
+			&.slick-dots{
+				left: 105px;
+				right: auto;
+				bottom: 85px;
+				@include breakpoint(max-xs_device){
+					left: 50%;
+					right: auto;
+					bottom: 135px;
+					transform: translateX(-50%);
+				}
+				@include breakpoint(max-xxs_device){
+					bottom: 120px;
+				}
+				> li{
+					&:not(:last-child){
+						margin-right: 20px;
+					}
+				}
+			}
+		}
+	}
+}

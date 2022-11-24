@@ -1,0 +1,179 @@
+/*-------------------------------------------------------*/
+/*  25 - Components - Newsletter With Testimonial
+/*----------------------------------------------*/
+/* ---Newsletter Area--- */
+.newsletter-area{
+    min-height: 410px;
+    text-align: center;
+    .newsletter-wrap{
+        position: absolute;
+        @include absCenter;
+        width: 85%;
+        span{
+            font-size: 18px;
+            line-height: 36px;
+        }
+        > h2{
+            &.heading{
+                font-size: 36px;
+                line-height: 45px;
+                margin-bottom: 25px;
+                @include breakpoint(max-xxs_device){
+                    font-size: 30px;
+                }
+            }
+        }
+        > p{
+            &.short-desc{
+                font-size: 15px;
+                padding-top: 15px;
+                max-width: 75%;
+                margin: 0 auto;
+            }
+        }
+    }
+}
+
+/* ---Testimonial Area--- */
+.testimonial-area{
+    position: relative;
+    @include breakpoint(max-md_device){
+        padding-top: 30px;
+    }
+    .client-review_area{
+        position: absolute;
+        bottom: 20px;
+        right: 130px;
+        text-align: center;
+        z-index: 1;
+        @include breakpoint(lg-device){
+            right: 30px;
+        }
+        @include breakpoint(max-sm_device){
+            right: 75px;
+        }
+        @include breakpoint(max-xs_device){
+            bottom: 20px;
+            right: 15px;
+        }
+        > span{
+            font-size: 18px;
+            line-height: 36px;
+            @include breakpoint(max-xxs_device){
+                font-size: 16px;
+                line-height: 16px;
+            }
+        }
+        > h2{
+            font-size: 36px;
+            line-height: 45px;
+            text-transform: capitalize;
+            font-family: $muli-font;
+            @include breakpoint(max-xs_device){
+                font-size: 25px;
+                line-height: 25px;
+                margin-bottom: 0;
+            }
+            @include breakpoint(max-xxs_device){
+                font-size: 20px;
+                line-height: 20px;
+            }
+        }
+    }
+    .testimonial-slider{
+        background-image: url('../images/testimonial/bg/1.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        overflow: hidden;
+        .testimonial-item{
+            min-height: 410px;
+            position: relative;
+            .testimonial-img{
+                position: absolute;
+                top: 50%;
+                left: 7%;
+                transform: translateY(-50%);
+                @include breakpoint(max-xs_device){
+                    position: relative;
+                    top: auto;
+                    left: auto;
+                    transform: none;
+                    display: flex;
+                    justify-content: center;
+                    padding-top: 20px;
+                }
+                img{
+                    @include breakpoint(max-xs_device){
+                        max-width: 30%;
+                    }
+                    @include breakpoint(max-xxs_device){
+                        max-width: 45%;
+                    }
+                }
+            }
+            .testimonial-content{
+                position: absolute;
+                left: 320px;
+                top: 50px;
+                @include breakpoint(max-lg_device){
+                    left: 240px;
+                }
+                @include breakpoint(max-xs_device){
+                    left: auto;
+                    position: relative;
+                    top: 10px;
+                }
+                > p{
+                    &.comment{
+                        margin-bottom: 15px;
+                        font-size: 15px;
+                        max-width: 85%;
+                        letter-spacing: 0.5px;
+                        @include breakpoint(max-lg_device){
+                            max-width: 100%;
+                        }
+                        @include breakpoint(max-xs_device){
+                            max-width: 90%;
+                            text-align: center;
+                            margin: 0 auto;
+                        }
+                        @include breakpoint(max-xxs_device){
+                            max-width: 95%;
+                        }
+                    }
+                }
+                > h3{
+                    &.client-name{
+                        font-size: 15px;
+                        margin-bottom: 0;
+                        display: flex;
+                        justify-content: center;
+                        cursor: text;
+                        @include breakpoint(max-md_device){
+                            justify-content: flex-start;
+                        }
+                        @include breakpoint(max-xs_device){
+                            justify-content: center;
+                            padding-top: 10px;
+                        }
+                        > span{
+                            position: relative;
+                            padding-left: 40px;
+                            &:before{
+                                content: "";
+                                background-color: $text-color;
+                                height: 2px;
+                                width: 30px;
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

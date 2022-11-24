@@ -1,0 +1,223 @@
+/*----------------------------------------*/
+/*  32 - Pages - About Us
+/*----------------------------------------*/
+.main-content_area{
+	.container-fluid{
+		padding: 0 250px;
+		@include breakpoint(max-xl_device){
+			padding: 0 60px;
+		}
+		@include breakpoint(max-sm_device){
+			padding: 0 30px;
+		}
+		@include breakpoint(max-xxs_device){
+            padding: 0 15px;
+        }
+	}
+	.banner-with_text{
+		.text-area{
+			padding: 0 250px;
+			@include breakpoint(max-xl_device){
+				padding: 0 70px;
+			}
+			@include breakpoint(max-sm_device){
+				padding: 0 30px;
+			}
+			@include breakpoint(max-xxs_device){
+				padding: 0 15px;
+			}
+			span{
+				text-transform: uppercase;
+				padding-bottom: 40px;
+				display: block;
+				font-size: 16px;
+				font-weight: 700;
+			}
+			h2{
+				line-height: 40px;
+				font-size: 30px;
+				font-weight: 700;
+				margin-bottom: 0;
+				&.heading{
+					padding-bottom: 80px;
+				}
+			}
+			p{
+				font-size: 20px;
+				line-height: 35px;
+				&.short-desc{
+					margin-bottom: 0;
+					padding-bottom: 40px;
+				}
+			}
+		}
+		&.banner-with_text-2{
+			.text-area{
+				padding: 0 220px;
+				@include breakpoint(max-xl_device){
+					padding: 0 70px;
+				}
+				@include breakpoint(max-sm_device){
+					padding: 0 30px;
+				}
+				@include breakpoint(max-xxs_device){
+					padding: 0 15px;
+				}
+				h2{
+					&.heading-2{
+						padding-bottom: 20px;
+					}
+				}
+				p{
+					&.short-desc-2{
+						margin-bottom: 0;
+						padding-bottom: 80px;
+					}
+				}
+			}
+		}
+		&.banner-with_text-3{
+			.banner-nav{
+				&.bg-black{
+					span{
+						padding-top: 155px;
+						display: block;
+					}
+				}
+			}
+			.additional-text_area{
+				padding: 0 210px;
+				@include breakpoint(max-xl_device){
+					padding: 0 70px;
+				}
+				@include breakpoint(max-sm_device){
+					padding: 0 30px;
+				}
+				@include breakpoint(max-xxs_device){
+					padding: 0 15px;
+				}
+				span{
+					font-size: 16px;
+					text-transform: uppercase;
+				}
+				h2{
+					&.heading{
+						margin-bottom: 0;
+						padding-top: 90px;
+						padding-bottom: 35px;
+						line-height: 1.2;
+					}
+				}
+				p{
+					font-size: 16px;
+				}
+			}
+		}
+		// Text Color Variation
+		.pearl-text_color{
+			color: #a7a7ac;
+		}
+		.white-text_color{
+			color: $white-color;
+		}
+	}
+	.team-area{
+		.intro-section{
+			padding: 0 250px;
+			@include breakpoint(max-xl_device){
+				padding: 0 70px;
+			}
+			@include breakpoint(max-sm_device){
+				padding: 0 30px;
+			}
+			@include breakpoint(max-sm_device){
+				padding: 0 15px;
+			}
+			h2{
+				&.heading{
+					margin-bottom: 0;
+					line-height: 40px;
+					padding-bottom: 70px;
+				}
+			}
+			.read-more{
+				display: flex;
+				align-items: center;
+				span{
+					font-size: 18px;
+					font-weight: 600;
+				}
+				i{
+					background-color: $primary-color-5;
+					border: 1px solid $border-color;
+					color: $white-color;
+					font-size: 18px;
+					margin-right: 10px;
+					width: 40px;
+					height: 40px;
+					line-height: 40px;
+					text-align: center;
+					border-radius: 100%;
+				}
+			}
+		}
+		.intro-short_desc{
+			padding: 0 210px;
+			font-size: 18px;
+			line-height: 30px;
+			color: #a7a7ac;
+			@include breakpoint(max-xl_device){
+				padding: 0 70px;
+			}
+			@include breakpoint(max-sm_device){
+				padding: 0 30px;
+			}
+			@include breakpoint(max-sm_device){
+				padding: 0 15px;
+			}
+		}
+	}
+	.team-member_area{
+		.single-item{
+			.text-area{
+				> h2{
+					&.title{
+						@include breakpoint(max-md_device){
+							font-size: 28px;
+						}
+					}
+				}
+				span{
+					font-size: 18px;
+					color: #a7a7ac;
+					font-weight: 600;
+				}
+			}
+		}
+	}
+	.testimonial-area{
+		.testimonial-slider{
+			.testimonial-item{
+				.testimonial-content {
+					@include breakpoint(max-md_device){
+						left: 50%;
+					}
+					@include breakpoint(max-xs_device){
+						left: 0;
+					}
+					> p{
+						&.comment{
+							@include breakpoint(max-md_device){
+								max-width: 75%;
+							}
+							@include breakpoint(max-xl_device){
+								max-width: 90%;
+								font-size: 14px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

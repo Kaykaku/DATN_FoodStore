@@ -1,0 +1,89 @@
+/*----------------------------------------*/
+/*  23 - Components - Service
+/*----------------------------------------*/
+.service-area{
+    .service-item{
+        display: flex;
+        @include breakpoint(max-xxs_device){
+            display: block;
+            text-align: center;
+        }
+        .service-content{
+            padding-left: 15px;
+            > h3{
+                &.heading{
+                    font-size: 18px;
+                    line-height: 45px;
+                    margin-bottom: 0;
+                }
+            }
+            > p{
+                &.short-desc{
+                    font-size: 15px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    [class*="col-"]{
+        &:not(:last-child){
+            @include breakpoint(max-md_device){
+                padding-bottom: 30px;
+            }
+        }
+    }
+}
+
+.service-area-2{
+    .service-item{
+        text-align: center;
+        &.img-height{
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        &.bg-01{
+            background-image: url('../images/service/bg/1.jpg');
+        }
+        &.bg-02{
+            background-image: url('../images/service/bg/2.jpg');
+        }
+        &.bg-03{
+            background-image: url('../images/service/bg/3.jpg');
+        }
+        .service-img{
+            padding-bottom: 25px;
+        }
+        .service-content{
+            > h3{
+                &.heading{
+                    font-size: 24px;
+                    line-height: 45px;
+                    margin-bottom: 5px;
+                    font-family: $muli-font;
+                }
+            }
+            > p{
+                &.short-desc{
+                    font-size: 16px;
+                    line-height: 26px;
+                    max-width: 65%;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+    [class*="col-"]{
+        &:not(:last-child){
+            .service-item{
+                @include breakpoint(max-md_device){
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+}

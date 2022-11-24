@@ -1,0 +1,138 @@
+/*----------------------------------------*/
+/*  00 - Base - Typography
+/*----------------------------------------*/
+/* ---Quicky's Font Family--- */
+.font-family-01{
+	font-family: $poppins-font;
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6{
+		font-family: $quicksand-font;
+	}
+	a{
+		font-family: $poppins-font;
+	}
+}
+.font-family-02{
+	font-family: $muli-font;
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6{
+		font-family: $titillium-font;
+	}
+	a{
+		font-family: $muli-font;
+	}
+}
+
+body {
+	font-size: 14px;
+    line-height: 24px;
+	font-weight: 400;
+	color: $text-color;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $heading-color;
+	font-weight: 600;
+	line-height: 24px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+}
+
+.img-full {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: block;
+}
+
+a{
+	font-size: 18px;
+	text-transform: capitalize;
+}
+
+a,
+button,
+i {
+	@extend %basetransition;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+button,
+button:focus,
+.btn,
+.btn:focus,
+input,
+input:focus,
+select,
+textarea {
+	text-decoration: none;
+	outline: 0;
+}
+
+button,
+.btn {
+	cursor: pointer;
+	border: 0;
+	padding: 0;
+	background: transparent;
+}
+
+.overflow-hidden{
+	overflow: hidden;
+}
+
+/* ---Font Family In HTML Markup--- */
+.quicksand-font{
+	*{
+		font-family: $quicksand-font
+	}
+}
+.poppins-font{
+	*{
+		font-family: $poppins-font;
+	}
+}
+.titillium-font{
+	*{
+		font-family: $titillium-font;
+	}
+}
+.muli-font{
+	*{
+		font-family: $muli-font;
+	}
+}
