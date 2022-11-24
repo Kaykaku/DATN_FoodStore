@@ -1,115 +1,163 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<!-- Page Header-->
-    <header class="section page-header">
-      <!-- RD Navbar-->
-      <div class="rd-navbar-wrap">
-        <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
-          data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static"
-          data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static"
-          data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static"
-          data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px"
-          data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-          <div class="rd-navbar-inner-outer">
-            <div class="rd-navbar-inner">
-              <!-- RD Navbar Panel-->
-              <div class="rd-navbar-panel">
-                <!-- RD Navbar Toggle-->
-                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand"><a class="brand" href="index.html">
-                    <h3 style="font-family: Asfalto;">FoodStore</h3>
-                  </a></div>
-              </div>
-              <div class="rd-navbar-right rd-navbar-nav-wrap">
-                <div class="rd-navbar-aside">
-                  <form th:action="@{/search}" method="GET">
-                  <input class="form-control mr-sm-2" name="keyword" th:value="${keyword}" type="search" placeholder="Tìm kiếm..." aria-label="Search"
-                    style="height: 10px; width: 500px;">
-                  </form>
-                  <ul class="rd-navbar-contacts-2">
-                    <li>
-                      <div class="unit unit-spacing-xs">
-                        <div class="unit-body"><a class="address" th:href="@{/login}">Đăng nhập</a></div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="unit unit-spacing-xs">
-                        <div class="unit-body"><a class="address" th:href="@{/signup}">Đăng ký</a></div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="rd-navbar-main">
-                  <!-- RD Navbar Nav-->
-                  <ul class="rd-navbar-nav">
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/index' ? 'active':''}"
-                        class="rd-nav-item"><a class="rd-nav-link" th:href="@{/index}">Trang chủ</a>
-                    </li>
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/shop' ? 'active':''}"
-                        class="rd-nav-item"><a class="rd-nav-link" th:href="@{/shop}">Sản phẩm</a>
-                    </li>
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/introduce' ? 'active':''}"
-                    	class="rd-nav-item"><a class="rd-nav-link" th:href="@{/introduce}">Giới thiệu</a>
-                    </li>
-                    <li th:classappend="${#httpServletRequest.getRequestURI() == '/contact' ? 'active':''}"
-                    	class="rd-nav-item"><a class="rd-nav-link" th:href="@{/contact}">Liên hệ</a>
-                    </li>
+<!-- Begin Main Header Area -->
+<header class="main-header_area">
+	<div class="main-header fixed-top bg-white">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="main-header_nav position-relative">
+						<div class="header-logo_area">
+							<a class="brand" href="index.html" style="font-family: Asfalto;">
+								<h3>FoodStore</h3>
+							</a>
+						</div>
+						<div class="main-menu_area d-none d-lg-block">
+							<nav class="main-nav d-flex justify-content-center">
+								<ul>
+									<li class="dropdown-holder"><a
+										th:style="${#httpServletRequest.getRequestURI() == '/index' ? 'color: brown;':''}"
+										th:href="@{/}">Trang Chủ</a></li>
+									<li class="megamenu-holder position-static"><a
+										th:style="${#httpServletRequest.getRequestURI() == '/shop' ? 'color: brown;':''}"
+										th:href="@{/shop}">Món Ăn</a></li>
+									<li class="megamenu-holder position-static"><a
+										th:style="${#httpServletRequest.getRequestURI() == '/shop/discount' ? 'color: brown;':''}"
+										th:href="@{/shop/discount}">Giảm Giá</a></li>
+									<li><a
+										th:style="${#httpServletRequest.getRequestURI() == '/introduce' ? 'color: brown;':''}"
+										th:href="@{/introduce}">Giới thiệu</a></li>
+									<li><a
+										th:style="${#httpServletRequest.getRequestURI() == '/contact-us' ? 'color: brown;':''}"
+										th:href="@{/contact-us}">Liên Hệ</a></li>
+								</ul>
+							</nav>
+						</div>
+						<div class="header-right_area">
+							<ul>
+								<li class="mobile-menu_wrap d-inline-block d-lg-none"><a
+									href="#mobileMenu"
+									class="mobile-menu_btn toolbar-btn color--white"> <i
+										class="zmdi zmdi-menu"></i>
+								</a></li>
+								<li><a href="#searchBar" class="search-btn toolbar-btn">
+										<i class="zmdi zmdi-search"></i>
+								</a></li>
+								<li class="minicart-wrap mr-md_0"><a href="#miniCart"
+									class="minicart-btn toolbar-btn">
+										<div class="minicart-count_area">
+											<i class="zmdi zmdi-mall"></i>
+											<p class="total-price">
+												<span id="headerTotalQuantity"></span>
+											</p>
+										</div>
+								</a></li>
+								<li class="dropdown-holder user-setting_wrap"><a
+									href="javascript:void(0)"><i class="zmdi zmdi-account-o"></i></a>
+									<ul class="quicky-dropdown quicky-submenu">
+										<li><a th:href="@{/security/login/form}">Đăng Nhập</a> <a>Đăng
+												Ký</a> <a href="">Cấp Lại Mật Khẩu Mới</a> <a
+											th:href="@{/myOrder}">Lịch sử hóa đơn</a> <a href="">[Quản
+												lý của hàng]</a> <a href="">Đăng xuất</a></li>
+									</ul></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="offcanvas-minicart_wrapper" id="miniCart">
+		<div class="offcanvas-menu-inner">
+			<a href="#" class="btn-close"><i class="zmdi zmdi-close"></i></a>
+			<div class="minicart-content" style="margin-top: 50px;">
+				<div class="minicart-heading">
+					<h4>Quản lý giỏ hàng</h4>
+				</div>
+			</div>
+			<div class="minicart-content pb-2">
+				<div class="minicart-heading">
+					<h5>
+						<b>Tổng giá: <b id="headerTotalPrice" class="text-danger"></b></b>
+					</h5>
+				</div>
+			</div>
+			<div class="minicart-btn_area">
+				<a th:href="@{/cart/view}"
+					class="quicky-btn-2 quicky-btn_fullwidth square-btn">Giỏ hàng</a>
+			</div>
+			<div class="minicart-btn_area">
+				<a th:href="@{/cart/checkout}"
+					class="quicky-btn-2 quicky-btn_fullwidth square-btn">Thanh toán</a>
+			</div>
+		</div>
+	</div>
+	<div class="offcanvas-search_wrapper" id="searchBar">
+		<div class="offcanvas-menu-inner">
+			<div class="container">
+				<a href="#" class="btn-close"><i class="zmdi zmdi-close"></i></a>
+				<!-- Begin Offcanvas Search Area -->
+				<div class="offcanvas-search">
+					<form action="#" class="hm-searchbox">
+						<input type="text" placeholder="Search for item..." />
+						<button class="search_btn" type="submit">
+							<i class="zmdi zmdi-search"></i>
+						</button>
+					</form>
+				</div>
+				<!-- Offcanvas Search Area End Here -->
+			</div>
+		</div>
+	</div>
+	<div class="global-overlay"></div>
+	<!-- Begin Slider Area Three -->
+	<div class="slider-area-3">
 
-                  </ul>
-                </div>
-              </div>
-              <div class="rd-navbar-project-hamburger rd-navbar-project-hamburger-open rd-navbar-fixed-element-1">
-                <div class="" style="font-size: 30px; margin-top: -15px;"><a th:href="@{/cart}"><span
-                      class="fa fa-shopping-bag"></span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- Swiper-->
-    <section class="section swiper-container swiper-slider swiper-slider-2 swiper-slider-3" data-loop="true"
-      data-autoplay="5000" data-simulate-touch="false" data-slide-effect="fade">
-      <div class="swiper-wrapper text-sm-left">
-        <div class="swiper-slide context-dark" th:data-slide-bg="@{/assets/user/images/banner1.jpg}">
-          <div class="swiper-slide-caption section-md">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-9 col-md-8 col-lg-7 col-xl-7 offset-lg-1 offset-xxl-0">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide context-dark" th:data-slide-bg="@{/assets/user/images/banner2.jpg}">
-          <div class="swiper-slide-caption section-md">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-9 col-md-8 col-lg-7 col-xl-7 offset-lg-1 offset-xxl-0">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Swiper Pagination-->
-      <div class="swiper-pagination" data-bullet-custom="true"></div>
-      <!-- Swiper Navigation-->
-      <div class="swiper-button-prev">
-        <div class="preview">
-          <div class="preview__img"></div>
-        </div>
-        <div class="swiper-button-arrow"></div>
-      </div>
-      <div class="swiper-button-next">
-        <div class="swiper-button-arrow"></div>
-        <div class="preview">
-          <div class="preview__img"></div>
-        </div>
-      </div>
-    </section>
-</body>
-</html>
+		<div
+			class="quicky-element-carousel home-slider home-slider-3 arrow-style"
+			data-slick-options='{
+                "slidesToShow": 1,
+                "slidesToScroll": 1,
+                "infinite": true,
+                "arrows": false,
+                "dots": true,
+                "autoplay" : true,
+                "autoplaySpeed" : 7000,
+                "pauseOnHover" : false,
+                "pauseOnFocus" : false,
+                "vertical" : true
+                }'
+			data-slick-responsive='[
+                {"breakpoint":768, "settings": {
+                "slidesToShow": 1
+                }},
+                {"breakpoint":575, "settings": {
+                "slidesToShow": 1
+                }}
+            ]'>
+			<div class="slide-item animation-style-03 position-relative bg-4">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="inner-slide">
+								<div class="slider-img">
+									<img th:src="@{/assets/images/slider/slider-product/4.png}"
+										alt="Slider Product">
+								</div>
+								<div class="slide-content slide-content_right">
+									<h2 class="freestyle-script">Stylish & Dashing</h2>
+									<p class="short-desc">Produce and supply various Handicraft
+										items all over the world which were very attractive</p>
+									<div class="slide-btn">
+										<a class="quicky-btn horizontal-line_ltr horizontal-line_rtl"
+											th:href="@{/shop}">Shop Now!</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Slider Area Three End Here -->
+</header>
+<!-- Main Header Area End Here -->

@@ -1,141 +1,198 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
+	th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
+<body th:onload="getTotalQuantity(); getTotalPrice()">
+	<!-- Begin Quicky's Content Wrapper Area -->
+	<div class="quicky-content_wrapper pt-90 pb-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 order-2 order-lg-1">
+					<div class="quicky-sidebar-catagories_area">
+						<div class="quicky-sidebar_categories">
+							<div class="quicky-categories_title first-child">
+								<h5>Tìm Theo Giá</h5>
+							</div>
+							<div class="price-filter">
+								<div id="slider-range"></div>
+								<div class="price-slider-amount">
+									<div class="label-input">
+										<label>Giá : </label> <input type="text" id="amount"
+											name="price" placeholder="Add Your Price" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="quicky-sidebar_categories category-module">
+							<div class="quicky-categories_title">
+								<h5>Danh Mục</h5>
+							</div>
+							<div class="sidebar-categories_menu">
+								<ul>
+									<li th:each="item: ${@Utils.categories}"><a
+										th:href="@{|/byCategory/${item.name}|}">[[${item.display_name}]]</a>
+									</li>
+									<li><a th:href="@{/shop}">Tất cả</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 order-1 order-lg-2">
+					<div class="shop-product-wrap grid gridview-3 row">
+						<div class="col-12" th:each="item: ${foods}">
+							<div class="product-item">
+								<div class="single-product">
+									<div class="product-img">
+										<a th:href="@{|/productDetail/${item.id}|}"> <img
+											th:if="${item.getFood_images().get(0).getImage_name()} != null"
+											th:src="@{|/images/${item.getFood_images().get(0).getImage_name()}|}"
+											alt="Quicky's Product Image" height="250px;" />
+										</a>
+										<div class="add-actions">
+											<ul>
+												<li class="quick-view-btn" data-toggle="modal"
+													data-target="#exampleModalCenter"><a
+													th:href="@{|/productDetail/${item.id}|}"
+													data-toggle="tooltip" data-placement="top" title="Chi tiết"><i
+														class="icon-magnifier"></i></a></li>
+												<li><a data-toggle="tooltip" data-placement="top"
+													th:attr="onclick='addToCart(\'' + ${item.id} + '\')'"
+													title="Thêm vào giỏ hàng"><i class="icon-bag"></i></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="product-content bg-snow">
+										<div class="product-desc_info">
+											<h3 class="product-name">
+												<a th:href="@{|productDetail/${item.id}|}"
+													th:text="${item.name}"></a>
+											</h3>
+											<div class="price-box">
+												<span class="new-price ml-0"
+													th:text="${#numbers.formatDecimal(item.price, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"></span>
+											</div>
+											<div
+												class="review-area d-flex justify-content-between align-items-center">
+												<div class="rating-box gamboge-color">
+													<ul>
+														<li><i class="icon-star"></i></li>
+														<li><i class="icon-star"></i></li>
+														<li><i class="icon-star"></i></li>
+														<li><i class="icon-star"></i></li>
+														<li><i class="icon-star"></i></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" th:if="${totalPages > 1}">
+						<div class="col-lg-12">
+							<div class="quicky-paginatoin-area">
+								<ul class="quicky-pagination-box">
+									<li th:style="${currentPage == 1} ? 'visibility: hidden' : ''">
+										<a class="Next"
+										th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">Trước</a>
+									</li>
+									<li th:each="i: ${#numbers.sequence(1, totalPages)}"
+										th:class="${currentPage == i} ? 'active' : ''"><a
+										th:href="@{'?page=' + ${i}}" th:text="${i}">1</a></li>
+									<li
+										th:style="${currentPage == totalPages} ? 'visibility: hidden' : ''">
+										<a class="Next"
+										th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">Tiếp</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<body>
-<!-- What We Offer-->
-        <section class="section section-md bg-default">
-            <div class="container">
-                <h4 class="oh-desktop">Danh mục</h4>
-                <div class="row row-md row-30">
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInUp">
-                                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc1.jpg}" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Cà phê</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc2.jpg}" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Pizza</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInUp">
-                                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc3.jpg}" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Bánh mì</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc4.jpg}" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Cơm tấm</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInUp">
-                                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc5.jpg}" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Trà sữa</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc6.jpg}" alt="" width="370"
-                                        height="278" />
-                                </div>
-                                <div class="services-terri-caption">
-                                    <h5 class="services-terri-title"><a href="#">Gà rán</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!--sản phẩm -->
-        <section class="section section-lg bg-default">
-            <div class="container">
-                <h4 class="oh-desktop"><span class="d-inline-block wow slideInUp">Sản phẩm</span></h4>
-                <div class="row row-lg row-30">
-                    <div class="col-sm-6 col-lg-4 col-xl-3" th:each="item: ${foods}">
-                        <!-- Product-->
-                        <article class="product wow fadeInLeft" data-wow-delay=".15s">
-                            <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161"
-                                    height="162" />
-                            </div>
-                            <div class="product-rating"><span class="mdi mdi-star"></span><span
-                                    class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span
-                                    class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-                            </div>
-                            <h6 class="product-title" th:text="${item.name}"></h6>
-                            <div class="product-price-wrap">
-                                <div class="product-price" th:text="${#numbers.formatCurrency(item.price)}"></div>
-                            </div>
-                            <div class="product-button">
-                                <div class="button-wrap"><a class="button button-xs button-primary button-winona"
-                                        href="#">Thêm vào giỏ </a></div>
-                                <div class="button-wrap"><a class="button button-xs button-secondary button-winona"
-                                        th:href="@{|productDetail/${item.id}|}">Xem sản phẩm</a></div>
-                                <div class="button-wrap"><a class="button button-xs button-secondary button-winona"
-                                        href="spyeuthich.html">Yêu thích</a></div>
-
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="center mt-5 mb-5">
-            <div class="pagination">
-            <a th:style="${currentPage == 1} ? 'visibility: hidden' : ''"
-               th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">&laquo;</a>
-            	
-            <a th:each="i : ${#numbers.sequence(1, totalPages)}" 
-               th:class="${currentPage == i} ? 'active' : ''"
-               th:href="@{'?page=' + ${i}}" >[[${i}]]</a>
-               
-            <a th:style="${currentPage == totalPages} ? 'visibility: hidden' : ''"
-               th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">&raquo;</a>
-            </div>
-          </div>
+	<script>
+		const addToCart = (productId) =>{
+		 	const url = '/rest/cart/add?id=' + productId + '&quantity=1&isReplace=false';
+		 	$.ajax({
+				url : url,
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					refreshQuantity();
+					refreshPrice();
+				},
+				error : function(error) {
+					console.log(error);
+					alert("Add To Cart Failed!");
+				}
+			});
+		}
+		
+		const refreshQuantity = () =>{
+			const url = '/rest/cart/refreshQuantity';
+			$.ajax({
+				url: url,
+				type: 'GET',
+				dataType: 'json',
+				success: function(data){
+					localStorage.setItem("quantity", data);
+					var quantity = localStorage.getItem("quantity");
+					$('#headerTotalQuantity').text(quantity);
+				},
+				error: function(error){
+					console.log(error);
+					alert(error);
+				}
+			});
+		}
+		
+		const refreshPrice = () =>{
+			const url = '/rest/cart/refreshPrice';
+			$.ajax({
+				url: url,
+				type: 'GET',
+				dataType: 'json',
+				success: function(data){
+					localStorage.setItem("price", data);
+					var price = localStorage.getItem("price");
+					$('#headerTotalPrice').text(formatCurrency(price));
+				},
+				error: function(error){
+					console.log(error);
+					alert(error);
+				}
+			});
+		}
+		
+		const formatCurrency = (x) => {
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' VNĐ';
+		}
+		
+		const getTotalQuantity = () =>{
+			var quantity = localStorage.getItem("quantity");
+			if(quantity === null){
+				$('#headerTotalQuantity').text(0);
+			} else {
+				$('#headerTotalQuantity').text(quantity);
+			}
+		}
+		
+		const getTotalPrice = () =>{
+			var price = localStorage.getItem("price");
+			if(price === null){
+				$('#headerTotalPrice').text(0);
+			} else {
+				$('#headerTotalPrice').text(price);
+			}
+		}
+		
+		
+	</script>
 
 </body>
 </html>

@@ -1,98 +1,360 @@
-<!-- <!DOCTYPE html> -->
-<!-- <html xmlns:th="http://www.thymeleaf.org" -->
-<!-- th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}"> -->
-<!-- <body> -->
-<!-- <!--Detail--> -->
-<!--         <main role="main"> -->
-<!--             Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
-<!--             <div class="container mt-4 mb-5"> -->
-<!--                 <div id="thongbao" class="alert alert-danger d-none face" role="alert"> -->
-<!--                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
-<!--                         <span aria-hidden="true">×</span> -->
-<!--                     </button> -->
-<!--                 </div> -->
-    
-<!--                 <div class="card"> -->
-<!--                     <div class="container-fliud"> -->
-<!--                         <form> -->
-<!--                             <div class="wrapper row"> -->
-<!--                                 <div class="preview col-md-6"> -->
-<!--                                     <div class="preview-pic tab-content"> -->
-<!--                                         <div class="tab-pane" id="pic-1"> -->
-<!--                                             <img src="images/danhmuc5.jpg"> -->
-<!--                                         </div> -->
-<!--                                         <div class="tab-pane" id="pic-2"> -->
-<!--                                             <img src="images/danhmuc5.jpg"> -->
-<!--                                         </div> -->
-<!--                                         <div class="tab-pane active" id="pic-3"> -->
-<!--                                             <img src="images/danhmuc5.jpg"> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                     <ul class="preview-thumbnail nav nav-tabs"> -->
-<!--                                         <li class="active"> -->
-<!--                                             <a data-target="#pic-1" data-toggle="tab" class=""> -->
-<!--                                                 <img src="images/danhmuc5.jpg"> -->
-<!--                                             </a> -->
-<!--                                         </li> -->
-<!--                                         <li class=""> -->
-<!--                                             <a data-target="#pic-2" data-toggle="tab" class=""> -->
-<!--                                                 <img src="images/danhmuc5.jpg"> -->
-<!--                                             </a> -->
-<!--                                         </li> -->
-<!--                                         <li class=""> -->
-<!--                                             <a data-target="#pic-3" data-toggle="tab" class="active"> -->
-<!--                                                 <img src="images/danhmuc5.jpg"> -->
-<!--                                             </a> -->
-<!--                                         </li> -->
-<!--                                     </ul> -->
-<!--                                 </div> -->
-<!--                                 <div class="details col-md-6 text-left"> -->
-<!--                                     <h6 class="product-title">Trà sữa truyền thống</h6> -->
-<!--                                     <div class="rating"> -->
-<!--                                         <div class="stars"> -->
-<!--                                             <span class="fa fa-star checked"></span> -->
-<!--                                             <span class="fa fa-star checked"></span> -->
-<!--                                             <span class="fa fa-star checked"></span> -->
-<!--                                             <span class="fa fa-star"></span> -->
-<!--                                             <span class="fa fa-star"></span> -->
-<!--                                         </div> -->
-<!--                                         <span class="review-no">999 reviews</span> -->
-<!--                                     </div> -->
-<!--                                     <p class="product-description">Bao gồm topping trân châu và thạch. </p> -->
-<!--                                     <small class="text-muted">Giá cũ: <s><span>35.000 vnđ</span></s></small> -->
-<!--                                     <p class="price">Giá hiện tại: <span>29.000 vnđ</span></p> -->
-<!--                                     <p class="sizes">sizes: -->
-<!--                                         <span class="size" data-toggle="tooltip" title="cỡ Nhỏ">s</span> -->
-<!--                                         <span class="size" data-toggle="tooltip" title="cỡ Trung bình">m</span> -->
-<!--                                         <span class="size" data-toggle="tooltip" title="cỡ Lớn">l</span> -->
-<!--                                     </p> -->
-<!--                                     <div class="form-group"> -->
-<!--                                         <label for="soluong">Số lượng đặt mua:</label> -->
-<!--                                         <input type="number" class="form-input" id="soluong" name="soluong"> -->
-<!--                                     </div> -->
-<!--                                     <div class="action"> -->
-<!--                                         <a class="add-to-cart btn btn-default">Thêm vào giỏ hàng</a> -->
-<!--                                         <a class="like btn btn-default" href="#"><span class="fa fa-heart"></span></a> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-    
-<!--                             </div> -->
-<!--                         </form> -->
-<!--                     </div> -->
-<!--                 </div> -->
-    
-<!--                 <div class="card text-left"> -->
-<!--                     <div class="container-fluid"> -->
-<!--                         <h5>Thông tin chi tiết về Sản phẩm</h5> -->
-<!--                         <div class="row"> -->
-<!--                             <div class="col"> -->
-<!--                                 ... -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--             End block content -->
-<!--         </main> -->
-<!-- </body> -->
-<!-- </html> -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
+<body>
+	<!-- Begin Quicky's Single Product Area -->
+	<div class="sp-area pt-100">
+		<div class="container">
+			<div class="sp-nav">
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="sp-img_area">
+							<div
+								class="sp-img_slider slick-img-slider quicky-element-carousel"
+								data-slick-options='{
+                            "slidesToShow": 1,
+                            "arrows": false,
+                            "fade": true,
+                            "draggable": false,
+                            "swipe": false,
+                            "asNavFor": ".sp-img_slider-nav"
+                            }'>
+								<div class="single-slide red zoom">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Image">
+								</div>
+								<div class="single-slide orange zoom">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Image">
+								</div>
+								<div class="single-slide brown zoom">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Image">
+								</div>
+								<div class="single-slide umber zoom">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Image">
+								</div>
+							</div>
+							<div
+								class="sp-img_slider-nav slick-slider-nav quicky-element-carousel arrow-style arrow-sm_size arrow-day_color"
+								data-slick-options='{
+                            "slidesToShow": 3,
+                            "asNavFor": ".sp-img_slider",
+                            "focusOnSelect": true,
+                            "arrows" : true,
+                            "spaceBetween": 30
+                            }'
+								data-slick-responsive='[
+                                    {"breakpoint":1501, "settings": {"slidesToShow": 3}},
+                                    {"breakpoint":1200, "settings": {"slidesToShow": 2}},
+                                    {"breakpoint":992, "settings": {"slidesToShow": 4}},
+                                    {"breakpoint":768, "settings": {"slidesToShow": 3}},
+                                    {"breakpoint":575, "settings": {"slidesToShow": 2}}
+                                ]'>
+								<div class="single-slide red">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Thumnail">
+								</div>
+								<div class="single-slide orange">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Thumnail">
+								</div>
+								<div class="single-slide brown">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Thumnail">
+								</div>
+								<div class="single-slide umber">
+									<img
+										th:if="${food.getFood_images().get(0).getImage_name()} != null"
+										th:src="@{|/images/${food.getFood_images().get(0).getImage_name()}|}"
+										alt="Quicky's Product Thumnail">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-7">
+						<div class="sp-content ml-lg-4">
+							<div class="sp-heading">
+								<h5 th:text="${food.name}"></h5>
+							</div>
+							<div class="rating-box">
+								<ul>
+									<li><i class="zmdi zmdi-star"></i></li>
+									<li><i class="zmdi zmdi-star"></i></li>
+									<li><i class="zmdi zmdi-star"></i></li>
+									<li class="silver-color"><i class="zmdi zmdi-star"></i></li>
+									<li class="silver-color"><i class="zmdi zmdi-star"></i></li>
+								</ul>
+							</div>
+							<div class="sp-essential_stuff">
+								<ul>
+									<li>Đã bán: <b></b></li>
+									<li>Số lượng còn lại: <b th:text="${food.quantity_limit}"></b></li>
+									<li>Trạng thái: <b>Còn món</b></li>
+									<li>Giá: <span class="font-weight-bold"
+										th:text="${#numbers.formatDecimal(food.price, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"></span></li>
+								</ul>
+							</div>
+							<div class="quantity">
+								<label>Số lượng</label>
+								<div class="cart-plus-minus">
+									<input class="cart-plus-minus-box" value="1" type="text">
+									<div class="dec qtybutton">
+										<i class="zmdi zmdi-chevron-down"></i>
+									</div>
+									<div class="inc qtybutton">
+										<i class="zmdi zmdi-chevron-up"></i>
+									</div>
+								</div>
+							</div>
+							<div class="qty-btn_area">
+								<ul>
+									<li><button href="" class="qty-cart_btn px-3"
+											style="padding-top: 11px; padding-bottom: 11px;">Thêm vào giỏ</button></li>
+									<li><a class="qty-wishlist_btn" href=""
+										data-toggle="tooltip" title="Add To Wishlist"><i
+											class="zmdi zmdi-favorite-outline"></i></a></li>
+								</ul>
+							</div>
+							<div class="social-link-4 square-style align-left border-style">
+								<ul>
+									<li class="facebook"><a href="https://www.facebook.com"
+										data-toggle="tooltip" target="_blank" title="Facebook"> <i
+											class="zmdi zmdi-facebook"></i>
+									</a></li>
+									<li class="twitter"><a href="https://twitter.com"
+										data-toggle="tooltip" target="_blank" title="Twitter"> <i
+											class="zmdi zmdi-twitter"></i>
+									</a></li>
+									<li class="google-plus"><a
+										href="https://www.plus.google.com/discover"
+										data-toggle="tooltip" target="_blank" title="Google Plus">
+											<i class="zmdi zmdi-google-plus"></i>
+									</a></li>
+									<li class="instagram"><a href="https://rss.com"
+										data-toggle="tooltip" target="_blank" title="Instagram"> <i
+											class="zmdi zmdi-instagram"></i>
+									</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Quicky's Single Product Area End Here -->
+
+	<!-- Begin Product Tab Area Two -->
+	<div class="product-tab_area pt-90">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="sp-product-tab_nav">
+						<div class="product-tab">
+							<ul class="nav product-menu">
+								<li><a class="active" data-toggle="tab" href="#description"><span>Mô
+											tả</span></a></li>
+								<li><a data-toggle="tab" href="#reviews"><span>Đánh
+											giá</span></a></li>
+							</ul>
+						</div>
+						<div class="tab-content uren-tab_content">
+							<div id="description" class="tab-pane active show"
+								role="tabpanel">
+								<div class="product-description">
+									<ul>
+										<li><span class="title">Thông tin sản phẩm</span> <span
+											th:text="${food.description}"></span></li>
+									</ul>
+								</div>
+							</div>
+							<div id="reviews" class="tab-pane" role="tabpanel">
+								<div class="tab-pane active" id="tab-review">
+									<form class="form-horizontal" id="form-review">
+										<div id="review">
+											<table class="table table-striped table-bordered">
+												<tbody>
+													<tr>
+														<td style="width: 50%;"><strong>Customer</strong></td>
+														<td class="text-right">20/02/20</td>
+													</tr>
+													<tr>
+														<td colspan="2">
+															<p>Good product! Thank you very much</p>
+															<div class="rating-box">
+																<ul>
+																	<li><i class="zmdi zmdi-star"></i></li>
+																	<li><i class="zmdi zmdi-star"></i></li>
+																	<li><i class="zmdi zmdi-star"></i></li>
+																	<li><i class="zmdi zmdi-star"></i></li>
+																	<li><i class="zmdi zmdi-star"></i></li>
+																</ul>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<h2>Write a review</h2>
+										<div class="form-group required">
+											<div class="col-sm-12 p-0">
+												<label>Your Email <span class="required">*</span></label> <input
+													class="review-input plr-10" type="email" name="con_email"
+													id="con_email" required>
+											</div>
+										</div>
+										<div class="form-group required second-child">
+											<div class="col-sm-12 p-0">
+												<label class="control-label">Share your opinion</label>
+												<textarea class="review-textarea plr-10" name="con_message"
+													id="con_message"></textarea>
+												<div class="help-block">
+													<span class="text-danger">Note:</span> HTML is not
+													translated!
+												</div>
+											</div>
+										</div>
+										<div class="form-group last-child required">
+											<div class="col-sm-12 p-0">
+												<div class="your-opinion">
+													<label>Your Rating</label>
+													<div class="rating-box">
+														<ul>
+															<li><i class="zmdi zmdi-star"></i></li>
+															<li><i class="zmdi zmdi-star"></i></li>
+															<li><i class="zmdi zmdi-star"></i></li>
+															<li><i class="zmdi zmdi-star"></i></li>
+															<li><i class="zmdi zmdi-star"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="quicky-btn-ps_right">
+												<button class="quicky-btn-2 square-btn">Continue</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Product Tab Area Two End Here -->
+
+	<!-- Begin Product Area Seven -->
+	<div class="product-area-13 pt-95">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h3 class="heading">Sản phẩm cùng loại</h3>
+						<div class="section-icon"></div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="quicky-element-carousel product-slider"
+						data-slick-options='{
+                    "slidesToShow": 3,
+                    "slidesToScroll": 1,
+                    "infinite": false,
+                    "arrows": false,
+                    "dots": false,
+                    "spaceBetween": 30
+                    }'
+						data-slick-responsive='[
+                    {"breakpoint":992, "settings": {
+                    "slidesToShow": 2
+                    }},
+                    {"breakpoint":768, "settings": {
+                    "slidesToShow": 1
+                    }}
+                ]'>
+						<div class="product-item">
+							<div class="single-product">
+								<div class="product-img">
+									<a href=""> <img src="" alt="Quicky's Product Image">
+									</a>
+									<div class="add-actions">
+										<ul>
+											<li class="quick-view-btn" data-toggle="modal"
+												data-target="#exampleModalCenter"><a href=""
+												data-toggle="tooltip" data-placement="top"
+												title="Quick View"><i class="icon-magnifier"></i></a></li>
+											<li><a href="" data-toggle="tooltip"
+												data-placement="top" title="Add To cart"><i
+													class="icon-bag"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="product-content bg-snow">
+									<div class="product-desc_info">
+										<h3 class="product-name">
+											<a href=""></a>
+										</h3>
+										<div class="price-box">
+											<span class="new-price ml-0"></span>
+										</div>
+										<div
+											class="review-area d-flex justify-content-between align-items-center">
+											<div class="rating-box gamboge-color">
+												<ul>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Product Area Seven End Here -->
+	
+	<script>
+		const addToCart = (productId) =>{
+		 	const url = '/rest/cart/add?id=' + productId + '&quantity=0&isReplace=false';
+		 	$.ajax({
+				url : url,
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					$('#headerTotalQuantity').text(data.totalQuantity);
+				},
+				error : function(error) {
+					console.log(error);
+					alert("Add To Cart Failed!");
+				}
+			});
+		}
+	</script>
+	
+	
+</body>
+</html>

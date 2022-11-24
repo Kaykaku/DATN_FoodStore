@@ -1,86 +1,151 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
-<body>
-<!--Cart-->
-        <div class="col-md-10 mx-auto mt-5 mb-5">
-            <h4>Giỏ hàng của bạn</h4> <br>
-            <table id="cart" class="table ">
-                <thead class="thead-dark">
-                    <tr>
-                        <th style="width:40%" class="text-left">Tên sản phẩm</th>
-                        <th style="width:15%">Giá</th>
-                        <th style="width:5%">Số lượng</th>
-                        <th style="width:25%" class="text-center">Thành tiền</th>
-                        <th style="width:15%"> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-th="Product">
-                            <div class="row text-left">
-                                <div class="col-sm-2 hidden-xs"><img
-                                        src="http://hocwebgiare.com/thiet_ke_web_chuan_demo/shopping_cart/images/090.jpg"
-                                        alt="Sản phẩm 1" class="img-responsive" width="100">
-                                </div>
-                                <div class="col-sm-10">
-                                    <h6 class="text-capitalize">Sản phẩm 1</h6>
-                                    <p>Mô tả của sản phẩm 1</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td data-th="Price">200.000 đ</td>
-                        <td data-th="Quantity"><input class="text-center" value="1" type="number" style="width: 80px;">
-                        </td>
-                        <td data-th="Subtotal" class="text-center">200.000 đ</td>
-                        <td class="actions" data-th="">
-                            <a type="button" href="#" style="border: none; background-color: white; color: black;"><span
-                                    class="fa fa-window-close"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-th="Product">
-                            <div class="row text-left">
-                                <div class="col-sm-2 hidden-xs"><img
-                                        src="http://hocwebgiare.com/thiet_ke_web_chuan_demo/shopping_cart/images/174.jpg"
-                                        alt="Sản phẩm 1" class="img-responsive" width="100">
-                                </div>
-                                <div class="col-sm-10">
-                                    <h6 class="text-capitalize">Sản phẩm 2</h6>
-                                    <p>Mô tả của sản phẩm 2</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td data-th="Price">300.000 đ</td>
-                        <td data-th="Quantity"><input class=" text-center" value="1" type="number" style="width: 80px;">
-                        </td>
-                        <td data-th="Subtotal" class="text-center">300.000 đ</td>
-                        <td class="actions" data-th="">
-                            <a type="button" href="#" style="border: none; background-color: white; color: black;"><span
-                                    class="fa fa-window-close"></span>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr class="visible-xs hidden-xs">
-                        
-                    </tr>
-                    <tr>
-                        <td class="text-left"><a href="" class=""><span class="fa fa-angle-left"></span> Tiếp tục mua
-                                hàng</a>
-                        </td>
-                        <td colspan="2" class="hidden-xs"> </td>
-                        <td class="hidden-xs text-center"><strong>Tổng tiền 500.000 đ</strong>
-                        </td>
-                        <td class="text-right"><a href="" class="">Thanh toán <span
-                                    class="fa fa-angle-right"></span></a>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+	th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
+<body th:onload="getTotalQuantity(); getTotalPrice()">
+
+	<!-- Begin Quicky's Cart Area -->
+	<div class="quicky-cart-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<form action="javascript:void(0)">
+						<div class="table-content table-responsive">
+							<div class="text-center" th:if="${carts.content.empty}">
+								<h2>GIỎ HÀNG TRỐNG</h2>
+							</div>
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="quicky-product-remove">Stt</th>
+										<th class="quicky-product-thumbnail">Ảnh</th>
+										<th class="cart-product-name">Sản phẩm</th>
+										<th class="quicky-product-price">Giá</th>
+										<th class="quicky-product-quantity">Số lượng</th>
+										<th class="quicky-product-subtotal">Tổng</th>
+										<th class="quicky-product-remove">Xóa</th>
+									</tr>
+								</thead>
+								<tbody id="viewCartFragment">
+									<tr th:each="item,i: ${carts.content}">
+										<td class="quicky-product-remove" th:text="${i.index + 1}"></td>
+										<td class="quicky-product-thumbnail"><a
+											th:href="@{|/productDetail/${item.food_cart.id}|}"><img
+												th:src="@{|/images/${item.getFood_cart().getFood_images().get(0).getImage_name()}|}"
+												alt="Quicky's Cart Thumbnail" width="80px;" height="80px;" /></a></td>
+										<td class="quicky-product-name"><a
+											th:text="${item.food_cart.name}"></a></td>
+										<td class="quicky-product-price"
+											th:text="${#numbers.formatDecimal(item.food_cart.price, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"><span
+											class="amount"></span></td>
+										<td class="quantity"><label>Quantity</label>
+											<div class="cart-plus-minus">
+												<input class="form-control" type="number"
+													th:value="${item.quantity}">
+												<div class="dec qtybutton">
+													<i class="zmdi zmdi-chevron-down"></i>
+												</div>
+												<div class="inc qtybutton">
+													<i class="zmdi zmdi-chevron-up"></i>
+												</div>
+											</div></td>
+										<td class="product-subtotal"><span class="amount"
+											th:text="${#numbers.formatDecimal(item.food_cart.price * item.quantity, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"></span>
+										</td>
+										<td class="quicky-product-remove"><a
+											th:attr="onclick='removeCart(\'' + ${item.id} + '\')'"><i
+												style="cursor: pointer;" class="zmdi zmdi-close"
+												title="Remove"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+						<div class="row text-center" th:if="${totalPages > 1}">
+							<div class="col-lg-12">
+								<div class="quicky-paginatoin-area">
+									<ul class="quicky-pagination-box">
+										<li><a class="Next"
+											th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">Trước</a>
+										</li>
+										<li th:each="i: ${#numbers.sequence(1, totalPages)}"
+											th:class="${currentPage == i} ? 'active' : ''"><a
+											th:href="@{'?page=' + ${i}}" th:text="${i}">1</a></li>
+										<li><a class="Next"
+											th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">Tiếp</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<div class="coupon-all">
+									<a th:href="@{/shop}"
+										style="background-color: black; color: white;"
+										class="py-2 px-2">Tiếp tục mua hàng</a>
+								</div>
+							</div>
+							<div class="col-6 text-right">
+								<div class="coupon-all">
+									<a th:href="@{/}"
+										style="background-color: black; color: white;"
+										class="py-2 px-2">Xóa sạch giỏ hàng</a>
+								</div>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-md-5 ml-auto">
+								<div class="cart-page-total">
+									<h2>Tổng tiền thanh toán</h2>
+									<ul>
+										<li>Số sản phẩm<span id="totalQuantity"></span>
+										</li>
+										<li>Tổng tiền <span id="totalPrice"></span></li>
+									</ul>
+									<a th:href="@{/cart/checkout}">Thanh toán</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	const removeCart = (cartId) =>{
+		alert(cartId);
+		var url = '/cart/delete?id=' + cartId + '&quantity=0&isReplace=false';
+		$.get(url).done(function(data){
+			$('#viewCartFragment').replaceWith(data);
+		});
+	}
+	
+	const getTotalQuantity = () =>{
+		var quantity = localStorage.getItem("quantity");
+		if(quantity === null){
+			$('#headerTotalQuantity').text(0);
+		} else {
+			$('#headerTotalQuantity').text(quantity);
+			$('#totalQuantity').text(quantity);
+		}
+	}
+	
+	const getTotalPrice = () =>{
+		var price = localStorage.getItem("price");
+		if(price === null){
+			$('#headerTotalPrice').text(0);
+		} else {
+			$('#headerTotalPrice').text(formatCurrency(price));
+			$('#totalPrice').text(formatCurrency(price));
+		}
+	}
+	
+	const formatCurrency = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' VNĐ';
+	}
+	</script>
 
 </body>
 </html>

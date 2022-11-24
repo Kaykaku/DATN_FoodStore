@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
+<body>
+	<div class="checkout-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-12">
+					<form action="">
+						<div class="checkbox-form">
+							<h3>Thông tin giao hàng</h3>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="checkout-form-list">
+										<label>Địa chỉ <span class="required">*</span></label> <input
+											placeholder="" type="text" id="address" value="" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="checkout-form-list">
+										<label>Tên người dùng <span class="required">*</span></label>
+										<input placeholder="" type="text" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="checkout-form-list">
+										<label>Số điện thoại <span class="required">*</span></label> <input
+											placeholder="" type="text" id="phone_number" value="" />
+									</div>
+								</div>
+								<div class="order-button-payment">
+									<button type="submit" class="py-2 px-4"
+										style="background-color: black; color: white; margin-left: 228px;">Thanh
+										toán</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-6 col-12">
+					<div class="your-order">
+						<h3>
+							Hóa đơn của bạn
+							<n></n>
+						</h3>
+						<div class="your-order-table table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="cart-product-name">Sản phẩm</th>
+										<th class="cart-product-name">Số lượng</th>
+										<th class="cart-product-total">Giá</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cart_item">
+										<td class="cart-product-name text-center"></td>
+										<td class="cart-product-total text-center"></td>
+										<td class="cart-product-total text-center"><span
+											class="amount"></span></td>
+									</tr>
+
+								</tbody>
+								<tfoot>
+									<tr class="order-total">
+										<th>Tổng giá</th>
+										<td><strong><span class="amount"></span></strong></td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

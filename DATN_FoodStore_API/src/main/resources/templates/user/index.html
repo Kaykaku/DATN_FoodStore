@@ -1,632 +1,342 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
+	th:replace="~{/user/layout/layoutUser.html :: dynamic(~{::body})}">
 <body>
-<!-- What We Offer-->
-    <section class="section section-md bg-default">
-      <div class="container">
-        <h4 class="oh-desktop">Danh mục</h4>
-        <div class="row row-md row-30">
-          <div class="col-sm-6 col-lg-4">
-            <div class="oh-desktop">
-              <!-- Services Terri-->
-              <article class="services-terri wow slideInUp">
-                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc1.jpg}" alt="" width="370" height="278" />
-                </div>
-                <div class="services-terri-caption">
-                  <h5 class="services-terri-title"><a href="#">Cà phê</a></h5>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="oh-desktop">
-              <!-- Services Terri-->
-              <article class="services-terri wow slideInDown">
-                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc2.jpg}" alt="" width="370" height="278" />
-                </div>
-                <div class="services-terri-caption">
-                  <h5 class="services-terri-title"><a href="#">Pizza</a></h5>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="oh-desktop">
-              <!-- Services Terri-->
-              <article class="services-terri wow slideInUp">
-                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc3.jpg}" alt="" width="370" height="278" />
-                </div>
-                <div class="services-terri-caption">
-                  <h5 class="services-terri-title"><a href="#">Bánh mì</a></h5>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="oh-desktop">
-              <!-- Services Terri-->
-              <article class="services-terri wow slideInDown">
-                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc4.jpg}" alt="" width="370" height="278" />
-                </div>
-                <div class="services-terri-caption">
-                  <h5 class="services-terri-title"><a href="#">Cơm tấm</a></h5>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="oh-desktop">
-              <!-- Services Terri-->
-              <article class="services-terri wow slideInUp">
-                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc5.jpg}" alt="" width="370" height="278" />
-                </div>
-                <div class="services-terri-caption">
-                  <h5 class="services-terri-title"><a href="#">Trà sữa</a></h5>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="oh-desktop">
-              <!-- Services Terri-->
-              <article class="services-terri wow slideInDown">
-                <div class="services-terri-figure"><img th:src="@{/assets/user/images/danhmuc6.jpg}" alt="" width="370" height="278" />
-                </div>
-                <div class="services-terri-caption">
-                  <h5 class="services-terri-title"><a href="#">Gà rán</a></h5>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+	<!-- Begin Product Area -->
+	<div class="product-area-5 pt-95">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h3 class="heading">DANH MỤC</h3>
+						<h6>Lướt qua để xem tiếp các danh mục khác</h6>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="quicky-element-carousel product-slider"
+						data-slick-options='{
+                            "slidesToShow": 3,
+                            "slidesToScroll": 1,
+                            "infinite": false,
+                            "arrows": false,
+                            "dots": false,
+                            "spaceBetween": 30
+                            }'
+						data-slick-responsive='[
+                            {"breakpoint":992, "settings": {
+                            "slidesToShow": 2
+                            }},
+                            {"breakpoint":480, "settings": {
+                            "slidesToShow": 1
+                            }}
+                        ]'>
 
-    <!-- Our Shop-->
-    <section class="section section-lg bg-default">
-      <div class="container">
-        <h4 class="oh-desktop"><span class="d-inline-block wow slideInUp">Sản phẩm mới</span></h4>
-        <div class="row row-lg row-30">
-          <div class="col-sm-6 col-lg-4 col-xl-3" th:each="item: ${newFoods}">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title" th:text="${item.name}"></h6>
-              <div class="product-price-wrap">
-                <div class="product-price" th:text="${#numbers.formatCurrency(item.price)}"></div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-new">Mới</span>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+						<div class="product-item" th:each="item: ${@Utils.categories}">
+							<div class="single-product">
+								<div class="product-img">
+									<a th:href="@{|/byCategory/${item.name}|}"> <img
+										th:src="@{|/images/${item.image_name}|}"
+										alt="Quicky's Product Image" height="200px;">
+									</a>
+								</div>
+								<div class="product-content">
+									<div class="product-desc_info">
+										<h3 class="product-name font-weight-bold text-center"
+											th:text="${item.display_name}"></h3>
+									</div>
+								</div>
+							</div>
+						</div>
 
-    <section class="section section-lg bg-default">
-      <div class="container">
-        <h4 class="oh-desktop"><span class="d-inline-block wow slideInUp">Sản phẩm khuyến mãi</span></h4>
-        <div class="row row-lg row-30">
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-              </div><span class="product-badge product-badge-sale">Sale</span>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Product Area End Here -->
 
-    <section class="section section-lg bg-default">
-      <div class="container">
-        <h4 class="oh-desktop"><span class="d-inline-block wow slideInUp">Sản phẩm bán chạy</span></h4>
-        <div class="row row-lg row-30">
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
+	<!-- Begin Product Area Six -->
+	<div class="product-area-6 pt-95">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h3 class="heading">SẢN PHẨM MỚI NHẤT</h3>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="quicky-element-carousel product-slider"
+						data-slick-options='{
+                        "slidesToShow": 3,
+                        "slidesToScroll": 1,
+                        "infinite": false,
+                        "arrows": false,
+                        "dots": false,
+                        "spaceBetween": 30,
+                        "rows" : 2
+                        }'
+						data-slick-responsive='[
+                        {"breakpoint":992, "settings": {
+                        "slidesToShow": 2
+                        }},
+                        {"breakpoint":480, "settings": {
+                        "slidesToShow": 1
+                        }}
+                    ]'>
 
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img th:src="@{/assets/user/images/product-1-161x162.png}" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
+						<div class="product-item">
+							<div class="single-product">
+								<div class="product-img">
+									<a> <img src="" alt="Quicky's Product Image">
+									</a>
+									<div class="add-actions hover-right_side">
+										<ul>
+											<li class="quick-view-btn" data-toggle="modal"
+												data-target="#exampleModalCenter"><a href=""
+												data-toggle="tooltip" data-placement="left"
+												title="Quick View"><i class="icon-magnifier"></i></a></li>
+											<li><a href="" data-toggle="tooltip"
+												data-placement="left" title="Add To cart"><i
+													class="icon-bag"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="product-content">
+									<div class="product-desc_info">
+										<h3 class="product-name"></h3>
+										<div class="price-box">
+											<span class="new-price"></span>
+										</div>
+										<div
+											class="review-area d-flex justify-content-between align-items-center">
+											<div class="rating-box">
+												<ul>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
+					</div>
+				</div>
+				<!-- 				<div class="row text-center" th:if="${totalPages > 1}"> -->
+				<!-- 					<div class="col-lg-12 mb-5"> -->
+				<!-- 						<div class="quicky-paginatoin-area"> -->
+				<!-- 							<ul class="quicky-pagination-box"> -->
+				<!-- 								<li th:style="${currentPage == 1} ? 'visibility: hidden' : ''"> -->
+				<!-- 									<a class="Next" -->
+				<!-- 									th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">Trước</a> -->
+				<!-- 								</li> -->
+				<!-- 								<li th:each="i: ${#numbers.sequence(1, totalPages)}" -->
+				<!-- 									th:class="${currentPage == i} ? 'active' : ''"><a -->
+				<!-- 									th:href="@{'?page=' + ${i}}" th:text="${i}">1</a></li> -->
+				<!-- 								<li -->
+				<!-- 									th:style="${currentPage == totalPages} ? 'visibility: hidden' : ''"> -->
+				<!-- 									<a class="Next" -->
+				<!-- 									th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">Tiếp</a> -->
+				<!-- 								</li> -->
+				<!-- 							</ul> -->
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+			</div>
+		</div>
+	</div>
+	<!-- Product Area Six End Here -->
+	<div class="product-area-6 pt-95">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h3 class="heading">SẢN PHẨM KHUYẾN MÃI</h3>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="quicky-element-carousel product-slider"
+						data-slick-options='{
+                        "slidesToShow": 3,
+                        "slidesToScroll": 1,
+                        "infinite": false,
+                        "arrows": false,
+                        "dots": false,
+                        "spaceBetween": 30,
+                        "rows" : 2
+                        }'
+						data-slick-responsive='[
+                        {"breakpoint":992, "settings": {
+                        "slidesToShow": 2
+                        }},
+                        {"breakpoint":480, "settings": {
+                        "slidesToShow": 1
+                        }}
+                    ]'>
 
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
+						<div class="product-item">
+							<div class="single-product">
+								<div class="product-img">
+									<a> <img src="" alt="Quicky's Product Image">
+									</a>
+									<div class="add-actions hover-right_side">
+										<ul>
+											<li class="quick-view-btn" data-toggle="modal"
+												data-target="#exampleModalCenter"><a href=""
+												data-toggle="tooltip" data-placement="left"
+												title="Quick View"><i class="icon-magnifier"></i></a></li>
+											<li><a href="" data-toggle="tooltip"
+												data-placement="left" title="Add To cart"><i
+													class="icon-bag"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="product-content">
+									<div class="product-desc_info">
+										<h3 class="product-name"></h3>
+										<div class="price-box">
+											<span class="new-price"></span>
+										</div>
+										<div
+											class="review-area d-flex justify-content-between align-items-center">
+											<div class="rating-box">
+												<ul>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
+					</div>
+				</div>
+				<!-- 				<div class="row text-center" th:if="${totalPages > 1}"> -->
+				<!-- 					<div class="col-lg-12 mb-5"> -->
+				<!-- 						<div class="quicky-paginatoin-area"> -->
+				<!-- 							<ul class="quicky-pagination-box"> -->
+				<!-- 								<li th:style="${currentPage == 1} ? 'visibility: hidden' : ''"> -->
+				<!-- 									<a class="Next" -->
+				<!-- 									th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">Trước</a> -->
+				<!-- 								</li> -->
+				<!-- 								<li th:each="i: ${#numbers.sequence(1, totalPages)}" -->
+				<!-- 									th:class="${currentPage == i} ? 'active' : ''"><a -->
+				<!-- 									th:href="@{'?page=' + ${i}}" th:text="${i}">1</a></li> -->
+				<!-- 								<li -->
+				<!-- 									th:style="${currentPage == totalPages} ? 'visibility: hidden' : ''"> -->
+				<!-- 									<a class="Next" -->
+				<!-- 									th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">Tiếp</a> -->
+				<!-- 								</li> -->
+				<!-- 							</ul> -->
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+			</div>
+		</div>
+	</div>
+	<div class="product-area-6 pt-95">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h3 class="heading">SẢN PHẨM BÁN CHẠY</h3>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="quicky-element-carousel product-slider"
+						data-slick-options='{
+                        "slidesToShow": 3,
+                        "slidesToScroll": 1,
+                        "infinite": false,
+                        "arrows": false,
+                        "dots": false,
+                        "spaceBetween": 30,
+                        "rows" : 2
+                        }'
+						data-slick-responsive='[
+                        {"breakpoint":992, "settings": {
+                        "slidesToShow": 2
+                        }},
+                        {"breakpoint":480, "settings": {
+                        "slidesToShow": 1
+                        }}
+                    ]'>
 
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+						<div class="product-item">
+							<div class="single-product">
+								<div class="product-img">
+									<a> <img src="" alt="Quicky's Product Image">
+									</a>
+									<div class="add-actions hover-right_side">
+										<ul>
+											<li class="quick-view-btn" data-toggle="modal"
+												data-target="#exampleModalCenter"><a href=""
+												data-toggle="tooltip" data-placement="left"
+												title="Quick View"><i class="icon-magnifier"></i></a></li>
+											<li><a href="" data-toggle="tooltip"
+												data-placement="left" title="Add To cart"><i
+													class="icon-bag"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="product-content">
+									<div class="product-desc_info">
+										<h3 class="product-name"></h3>
+										<div class="price-box">
+											<span class="new-price"></span>
+										</div>
+										<div
+											class="review-area d-flex justify-content-between align-items-center">
+											<div class="rating-box">
+												<ul>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+													<li><i class="icon-star"></i></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-    <section class="section section-lg bg-default">
-      <div class="container">
-        <h4 class="oh-desktop"><span class="d-inline-block wow slideInUp">Sản phẩm yêu thích nhất</span></h4>
-        <div class="row row-lg row-30">
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!-- Product-->
-            <article class="product wow fadeInLeft" data-wow-delay=".15s">
-              <div class="product-figure"><img src="images/product-1-161x162.png" alt="" width="161" height="162" />
-              </div>
-              <div class="product-rating"><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span><span class="mdi mdi-star"></span>
-              </div>
-              <h6 class="product-title">Margherita Pizza</h6>
-              <div class="product-price-wrap">
-                <div class="product-price">$24.00</div>
-              </div>
-              <div class="product-button">
-                <div class="button-wrap"><a class="button button-xs button-primary button-winona" href="#">Thêm vào giỏ </a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="chitietsanpham.html">Xem sản phẩm</a></div>
-                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="spyeuthich.html">Yêu thích</a></div>
-
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Tell-->
-    <section class="section section-sm section-first bg-default">
-      <div class="container">
-        <h4 class="heading-5">GỬI TIN NHẮN NGAY CHO FoodStore <br> KHI BẠN CẦN HỖ TRỢ HOẶC CÓ THẮC MẮC NHÉ!</h4>
-        <form class="rd-form rd-mailform form-style-1" data-form-output="form-output-global" data-form-type="contact"
-          method="post" action="bat/rd-mailform.php">
-          <div class="row row-20 gutters-20">
-            <div class="col-md-6 col-lg-4 oh-desktop">
-              <div class="form-wrap wow slideInDown">
-                <input class="form-input" id="contact-your-name-6" type="text" name="name">
-                <label class="form-label" for="contact-your-name-6">Họ và tên*</label>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-4 oh-desktop">
-              <div class="form-wrap wow slideInUp">
-                <input class="form-input" id="contact-email-6" type="email" name="email">
-                <label class="form-label" for="contact-email-6">E-mail*</label>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-4 oh-desktop">
-              <div class="form-wrap wow slideInUp">
-                <input class="form-input" id="contact-tel-6" type="tel" name="phone">
-                <label class="form-label" for="contact-email-6">Số điện thoại*</label>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-wrap wow fadeIn">
-                <label class="form-label" for="contact-message-6">Lời nhắn</label>
-                <textarea class="form-input textarea-lg" id="contact-message-6" name="message"></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="group-custom-1 group-middle oh-desktop">
-            <button class="button button-lg button-primary button-winona wow fadeInRight" type="submit">Gửi</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- Section Services  Last section-->
-    <section class="section section-sm bg-default">
-      <div class="container">
-        <div class="owl-carousel owl-style-11 dots-style-2" data-items="1" data-sm-items="1" data-lg-items="2"
-          data-xl-items="3" data-margin="30" data-dots="true" data-mouse-drag="true" data-rtl="true">
-          <article class="box-icon-megan wow fadeInUp">
-            <div class="box-icon-megan-header">
-              <div class="box-icon-megan-icon linearicons-bag"></div>
-            </div>
-            <h5 class="box-icon-megan-title"><a href="#">Giao hàng nhanh</a></h5>
-            </p>
-          </article>
-          <article class="box-icon-megan wow fadeInUp" data-wow-delay=".05s">
-            <div class="box-icon-megan-header">
-              <div class="box-icon-megan-icon linearicons-map2"></div>
-            </div>
-            <h5 class="box-icon-megan-title"><a href="#">Vị trí thuận tiện</a></h5>
-          </article>
-          <article class="box-icon-megan wow fadeInUp" data-wow-delay=".15s">
-            <div class="box-icon-megan-header">
-              <div class="box-icon-megan-icon linearicons-thumbs-up"></div>
-            </div>
-            <h5 class="box-icon-megan-title"><a href="#">Dịch vụ tốt nhất</a></h5>
-          </article>
-        </div>
-      </div>
-    </section>
+					</div>
+				</div>
+				<!-- 				<div class="row text-center" th:if="${totalPages > 1}"> -->
+				<!-- 					<div class="col-lg-12 mb-5"> -->
+				<!-- 						<div class="quicky-paginatoin-area"> -->
+				<!-- 							<ul class="quicky-pagination-box"> -->
+				<!-- 								<li th:style="${currentPage == 1} ? 'visibility: hidden' : ''"> -->
+				<!-- 									<a class="Next" -->
+				<!-- 									th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">Trước</a> -->
+				<!-- 								</li> -->
+				<!-- 								<li th:each="i: ${#numbers.sequence(1, totalPages)}" -->
+				<!-- 									th:class="${currentPage == i} ? 'active' : ''"><a -->
+				<!-- 									th:href="@{'?page=' + ${i}}" th:text="${i}">1</a></li> -->
+				<!-- 								<li -->
+				<!-- 									th:style="${currentPage == totalPages} ? 'visibility: hidden' : ''"> -->
+				<!-- 									<a class="Next" -->
+				<!-- 									th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">Tiếp</a> -->
+				<!-- 								</li> -->
+				<!-- 							</ul> -->
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+			</div>
+		</div>
+	</div>
 </body>
 </html>
+
+
