@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.foodstore.model.entity.Customer;
 import com.foodstore.service.CustomerService;
 import com.foodstore.service.UserService;
-import com.furniture.constant.SessionConstant;
 
 @Controller
 @RequestMapping("security")
