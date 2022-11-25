@@ -1,5 +1,6 @@
 package com.foodstore.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -15,6 +16,9 @@ import com.foodstore.model.transaction.UserPermission;
 public interface UserPermissionDAO extends JpaRepository<UserPermission, Long>{
 	@Query("Select u From UserPermission u Where u.user_p.id=?1")
 	Page<UserPermission> findByUserId(Long id,Pageable pageable);
+	
+	@Query("Select u From UserPermission u Where u.user_p.id=?1")
+	List<UserPermission> findByUserId(Long id);
 	
 	@Query("Select u From UserPermission u Where u.permission_u.id=?1")
 	Page<UserPermission> findByPermissionId(Long id,Pageable pageable);

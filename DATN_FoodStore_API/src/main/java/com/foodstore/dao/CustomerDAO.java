@@ -33,4 +33,10 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
 
 	@Query("SELECT c FROM Customer c WHERE CONCAT(c.username, c.fullname, c.email) LIKE %?1% AND c.is_display = ?2")
 	Page<Customer> findByKeyword(String keyword, Boolean isDisplay, Pageable pageable);
+	
+	@Query("SELECT u FROM Customer u WHERE u.username LIKE %?1% or u.fullname LIKE %?1% or u.email LIKE %?1%  ")
+	Page<Customer> findByKeyword(String keyword, Pageable pageable);
+	
+	@Query("SELECT u FROM Customer u WHERE u.username LIKE %?1% or u.fullname LIKE %?1% or u.email LIKE %?1%"  )
+	List<Customer> findByKeyword(String keyword);
 }
