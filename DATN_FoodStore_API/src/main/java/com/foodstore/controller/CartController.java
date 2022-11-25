@@ -21,8 +21,11 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 
+	@Autowired
+	private HttpServletRequest request;
+
 	@GetMapping("/view")
-	public String doShowCart(Model model, HttpServletRequest request,
+	public String doShowCart(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(value = "size", required = false, defaultValue = "5") int pageSize) {
 		String username = request.getRemoteUser();
@@ -31,13 +34,6 @@ public class CartController {
 		model.addAttribute("currentPage", pageNumber);
 		model.addAttribute("carts", carts);
 		return "user/cart";
-	}
-
-	@GetMapping("/detele")
-	public String doDelete(@RequestParam("id") Long id, @RequestParam("quantity") Integer quantity,
-			@RequestParam("isReplace") boolean isReplace) {
-		cartService.handleCart(id, quantity, isReplace);
-		return "user/cart::#viewCartFragment";
 	}
 
 	@GetMapping("/checkout")

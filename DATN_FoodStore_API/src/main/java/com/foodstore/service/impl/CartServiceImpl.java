@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +16,6 @@ import com.foodstore.model.entity.Customer;
 import com.foodstore.model.entity.Food;
 import com.foodstore.model.transaction.Cart;
 import com.foodstore.service.CartService;
-import com.foodstore.service.CustomerService;
 import com.foodstore.service.FoodService;
 
 @Service
@@ -81,28 +78,20 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Autowired
-	private HttpServletRequest request;
-
-	@Autowired
-	private CustomerService customerService;
-
-	@Autowired
 	private FoodService foodService;
 
 	Map<Long, Cart> item = new HashMap<>();
 
 	@Override
 	@Transactional(rollbackFor = { Exception.class, Throwable.class })
-	public Cart handleCart(Long id, Integer quantity, boolean isReplace) {
+	public Cart handleCart(Customer customer, Long id, Integer quantity, boolean isReplace) {
 
 		Cart cart = item.get(id);
 		if (!item.containsKey(id) && ObjectUtils.isEmpty(cart)) {
 			Food currentFood = foodService.getById(id);
-			String username = request.getRemoteUser();
-			Customer currentCus = customerService.getByUsername(username);
 
 			cart = new Cart();
-			cart.setCustomer_cart(currentCus);
+			cart.setCustomer_cart(customer);
 			cart.setFood_cart(currentFood);
 			cart.setQuantity(quantity);
 
@@ -113,11 +102,8 @@ public class CartServiceImpl implements CartService {
 			} else {
 				cart.setQuantity(cart.getQuantity() + 1);
 			}
-		} else {
-			System.out.println("quantity->" + quantity);
-			item.remove(id);
-			this.delete(id);
 		}
+
 		this.create(cart);
 		return cart;
 	}
@@ -142,8 +128,8 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	@Transactional(rollbackFor = { Exception.class, Throwable.class })
-	public void clearAll() {
-		cartDAO.deleteAll();
+	public void clearAll(Long id) {
+		cartDAO.deleteAll(id);
 	}
 
 	@Override

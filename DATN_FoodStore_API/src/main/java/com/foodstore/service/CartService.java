@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.foodstore.model.entity.Customer;
 import com.foodstore.model.transaction.Cart;
 
 @Service
@@ -17,13 +18,13 @@ public interface CartService extends IService<Cart> {
 	Cart getByCustomerIdAndFoodId(Long customerId, Long foodId);
 
 	// add, update, delete cart
-	Cart handleCart(Long id, Integer quantity, boolean isReplace);
+	Cart handleCart(Customer customer, Long id, Integer quantity, boolean isReplace);
 
 	Integer getTotalQuantity(String username);
 
 	Double getTotalPrice(String username);
 
-	void clearAll();
+	void clearAll(Long id);
 
 	Page<Cart> getByCustomerName(String username, Pageable pageable);
 

@@ -81,9 +81,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.exceptionHandling()
 			.accessDeniedPage("/security/unauthorized");
 		
-		http.logout()
-			.logoutUrl("/security/logoff")
-			.logoutSuccessUrl("/security/logoff/success");
+		http
+	  		.logout()
+	  		.logoutUrl("/security/logoff")
+	  		.invalidateHttpSession(true)
+	  		.logoutSuccessUrl("/index");
 		
 		http.oauth2Login()
 			.defaultSuccessUrl("/security/login2/success",true)

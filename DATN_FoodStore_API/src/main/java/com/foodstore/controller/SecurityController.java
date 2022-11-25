@@ -1,5 +1,8 @@
 package com.foodstore.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -7,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.foodstore.model.entity.Customer;
 import com.foodstore.service.CustomerService;
 import com.foodstore.service.UserService;
+import com.furniture.constant.SessionConstant;
 
 @Controller
 @RequestMapping("security")
@@ -60,11 +65,13 @@ public class SecurityController {
 		return "security/unauthorized";
 	}
 
-	@GetMapping("logoff/success")
-	public String logoffSuccess(Model model) {
-		model.addAttribute("title", "Login");
-		model.addAttribute("message", "You are logged out!");
-		return "security/login";
+	@GetMapping("/logoff")
+	public String doGetLogout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null) {
+			new SecurityContextLogoutHandler().logout(request, response, authentication);
+		}
+		return "redirect:/index";
 	}
 
 	
