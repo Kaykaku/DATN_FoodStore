@@ -8,106 +8,100 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<form action="javascript:void(0)">
-						<div class="table-content table-responsive">
-							<div class="text-center" th:if="${carts.content.empty}">
-								<h2>GIỎ HÀNG TRỐNG</h2>
-							</div>
-							<table class="table">
-								<thead>
-									<tr>
-										<th class="quicky-product-remove">Stt</th>
-										<th class="quicky-product-thumbnail">Ảnh</th>
-										<th class="cart-product-name">Sản phẩm</th>
-										<th class="quicky-product-price">Giá</th>
-										<th class="quicky-product-quantity">Số lượng</th>
-										<th class="quicky-product-subtotal">Tổng</th>
-										<th class="quicky-product-remove">Xóa</th>
-									</tr>
-								</thead>
-								<tbody id="viewCartFragment">
-									<tr th:each="item,i: ${carts.content}">
-										<td class="quicky-product-remove" th:text="${i.index + 1}"></td>
-										<td class="quicky-product-thumbnail"><a
-											th:href="@{|/productDetail/${item.food_cart.id}|}"><img
-												th:src="@{|/images/${item.getFood_cart().getFood_images().get(0).getImage_name()}|}"
-												alt="Quicky's Cart Thumbnail" width="80px;" height="80px;" /></a></td>
-										<td class="quicky-product-name"><a
-											th:text="${item.food_cart.name}"></a></td>
-										<td class="quicky-product-price"
-											th:text="${#numbers.formatDecimal(item.food_cart.price, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"><span
-											class="amount"></span></td>
-										<td class="quantity"><label>Quantity</label>
-											<div class="cart-plus-minus">
-												<input class="form-control" type="number"
-													th:value="${item.quantity}">
-												<div class="dec qtybutton">
-													<i class="zmdi zmdi-chevron-down"></i>
-												</div>
-												<div class="inc qtybutton">
-													<i class="zmdi zmdi-chevron-up"></i>
-												</div>
-											</div></td>
-										<td class="product-subtotal"><span class="amount"
-											th:text="${#numbers.formatDecimal(item.food_cart.price * item.quantity, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"></span>
-										</td>
-										<td class="quicky-product-remove"><a
-											th:attr="onclick='removeCart(\'' + ${item.id} + '\')'"><i
-												style="cursor: pointer;" class="zmdi zmdi-close"
-												title="Remove"></i></a></td>
-									</tr>
-								</tbody>
-							</table>
+					<div class="table-content table-responsive">
+						<div class="text-center" th:if="${carts.content.empty}">
+							<h2>GIỎ HÀNG TRỐNG</h2>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="quicky-product-remove">Stt</th>
+									<th class="quicky-product-thumbnail">Ảnh</th>
+									<th class="cart-product-name">Sản phẩm</th>
+									<th class="quicky-product-price">Giá</th>
+									<th class="quicky-product-quantity">Số lượng</th>
+									<th class="quicky-product-subtotal">Tổng</th>
+									<th class="quicky-product-remove">Xóa</th>
+								</tr>
+							</thead>
+							<tbody id="viewCartFragment">
+								<tr th:each="item,i: ${carts.content}">
+									<td class="quicky-product-remove" th:text="${i.index + 1}"></td>
+									<td class="quicky-product-thumbnail"><a
+										th:href="@{|/productDetail/${item.food_cart.id}|}"><img
+											th:src="@{|/images/${item.getFood_cart().getFood_images().get(0).getImage_name()}|}"
+											alt="Quicky's Cart Thumbnail" width="80px;" height="80px;" /></a></td>
+									<td class="quicky-product-name"><a
+										th:text="${item.food_cart.name}"></a></td>
+									<td class="quicky-product-price"
+										th:text="${#numbers.formatDecimal(item.food_cart.price, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"><span
+										class="amount"></span></td>
+									<td class="quantity">
+										<div class="cart-plus-minus">
+											<input class="form-control" type="number"
+												th:id="quantity + ${item.id}"
+												th:attr="onchange='updateQuantity(\'' + ${item.id} + '\')'"
+												th:value="${item.quantity}">
+										</div>
+									</td>
+									<td class="product-subtotal"><span class="amount"
+										th:text="${#numbers.formatDecimal(item.food_cart.price * item.quantity, 1, 'POINT', 0, 'COMMA') + ' VNĐ'}"></span>
+									</td>
+									<td class="quicky-product-remove"><a
+										th:attr="onclick='removeCart(\'' + ${item.id} + '\')'"><i
+											style="cursor: pointer;" class="zmdi zmdi-close"
+											title="Remove"></i></a></td>
+								</tr>
+							</tbody>
+						</table>
 
-						</div>
-						<div class="row text-center" th:if="${totalPages > 1}">
-							<div class="col-lg-12">
-								<div class="quicky-paginatoin-area">
-									<ul class="quicky-pagination-box">
-										<li><a class="Next"
-											th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">Trước</a>
-										</li>
-										<li th:each="i: ${#numbers.sequence(1, totalPages)}"
-											th:class="${currentPage == i} ? 'active' : ''"><a
-											th:href="@{'?page=' + ${i}}" th:text="${i}">1</a></li>
-										<li><a class="Next"
-											th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">Tiếp</a>
-										</li>
-									</ul>
-								</div>
+					</div>
+					<div class="row text-center" th:if="${totalPages > 1}">
+						<div class="col-lg-12">
+							<div class="quicky-paginatoin-area">
+								<ul class="quicky-pagination-box">
+									<li><a class="Next"
+										th:href="@{${currentPage > 1} ? ${'?page=' + (currentPage - 1)}}">Trước</a>
+									</li>
+									<li th:each="i: ${#numbers.sequence(1, totalPages)}"
+										th:class="${currentPage == i} ? 'active' : ''"><a
+										th:href="@{'?page=' + ${i}}" th:text="${i}">1</a></li>
+									<li><a class="Next"
+										th:href="@{${curretnPage < totalPages} ? ${'?page=' + (currentPage + 1)}}">Tiếp</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="coupon-all">
-									<a th:href="@{/shop}"
-										style="background-color: black; color: white;"
-										class="py-2 px-2">Tiếp tục mua hàng</a>
-								</div>
-							</div>
-							<div class="col-6 text-right">
-								<div class="coupon-all">
-									<a th:href="@{/}"
-										style="background-color: black; color: white;"
-										class="py-2 px-2">Xóa sạch giỏ hàng</a>
-								</div>
-							</div>
-
-						</div>
-						<div class="row">
-							<div class="col-md-5 ml-auto">
-								<div class="cart-page-total">
-									<h2>Tổng tiền thanh toán</h2>
-									<ul>
-										<li>Số sản phẩm<span id="totalQuantity"></span>
-										</li>
-										<li>Tổng tiền <span id="totalPrice"></span></li>
-									</ul>
-									<a th:href="@{/cart/checkout}">Thanh toán</a>
-								</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="coupon-all">
+								<a th:href="@{/shop}"
+									style="background-color: black; color: white;"
+									class="py-2 px-2">Tiếp tục mua hàng</a>
 							</div>
 						</div>
-					</form>
+						<div class="col-6 text-right">
+							<div class="coupon-all">
+								<a th:attr="onclick='clearCart()'"
+									style="background-color: black; color: white;"
+									class="py-2 px-2">Xóa sạch giỏ hàng</a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-5 ml-auto">
+							<div class="cart-page-total">
+								<h2>Tổng tiền thanh toán</h2>
+								<ul>
+									<li>Số sản phẩm<span id="totalQuantity"></span>
+									</li>
+									<li>Tổng tiền <span id="totalPrice"></span></li>
+								</ul>
+								<a th:href="@{/cart/checkout}">Thanh toán</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -115,10 +109,20 @@
 
 	<script>
 	const removeCart = (cartId) =>{
-		alert(cartId);
-		var url = '/cart/delete?id=' + cartId + '&quantity=0&isReplace=false';
+		const url = '/rest/cart/delete/' + cartId;
 		$.get(url).done(function(data){
-			$('#viewCartFragment').replaceWith(data);
+			refreshQuantity();
+			refreshPrice();
+			location.reload();
+		});
+	}
+	
+	const clearCart = () =>{
+		const url = '/rest/cart/clear';
+		localStorage.removeItem("quantity");
+		localStorage.removeItem("price");
+		$.get(url).done(function(data){
+			location.reload();
 		});
 	}
 	
@@ -132,6 +136,18 @@
 		}
 	}
 	
+	const updateQuantity = (cartId) =>{
+		var inputId = '#quantity' + cartId;
+		alert(inputId);
+		var newQuantity = $(inputId).val();
+		const url = '/rest/cart/add?id=' + cartId + '&quantity=1&isReplace=false';
+		$.get(url).done(function(data){
+			refreshQuantity();
+			refreshPrice();
+			location.reload();
+		});
+	}
+	
 	const getTotalPrice = () =>{
 		var price = localStorage.getItem("price");
 		if(price === null){
@@ -140,6 +156,42 @@
 			$('#headerTotalPrice').text(formatCurrency(price));
 			$('#totalPrice').text(formatCurrency(price));
 		}
+	}
+	
+	const refreshQuantity = () =>{
+		const url = '/rest/cart/refreshQuantity';
+		$.ajax({
+			url: url,
+			type: 'GET',
+			dataType: 'json',
+			success: function(data){
+				localStorage.setItem("quantity", data);
+				var quantity = localStorage.getItem("quantity");
+				$('#headerTotalQuantity').text(quantity);
+			},
+			error: function(error){
+				console.log(error);
+				alert(error);
+			}
+		});
+	}
+	
+	const refreshPrice = () =>{
+		const url = '/rest/cart/refreshPrice';
+		$.ajax({
+			url: url,
+			type: 'GET',
+			dataType: 'json',
+			success: function(data){
+				localStorage.setItem("price", data);
+				var price = localStorage.getItem("price");
+				$('#headerTotalPrice').text(formatCurrency(price));
+			},
+			error: function(error){
+				console.log(error);
+				alert(error);
+			}
+		});
 	}
 	
 	const formatCurrency = (x) => {
