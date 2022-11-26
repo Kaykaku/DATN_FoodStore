@@ -46,7 +46,7 @@ public class Customer implements Serializable {
 
     @Column(name = "password", nullable = false)
     private String password = Password.Default;
-    
+
     @Column(name = "fullname", length = 200)
     private String fullname;
     

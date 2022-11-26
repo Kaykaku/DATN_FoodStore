@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import com.foodstore.model.entity.Customer;
 import com.foodstore.model.entity.Food;
-import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

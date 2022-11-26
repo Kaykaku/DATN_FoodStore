@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.CustomerDAO;
 import com.foodstore.model.entity.Customer;
+import com.foodstore.model.entity.User;
 import com.foodstore.service.CustomerService;
 import com.foodstore.util.constraints.Display;
 import com.foodstore.util.convert.Convert;
@@ -90,7 +91,6 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer getByEmail(String email) {
 		return customerDAO.findByEmail(email).orElse(null);
 	}
-	
 	
 	@Override
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })

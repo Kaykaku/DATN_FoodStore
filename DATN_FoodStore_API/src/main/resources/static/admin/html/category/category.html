@@ -278,9 +278,9 @@
                         <div class="tab-pane fade  show active" id="navs-pills-justified-list" role="tabpanel">
                             <!-- tab1 -->
                             <h5 class="card-header">Table Category
-                            		<button class="btn btn-primary" ng-click="tab('tab2');reset()">
+                                <button class="btn btn-primary" ng-click="tab('tab2');reset()">
 										<i class="bx bx-plus mb-1 ml-2"></i>&nbspCreate
-									</button>                            
+									</button>
                                 <div class="row mt-3">
                                     <div class="col-sm-8">
                                         <div class="input-group input-group-merge">
@@ -322,15 +322,10 @@
                                         <tr class="table-light" ng-repeat="item in items.content" ng-click="edit(item)">
                                             <td>{{item.id }}</td>
                                             <td>
-												<ul
-													class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-														data-bs-placement="top" class="avatar avatar-xl pull-up"
-														title="{{item.image_name}}"><img
-														ng-src="/images/{{item.image_name}}" alt="Avatar"
-														class="rounded" /></li>
-												</ul>
-											</td>
+                                                <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xl pull-up" title="{{item.image_name}}"><img ng-src="/images/{{item.image_name}}" alt="Avatar" class="rounded" /></li>
+                                                </ul>
+                                            </td>
                                             <td><strong>{{item.name }}</strong></td>
                                             <td><strong>{{item.display_name }}</strong></td>
                                             <td><strong>{{item.description }}</strong></td>
@@ -338,10 +333,10 @@
                                             <td>
                                                 <span class="badge bg-primary" ng-if="item._display==1">SHOW</span>
                                                 <span class="badge bg-warning" ng-if="item._display==0">HIDE</span></td>
-                                                <td><button ng-click="delete(item)" class="btn btn-outline-danger">
+                                            <td><button ng-click="delete(item)" class="btn btn-outline-danger">
 										<i class="bx bx-trash mb-1"></i>
 									</button>
-                                                </td>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

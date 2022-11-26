@@ -1,4 +1,3 @@
-@@ -1,416 +0,0 @@
 <!-- Content wrapper -->
 <style type="text/css">
     @import url(https://fonts.googleapis.com/css?family=Raleway);
@@ -139,13 +138,13 @@
                                             <div class="d-flex justify-content-center  align-items-start align-items-sm-center">
                                                 <div class="image-container">
                                                     <div class="image-content" style="width: 100%;">
-                                                        <div class="image-content-overlay rounded" style="width: 100%;" ng-hide="!form.image_name"></div>
+                                                        <div class="image-content-overlay rounded" style="width: 100%;"></div>
                                                         <img class="image-content-image d-block rounded" ng-if="form.avatar && !avatar " style="width: 100%;" ng-src="/avatars/{{form.avatar}}" alt="user-avatar">
                                                         <img class="image-content-image d-block rounded" ng-if="!form.avatar && !avatar " style="width: 100%;" src="/avatars/user.png" alt="user-avatar">
                                                         <img class="image-content-image d-block rounded" ng-if="avatar" style="width: 100%;" ng-src="/avatars/{{avatar}}" alt="user-avatar">
-                                                        <div class="image-content-details image-fadeIn-bottom" ng-hide="!form.image_name">
+                                                        <div class="image-content-details image-fadeIn-bottom">
                                                             <a href="" class="badge bg-label-danger" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-trash bx-xs' ></i> <span>Remove from album </span>">
-                                                                <i class="bx bx-trash mb-1" ng-click="imageRemove(form.image_name)"></i>
+                                                                <i class="bx bx-trash mb-1"></i>
                                                             </a>
                                                         </div>
                                                     </div>

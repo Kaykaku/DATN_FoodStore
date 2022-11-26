@@ -117,6 +117,11 @@ public class UserRestController {
 		return userRoleService.getByUserId(id);
 	}
 	
+	@GetMapping("/permission/{id}")
+	public List<UserPermission> getPermissionByUser(@PathVariable("id")Long id){	
+		return userPermissionService.getByUserId(id);
+	}
+	
 	@PostMapping("/role/create")
 	public UserRole addPermission(@RequestBody UserRole userRole) {
 		return userRoleService.create(userRole);
