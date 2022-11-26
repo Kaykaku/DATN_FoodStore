@@ -12,6 +12,13 @@ app.config(function($routeProvider) {
             templateUrl: "../html/account/account.html",
             controller: "account-ctrl"
         })
+        .when("/administrator", {
+            templateUrl: "../html/administrator/administrator.html",
+            controller: "administrator-ctrl"
+        })
+        .when("/customer", {
+            templateUrl: "../html/customer/customer.html",
+            controller: "customer-ctrl"
         .when("/category", {
             templateUrl: "../html/category/category.html",
             controller: "category-ctrl"

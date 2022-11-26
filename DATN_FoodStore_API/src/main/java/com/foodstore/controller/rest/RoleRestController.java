@@ -53,7 +53,11 @@ public class RoleRestController {
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+	@GetMapping("/all")
+	public ResponseEntity<?> getNoNeedPermission() {
+		return doGetAll();
+	}
+
 	@GetMapping("/filter")
 	public ResponseEntity<?> doGetByFilter(
 			@RequestParam(value = "keyword") Optional<String> keyword,

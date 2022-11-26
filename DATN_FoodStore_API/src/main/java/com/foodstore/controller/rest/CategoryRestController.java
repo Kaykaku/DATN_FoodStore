@@ -43,7 +43,7 @@ public class CategoryRestController {
 			@RequestParam(value = "page") Optional<Integer> page,
 			@RequestParam(value = "size") Optional<Integer> size) {
 		try {
-			List<Category> pageCategories = categoryService.getAll();
+			Page<Category> pageCategories = categoryService.getAll(PageRequest.of(page.orElse(0), size.orElse(10)));
 			return ResponseEntity.ok(pageCategories);
 		} catch (Exception ex) {
 			ex.printStackTrace();

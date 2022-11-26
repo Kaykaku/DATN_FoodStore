@@ -57,22 +57,22 @@ public class PhoneAddressServiceImpl implements PhoneAddressService {
 	}
 
 	@Override
-	public Page<PhoneAddress> findByCustomerId(Long id,Pageable pageable) {
+	public Page<PhoneAddress> getByCustomerId(Long id,Pageable pageable) {
 		return phoneAddressDAO.findByCustomerId(id,pageable);
 	}
 
 	@Override
-	public Page<PhoneAddress> findByContactType(Boolean contactType,Pageable pageable) {
+	public Page<PhoneAddress> getByContactType(Boolean contactType,Pageable pageable) {
 		return phoneAddressDAO.findByContactType(contactType,pageable);
 	}
 
 	@Override
-	public Page<PhoneAddress> findByKeyword(String keyword,Pageable pageable) {
+	public Page<PhoneAddress> getByKeyword(String keyword,Pageable pageable) {
 		return phoneAddressDAO.findByKeyword(keyword,pageable);
 	}
 
 	@Override
-	public Page<PhoneAddress> findByFilter(String keyword, Optional<Long> customerId,
+	public Page<PhoneAddress> getByFilter(String keyword, Optional<Long> customerId,
 			Optional<Boolean> is_address, Optional<Boolean> is_default,Pageable pageable) {
 		List<PhoneAddress> list = phoneAddressDAO.findByKeyword(keyword);
 		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_pa().getId() == customerId.get()).collect(Collectors.toList());
@@ -81,5 +81,13 @@ public class PhoneAddressServiceImpl implements PhoneAddressService {
 		return new PageImpl<PhoneAddress>(list, pageable, list.size());
 	}
 
-
+	@Override
+	public List<PhoneAddress> getByFilter(String keyword, Optional<Long> customerId,
+			Optional<Boolean> is_address, Optional<Boolean> is_default) {
+		List<PhoneAddress> list = phoneAddressDAO.findByKeyword(keyword);
+		if(customerId.isPresent()) list = list.stream().filter(o-> o.getCustomer_pa().getId() == customerId.get()).collect(Collectors.toList());
+		if(is_address.isPresent()) list = list.stream().filter(o-> o.is_address() == is_address.get()).collect(Collectors.toList());
+		if(is_default.isPresent()) list = list.stream().filter(o-> o.is_default() == is_default.get()).collect(Collectors.toList());
+		return list;
+	}
 }

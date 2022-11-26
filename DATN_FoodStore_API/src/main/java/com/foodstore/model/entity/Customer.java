@@ -9,6 +9,10 @@ import com.foodstore.model.extend.PhoneAddress;
 import com.foodstore.model.transaction.Cart;
 import com.foodstore.model.transaction.CustomerCoupon;
 import com.foodstore.model.transaction.Review;
+import com.foodstore.util.constraints.Display;
+import com.foodstore.util.constraints.Gender;
+import com.foodstore.util.constraints.ImageConstraints;
+import com.foodstore.util.constraints.Password;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,20 +45,20 @@ public class Customer implements Serializable {
     private String username;
 
     @Column(name = "password", nullable = false)
-    private String password;
-
+    private String password = Password.Default;
+    
     @Column(name = "fullname", length = 200)
     private String fullname;
     
-    @Column(name = "gender", nullable = false)
-    private boolean gender;
+    @Column(name = "gender")
+    private boolean gender = Gender.MALE;
     
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
     @Column(name = "avatar", length = 100)
-    private String avatar;
+    private String avatar = ImageConstraints.DEFAULT_AVATAR;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
@@ -69,11 +73,11 @@ public class Customer implements Serializable {
     private long status;
     
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    @Temporal(TemporalType.DATE)
+    private Date create_date = new Date();
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
     
     
 	@JsonIgnore

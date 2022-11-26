@@ -72,6 +72,11 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 //	public Page<UserPermission> getByDisplayStatus( boolean isDisplay,Pageable pageable) {
 //		return userPermissionDAO.findByDisplayStatus(isDisplay,pageable);
 //	}
+	@Override
+	public List<UserPermission> getByUserId(Long id) {
+		return userPermissionDAO.findByUserId(id);
+	}
+
 
 	@Override
 	public UserPermission getByUserIdAndPermissionId(Long userId, Long permissionId) {

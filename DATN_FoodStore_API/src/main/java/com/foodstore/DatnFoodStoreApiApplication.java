@@ -14,9 +14,9 @@ public class DatnFoodStoreApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DatnFoodStoreApiApplication.class, args);
 		
-//		Runtime rt = Runtime.getRuntime(); try {
-//		  rt.exec("cmd /c start chrome.exe http://localhost:8080/security/login/form");
-//	  	} catch (IOException e) { e.printStackTrace(); }
+		Runtime rt = Runtime.getRuntime(); try {
+		  rt.exec("cmd /c start chrome.exe http://localhost:8080/security/login/form");
+	  	} catch (IOException e) { e.printStackTrace(); }
 		 
 	}
 
