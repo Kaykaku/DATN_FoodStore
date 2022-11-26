@@ -1,6 +1,5 @@
 package com.foodstore.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,11 @@ public interface FoodService extends IService<Food> {
 
 	Page<Food> getByIsDisplayAndQuantity(Pageable pageable) throws Exception;
 
-	Page<Food> getByKeyword(String keyword, Pageable pageable) throws Exception;
+	Page<Food> getByKeyword(String keyword, Pageable pageable);
+	
+	List<Food> getByKeyword(String keyword);
+	
+	List<Food> getByKeywordEng(String keyword);
 
 	void deleteLogical(Long id) throws Exception;
 	
@@ -33,7 +36,9 @@ public interface FoodService extends IService<Food> {
 	
 	Page<Food> getTopViewProducts (Pageable pageable); 	
 	
-	Page<Food> getByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Date> createDate , Optional<Integer> status , Optional<Boolean> isDisplay ,Pageable pageable);
+	Page<Food> getByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Long> createDate , Optional<Integer> status , Optional<Boolean> isDisplay , Optional<Long> category_id ,Pageable pageable);
 
+	List<Food> getByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Long> createDate , Optional<Integer> status , Optional<Boolean> isDisplay , Optional<Long> category_id  );
+	
 	Page<Food> findByCategoryName(String name, Pageable pageable);
 }

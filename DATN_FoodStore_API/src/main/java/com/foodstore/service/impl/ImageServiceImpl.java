@@ -58,20 +58,26 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
-	public Page<Image> findByFoodId(Long id ,Pageable pageable) {
+	public Page<Image> getByFoodId(Long id ,Pageable pageable) {
 		return imageDAO.findByFoodId(id,pageable);
 	}
 
 	@Override
-	public Page<Image> findByKeyword(String keyword,Pageable pageable) {
+	public Page<Image> getByKeyword(String keyword,Pageable pageable) {
 		return imageDAO.findByKeyword(keyword,pageable);
 	}
 
 	@Override
-	public Page<Image> findByFilter(String keyword, Optional<Long> foodId,Pageable pageable) {
+	public Page<Image> getByFilter(String keyword, Optional<Long> foodId,Pageable pageable) {
 		List<Image> list = imageDAO.findByKeyword(keyword);
+
 		if(foodId.isPresent()) list = list.stream().filter(o-> o.getFood_i().getId() == foodId.get()).collect(Collectors.toList());
 		return new PageImpl<Image>(list, pageable, list.size());
 	}
-
+	@Override
+	public List<Image> getByFilter(String keyword, Optional<Long> foodId) {
+		List<Image> list = imageDAO.findByKeyword(keyword);
+		if(foodId.isPresent()) list = list.stream().filter(o-> o.getFood_i().getId() == foodId.get()).collect(Collectors.toList());
+		return list;
+	}
 }

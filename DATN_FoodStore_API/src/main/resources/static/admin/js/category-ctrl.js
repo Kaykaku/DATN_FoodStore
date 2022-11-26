@@ -7,6 +7,7 @@ app.controller("category-ctrl", function($scope, $http,$location) {
     $scope.display="-1";
     $scope.sort="id";
     $scope.image;
+    
 
     $scope.initialize = function() {
             //load categories
@@ -65,6 +66,7 @@ app.controller("category-ctrl", function($scope, $http,$location) {
         var item = angular.copy($scope.form);
         item.is_display= item._display;
         item._display = null;
+        if(!item.image_name) item.image_name = 'no_img2.jpg'
         console.log(item)
         $http.post(url + '/rest/category/create', item).then(resp => {
             $scope.load(0);
@@ -86,9 +88,11 @@ app.controller("category-ctrl", function($scope, $http,$location) {
     //Update sản phẩm
     $scope.update = function() {
         var item = angular.copy($scope.form);
+        if(!item.image_name) item.image_name = 'no_img2.jpg'
         $http.put(url + '/rest/category/update/' + item.id, item).then(resp => {
             $scope.load(0);
             $scope.showToast('info','Update category successful '+item.id);
+            console.log($scope.form);
             console.log(resp.data);
         }).catch(err => {
 			if(err.status == 405){
@@ -135,6 +139,10 @@ app.controller("category-ctrl", function($scope, $http,$location) {
             console.log("Error ", err)
         })
     }
+    
+    $scope.imageRemove = function(name){
+		$scope.form.image_name = null;
+	}
 
      $scope.first= function() {
             $scope.load(0);

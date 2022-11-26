@@ -12,6 +12,7 @@ import com.foodstore.model.transaction.CategoryFood;
 import com.foodstore.model.transaction.FoodCoupon;
 import com.foodstore.model.transaction.OrderDetail;
 import com.foodstore.model.transaction.Review;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,26 +46,26 @@ public class Food implements Serializable {
 
     @Column(name = "price", nullable = false)
     @Min(value = 0, message = "Giá phải lớn hơn 0")
-    private double price;
+    private double price =0;
 
     @Column(name = "quantity_limit", nullable = false)
     @Min(value = 0, message = "Số lượng phải lớn hơn hoặc bằng 0")
-    private int quantity_limit;
+    private int quantity_limit = 0;
     
     @Column(name = "view_count", nullable = false)
     @Min(value = 0, message = "Lượt xem phải lớn hơn hoặc bằng 0")
-    private int view_count;
+    private int view_count =0;
     
     @Column(name = "description", length = 1000)
     private String description;
     
     @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    @Temporal(TemporalType.DATE)
+    private Date create_date =new Date();
     
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display = Display.SHOW;
     
     @Column(name = "status")
     private long status;

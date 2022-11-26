@@ -20,13 +20,16 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 	@Query("SELECT f FROM Food f WHERE f.is_display = ?1 AND f.quantity_limit > ?2")
 	Page<Food> findByIsDisplayAndQuantity(Boolean isDisplay, Integer quantityLimit, Pageable pageable);
 
+	@Query("SELECT f FROM Food f WHERE f.name LIKE %?1% or f.description LIKE %?1% ")
+	Page<Food> findByKeyword2(String keyword, Pageable pageable);
+	
+	@Query("SELECT f FROM Food f WHERE f.name LIKE %?1%")
+	List<Food> findByKeyword2(String keyword);
+
 	@Query("SELECT f FROM Food f WHERE f.name "
 			+ "LIKE %?1% AND f.is_display = ?2 AND f.quantity_limit > ?3")
 	Page<Food> findByKeyword(String keyword, Boolean isDisplay, Integer quantityLimit, Pageable pageable);
 	
-	@Query("SELECT f FROM Food f WHERE f.name LIKE %?1%")
-	List<Food> findByKeyword(String keyword);
-
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE Food f SET f.is_display = ?1 WHERE f.id = ?2")
 	void deleteLogical(Boolean isDisplay, Long id);
@@ -36,4 +39,6 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 	
 	@Query("SELECT f.food_c FROM CategoryFood f WHERE f.category_f.name = ?1")
 	Page<Food> findByCategoryName(String name, Pageable pageable);
+	
+	
 }

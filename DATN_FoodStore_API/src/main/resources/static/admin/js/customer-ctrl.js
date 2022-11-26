@@ -132,6 +132,7 @@ app.controller("customer-ctrl", function($scope, $http,$location) {
         var item = angular.copy($scope.form);
         item.is_display= item._display;
         item._display = null;
+        if(!item.avatar) item.avatar = 'user.png'
         console.log(item)
         $http.post(url + '/rest/customer/create', item).then(resp => {
             $scope.load(0);
@@ -153,6 +154,7 @@ app.controller("customer-ctrl", function($scope, $http,$location) {
     //Update sản phẩm
     $scope.update = function() {
         var item = angular.copy($scope.form);
+        if(!item.avatar) item.avatar = 'user.png'
         $http.put(url + '/rest/customer/update/' + item.id, item).then(resp => {
             $scope.load(0);
             $scope.showToast('info','Update customer successful <b>'+item.username+"</b>");
@@ -202,6 +204,10 @@ app.controller("customer-ctrl", function($scope, $http,$location) {
             console.log("Error ", err)
         })
     }
+    
+    $scope.imageRemove = function(name){
+		$scope.form.image_name = null;
+	}
 
      $scope.first= function() {
             $scope.load(0);

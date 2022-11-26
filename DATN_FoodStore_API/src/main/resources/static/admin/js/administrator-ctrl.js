@@ -101,6 +101,7 @@ app.controller("administrator-ctrl", function($scope, $http,$location) {
         var item = angular.copy($scope.form);
         item.is_display= item._display;
         item._display = null;
+        if(!item.avatar) item.avatar = 'user.png'
         console.log(item)
         $http.post(url + '/rest/user/create', item).then(resp => {
             $scope.load(0);
@@ -122,6 +123,7 @@ app.controller("administrator-ctrl", function($scope, $http,$location) {
     //Update sản phẩm
     $scope.update = function() {
         var item = angular.copy($scope.form);
+        if(!item.avatar) item.avatar = 'user.png'
         $http.put(url + '/rest/user/update/' + item.id, item).then(resp => {
             $scope.load(0);
             $scope.showToast('info','Update user successful '+item.id);
@@ -171,6 +173,10 @@ app.controller("administrator-ctrl", function($scope, $http,$location) {
             console.log("Error ", err)
         })
     }
+    
+    $scope.imageRemove = function(name){
+		$scope.form.avatar = null;
+	}
 
      $scope.first= function() {
             $scope.load(0);

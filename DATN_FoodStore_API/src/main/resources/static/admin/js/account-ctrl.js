@@ -60,6 +60,7 @@ app.controller("account-ctrl",function($scope,$http,$location){
     $scope.edit = function(item){
 		$scope.form = angular.copy(item);
 		$scope.getOneByRole(item.username);
+		$scope.image ="";
 		$('#pills-home-tab').tab('show');
 		$scope.showToast('warning','Edit account '+$scope.form.username);
     }
