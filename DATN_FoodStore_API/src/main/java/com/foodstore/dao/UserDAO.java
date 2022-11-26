@@ -34,9 +34,9 @@ public interface UserDAO extends JpaRepository<User, Long> {
 	@Query("SELECT u FROM User u WHERE CONCAT(u.username, u.fullname, u.email) LIKE %?1% AND u.is_display = ?2")
 	Page<User> findByKeyword(String keyword, Boolean isDisplay, Pageable pageable);
 
-	@Query("SELECT u FROM User u WHERE  u.username LIKE %?1% or u.fullname LIKE %?1% or u.email LIKE %?1% or u.phone LIKE %?1% or u.address LIKE %?1%")
+	@Query("SELECT u FROM User u WHERE u.username LIKE %?1% or u.fullname LIKE %?1% or u.email LIKE %?1% or u.phone LIKE %?1% or u.address LIKE %?1%")
 	Page<User> findByKeyword(String keyword, Pageable pageable);
 	
-	@Query("SELECT u FROM User u WHERE  u.username LIKE %?1% or u.fullname LIKE %?1% or u.email LIKE %?1% or u.phone LIKE %?1% or u.address LIKE %?1%"  )
+	@Query("SELECT u FROM User u WHERE u.username LIKE %?1% or u.fullname LIKE %?1% or u.email LIKE %?1% or u.phone LIKE %?1% or u.address LIKE %?1%"  )
 	List<User> findByKeyword(String keyword);
 }

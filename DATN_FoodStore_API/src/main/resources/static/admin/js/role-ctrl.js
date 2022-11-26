@@ -109,6 +109,8 @@ app.controller("role-ctrl", function($scope, $http,$location) {
 	$scope.permission_of = function(permission){
 		if($scope.role_p){
 			return $scope.role_p.find(rp => rp.permission_r.id == permission.id);
+			//const check = $scope.role_p.find(rp => rp.permission_r.id == permission.id);
+			//return check != undefined;
 		}
 		return null;
 	}
@@ -157,7 +159,7 @@ app.controller("role-ctrl", function($scope, $http,$location) {
 	$scope.grant_permission = function(role_per){
 		$http.post(`/rest/role/permission/create`,role_per).then(resp=>{
 			$scope.loadPerOfRole(resp.data.role_p);
-			$scope.showToast('info','Grant permission <b>'+role_per.permission_r.display_name+ '</b> to role <b>' + role_per.role_p.display_name+"</b>!!");
+			$scope.showToast('info','Grant permission "'+role_per.permission_r.display_name+ '" to role ' + role_per.role_p.display_name+"!!");
 		}).catch(err=>{
 			if(err.status == 405){
 				$scope.showToast('danger',"You are not authorized to perform this action!!!");
@@ -174,7 +176,7 @@ app.controller("role-ctrl", function($scope, $http,$location) {
 	$scope.revoke_permission = function(role_per){
 		$http.delete(`/rest/role/permission/delete/${role_per.id}`).then(resp=>{
 			$scope.loadPerOfRole(role_per.role_p);
-			$scope.showToast('dark','Revoked permission <b>'+role_per.permission_r.display_name+ '</b> from role <b>' + role_per.role_p.display_name+"</b>!!");
+			$scope.showToast('dark','Revoked permission "'+role_per.permission_r.display_name+ '" from role ' + role_per.role_p.display_name+"!!");
 		}).catch(err=>{
 			if(err.status == 405){
 				$scope.showToast('danger',"You are not authorized to perform this action!!!");
@@ -212,7 +214,7 @@ app.controller("role-ctrl", function($scope, $http,$location) {
 	$scope.grant_authority = function(authority){
 		$http.post(`/rest/user/role/create`,authority).then(resp=>{
 			$scope.loadRoleOfAllUser();
-			$scope.showToast('info','Grant role <b>'+authority.role_u.display_name+ '</b> to user <b>' + authority.user_r.username+"</b>!!");
+			$scope.showToast('info','Authorization successful! ');
 		}).catch(err=>{
 			console.log("Error ",err);
 			$scope.showToast('danger','Authorization failed! ');
@@ -223,7 +225,7 @@ app.controller("role-ctrl", function($scope, $http,$location) {
 	$scope.revoke_authority = function(authority){
 		$http.delete(`/rest/user/role/delete/${authority.id}`).then(resp=>{
 			$scope.loadRoleOfAllUser();
-			$scope.showToast('dark','Revoked role <b>'+authority.role_u.display_name+ '</b> from user <b>' + authority.user_r.username+"</b>!!");
+			$scope.showToast('dark',"Permission has been successfully revoked!");
 		}).catch(err=>{
 			console.log("Error ",err);
 			$scope.showToast('danger',"Permission has been revoked failed!");
@@ -246,7 +248,7 @@ app.controller("role-ctrl", function($scope, $http,$location) {
     //Hiển thị lên form
     $scope.edit = function(item) {
 		$scope.form = angular.copy(item);
-		$scope.showToast('warning','Edit role <b>'+$scope.form.display_name +"</b>");
+		$scope.showToast('warning','Edit role '+$scope.form.display_name);
 		$scope.loadPerOfRole(item);
         
         $scope.tab('tab2');
@@ -261,14 +263,14 @@ app.controller("role-ctrl", function($scope, $http,$location) {
         $http.post(url + '/rest/role/create', item).then(resp => {
             $scope.load(0);
             $scope.edit(resp.data)
-            $scope.showToast('success','Add new role successful <b>'+item.display_name +"</b>");
+            $scope.showToast('success','Add new role successful '+item.display_name);
             console.log(resp.data);
         }).catch(err => {
 			if(err.status == 405){
 				$scope.showToast('danger',"You are not authorized to perform this action!!!");
 				//$location.path("/unauthorized");
 			}else{
-				$scope.showToast('danger','Add new role failed <b>'+item.display_name +"</b>");
+				$scope.showToast('danger','Add new role failed '+item.display_name);
             	console.log("Error ", err);
 			}
             
@@ -280,14 +282,14 @@ app.controller("role-ctrl", function($scope, $http,$location) {
         var item = angular.copy($scope.form);
         $http.put(url + '/rest/role/update/' + item.id, item).then(resp => {
             $scope.load(0);
-            $scope.showToast('info','Update role successful <b>'+item.display_name +"</b>");
+            $scope.showToast('info','Update role successful '+item.display_name);
             console.log(resp.data);
         }).catch(err => {
 			if(err.status == 405){
 				$scope.showToast('danger',"You are not authorized to perform this action!!!");
 				//$location.path("/unauthorized");
 			}else{
-            $scope.showToast('danger','Update new role failed <b>'+item.display_name +"</b>");
+            $scope.showToast('danger','Update new role failed '+item.display_name);
             console.log("Error ", err);
             }
         })
@@ -298,14 +300,14 @@ app.controller("role-ctrl", function($scope, $http,$location) {
         $http.delete(url + `/rest/role/delete/${item.id}`).then(resp => {
             $scope.load(0);
             $scope.reset();
-            $scope.showToast('dark','Delete role successful <b>'+item.display_name +"</b>");
+            $scope.showToast('dark','Delete role successful '+item.display_name);
             console.log(resp.data);
         }).catch(err => {
 			if(err.status == 405){
 				$scope.showToast('danger',"You are not authorized to perform this action!!!");
 				//$location.path("/unauthorized");
 			}else{
-            $scope.showToast('danger','Delete role failed <b>'+item.display_name +"</b>");
+            $scope.showToast('danger','Delete role failed '+item.display_name);
             console.log("Error ", err);
             }
         })

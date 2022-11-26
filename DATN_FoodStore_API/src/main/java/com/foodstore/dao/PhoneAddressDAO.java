@@ -19,9 +19,9 @@ public interface PhoneAddressDAO extends JpaRepository<PhoneAddress, Long>{
 	@Query("Select n From PhoneAddress n Where n.is_address=?1")
 	Page<PhoneAddress> findByContactType(Boolean contactType,Pageable pageable);
 	
-	@Query("Select n From PhoneAddress n Where n.phone_or_address like %?1%")
+	@Query("Select n From PhoneAddress n Where n.phone_or_address like ?1")
 	Page<PhoneAddress> findByKeyword(String keyword,Pageable pageable);
 	
-	@Query("Select n From PhoneAddress n Where n.phone_or_address like %?1%")
+	@Query("Select n From PhoneAddress n Where n.phone_or_address like ?1")
 	List<PhoneAddress> findByKeyword(String keyword);
 }

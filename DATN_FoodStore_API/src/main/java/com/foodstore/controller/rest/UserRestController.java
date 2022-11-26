@@ -24,9 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodstore.model.entity.User;
-import com.foodstore.model.transaction.UserPermission;
 import com.foodstore.model.transaction.UserRole;
-import com.foodstore.service.UserPermissionService;
 import com.foodstore.service.UserRoleService;
 import com.foodstore.service.UserService;
 
@@ -39,8 +37,6 @@ public class UserRestController {
 	private UserService userService;
 	@Autowired
 	private UserRoleService userRoleService;
-	@Autowired
-	private UserPermissionService userPermissionService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
@@ -115,11 +111,6 @@ public class UserRestController {
 	@GetMapping("/role/{id}")
 	public List<UserRole> getRoleByUser(@PathVariable("id")Long id){	
 		return userRoleService.getByUserId(id);
-	}
-	
-	@GetMapping("/permission/{id}")
-	public List<UserPermission> getPermissionByUser(@PathVariable("id")Long id){	
-		return userPermissionService.getByUserId(id);
 	}
 	
 	@PostMapping("/role/create")
