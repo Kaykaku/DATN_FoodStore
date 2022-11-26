@@ -9,8 +9,6 @@ import com.foodstore.model.transaction.UserPermission;
 import com.foodstore.model.transaction.UserRole;
 import com.foodstore.util.constraints.Display;
 import com.foodstore.util.constraints.Gender;
-import com.foodstore.util.constraints.ImageConstraints;
-import com.foodstore.util.constraints.Password;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,7 +41,7 @@ public class User implements Serializable {
     private String username;
 
     @Column(name = "password", nullable = false)
-    private String password = Password.Default;
+    private String password;
 
     @Column(name = "fullname", length = 200)
     private String fullname;
@@ -56,7 +54,7 @@ public class User implements Serializable {
     private Date birthday;
 
     @Column(name = "avatar", length = 100)
-    private String avatar = ImageConstraints.DEFAULT_AVATAR;
+    private String avatar;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
@@ -77,7 +75,7 @@ public class User implements Serializable {
     private long status = 0;
     
     @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date create_date = new Date();
     
     @Column(name = "create_by")

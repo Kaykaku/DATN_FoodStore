@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 		List<User> list = userDAO.findByKeyword(keyword.trim());
 		if(gender.isPresent()) list = list.stream().filter(o-> o.isGender() == gender.get()).toList();
 		if(birth_date.isPresent()) list = list.stream().filter(o-> o.getBirthday().getTime() >= birth_date.get()).toList();
-		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date()==null || o.getCreate_date().getTime() >= create_date.get()).toList();
+		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >= create_date.get()).toList();
 		if(create_by.isPresent()) list = list.stream().filter(o-> o.getCreate_by() == create_by.get()).toList();
 		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();
 		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() >= status.get()).toList();

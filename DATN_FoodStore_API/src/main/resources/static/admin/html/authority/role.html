@@ -116,7 +116,7 @@
                           <i class="tf-icons bx bx-detail mb-1"></i> View Role Details
                         </button>
                         </li>
-                        <li class="nav-item">
+                         <li class="nav-item">
                             <button type="button" ng-click="loadUser(0);" class="nav-link" id="tab3" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-messages" aria-controls="navs-pills-justified-messages" aria-selected="false">
                           <i class="tf-icons bx bx-message-square mb-1"></i> Set Roles for Users
                         </button>
@@ -125,7 +125,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade" id="navs-pills-justified-details" role="tabpanel">
                             <!-- tab2 -->
-                            <div class="row">
+                            <div class="row">                             
 
                                 <div class=" row col-8 offset-2">
                                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -165,14 +165,14 @@
                                             <div class="mb-3 row">
                                                 <label for="html5-color-input" class="col-md-2 col-form-label">Create Date</label>
                                                 <div class="col-md-10">
-                                                    <span ng-if="!form.create_by" class="badge bg-info">DEFAULT</span></td>
+                                                <span ng-if="!form.create_by" class="badge bg-info">DEFAULT</span></td>
                                                     <input ng-if="form.create_by" class="form-control" type="text" value="{{form.create_date|date:'yyyy-MM-dd HH:mm:ss'}}" disabled="disabled">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Create By</label>
                                                 <div class="col-sm-10">
-                                                    <span ng-if="!form.create_by" class="badge bg-info">DEFAULT</span></td>
+                                                <span ng-if="!form.create_by" class="badge bg-info">DEFAULT</span></td>
                                                     <div ng-if="form.create_by" class="input-group input-group-merge">
                                                         <span id="basic-icon-default-fullname2" class="input-group-text" style="background-color: #ECEEF1;"><i class="bx bx-shopping-bag"></i></span>
                                                         <input type="text" class="form-control" disabled="disabled" ng-value="form.create_by" placeholder="Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
@@ -185,16 +185,16 @@
                                                 <label for="html5-color-input" class="col-md-2 col-form-label">Display</label>
                                                 <div class="col-md-10">
                                                     <div class="form-check form-switch mb-2">
-                                                        <input class="form-check-input" type="checkbox" ng-model="form._display" value="" id="flexSwitchCheckDefault">
+                                                        <input class="form-check-input" type="checkbox" ng-model="form._display" value="" id="flexSwitchCheckDefault" >
                                                         <label class="form-check-label" for="flexSwitchCheckDefault">HIDE/SHOW</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center">
-                                                <div class="col-sm-10 offset-2"><button ng-hide="form.id" ng-click="create()" class="btn btn-primary mt-1">
+                                                <div class="col-sm-10 offset-2"><button ng-hide="form.id" ng-click="create()" class="btn btn-primary mt-1" >
 										<i class="bx bx-plus mb-1"></i>&nbspCreate
 									</button>
-                                                    <button ng-hide="!form.id || form.id==1" ng-click="update()" class="btn btn-primary mt-1">
+                                                    <button ng-hide="!form.id || form.id==1" ng-click="update()" class="btn btn-primary mt-1" >
 										<i class="bx bx-save mb-1"></i>&nbspUpdate
 									</button>
 
@@ -206,95 +206,103 @@
                                                     <button ng-click="reset()" class="btn btn-info mt-1">
 										<i class="bx bx-refresh mb-1"></i>&nbspClear
 									</button>
-                                                    <!-- Button trigger modal -->
-                                                    <button ng-hide="!form.id || form.id==1" id="tabPer" type="button" ng-click="" class="btn btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#modalCenter"><i class="bx bx-cog mb-1"></i>Set Permissions</button>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-                                                        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="modalCenterTitle">{{form.display_name}} Permission Setting</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body pb-0">
-
-                                                                    <div class="row pl-0 pr-0">
-                                                                        <div class="col-4">
-                                                                            <div class="table-responsive">
-                                                                                <table class=" table table-hover ">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Display Name</th>
-                                                                                            <th>Actions</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody class="table-border-bottom-0">
-                                                                                        <tr class="table-dark" ng-repeat="item in divPermission(0,20)">
-                                                                                            <td><strong>{{item.display_name }}</strong></td>
-                                                                                            <td>
-                                                                                                <div class="form-check form-switch mb-2">
-                                                                                                    <input class="form-check-input" type="checkbox" ng-checked="permission_of(item)" ng-click="permission_changed(form,item)" id="flexSwitchCheckDefault">
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-4">
-                                                                            <div class="table-responsive">
-                                                                                <table class=" table table-hover ">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Display Name</th>
-                                                                                            <th>Actions</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody class="table-border-bottom-0">
-                                                                                        <tr class="table-dark" ng-repeat="item in divPermission(20,40)">
-                                                                                            <td><strong>{{item.display_name }}</strong></td>
-                                                                                            <td>
-                                                                                                <div class="form-check form-switch mb-2">
-                                                                                                    <input class="form-check-input" type="checkbox" ng-checked="permission_of(item)" ng-click="permission_changed(form,item)" value="" id="flexSwitchCheckDefault">
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-4">
-                                                                            <div class="table-responsive">
-                                                                                <table class=" table table-hover ">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Display Name</th>
-                                                                                            <th>Actions</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody class="table-border-bottom-0">
-                                                                                        <tr class="table-dark" ng-repeat="item in divPermission(40,60)">
-                                                                                            <td><strong>{{item.display_name }}</strong></td>
-                                                                                            <td>
-                                                                                                <div class="form-check form-switch mb-2">
-                                                                                                    <input class="form-check-input" type="checkbox" ng-checked="permission_of(item)" ng-click="permission_changed(form,item)" value="" id="flexSwitchCheckDefault">
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
+			                        <!-- Button trigger modal -->
+			                        <button ng-hide="!form.id || form.id==1" id="tabPer"
+			                          type="button" ng-click=""
+			                          class="btn btn-warning mt-1"
+			                          data-bs-toggle="modal"
+			                          data-bs-target="#modalCenter"
+			                        ><i class="bx bx-cog mb-1"></i>
+			                          Set Permissions
+			                        </button>
+			
+			                        <!-- Modal -->
+			                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+			                          <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+			                            <div class="modal-content">
+			                              <div class="modal-header">
+			                                <h5 class="modal-title" id="modalCenterTitle">{{form.display_name}} Permission Setting</h5>
+			                                <button
+			                                  type="button"
+			                                  class="btn-close"
+			                                  data-bs-dismiss="modal"
+			                                  aria-label="Close"
+			                                ></button>
+			                              </div>
+			                              <div class="modal-body pb-0">
+		
+			                                <div class="row pl-0 pr-0"><div class="col-4">
+			                                	                                <div class="table-responsive">
+				                                <table class=" table table-hover ">
+				                                    <thead>
+				                                        <tr>
+				                                            <th>Display Name</th>
+				                                            <th>Actions</th>
+				                                        </tr>
+				                                    </thead>
+				                                    <tbody class="table-border-bottom-0">
+				                                        <tr class="table-dark" ng-repeat="item in divPermission(0,20)" >
+				                                            <td><strong>{{item.display_name }}</strong></td>
+				                                                <td><div class="form-check form-switch mb-2">
+				                                                        <input class="form-check-input" type="checkbox" ng-checked="permission_of(item)" ng-click="permission_changed(form,item)"  id="flexSwitchCheckDefault" >
+				                                                    </div>
+				                                                </td>
+				                                        </tr>
+				                                    </tbody>
+				                                </table>
+				                                </div>
+                            				</div>
+                            				<div class="col-4">
+                            				<div class="table-responsive">
+				                                <table class=" table table-hover ">
+				                                    <thead>
+				                                        <tr>
+				                                            <th>Display Name</th>
+				                                            <th>Actions</th>
+				                                        </tr>
+				                                    </thead>
+				                                    <tbody class="table-border-bottom-0">
+				                                        <tr class="table-dark" ng-repeat="item in divPermission(20,40)" >
+				                                            <td><strong>{{item.display_name }}</strong></td>
+				                                                <td><div class="form-check form-switch mb-2">
+				                                                        <input class="form-check-input" type="checkbox" ng-checked="permission_of(item)"  ng-click="permission_changed(form,item)" value="" id="flexSwitchCheckDefault" >
+				                                                    </div>
+				                                                </td>
+				                                        </tr>
+				                                    </tbody>
+				                                </table></div>
+                            				</div>
+                            				<div class="col-4"><div class="table-responsive">
+				                                <table class=" table table-hover ">
+				                                    <thead>
+				                                        <tr>
+				                                            <th>Display Name</th>
+				                                            <th>Actions</th>
+				                                        </tr>
+				                                    </thead>
+				                                    <tbody class="table-border-bottom-0">
+				                                        <tr class="table-dark" ng-repeat="item in divPermission(40,60)" >
+				                                            <td><strong>{{item.display_name }}</strong></td>
+				                                                <td><div class="form-check form-switch mb-2">
+				                                                        <input class="form-check-input" type="checkbox" ng-checked="permission_of(item)" ng-click="permission_changed(form,item)"  value="" id="flexSwitchCheckDefault" >
+				                                                    </div>
+				                                                </td>
+				                                        </tr>
+				                                    </tbody>
+				                                </table>
+                            				</div>
+                            				</div>
+                            				</div>
+			                              </div>
+			                              <div class="modal-footer">
+			                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+			                                  Close
+			                                </button>
+			                              </div>
+			                            </div>
+			                          </div>
+			                        </div>
+									
                                                 </div>
                                             </div>
                                         </div>
@@ -306,9 +314,9 @@
                         <div class="tab-pane fade  show active" id="navs-pills-justified-list" role="tabpanel">
                             <!-- tab1 -->
                             <h5 class="card-header">Table Roles
-                                <button class="btn btn-primary" ng-click="tab('tab2');reset()">
+                            <button class="btn btn-primary" ng-click="tab('tab2');reset()">
 										<i class="bx bx-plus mb-1 ml-2"></i>&nbspCreate
-									</button>
+									</button>  
                                 <div class="row mt-3">
                                     <div class="col-sm-8">
                                         <div class="input-group input-group-merge">
@@ -354,14 +362,14 @@
                                             <td>
                                                 <span class="badge bg-primary" ng-if="item._display==1">SHOW</span>
                                                 <span class="badge bg-warning" ng-if="item._display==0">HIDE</span></td>
-                                            <td><button ng-hide="item.id==1" ng-click="tab('tabPer')" class="btn btn-outline-info mr-2">
+                                                <td><button ng-hide="item.id==1" ng-click="tab('tabPer')" class="btn btn-outline-info mr-2">
 													<i class='bx bx-cog mb-1' ></i>
 													</button>
-
-                                                <button ng-if="item.create_by" ng-click="delete(item)" class="btn btn-outline-danger">
+													
+													<button ng-if="item.create_by" ng-click="delete(item)" class="btn btn-outline-danger">
 														<i class="bx bx-trash mb-1"></i>
 													</button>
-                                            </td>
+                                                </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -387,73 +395,82 @@
                         <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
                             <!-- tab3 -->
                             <div class="">
-                                <h5 class="card-header">Authorizing EDITION</h5>
-                                <div class="card-body">
-                                    <div class="row">
-
-                                        <div class="col-sm-8">
-                                            <div class="input-group input-group-merge">
-                                                <span id="id" class="input-group-text"><i
+			<h5 class="card-header">Authorizing EDITION</h5>
+			<div class="card-body">
+				<div class="row">
+					
+                          <div class="col-sm-8">
+                              <div class="input-group input-group-merge">
+                                  <span id="id" class="input-group-text"><i
 							class="bx bx-search"></i></span> <input class="form-control" placeholder="Sreach" ng-model="user_keyword" ng-change="loadUser(0)" aria-label="John Doe" aria-describedby="id" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <select id="sendNotification" class="form-select" ng-model="user_role_id" ng-change="loadUser(0)" name="sendNotification">
-												<option ng-value="0" ng-checked="true">Role : ALL</option>
-												<option ng-repeat="r in itemsAll" ng-value="r.id">{{r.display_name}}</option>
-											</select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="">
-                                                <select class="form-select" ng-model="user_display" ng-change="loadUser(0)">
+                               </div>
+                           </div>
+						<div class="col-sm-2">
+						<select id="sendNotification" class="form-select" ng-model="user_role_id" ng-change="loadUser(0)"
+							name="sendNotification">
+							<option ng-value="0" ng-checked="true">Role : ALL</option>
+							<option ng-repeat="r in itemsAll" ng-value="r.id">{{r.display_name}}</option>
+						</select>
+						</div>
+                           <div class="col-md-2">
+                               <div class="">
+                                   <select class="form-select" ng-model="user_display" ng-change="loadUser(0)">
 								<option ng-value ="-1" selected="selected">Status : ALL</option>
 								<option ng-value ="true" >SHOW</option>
 								<option ng-value ="false">HIDE</option>
 							</select>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-striped table-borderless border-bottom">
-                                        <thead>
-                                            <tr>
-                                                <th>Photo</th>
-                                                <th>Username </th>
-                                                <th ng-repeat="role in itemsAll" class="text-center">{{role.display_name}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-border-bottom-0">
-                                            <tr ng-repeat="user in users.content">
-                                                <td>
-                                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xl pull-up" title="${user.display_name}"><img ng-src="/avatars/{{user.avatar}}" alt="Avatar" class="rounded" /></li>
-                                                    </ul>
-                                                </td>
-                                                <td><strong>{{user.username }}</strong></td>
-                                                <td ng-repeat="role in itemsAll" class="text-center"><input ng-disabled="role.id==1 || user.id==1" ng-checked="authority_of(user,role)" class="form-check-input" ng-click="authority_changed(user,role)" type="checkbox" /></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="justify-content-center mt-2 mb-2 w-100" style="text-align: center;">
-                                        <button ng-click="user_first()" class="btn btn-info">
+                              </div>
+                          </div>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<table
+					class="table table-hover table-striped table-borderless border-bottom">
+					<thead>
+						<tr>
+							<th>Photo</th>
+							<th>Username </th>
+							<th ng-repeat="role in itemsAll" class="text-center">{{role.display_name}}</th>
+						</tr>
+					</thead>
+					<tbody class="table-border-bottom-0">
+						<tr ng-repeat="user in users.content">
+							<td>
+								<ul
+									class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+									<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+										data-bs-placement="top" class="avatar avatar-xl pull-up"
+										title="${user.display_name}"><img ng-src="/avatars/{{user.avatar}}"
+										alt="Avatar" class="rounded" /></li>
+								</ul>
+							</td>
+							<td><strong>{{user.username }}</strong></td>
+							<td ng-repeat="role in itemsAll" class="text-center"><input ng-disabled="role.id==1 || user.id==1"
+								ng-checked="authority_of(user,role)" class="form-check-input"
+								ng-click="authority_changed(user,role)" type="checkbox" /></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="justify-content-center mt-2 mb-2 w-100"
+					style="text-align: center;">
+					<button ng-click="user_first()" class="btn btn-info">
 						<i class='bx bxs-chevrons-left mb-1'></i>
 					</button>
-                                        <button ng-click="user_previous()" class="btn btn-info">
+					<button ng-click="user_previous()" class="btn btn-info">
 						<i class='bx bxs-chevron-left mb-1'></i>
 					</button>
-                                        <button class="btn btn-success">{{users.pageable.pageNumber+1}} of
+					<button class="btn btn-success">{{users.pageable.pageNumber+1}} of
 						{{users.totalPages}}</button>
-                                        <button ng-click="user_next()" class="btn btn-info">
+					<button ng-click="user_next()" class="btn btn-info">
 						<i class='bx bxs-chevron-right mb-1'></i>
 					</button>
-                                        <button ng-click="user_last()" class="btn btn-info">
+					<button ng-click="user_last()" class="btn btn-info">
 						<i class='bx bxs-chevrons-right mb-1'></i>
 					</button>
-                                    </div>
-                                </div>
-                            </div>
+				</div>
+			</div>
+		</div>
                             <!--end tab2 -->
                         </div>
                     </div>
