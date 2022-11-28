@@ -1,4 +1,4 @@
-package com.foodstore.controller.rest;
+package com.foodstore.dao;
 
 import java.util.Date;
 import java.util.List;

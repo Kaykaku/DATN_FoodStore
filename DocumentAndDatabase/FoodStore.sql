@@ -1,7 +1,6 @@
 use master
 go
-drop database [DATN_FoodStore] 
-go
+
 create database [DATN_FoodStore] 
 go
 use [DATN_FoodStore] 
