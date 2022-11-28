@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
 
 <head>
-    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <title>FoodStore - Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -33,18 +33,13 @@
                             <div class="form-group last mb-3">
                                 <label for="password">[[#{login.password}]]</label>
                                 <input type="password" class="form-control" name="password">
-
                             </div>
 
-                            <div class="d-flex mb-5 align-items-center">
-                                <label class="control control--checkbox mb-0"><span class="caption">[[#{login.remember}]]</span>
-                  <input type="checkbox" checked="checked" name="remember" />
-                  <div class="control__indicator"></div>
-                </label>
+                            <div class="d-flex mb-2 align-items-center">
                                 <span class="ml-auto"><a href="#" class="forgot-pass">[[#{login.forgot}]]</a></span>
                             </div>
 
-                            <input type="submit" th:value="#{login.button}" class="btn btn-block btn-primary">
+                            <input type="submit" name="submit" th:value="#{login.button}" class="btn btn-block btn-primary">
 
                             <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 

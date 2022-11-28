@@ -62,6 +62,8 @@ app.controller("administrator-ctrl", function ($scope, $http, $location) {
             name: '',
         }
         $scope.avatar = "";
+        $scope.user_roles='';
+        $scope.user_permissions='';
     }
 
     $scope.tab = function (tab) {
@@ -174,8 +176,9 @@ app.controller("administrator-ctrl", function ($scope, $http, $location) {
         })
     }
 
-    $scope.imageRemove = function (name) {
+    $scope.imageRemove = function () {
         $scope.form.avatar = null;
+        $scope.avatar = null;
     }
 
     $scope.first = function () {

@@ -205,8 +205,9 @@ app.controller("customer-ctrl", function ($scope, $http, $location) {
         })
     }
 
-    $scope.imageRemove = function (name) {
-        $scope.form.image_name = null;
+    $scope.imageRemove = function () {
+        $scope.form.avatar = null;
+        $scope.avatar = null;
     }
 
     $scope.first = function () {

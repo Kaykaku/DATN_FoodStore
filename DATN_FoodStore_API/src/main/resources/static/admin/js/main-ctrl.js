@@ -4,7 +4,7 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 	$scope.news = {};
 	$scope.orz = [];
 	$scope.initialize = function() {
-		$http.get("/rest/account").then(resp => {
+		$http.get("/rest/user").then(resp => {
 			$scope.user = resp.data;
 			console.log(resp.data)
 		})

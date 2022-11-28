@@ -11,7 +11,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="/home/index">Minishop</a>
+			<a class="navbar-brand" href="/home/index">Foodstore</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
 					<li class="header-cart-item flex-w flex-t m-b-12" ng-repeat="item in cart.items"><a
 						href="" ng-click="cart.remove(item.id)">
 							<div class="header-cart-item-img">
-								<img src="/images/{{item.image}}" alt="IMG">
+								<img ng-src="/images/{{cart.loadImage(item)}}" alt="IMG" style="height: 100px;">
 							</div>
 					</a>
 						<div class="header-cart-item-txt p-t-8">

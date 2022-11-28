@@ -50,7 +50,9 @@
 						      <tr class="text-center" ng-repeat="item in cart.items">
 						        <td class="product-remove"><a href="" ng-click="cart.remove(item.id)"><span class="ion-ios-close"></span></a></td>
 						        
-						        <td class="image-prod"><div class="img" style="background-image:url(/images/{{item.image}});"></div></td>
+						        <td class="image-prod">
+						        <div class="img" style="background-image:url(/images/{{cart.loadImage(item)}});width:200px;" ></div>
+						        </td>
 						        
 						        <td class="product-name">
 						        	<h3>{{item.name}}</h3>

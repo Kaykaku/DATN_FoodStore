@@ -21,5 +21,4 @@ public interface UserPermissionService extends IService<UserPermission> {
 	
 	UserPermission getByUserIdAndPermissionId(Long userId ,Long permissionId);
 	
-	List<UserPermission> getByUserId(Long id);
 }

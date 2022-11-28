@@ -18,6 +18,7 @@ public interface CategoryService extends IService<Category> {
 
 	Page<Category> getByKeyword(String keyword, Pageable pageable) throws Exception;
 
+	Category getByName(String name);
 
 	void deleteLogical(Long id) throws Exception;
 	

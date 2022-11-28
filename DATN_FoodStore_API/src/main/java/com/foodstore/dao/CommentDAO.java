@@ -16,15 +16,13 @@ public interface CommentDAO extends JpaRepository<Comment, Long>{
 	@Query("Select c From Comment c Where c.review.id=?1")
 	Page<Comment> findByReviewId(Long id,Pageable pageable);
 	
-	@Query("Select c From Comment c"
-			+ " Where c.review.id like %?1%"
-			+ " or title like %?1%"
-			+ " or content like %?1%")
+	@Query("Select c From Comment c "
+			+ "Where c.title like %?1%"
+			+ " or c.content like %?1%")
 	Page<Comment> findByKeyword(String keyword,Pageable pageable);
 	
-	@Query("Select c From Comment c"
-			+ " Where c.review.id like %?1%"
-			+ " or title like %?1%"
-			+ " or content like %?1%")
+	@Query("Select c From Comment c "
+			+ "Where c.title like %?1%"
+			+ " or c.content like %?1%")
 	List<Comment> findAllByKeyword(String keyword);
 }

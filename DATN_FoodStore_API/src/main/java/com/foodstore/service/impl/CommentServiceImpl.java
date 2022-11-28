@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.foodstore.dao.CommentDAO;
 import com.foodstore.model.extend.Comment;
 import com.foodstore.service.CommentService;
+import com.foodstore.util.convert.Convert;
 
 
 @Service
@@ -92,13 +93,27 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
-	public Page<Comment> getByFilter(String keyword, Optional<Integer> status,
-			Optional<Date> createDate, Optional<Boolean> isDisplay,Pageable pageable) {
+	public Page<Comment> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> food_id,
+			Optional<Integer> status, Optional<Date> createDate, Optional<Boolean> isDisplay, Pageable pageable) {
 		List<Comment> list = commentDAO.findAllByKeyword(keyword);
+		if(cus_id.isPresent()) list = list.stream().filter(o-> o.getReview().getCustomer_r().getId() == cus_id.get()).collect(Collectors.toList());
+		if(food_id.isPresent()) list = list.stream().filter(o-> o.getReview().getFood_r().getId() == food_id.get()).collect(Collectors.toList());
 		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).collect(Collectors.toList());
 		if(createDate.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == createDate.get()).collect(Collectors.toList());
 		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).collect(Collectors.toList());
-		return new PageImpl<Comment>(list, pageable, list.size());
+		return (Page<Comment>) Convert.toPage(list, pageable);
+	}
+
+	@Override
+	public List<Comment> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> food_id,
+			Optional<Integer> status, Optional<Date> createDate, Optional<Boolean> isDisplay) {
+		List<Comment> list = commentDAO.findAllByKeyword(keyword);
+		if(cus_id.isPresent()) list = list.stream().filter(o-> o.getReview().getCustomer_r().getId() == cus_id.get()).collect(Collectors.toList());
+		if(food_id.isPresent()) list = list.stream().filter(o-> o.getReview().getFood_r().getId() == food_id.get()).collect(Collectors.toList());
+		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).collect(Collectors.toList());
+		if(createDate.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == createDate.get()).collect(Collectors.toList());
+		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).collect(Collectors.toList());
+		return list;
 	}
 
 }

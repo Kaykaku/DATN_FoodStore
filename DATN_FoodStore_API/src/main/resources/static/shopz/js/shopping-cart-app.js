@@ -3,6 +3,19 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 	/*
 	* QUẢN LÝ GIỎ HÀNG
 	*/
+	$scope.init= function(){
+		$http.get("/rest/food/image/default").then(resp => {
+		      $scope.images = resp.data;
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })
+	}
+	
+	$scope.init();
+	
 	$scope.cart = {
 		items: [],
 
@@ -15,12 +28,18 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 				item.qty += qty;
 				this.saveToLocalStorage();
 			} else {
-				$http.get(`/rest/products/${id}`).then(resp => {
+				$http.get(`/rest/food/detail/${id}`).then(resp => {
 					resp.data.qty = qty;
 					this.items.push(resp.data);
 					this.saveToLocalStorage();
 				})
+				  
 			}
+		},
+		loadImage(item){
+			if(!$scope.images) return '';
+			 let image = $scope.images.find(p => p.food_i.id == item.id);
+			 return image ? image.image_name : "no_img2.png";
 		},
 		//Xoá sản phẩm khỏi giỏ hàng
 		remove(id) {

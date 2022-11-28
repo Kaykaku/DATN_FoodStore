@@ -106,7 +106,7 @@ public class FoodServiceImpl implements FoodService {
 		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).toList();
 		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).toList();
 		if(category_id.isPresent()) list = list.stream().filter(o-> o.getCategory_foods().stream().anyMatch(c -> c.getCategory_f().getId() == category_id.get()) ).toList();
-		return new PageImpl<Food>(list, pageable, list.size());
+		return (Page<Food>)Convert.toPage(list, pageable);
 	}
 	
 	@Override

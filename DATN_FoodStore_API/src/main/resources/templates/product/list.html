@@ -9,18 +9,100 @@
 			<div class="row">
 				<div class="col-md-8 col-lg-10 order-md-last">
 					<div class="row">
+						<div class="col-3 sidebar-box-2 mb-1">
+							<label for="guests">[[#{product.sortby}]]</label>
+							<form method="get" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<div class="form-field">
+												<i class="icon icon-arrow-down3"></i> <select name="sortBy" onchange="this.form.submit()"
+													id="people" class="form-control">
+													<option th:each="sb : ${sortList}" th:value="${sb.value}" th:selected="${sortBy==sb.value}">[[${sb.key}]]</option>
+												</select>
+											</div>
+										</div>
+									</div>									
+								</div>
+							</form>
+						</div>
+						<div class="col-3 sidebar-box-2">
+						<label for="guests">Price from:</label>
+                            <form method="post" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-field">
+                                                <i class="icon icon-arrow-down3"></i>
+                                                <select id="people" class="form-control" name="price_min" onchange="this.form.submit()">
+							                        <option th:selected="${price_min==0}" value="0">All</option>
+							                        <option th:selected="${price_min==20000}" value="20000">20000</option>
+							                        <option th:selected="${price_min==30000}" value="30000">30000</option>
+							                        <option th:selected="${price_min==50000}" value="50000">50000</option>
+							                        <option th:selected="${price_min==100000}" value="100000">100000</option>
+							                      </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>	
+                        <div class="col-3 sidebar-box-2">
+                        <label for="guests">Price To:</label>
+                            <form method="post" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-field">
+                                                <i class="icon icon-arrow-down3"></i>
+                                                <select name="price_max" onchange="this.form.submit()" id="people" class="form-control">
+							                        <option th:selected="${price_max==0}" value="0">All</option>
+							                        <option th:selected="${price_max==50000}" value="50000">50000</option>
+							                        <option th:selected="${price_max==100000}" value="100000">100000</option>
+							                        <option th:selected="${price_max==200000}" value="200000">200000</option>
+							                        <option th:selected="${price_max==300000}" value="300000">300000</option>
+							                      </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>		
+                        <div class="col-3 sidebar-box-2">
+                        <label for="guests">View size:</label>
+                            <form method="post" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            
+                                            <div class="form-field">
+                                                <i class="icon icon-arrow-down3"></i>
+                                                <select name="size" onchange="this.form.submit()" id="people" class="form-control">
+							                        <option th:selected="${size==6}" value="6">6</option>
+							                        <option th:selected="${size==9}" value="9">9</option>
+							                        <option th:selected="${size==12}" value="12">12</option>
+							                        <option th:selected="${size==15}" value="15">15</option>
+							                      </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>		
+					</div>
+					<div class="row">
 						<div class="col-sm-12 col-md-12 col-lg-4 ftco-animate d-flex"
 							th:each="p,state:${items.content}">
 							<div class="product d-flex flex-column">
-								<a th:href="@{|/shop/${p.category.id}/${p.id}|}"
+								<a th:href="@{|/shop/detail/${p.id}|}"
 									class="img-prod" style="text-align: center;"><img
-									class="img-fluid" th:src="@{|/images/${p.image}|}"
+									class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}"
 									style="height: 255px;" alt="Colorlib Template">
 									<div class="overlay"></div> </a>
 								<div class="text py-3 pb-4 px-3">
 									<div class="d-flex">
 										<div class="cat w-100">
-											<span>[[${p.category.name}]]</span>
+											<span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
 										</div>
 
 									</div>
@@ -29,13 +111,13 @@
 									</h3>
 									<div class="pricing">
 										<p class="price">
-											<span>$[[${p.price}]]</span>
+											<span>[[${p.price}]] VND</span>
 										</p>
 									</div>
 									<p class="bottom-area d-flex px-3">
 										<a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" 
 											class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i>
-										</span></a> <a th:href="@{|/shop/${p.category.id}/${p.id}|}"
+										</span></a> <a th:href="@{|/shop/detail/${p.id}|}"
 											class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i
 												class="ion-ios-cart ml-1"></i></span></a>
 									</p>
@@ -59,23 +141,6 @@
 				<div class="col-md-4 col-lg-2">
 					<div class="sidebar">
 						<div class="sidebar-box-2 mb-1">
-							<h2 class="heading">[[#{product.sortby}]]</h2>
-							<form method="get" class="colorlib-form-2" th:action="@{|/shop/${cid==''?'all':cid}|}">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<div class="form-field">
-												<i class="icon icon-arrow-down3"></i> <select name="sortBy" onchange="this.form.submit()"
-													id="people" class="form-control">
-													<option th:each="sb : ${sortList}" th:value="${sb.value}" th:selected="${sortBy==sb.value}">[[${sb.key}]]</option>
-												</select>
-											</div>
-										</div>
-									</div>									
-								</div>
-							</form>
-						</div>
-						<div class="sidebar-box-2 mb-1">
 							<h2 class="heading">[[#{product.category}]]</h2>
 							<div class="fancy-collapse-panel">
 								<div class="panel-group" id="accordion" role="tablist"
@@ -85,14 +150,15 @@
                                             <div class="panel-body">
                                                 <ul class="pl-0">
                                                 	<li style="font-size: 14px;"><a href="/shop/all" th:style="${cid} ==''?'color:#dbcc8f;':''">All</a></li>                                                    
-                                                    <li th:each="c:${cates}" style="font-size: 14px;"><a th:href="@{|/shop/${c.id}|}" th:style="${c.id==cid?'color:#dbcc8f;':''}">[[${c.name}]]</a></li>                                                    
+                                                    <li th:each="c:${cates}" style="font-size: 14px;"><a th:href="@{|/shop/${c.name}|}"  th:style="${c.name==cid?'color:#dbcc8f;':''}" th:if="${c.is_display}">[[${c.display_name}]] </a></li>                                                    
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
 								</div>
 							</div>
-						</div>											
+						</div>
+															
 					</div>
 				</div>
 			</div>

@@ -69,4 +69,14 @@ public class CategoryFoodServiceImpl implements CategoryFoodService {
 	public CategoryFood getByCategoryIdAndFoodId(Long categoryId, Long foodId) {
 		return categoryFoodDAO.findByCategoryIdAndFoodId(categoryId,foodId).orElse(null);
 	}
+
+	@Override
+	public List<CategoryFood> getByFoodId(Long id) {
+		return categoryFoodDAO.findByFoodId(id);
+	}
+	
+	@Override
+	public List<CategoryFood> getByCategoryId(Long id) {
+		return categoryFoodDAO.findByCategoryId(id);
+	}
 }

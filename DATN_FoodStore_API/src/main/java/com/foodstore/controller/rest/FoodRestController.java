@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.foodstore.model.entity.Food;
 import com.foodstore.model.entity.User;
 import com.foodstore.model.extend.Image;
+import com.foodstore.model.transaction.CategoryFood;
+import com.foodstore.service.CategoryFoodService;
 import com.foodstore.service.FoodService;
 import com.foodstore.service.ImageService;
 import com.foodstore.service.UserService;
@@ -42,6 +44,8 @@ public class FoodRestController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CategoryFoodService categoryFoodService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
@@ -50,6 +54,19 @@ public class FoodRestController {
 		try {
 			Page<Food> pageCategories = foodService.getAll(PageRequest.of(page.orElse(0), size.orElse(10)));
 			return ResponseEntity.ok(pageCategories);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/detail/{id}")
+	public ResponseEntity<?> doGetById(
+			@PathVariable("id")Long id) {
+		try {
+			Food food = foodService.getById(id);
+			return ResponseEntity.ok(food);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -124,8 +141,31 @@ public class FoodRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/image/default/{id}")
+	public ResponseEntity<?> doChangeDefault(@PathVariable("id")Long id,@RequestParam("image_id")Long image_id) {
+		try {
+			Image image1 = imageService.getById(image_id);
+			Image image2 = imageService.getByFilter("",Optional.ofNullable(id)).get(0);
+			String name1 = image1.getImage_name();
+			String name2 = image2.getImage_name();
+			image1.setImage_name("TEMPTEMP");
+			imageService.update(image1);
+			
+			image2.setImage_name(name1);
+			imageService.update(image2);
+			
+			image1.setImage_name(name2);
+			imageService.update(image1);
+			return ResponseEntity.ok(image2);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
 	@GetMapping("/image/{id}")
-	public ResponseEntity<?> doGetContactByCus(@PathVariable("id")Long id) {
+	public ResponseEntity<?> doGetImageById(@PathVariable("id")Long id) {
 		try {
 			List<Image> page = imageService.getByFilter("",Optional.ofNullable(id));
 			return ResponseEntity.ok(page);
@@ -145,5 +185,17 @@ public class FoodRestController {
 	@DeleteMapping("/image/delete/{id}")
 	public void deleteImage(@PathVariable("id")Long id) {
 		imageService.delete(id);
+	}
+	
+	@GetMapping("/category/{id}")
+	public ResponseEntity<?> doGetCategoriesByFoodId(@PathVariable("id")Long id) {
+		try {
+			List<CategoryFood> page = categoryFoodService.getByFoodId(id);
+			return ResponseEntity.ok(page);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

@@ -25,6 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired private UserService userService;
 	@Autowired private CustomerService customerService;
 	@Autowired private BCryptPasswordEncoder pe;
+	
+	
+	
 	//Cung cấp nguồn dữ liệu đăng nhập
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

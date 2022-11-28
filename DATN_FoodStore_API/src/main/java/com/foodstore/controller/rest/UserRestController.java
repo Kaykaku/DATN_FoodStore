@@ -132,9 +132,6 @@ public class UserRestController {
 		userRoleService.delete(id);
 	}
 	
-	@GetMapping("/permission/{id}")
-	public List<UserPermission> getPermissionByUser(@PathVariable("id")Long id){	
-		return userPermissionService.getByUserId(id);
-	}
+
 	
 }

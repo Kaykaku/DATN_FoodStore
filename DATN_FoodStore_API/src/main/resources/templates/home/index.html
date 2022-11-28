@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
 
 <head>
-    <title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+    <title>FoodStore - Enjoy delicious food</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -44,23 +44,127 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
                     <div class="product d-flex flex-column">
-                        <a th:href="@{|/shop/${p.category.id}/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.image}|}" style="height: 255px;" alt="Colorlib Template">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
                                 <div class="cat w-100">
-                                    <span>[[${p.category.name}]]</span>
+                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
                                 </div>
-                            
                             </div>
                             <h3><a href="#">[[${p.name}]]</a></h3>
                             <div class="pricing">
-                                <p class="price"><span>$[[${p.price}]]</span></p>
+                                <p class="price"><span>[[${p.price}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
                                 <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
-                                <a th:href="@{|/shop/${p.category.id}/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
+                                <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <h2 class="mb-4">[[#{home.title1}]]</h2>
+                 
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                    <div class="product d-flex flex-column">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3">
+                            <div class="d-flex">
+                                <div class="cat w-100">
+                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                </div>
+                            </div>
+                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <div class="pricing">
+                                <p class="price"><span>[[${p.price}]] VND</span></p>
+                            </div>
+                            <p class="bottom-area d-flex px-3">
+                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <h2 class="mb-4">[[#{home.title2}]]</h2>
+                 
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                    <div class="product d-flex flex-column">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3">
+                            <div class="d-flex">
+                                <div class="cat w-100">
+                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                </div>
+                            </div>
+                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <div class="pricing">
+                                <p class="price"><span>[[${p.price}]] VND</span></p>
+                            </div>
+                            <p class="bottom-area d-flex px-3">
+                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <h2 class="mb-4">[[#{home.title3}]]</h2>
+                 
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                    <div class="product d-flex flex-column">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3">
+                            <div class="d-flex">
+                                <div class="cat w-100">
+                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                </div>
+                            </div>
+                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <div class="pricing">
+                                <p class="price"><span>[[${p.price}]] VND</span></p>
+                            </div>
+                            <p class="bottom-area d-flex px-3">
+                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
                     </div>

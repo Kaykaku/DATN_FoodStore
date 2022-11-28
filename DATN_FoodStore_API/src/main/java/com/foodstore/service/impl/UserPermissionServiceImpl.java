@@ -83,9 +83,6 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 		return userPermissionDAO.findByUserIdAndPermissionId(userId,permissionId).orElse(null);
 	}
 
-	@Override
-	public List<UserPermission> getByUserId(Long id) {
-		return userPermissionDAO.findByUserId(id);
-	}
+
 
 }

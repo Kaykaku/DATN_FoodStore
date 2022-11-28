@@ -1,6 +1,8 @@
 package com.foodstore.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -61,6 +63,33 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public Page<Review> getByCustomerId(Long id,Pageable pageable) {
 		return reviewDAO.findByCustomerId(id,pageable);
+	}
+
+	@Override
+	public double getAverageRating(Long foodId) {
+		return getByFoodId(foodId).stream().mapToInt(r-> r.getRating()).average().orElse(0);
+	}
+
+	@Override
+	public Map<Integer, Integer> getStatictisRating(Long foodId) {
+		Map<Integer,Integer> map = new HashMap<>();
+		
+		map.put(1,(int) getByFoodId(foodId).stream().mapToInt(r-> r.getRating()).filter(n -> n==1).count());
+		map.put(2,(int) getByFoodId(foodId).stream().mapToInt(r-> r.getRating()).filter(n -> n==2).count());
+		map.put(3,(int) getByFoodId(foodId).stream().mapToInt(r-> r.getRating()).filter(n -> n==3).count());
+		map.put(4,(int) getByFoodId(foodId).stream().mapToInt(r-> r.getRating()).filter(n -> n==4).count());
+		map.put(5,(int) getByFoodId(foodId).stream().mapToInt(r-> r.getRating()).filter(n -> n==5).count());
+		return map;
+	}
+
+	@Override
+	public List<Review> getByFoodId(Long id) {
+		return reviewDAO.findByFoodId(id);
+	}
+
+	@Override
+	public List<Review> getByCustomerId(Long id) {
+		return reviewDAO.findByCustomerId(id);
 	}
 
 //	@Override

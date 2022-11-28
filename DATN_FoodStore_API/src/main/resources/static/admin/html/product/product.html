@@ -1,4 +1,3 @@
-<!-- Content wrapper -->
 <style type="text/css">
     @import url(https://fonts.googleapis.com/css?family=Raleway);
     .image-main-title {
@@ -133,23 +132,65 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="card">
-                                        <h5 class="card-header pb-0">Food photo </h5>
+                                    
+                                        <h5 class="card-header pb-0">Food Albums</h5>
                                         <div class="card-body">
+	                                        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" style="background-color:#00000022 ;">
+							                    <ol class="carousel-indicators">
+							                    	<li data-bs-target="#carouselExample" ng-if="!food_images" data-bs-slide-to="0"  class="active"></li>
+							                      <li data-bs-target="#carouselExample" ng-if="food_images" ng-repeat="i in food_images" data-bs-slide-to="{{$index}}"  class="{{$index==0 ? 'active':''}}"></li>
+						
+							                    </ol>
+							                    <div class="carousel-inner">
+							                    	<img ng-if="food_images.length ==0" class="d-block w-100" ng-src="/images/no_img2.jpg" alt="First slide" />
+							                      <div ng-if="food_images" ng-repeat="i in food_images" class="carousel-item  {{$index==0 ? 'active':''}}" >
+							                      	 <div class="image-container d-block w-100" >
+	                                                    <div class="image-content d-flex justify-content-center" style="width: 100%;">
+	                                                        <div class="image-content-overlay rounded" style='width: 100%' ></div>
+	                                                        <img class="image-content-image d-block rounded"  style="max-width: 100%;height: 300px;" ng-src="/images/{{i.image_name}}" alt="{{i.image_name}}">
+	                                                        <div class="image-content-details image-fadeIn-bottom" >
+	                                                            <a href="" class="badge bg-label-success" ng-click="imageDefault(form,i)" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-trash bx-xs' ></i> <span>Remove from album </span>">
+	                                                                <i class="bx bx-cog mb-1" ></i> Set Default
+	                                                            </a>
+	                                                            <a href="" class="badge bg-label-danger" ng-click="imageRemove(form,i)" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-trash bx-xs' ></i> <span>Remove from album </span>">
+	                                                                <i class="bx bx-trash mb-1" ></i>
+	                                                            </a>
+	                                                            
+	                                                        </div>
+	                                                    </div>
+	                                                </div>
+							                        <!-- <img class="d-block w-100" ng-src="/images/{{i.image_name}}" alt="First slide" /> -->
+							                        <div class="carousel-caption d-none d-md-block">
+							                          <h3>{{i.image_name}} </h3>
+							                        </div>
+							                      </div>
+							                      
+							                    </div>
+							                    <a ng-if="food_categories.length !=0" class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+							                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							                      <span class="visually-hidden">Previous</span>
+							                    </a>
+							                    <a ng-if="food_categories.length !=0" class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+							                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							                      <span class="visually-hidden">Next</span>
+							                    </a>
+							                  </div>
                                             <div class="d-flex justify-content-center  align-items-start align-items-sm-center">
+                                            	
                                                 <div class="image-container " style="margin-left: 10px;" ng-repeat="i in food_images">
                                                     <div class="image-content" style="width: 100%;">
-                                                        <div class="image-content-overlay rounded" style='width: 100%' ></div>
-                                                        <img class="image-content-image d-block rounded"  style="width: 100%;" ng-src="/images/{{i.image_name}}" alt="{{i.image_name}}">
+                                                        <div class="image-content-overlay rounded" style='max-width: 100%' ></div>
+                                                        <img class="image-content-image d-block rounded"  style="max-width: 100%;min-height: 100px ;" ng-src="/images/{{i.image_name}}" alt="{{i.image_name}}">
                                                         <!--  -->
                                                         <div class="image-content-details image-fadeIn-bottom" >
-                                                            <a href="" class="badge bg-label-danger" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-trash bx-xs' ></i> <span>Remove from album </span>">
-                                                                <i class="bx bx-trash mb-1" ng-click="imageRemove(form.image_name)"></i>
+                                                            <a href="" class="badge bg-label-danger" ng-click="imageRemove(form,i)" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-trash bx-xs' ></i> <span>Remove from album </span>">
+                                                                <i class="bx bx-trash mb-1" ></i>
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <img class="image-content-image d-block rounded" ng-if="!food_images && !avatar " style="width: 100%;" src="/avatars/user.png" alt="user-avatar">
-                                                <img class="image-content-image d-block rounded" ng-if="avatar" style="width: 100%;" ng-src="/avatars/{{avatar}}" alt="user-avatar">
+                                                
+
                                             </div>
 
                                             <h5 class="my-3">Upload photo</h5>
@@ -157,7 +198,7 @@
                                                 <form action="" method="post" enctype="multipart/form-data">
                                                     <div class="button-wrapper">
                                                         <div class="mb-3">
-                                                            <input class="form-control" type="file" required="required" name="photofile" id="formFile" accept="image/png, image/jpeg" onchange="angular.element(this).scope().imageChanged(this.files)" />
+                                                            <input class="form-control" type="file" required="required" name="photofile" id="formFile" accept="image/png, image/jpeg" onchange="angular.element(this).scope().imageChanged(this.files)" multiple/>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -169,7 +210,8 @@
                                         	<h5 class="mb-0">Category</h5>
                                     	</div>
                                     	<div class="card-body">
-                                    	<span class="badge bg-secondary mr-1" ng-repeat="p in cus_phone_add" ng-if="p._address"  style='margin:5px 5px;font-size: 14px;'>{{p.phone_or_address}} <i class='bx bxs-star mb-1' ng-if="p._default"></i></span>
+                                    	<span class="badge bg-secondary mr-1" ng-repeat="p in food_categories"   style='margin:5px 5px;font-size: 14px;background-color: {{p.category_f.color}} !important;'>{{p.category_f.display_name}} </span>
+                                    	<span class="badge bg-secondary mr-1" ng-if="food_categories.length ==0"   style='margin:5px 5px;font-size: 14px;'>No category</span>
                                     	</div>
                                     	
                                     </div>
@@ -355,7 +397,8 @@
                                             <td>{{item.id }}</td>
                                             <td>
                                                 <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xl pull-up" title="{{loadImageD(item)}}"><img ng-src="/images/{{loadImageD(item)}}" alt="Avatar" class="rounded" /></li>
+                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xl pull-up" ng-if="loadImageD(item)" title="{{loadImageD(item)}}"><img ng-src="/images/{{loadImageD(item)}}" alt="{{loadImageD(item)}}" class="rounded" /></li>
+                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xl pull-up" ng-if="!loadImageD(item)" title="no_img2.jpg"><img ng-src="/images/no_img2.jpg"  alt="no_img2.jpg"  class="rounded"/></li>
                                                 </ul>
                                             </td>
                                             <td><strong>{{item.name }}</strong></td>

@@ -43,7 +43,7 @@ public class GlobalInterceptor implements HandlerInterceptor{
 		String[] roles = null;
 		account= userService.getByUsername(username);
 		if(account == null) {
-			account = customerService.getByEmail(username);
+			account = customerService.getByUsername(username);
 			username = ((Customer)account).getUsername();
 			roles = new String[]{"CUS"};
 		}else {

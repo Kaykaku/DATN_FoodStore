@@ -1,4 +1,4 @@
-package com.foodstore.controller;
+package com.foodstore.controller1;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

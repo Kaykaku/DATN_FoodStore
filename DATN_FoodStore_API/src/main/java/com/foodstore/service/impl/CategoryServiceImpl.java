@@ -91,4 +91,10 @@ public class CategoryServiceImpl implements CategoryService {
 		Page<Category> page =(Page<Category>) Convert.toPage(list, pageable);
 		return page ;
 	}
+
+	@Override
+	public Category getByName(String name) {
+		
+		return categoryDAO.findByName(name).orElse(null);
+	}
 }

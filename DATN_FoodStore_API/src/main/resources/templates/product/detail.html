@@ -3,7 +3,7 @@
 	th:replace="~{/layout/layout::dynamic(~{::body})}">
 
 <head>
-<title>Minishop - Free Bootstrap 4 Template by Colorlib</title>
+<title>FoodStore</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,16 +15,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mb-5 ftco-animate">
-					<a th:href="@{|/images/${item.image}|}"
+					<a th:href="@{|/images/${item.food_images[0].image_name}|}"
 						style="height: max-content;" class="image-popup prod-img-bg"><img
-						th:src="@{|/images/${item.image}|}" class="img-fluid"
+						th:src="@{|/images/${item.food_images[0].image_name}|}" class="img-fluid"
 						alt="Colorlib Template" style="width: 100%;"></a>
 				</div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 					<h3>[[${item.name}]]</h3>
 					<div class="rating d-flex">
 						<p class="text-left mr-4">
-							<a th:href="@{|/shop/${item.category.id}|}" class="mr-2">[[${item.category.name}]]</a>
+							<a th:each="c,state:${item.category_foods}" th:href="@{|/shop/${c.category_f.name}|}" class="mr-2">[[${c.category_f.display_name}]]</a>
 						</p>
 						<p class="text-left mr-4">
 							<a href="#" class="mr-2" style="color: #000;">100 <span
@@ -36,15 +36,15 @@
 						</p>
 					</div>
 					<p class="price mb-0">
-						<span>$[[${item.price}]]</span>
+						<span>[[${item.price}]] VND</span>
 					</p>
 					<div class="col-md-12 pl-0">
-						<span class="badge badge-info" style="font-size: 16px;">[[${item.available?'Available':'Out of sock'}]]</span>
+						<span class="badge badge-info" style="font-size: 16px;">[[${item.quantity_limit >0 ?'Available':'Out of sock'}]]</span>
 					</div>
 					<div class="col-md-12 pl-0" style="font-weight: bold;">
-						[[#{product.date}]] : <span class="badge badge-secondary" style="font-size: 16px;">[[${item.createDate}]]</span>
+						[[#{product.date}]] : <span class="badge badge-secondary" style="font-size: 16px;">[[${item.create_date}]]</span>
 					</div>
-					<p>[[#{product.content}]]</p>
+					<p>[[${item.description}]]</p>
 					<div class="row mt-4">
 						<div class="col-md-6">
 							<div class="form-group d-flex"></div>
@@ -73,42 +73,73 @@
 					</p>
 				</div>
 			</div>
+			<!-- review -->
+			<div class="row mt-5">
+          <div class="col-md-12 nav-link-wrap">
+            <div class="nav nav-pills d-flex text-center justify-content-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link ftco-animate active mr-lg-1 col-5" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Description</a>
+              <a class="nav-link ftco-animate col-5" id="v-pills-3-tab " data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Reviews</a>
+            </div>
+          </div>
+          <div class="col-md-12 tab-wrap">
+            
+            <div class="tab-content bg-light" id="v-pills-tabContent">
+
+              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
+              	<div class="p-4">
+	              	<h3 class="mb-4">[[${item.name}]]</h3>
+	              	<p>[[${item.description}]]</p>
+              	</div>
+              </div>
+              <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+              	<div class="row p-4">
+						   		<div class="col-md-7">
+						   			<h3 class="mb-4">[[${comments.size()}]] Comments(s)</h3>
+						   			<div class="review" th:each="c:${comments}">
+								   		<div class="user-img" th-style="${c.review.customer_r.avatar} ? 'background-image: url(images/${c.review.customer_r.avatar})' : ''"></div>
+								   		<div class="desc">
+								   			<h4>
+								   				<span class="text-left">[[${c.review.customer_r.username}]]</span>
+								   				<span class="text-right">[[${#dates.format(c.create_date, 'dd-MMM-yyyy hh:mm:ss ')}]] </span>
+								   			</h4>
+								   			<p class="star" >
+								   				<span>
+								   					<i class="" th:classappend="${c.review.rating} >=1 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+								   					<i class="" th:classappend="${c.review.rating} >=2 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+								   					<i class="" th:classappend="${c.review.rating} >=3 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+								   					<i class="" th:classappend="${c.review.rating} >=4 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+								   					<i class="" th:classappend="${c.review.rating} >=5 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+							   					</span>
+							   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+								   			</p>
+								   			<p>[[${c.content}]]</p>
+								   		</div>
+								   	</div>
+						   		</div>
+						   		<div class="col-md-4">
+						   			<div class="rating-wrap">
+							   			<h3 class="mb-4">[[${item.food_reviews.size()}]] Review(s)</h3>
+							   			<p class="star" th:each="i : ${ratingStatus}">
+							   				<span>
+							   					<i class="" th:classappend="${i.key} >=1 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+							   					<i class="" th:classappend="${i.key} >=2 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+							   					<i class="" th:classappend="${i.key} >=3 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+							   					<i class="" th:classappend="${i.key} >=4 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+							   					<i class="" th:classappend="${i.key} >=5 ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+							   					[[${i.value*100 / item.food_reviews.size()}]] %
+						   					</span>
+						   					<span>[[${i.value}]] Review(s)</span>
+							   			</p>
+							   			
+							   		</div>
+						   		</div>
+						   	</div>
+              </div>
+            </div>
+          </div>
+        </div>
 		</div>
-		<div class="container">
-            <div class="row justify-content-center mb-3 pb-3">
-                <div class="col-md-12 heading-section text-center ftco-animate">
-                    <h2 class="mb-4">[[#{product.other}]] [[${item.category.name}]]</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${item.category.products}" th:if="${state.index}<4">
-                    <div class="product d-flex flex-column">
-                        <a th:href="@{|/shop/${p.category.id}/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.image}|}" style="width: 255px;height: 255px;" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3">
-                            <div class="d-flex">
-                                <div class="cat w-100">
-                                    <span>[[${p.category.name}]]</span>
-                                </div>
-                            
-                            </div>
-                            <h3><a href="#">[[${p.name}]]</a></h3>
-                            <div class="pricing">
-                                <p class="price"><span>$[[${p.price}]]</span></p>
-                            </div>
-                            <p class="bottom-area d-flex px-3">
-                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
-                                <a th:href="@{|/shop/${p.category.id}/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
+		
 	</section>
 </body>
 
