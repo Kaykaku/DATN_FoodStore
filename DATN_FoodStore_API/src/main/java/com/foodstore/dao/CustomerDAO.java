@@ -24,6 +24,9 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
 	@Query("SELECT c FROM Customer c WHERE c.username = ?1 AND c.is_display = ?2")
 	Customer findByUsername(String username, Boolean isDisplay);
 	
+	@Query("SELECT c FROM Customer c WHERE c.username = ?1 ")
+	Optional<Customer> findByUsername(String username);
+	
 	@Query("SELECT u FROM Customer u WHERE u.email = ?1")
 	Optional<Customer> findByEmail(String email);
 	

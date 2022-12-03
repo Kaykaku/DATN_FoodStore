@@ -129,10 +129,9 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Page<Food> getTopNewProducts(Pageable pageable) {
-		Pageable pageableWithSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()
-				, Sort.by("create_date").descending().and(Sort.by("name")));
-		return getByFilter("", Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
-				, Optional.empty(), Optional.empty(), Optional.of(Display.SHOW) ,Optional.ofNullable(null) , pageableWithSort);
+		List<Food> list = getByKeywordEng("");
+		list = list.stream().sorted((o1,o2) -> (o2.getCreate_date()).compareTo(o1.getCreate_date())).toList();
+		return (Page<Food>) (Page<Food>)Convert.toPage(list, pageable);
 	}
 
 	@Override
@@ -171,10 +170,9 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Page<Food> getTopViewProducts(Pageable pageable) {
-		Pageable pageableWithSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()
-				, Sort.by("view").descending().and(Sort.by("name")));
-		return getByFilter("", Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
-				, Optional.empty(), Optional.empty(), Optional.of(Display.SHOW),Optional.ofNullable(null), pageableWithSort);
+		List<Food> list = getByKeywordEng("");
+		list = list.stream().sorted((o1,o2) -> ((Integer)o2.getView_count()).compareTo((Integer)o1.getView_count())).toList();
+		return (Page<Food>) (Page<Food>)Convert.toPage(list, pageable);
 	}
 
 	@Override
@@ -192,7 +190,9 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public List<Food> getByKeywordEng(String keyword) {
 		List<Food> list = foodDAO.findAll();
-		list = list.stream().filter(o -> Convert.toEngString(o.getName().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase())) 
+		list = list.stream()
+				.filter(o -> o.is_display() == Display.SHOW)
+				.filter(o -> Convert.toEngString(o.getName().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase())) 
 				|| Convert.toEngString(o.getDescription().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase()))).toList();
 		return list;
 	}

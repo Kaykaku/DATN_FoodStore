@@ -13,6 +13,7 @@ app.controller("category-ctrl", function($scope, $http,$location) {
             //load categories
         let link =url + "/rest/category/filter";
         $http.get(link).then(resp => {
+			console.log(resp.data);
             $scope.items = resp.data;
             $scope.page = $scope.items.pageable.pageNumber
         }).catch(err => {

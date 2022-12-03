@@ -1,6 +1,5 @@
 package com.foodstore.service;
 
-import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -17,6 +16,6 @@ public interface DiscountService extends IService<Discount> {
 	Page<Discount> getByKeyword(String keyword,Pageable pageable);
 	
 	Page<Discount> getByFilter(String keyword 
-			,Optional<Boolean> is_fixed , Optional<Date> start_date , Optional<Date> end_date 
+			,Optional<Boolean> is_fixed , Optional<Long> start_date , Optional<Long> end_date 
 			, Optional<Boolean> isDisplay , Optional<Long> userId,Pageable pageable);
 }

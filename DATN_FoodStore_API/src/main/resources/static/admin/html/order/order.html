@@ -133,7 +133,7 @@
 										<span id="basic-icon-default-fullname2"
 											class="input-group-text"><i class='bx bx-tag'></i></span> <input
 											type="text" class="form-control"
-											ng-model="form.account.username" placeholder="Name"
+											ng-model="form.customer_o.username" placeholder="Name"
 											aria-label="John Doe"
 											aria-describedby="basic-icon-default-fullname2" />
 									</div>
@@ -147,8 +147,21 @@
 									<div class="input-group input-group-merge">
 										<span id="price" class="input-group-text"><i
 											class='bx bx-location-plus'></i></span> <input type="text"
-											class="form-control" ng-model="form.address"
+											class="form-control" ng-model="form.shipped_address"
 											placeholder="HCM city" aria-label="0.0"
+											aria-describedby="price" />
+									</div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label class="col-sm-3 col-form-label"
+									for="basic-icon-default-fullname">Phone</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<span id="phone" class="input-group-text"><i
+											class='bx bx-location-plus'></i></span> <input type="text"
+											class="form-control" ng-model="form.shipped_phone"
+											placeholder="+## #### ### ###" aria-label="0.0"
 											aria-describedby="price" />
 									</div>
 								</div>
@@ -160,7 +173,7 @@
 										<span id="creation" style="background-color: #ECEEF1;"
 											class="input-group-text"><i class="bx bx-calendar"></i></span>
 										<input type="datetime" id="creation" class="form-control"
-											ng-model="form.createDate" disabled="true"
+											ng-model="form.order_date" disabled="true"
 											placeholder="01/01/1990" aria-label="ACME Inc."
 											aria-describedby="basic-icon-default-company2" />
 									</div>
@@ -196,7 +209,15 @@
 									</div>
 								</div>
 							</div>
-
+							<div class="mb-3 row">
+                                                <label for="html5-color-input" class="col-md-2 col-form-label">Display</label>
+                                                <div class="col-md-10">
+                                                    <div class="form-check form-switch mb-2">
+                                                        <input class="form-check-input" type="checkbox" ng-model="form._display" value="" id="flexSwitchCheckDefault">
+                                                        <label class="form-check-label" for="flexSwitchCheckDefault">HIDE/SHOW</label>
+                                                    </div>
+                                                </div>
+                                            </div>
 							<div class="row justify-content-center">
 								<div class="col-sm-10 offset-2">
 									<button ng-click="update()" class="btn btn-primary"}>
@@ -219,7 +240,7 @@
 			</div>
 			<div class="col-7">
 				<div class="card mb-4">
-					<h5 class="card-header pb-0">Order Detail</h5>
+					<h5 class="card-header pb-0">Order Details</h5>
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-hover">
@@ -241,15 +262,15 @@
 												class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
 												<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
 													data-bs-placement="top" class="avatar avatar-xl pull-up"
-													title="${item.name}"><img
-													ng-src="/images/{{item.product.image}}" alt="Avatar"
+													title="${loadImageD(item.food_od)}"><img
+													ng-src="/images/{{loadImageD(item.food_od)}}" alt="Avatar"
 													class="rounded" /></li>
 											</ul>
 										</td>
-										<td><strong>{{item.product.name }}</strong></td>
-										<td>${{item.price }}</td>
+										<td><strong>{{item.food_od.name }}</strong></td>
+										<td>{{item.price }} VND</td>
 										<td>{{item.quantity }}</td>
-										<td ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>${{item.quantity*item.price}}</strong></td>
+										<td ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>{{item.quantity*item.price}} VND</strong></td>
 									</tr>
 								</tbody>
 								<tfoot>
@@ -259,7 +280,7 @@
 										<th></th>
 										<th></th>
 										<th>Total</th>
-										<th style="font-size: 16px;"><strong>${{total}}</strong></th>
+										<th style="font-size: 16px;"><strong>{{total}} VND</strong></th>
 									</tr>
 								</tfoot>
 							</table>
@@ -287,9 +308,9 @@
 					<tbody class="table-border-bottom-0">
 						<tr class="table-primary" ng-repeat="item in pager.items" ng-click="edit(item)">
 							<td><span class="badge bg-label-success" ng-if="!item.read1 && item.status==0">New</span><strong> {{item.id }}</strong></td>
-							<td>{{item.createDate|date:'dd-MM-yyyy'}}</td>
-							<td><strong>{{item.account.username}}</strong></td>
-							<td>{{item.address }}</td>
+							<td>{{item.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</td>
+							<td><strong>{{item.customer_o.username}}</strong></td>
+							<td>{{item.shipped_address }}</td>
 							<td>
 								<span class="badge bg-primary" ng-if="item.status==0">Order confirmation</span>
 								<span class="badge bg-warning" ng-if="item.status==1">Packaging products</span>

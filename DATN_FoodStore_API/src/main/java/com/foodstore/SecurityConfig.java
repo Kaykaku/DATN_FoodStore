@@ -60,9 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests()
-			.antMatchers("/user/**").authenticated()
-			.antMatchers("/cart/checkout").authenticated()
-			.antMatchers("/admin/**").authenticated()//.hasAnyRole("STAF","DIRE")
+			.antMatchers("/user/**").hasRole("CUS")
+			.antMatchers("/cart/checkout").hasRole("CUS")
+			.antMatchers("/admin/**").not().hasRole("CUS")
 			.antMatchers("/rest/category/filter").hasRole("CAT01")
 			.antMatchers("/rest/category/update/**").hasRole("CAT02")
 			.antMatchers("/rest/category/create/**").hasRole("CAT03")
@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginPage("/security/login/form")
 			.loginProcessingUrl("/security/login")
 			.defaultSuccessUrl("/security/login/success",false)
-			.failureUrl("/security/login/error")
+			.failureForwardUrl("/security/login/error")
 			.usernameParameter("username") // [username]
 			.passwordParameter("password"); // [password];
 		

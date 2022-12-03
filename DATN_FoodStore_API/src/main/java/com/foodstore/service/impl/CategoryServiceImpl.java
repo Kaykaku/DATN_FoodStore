@@ -79,11 +79,10 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryDAO.deleteLogical(Display.HIDE, id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Page<Category> getByFilter(String keyword, Optional<Long> create_date, Optional<Long> create_by,
 			Optional<Boolean> is_display, Optional<Integer> type, Pageable pageable) {
-		List<Category> list = categoryDAO.findByKeyword(keyword.trim());
+		List<Category> list = categoryDAO.findByKeyword(keyword);
 		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >= create_date.get()).toList();
 		if(create_by.isPresent()) list = list.stream().filter(o-> o.getUser_c().getId() == create_by.get()).toList();
 		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();

@@ -44,21 +44,21 @@
 						<div class="row align-items-end">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="firstname">[[#{cart.purchaser}]]:</label> <div type="text" id="username" style="align-items: center;"
+									<label for="firstname">[[#{cart.purchaser}]]:</label> <div type="text" id="username" style="align-items: center;font-size: 20px;font-weight: bold;"
 										class="form-control" th:utext="${#request.remoteUser}" disabled="disabled"></div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="lastname">[[#{cart.date}]]:</label> <input type="text"
-										class="form-control" placeholder="" value="{{order.createDate | date:'dd-MM-yyyy'}}" disabled="disabled">
+									<label for="lastname">[[#{cart.date}]]:</label> <input type="text" style="align-items: center;font-size: 20px;font-weight: bold;"
+										class="form-control" placeholder="" value="{{order.order_date | date:'dd-MM-yyyy'}}" disabled="disabled">
 								</div>
 							</div>
 							<div class="w-100"></div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<label for="lastname">[[#{cart.address}]]:</label> <textarea type="text"
-										ng-model="order.address" rows="3" cols="10" class="form-control"></textarea>
+									<label for="lastname">[[#{cart.address}]]:</label> <textarea type="text" style="align-items: center;font-size: 20px;font-weight: bold;"
+										ng-model="order.shipped_address" rows="3" cols="10" class="form-control"></textarea>
 								</div>
 							</div>						
 						</div>
@@ -72,15 +72,26 @@
 							<div class="cart-detail cart-total bg-light p-3 p-md-4">
 								<h3 class="billing-heading mb-4">[[#{cart.carttotal}]]</h3>
 								<p class="d-flex" ng-repeat="item in cart.items">
-									<span>{{item.name}}</span><span>x{{item.qty}}</span> <span style="text-align: right;">${{item.qty*item.price}}</span>
+									<span>{{item.name}}</span><span>x{{item.qty}}</span> <span style="text-align: right;">{{item.qty * (loadDiscount(item) ? loadDiscount(item) : item.price )}} VND</span>
 								</p>								
 								<hr>
 								<p class="d-flex total-price">
-									<span>[[#{cart.total}]]</span> <span style="text-align: right;">${{cart.amount}}</span>
+									<span>[[#{cart.total}]]</span> <span style="text-align: right;">{{cart.amount}} VND</span>
 								</p>
 							</div>
 						</div>
 						<div class="col-md-6">
+							<div class="cart-detail bg-light p-3 p-md-4" style="padding-bottom: 0px !important;margin-bottom: 0px !important;">
+									<h3 class="billing-heading ">Phương thức thanh toán</h3>
+									<div class="form-group">
+										<div class="col-md-12" th:each="item,state:${paymethods}">
+											<div class="checkbox">
+												<label><input name="radio" type="radio" ng-model="order.paymentmethod.id" th:value="${item.id}" class="mr-2">
+													[[${item.name}]]</label>
+											</div>
+										</div>
+									</div>
+							</div>
 							<div class="cart-detail bg-light p-3 p-md-4">
 								<h3 class="billing-heading mb-4">[[#{cart.confirm}]]</h3>
 								<div class="form-group">

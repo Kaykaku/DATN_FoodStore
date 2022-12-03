@@ -24,7 +24,7 @@ public interface ReviewService extends IService<Review> {
 	
 	Map<Integer,Integer> getStatictisRating(Long foodId);
 	
-	//Review getByCustomerIdAndFoodId( Long customerId,Long foodId ,Pageable pageable);
+	Review getByCustomerIdAndFoodId( Long customerId,Long foodId );
 	
 //	Page<Review> getByAllStatus(int status ,boolean isFavorite ,boolean isDisplay,Pageable pageable);
 }

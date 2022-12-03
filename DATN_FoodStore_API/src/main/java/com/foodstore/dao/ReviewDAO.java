@@ -1,6 +1,7 @@
 package com.foodstore.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +25,8 @@ public interface ReviewDAO extends JpaRepository<Review, Long>{
 	@Query("Select o From Review o Where o.customer_r.id=?1")
 	List<Review> findByCustomerId(Long id);
 	
-//	@Query("Select o From Review o Where o.customer_r.id=?1 and o.food_r.id=?2")
-//	Optional<Review> findByCustomerIdAndFoodId( Long customerId,Long foodId ,Pageable pageable);
+	@Query("Select o From Review o Where o.customer_r.id=?1 and o.food_r.id=?2")
+	Optional<Review> findByCustomerIdAndFoodId( Long customerId,Long foodId );
 	
 	//Fix later
 	/*

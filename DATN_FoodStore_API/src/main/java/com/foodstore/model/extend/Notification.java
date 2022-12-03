@@ -49,4 +49,7 @@ public class Notification implements Serializable {
     
     @Column(name = "is_watched", nullable = false)
     private boolean is_watched = Watch.NOTYET;
+    
+    @Column(name = "color" , length = 100)
+    private String color;
 }

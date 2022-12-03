@@ -1,6 +1,7 @@
 package com.foodstore.controller.rest;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Category;
 import com.foodstore.model.entity.User;
-import com.foodstore.service.CategoryService;
+import com.foodstore.model.extend.Discount;
+import com.foodstore.service.DiscountService;
 import com.foodstore.service.UserService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/category")
-public class CategoryRestController {
+@RequestMapping("/rest/discount")
+public class DiscountRestController {
 	
 	@Autowired
-	private CategoryService categoryService;
+	private DiscountService discountService;
 	@Autowired
 	private UserService userService;
 	
@@ -42,8 +43,25 @@ public class CategoryRestController {
 			@RequestParam(value = "page") Optional<Integer> page,
 			@RequestParam(value = "size") Optional<Integer> size) {
 		try {
-			Page<Category> pageCategories = categoryService.getAll(PageRequest.of(0, 10));
-			return ResponseEntity.ok(pageCategories);
+			Page<Discount> pageList = discountService.getAll(PageRequest.of(0, 10));
+			return ResponseEntity.ok(pageList);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/active")
+	public ResponseEntity<?> doGetActive(
+			@RequestParam(value = "page") Optional<Integer> page,
+			@RequestParam(value = "size") Optional<Integer> size) {
+		try {
+			List<Discount> pageList = discountService.getAll().stream()
+					.filter(d -> d.is_display() 
+					&& d.getCreate_date().getTime() <= new Date().getTime()
+					&& d.getEnd_date().getTime() >= new Date().getTime()).toList();
+			return ResponseEntity.ok(pageList);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -54,22 +72,25 @@ public class CategoryRestController {
 	@GetMapping("/filter")
 	public ResponseEntity<?> doGetByFilter(
 			@RequestParam(value = "keyword") Optional<String> keyword,
-			@RequestParam(value = "create_date") Optional<Long> create_date,
-			@RequestParam(value = "create_by") Optional<Long> create_by,
+			@RequestParam(value = "is_fixed") Optional<Boolean> is_fixed,
+			@RequestParam(value = "start_date") Optional<Long> start_date,
+			@RequestParam(value = "end_date") Optional<Long> end_date,
 			@RequestParam(value = "is_display") Optional<Boolean> is_display,
+			@RequestParam(value = "create_by") Optional<Long> create_by,
 			@RequestParam(value = "type") Optional<Integer> type,
 			@RequestParam(value = "page") Optional<Integer> page,
 			@RequestParam(value = "size") Optional<Integer> size,
 			@RequestParam(value = "sort") Optional<String> sort) {
 		try {
-			Page<Category> pageCategories = categoryService.getByFilter(
+			Page<Discount> pageD = discountService.getByFilter(
 					keyword.orElse("")
-					,create_date
-					,create_by
+					,is_fixed
+					,start_date
+					,end_date
 					,is_display
-					,type
+					,create_by
 					,PageRequest.of(page.orElse(0), size.orElse(10),Sort.by(sort.orElse("id")).descending()));
-			return ResponseEntity.ok(pageCategories);
+			return ResponseEntity.ok(pageD);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -78,22 +99,22 @@ public class CategoryRestController {
 	}
 	
 	@PostMapping("/create")
-	public Category create(@RequestBody Category category) {
-		category.setCreate_date(new Date());
+	public Discount create(@RequestBody Discount discount) {
+		discount.setCreate_date(new Date());
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = userService.getByUsername(((UserDetails)principal).getUsername());
-		category.setUser_c(user);
-		return categoryService.create(category);
+		discount.setUser_d(user);
+		return discountService.create(discount);
 	}
 	
 	@PutMapping("/update/{id}")
-	public Category update(@RequestBody Category category,@PathVariable("id")Integer id) {
-		return categoryService.update(category);
+	public Discount update(@RequestBody Discount discount,@PathVariable("id")Integer id) {
+		return discountService.update(discount);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
-		categoryService.delete(id);
+		discountService.delete(id);
 	}
 	
 }

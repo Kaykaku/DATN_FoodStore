@@ -36,7 +36,7 @@
 						class="nav-link cart js-show-cart"><span
 							class="icon-shopping_cart"></span>[{{cart.count}}]</a></li>
 							<li class="nav-item"><a href="/security/login/form" class="nav-link" th:unless="${#request.remoteUser}">[[#{menu.login}]]</a></li>
-					
+							<li class="nav-item"><a href="/security/signup/form" class="nav-link" th:unless="${#request.remoteUser}">Đăng ký</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle " href="#" id="dropdown04"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#request.remoteUser}">[[${#request.remoteUser}]]</a>
@@ -50,13 +50,14 @@
 						class="nav-link dropdown-toggle" href="#" id="dropdown05"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#request.remoteUser}"><i class="icon-bell"></i>([[${news==null?0: #lists.size(news)}]])</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown05" >
-							<a class="dropdown-item" style="font-size: 12px;width: 250px;white-space: normal;" th:each="n:${news}"  th:href="@{|/user/order/detail/${n.id}?read=true|}">
-							[[#{menu.new1}]] #[[${n.id}]] [[#{menu.new2}]]
-							<span class="badge badge-primary" th:if="${n.status==0}" style="font-size: 12px;">[[#{order.status0}]]</span>
+							<a class="dropdown-item" style="font-size: 12px;width: 250px;white-space: normal;" th:each="n:${news}"  th:href="@{|/user/notification/${n.id}|}">
+							[[${#dates.format(n.create_at,'hh:mm:ss dd-MM-yyyy')}]] [[${n.content}]]
+							<span class="badge badge-primary"  style="font-size: 12px;background-color:[[${n.color}]]">[[${n.table_name}]]#[[${n.record_id}]]</span>
+<!-- 							<span class="badge badge-primary" th:if="${n.status==0}" style="font-size: 12px;">[[#{order.status0}]]</span>
 							<span class="badge badge-warning" th:if="${n.status==1}" style="font-size: 12px;">[[#{order.status1}]]</span>
 							<span class="badge badge-info" th:if="${n.status==2}" style="font-size: 12px;">[[#{order.status2}]]</span>
 							<span class="badge badge-success" th:if="${n.status==3}" style="font-size: 12px;">[[#{order.status3}]]</span>
-							<span class="badge badge-danger" th:if="${n.status==4}" style="font-size: 12px;">[[#{order.status4}]]</span>
+							<span class="badge badge-danger" th:if="${n.status==4}" style="font-size: 12px;">[[#{order.status4}]]</span> -->
 							</a>
 						</div></li>
 				</ul>
@@ -90,7 +91,7 @@
 						<div class="header-cart-item-txt p-t-8">
 							<a href="/shop/{{item.category.id}}/{{item.id}}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
 								{{item.name}} </a> <span class="header-cart-item-info">
-								{{item.qty}} x ${{item.price}} </span>
+								{{item.qty}} x {{ loadDiscount(item) ? loadDiscount(item) : item.price }} VND </span>
 						</div></li>
 				</ul>
 
@@ -98,7 +99,7 @@
 					<div class="header-cart-quantity w-full">{{cart.count}}
 						item(s)</div>
 					<div class="header-cart-total w-full p-b-40">Total:
-						${{cart.amount}}</div>
+						{{cart.amount}} VND</div>
 
 					<div class="header-cart-buttons flex-w w-full">
 						<a href="/cart/view"

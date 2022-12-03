@@ -125,19 +125,25 @@
 								<tr>
 									<td><small class="text-light fw-semibold">Username</small></td>
 									<td class="py-3">
-										<h6 class="mb-0">{{form.account.username}}</h6>
+										<h6 class="mb-0">{{form.customer_o.username}}</h6>
 									</td>
 								</tr>
 								<tr>
 									<td><small class="text-light fw-semibold">Address</small></td>
 									<td class="py-3">
-										<h6 class="mb-0">{{form.address}}</h6>
+										<h6 class="mb-0">{{form.shipped_address}}</h6>
+									</td>
+								</tr>
+								<tr>
+									<td><small class="text-light fw-semibold">Phone</small></td>
+									<td class="py-3">
+										<h6 class="mb-0">{{form.shipped_phone}}</h6>
 									</td>
 								</tr>
 								<tr>
 									<td><small class="text-light fw-semibold">Date</small></td>
 									<td class="py-3">
-										<h6 class="mb-0">{{form.createDate|date:'dd-MM-yyyy'}}</h6>
+										<h6 class="mb-0">{{form.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</h6>
 									</td>
 								</tr>
 								<tr>
@@ -176,15 +182,15 @@
 										<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
 											data-bs-placement="top" class="avatar avatar-xl pull-up"
 											title="${item.name}"><img
-											ng-src="/images/{{item.product.image}}" alt="Avatar"
+											ng-src="/images/{{loadImageD(item.food_od)}}" alt="Avatar"
 											class="rounded" /></li>
 									</ul>
 								</td>
-								<td><strong>{{item.product.name }}</strong></td>
-								<td>${{item.price }}</td>
+								<td><strong>{{item.food_od.name }}</strong></td>
+								<td>{{item.price }} VND</td>
 								<td>{{item.quantity }}</td>
 								<td
-									ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>${{item.quantity*item.price}}</strong></td>
+									ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>{{item.quantity*item.price}} VND</strong></td>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -194,7 +200,7 @@
 								<th></th>
 								<th></th>
 								<th>Total</th>
-								<th style="font-size: 16px;"><strong>${{total}}</strong></th>
+								<th style="font-size: 16px;"><strong>{{total}} VND</strong></th>
 							</tr>
 						</tfoot>
 					</table>
@@ -221,9 +227,9 @@
 							data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
 							<td><strong>{{item.id
 									}}</strong></td>
-							<td>{{item.createDate|date:'dd-MM-yyyy'}}</td>
-							<td><strong>{{item.account.username}}</strong></td>
-							<td>{{item.address }}</td>
+							<td>{{item.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</td>
+							<td><strong>{{item.customer_o.username}}</strong></td>
+							<td>{{item.shipped_address }}</td>
 							<td><span class="badge bg-primary" ng-if="item.status==0">Order
 									confirmation</span> <span class="badge bg-warning"
 								ng-if="item.status==1">Packaging products</span> <span

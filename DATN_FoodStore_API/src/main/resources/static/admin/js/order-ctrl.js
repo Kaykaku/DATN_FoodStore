@@ -6,9 +6,26 @@ app.controller("order-ctrl", function($scope, $http) {
 
 	$scope.initialize = function() {
 
-		$http.get(url + "/rest/orders").then(resp => {
+		$http.get(url + "/rest/order").then(resp => {
 			$scope.items = resp.data;
 		})
+		
+		$http.get("/rest/food/image/default").then(resp => {
+            $scope.images = resp.data;
+            console.log(resp.data);
+            
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })
+	}
+
+	$scope.loadImageD = function(item){
+		if(!$scope.images) return '';
+		 let image = $scope.images.find(p => p.food_i.id == item.id);
+		 return image ? image.image_name : "";
 	}
 
 
@@ -27,25 +44,27 @@ app.controller("order-ctrl", function($scope, $http) {
 
 	//Hiển thị lên form
 	$scope.edit = function(item) {
+		$scope.total=0;
 		$scope.form = angular.copy(item);
-		$http.get(url + "/rest/orders/detail/" + item.id).then(resp => {
+		$http.get(url + "/rest/order/detail/" + item.id).then(resp => {
 			$scope.details = resp.data;
 		})
-		item.read1 = item.status == 0;
+		item._watched = item.status == 0;
 		item.changedate = new Date();
-		if (item.status == 0) $http.put(url + '/rest/orders/' + item.id, item)
+		if (item.status == 0) $http.put(url + '/rest/order/' + item.id, item)
 		console.log($scope.form)
 		$scope.showToast('warning', 'Edit order ' + $scope.form.id);
 	}
 	
 	$scope.edit2 = function(item) {
+		$scope.total=0;
 		$scope.form = angular.copy(item);
-		$http.get(url + "/rest/orders/detail/" + item.id).then(resp => {
+		$http.get(url + "/rest/order/detail/" + item.id).then(resp => {
 			$scope.details = resp.data;
 		})
-		item.read1 = item.status == 0;
+		item._watched = item.status == 0;
 		item.changedate = new Date();
-		if (item.status == 0) $http.put(url + '/rest/orders/' + item.id, item)
+		if (item.status == 0) $http.put(url + '/rest/order/' + item.id, item)
 	}
 	
 	$scope.getTotal = async function(id) {
@@ -55,7 +74,7 @@ app.controller("order-ctrl", function($scope, $http) {
 	//Thêm sản phẩm
 	$scope.create = function() {
 		var item = angular.copy($scope.form);
-		$http.post(url + '/rest/orders', item).then(resp => {
+		$http.post(url + '/rest/order/create', item).then(resp => {
 			$scope.items.push(resp.data);
 			$scope.reset();
 			$scope.showToast('success', 'Add new order successful ' + item.id);
@@ -69,9 +88,9 @@ app.controller("order-ctrl", function($scope, $http) {
 	//Update sản phẩm
 	$scope.update = function() {
 		var item = angular.copy($scope.form);
-		item.read1 = item.status == 0;
+		item._watched = item.status == 0;
 		item.changedate = new Date();
-		$http.put(url + '/rest/orders/' + item.id, item).then(resp => {
+		$http.put(url + '/rest/order/update/' + item.id, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items[index] = item;
 			$scope.showToast('info', 'Update order successful ' + item.id);
@@ -84,14 +103,15 @@ app.controller("order-ctrl", function($scope, $http) {
 	
 	$scope.updateStatus = function(itemz) {
 		var item = itemz;
-		item.read1 = item.status == 0;
+		item._watched = item.status == 0;
 		item.changedate = new Date();
 		item.status +=1
-		$http.put(url + '/rest/orders/' + item.id, item).then(resp => {
+		$http.put(url + '/rest/order/update/' + item.id, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items[index] = item;
 			$scope.showToast('info', 'Update STATUS #' + item.id);
 			$scope.initialize()
+			$scope.getItems(item.status-1);
 			console.log(resp.data);
 		}).catch(err => {
 			$scope.showToast('danger', 'Update STATUS' + item.id +' ERROR');
@@ -101,10 +121,10 @@ app.controller("order-ctrl", function($scope, $http) {
 	
 	$scope.cancel = function(itemz) {
 		var item = itemz;
-		item.read1 = item.status == 0;
+		item._watched = item.status == 0;
 		item.status =4;
 		item.changedate = new Date();
-		$http.put(url + '/rest/orders/' + item.id, item).then(resp => {
+		$http.put(url + '/rest/order/' + item.id, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items[index] = item;
 			$scope.showToast('info', 'Cancel ORDER #' + item.id);
@@ -118,7 +138,7 @@ app.controller("order-ctrl", function($scope, $http) {
 
 	//Remove sản phẩm
 	$scope.delete = function(item) {
-		$http.delete(url + `/rest/orders/${item.id}`).then(resp => {
+		$http.delete(url + `/rest/order/delete/${item.id}`).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items.splice(index, 1);
 			$scope.reset();
@@ -165,7 +185,7 @@ app.controller("order-ctrl", function($scope, $http) {
 	$scope.reset();
 
 	$scope.getItems = function(status) {
-		$http.get(url + "/rest/orders").then(resp => {
+		$http.get(url + "/rest/order").then(resp => {
 			$scope.items = resp.data;
 		}).then(a=>{
 			$scope.items = $scope.items.filter(x => {

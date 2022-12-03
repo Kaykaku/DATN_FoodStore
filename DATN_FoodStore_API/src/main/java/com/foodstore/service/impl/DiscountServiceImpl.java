@@ -1,6 +1,5 @@
 package com.foodstore.service.impl;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,12 +69,12 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	public Page<Discount> getByFilter(String keyword, Optional<Boolean> is_fixed,Optional<Date> start_date
-			, Optional<Date> end_date, Optional<Boolean> isDisplay, Optional<Long> userId,Pageable pageable ) {
+	public Page<Discount> getByFilter(String keyword, Optional<Boolean> is_fixed,Optional<Long> start_date
+			, Optional<Long> end_date, Optional<Boolean> isDisplay, Optional<Long> userId,Pageable pageable ) {
 		List<Discount> list = discountDAO.findByKeyword(keyword);
 		if(is_fixed.isPresent()) list = list.stream().filter(o-> o.is_fixed() == is_fixed.get()).collect(Collectors.toList());
-		if(start_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == start_date.get()).collect(Collectors.toList());
-		if(end_date.isPresent()) list = list.stream().filter(o-> o.getEnd_date() == end_date.get()).collect(Collectors.toList());
+		if(start_date.isPresent()) list = list.stream().filter(o-> o.getStart_date().getTime() >= start_date.get()).collect(Collectors.toList());
+		if(end_date.isPresent()) list = list.stream().filter(o-> o.getEnd_date().getTime() <= end_date.get()).collect(Collectors.toList());
 		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).collect(Collectors.toList());
 		if(userId.isPresent()) list = list.stream().filter(o-> o.getUser_d().getId() == userId.get()).collect(Collectors.toList());
 		return new PageImpl<Discount>(list, pageable, list.size());

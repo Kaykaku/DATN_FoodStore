@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.NotificationDAO;
+import com.foodstore.model.entity.Customer;
 import com.foodstore.model.extend.Notification;
 import com.foodstore.service.NotificationService;
 
@@ -91,5 +92,23 @@ public class NotificationServiceImpl implements NotificationService {
 		if(record_id.isPresent()) list = list.stream().filter(o-> o.getRecord_id() == record_id.get()).collect(Collectors.toList());
 		if(is_watched.isPresent()) list = list.stream().filter(o-> o.is_watched() == is_watched.get()).collect(Collectors.toList());
 		return new PageImpl<Notification>(list, pageable, list.size());
+	}
+
+	@Override
+	public Notification createMess(String content, Long id, String table_name,Customer customer,String color) {
+		Notification notification = new Notification();
+		
+		notification.setCustomer_n(customer);
+		notification.setContent(content);
+		notification.setRecord_id(id);
+		notification.setTable_name(table_name);
+		notification.setColor(color);
+		return create(notification);
+	}
+
+	@Override
+	public List<Notification> getByCustomerId(Long id) {
+		// TODO Auto-generated method stub
+		return notificationDAO.findByCustomerId(id);
 	}
 }

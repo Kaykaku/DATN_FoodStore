@@ -38,11 +38,11 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 		toastPlacement.show();
 	}
 	$scope.showNew = function() {
-		$http.get(url + "/rest/orders").then(resp => {
+		$http.get(url + "/rest/order").then(resp => {
 			$scope.items = resp.data;
 		}).then(() => {
 			$scope.news = $scope.items.filter(x => {
-				return x.status == 0 && x.read1 == false;
+				return x.status == 0 && x._watched == false;
 			}).length
 			$scope.orz = [];
 			for (let i = 0; i < 5; i++) {
@@ -56,7 +56,7 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 
 	$scope.showNew()
 	setInterval(() => {
-		//$scope.showNew()
+		$scope.showNew()
 	}, 3000)
 	$scope.initialize()
 })

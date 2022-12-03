@@ -103,6 +103,21 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 				, list.size());
 	}
 
+	@Override
+	public List<OrderDetail> getByFoodId(Long id) {
+		return orderDetailDAO.findByFoodId(id);
+	}
+
+	@Override
+	public List<OrderDetail> getByOrderId(Long id) {
+		return orderDetailDAO.findByOrderId(id);
+	}
+
+	@Override
+	public List<OrderDetail> getByFoodIdAndOrderId(Long foodId, Long orderId) {
+		return orderDetailDAO.findByFoodIdAndOrderId(foodId,orderId);
+	}
+
 
 
 }

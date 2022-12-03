@@ -1,18 +1,17 @@
-package com.foodstore.controller1;
+package com.foodstore.controller;
 
-import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
@@ -23,12 +22,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.foodstore.model.entity.Category;
+import com.foodstore.model.entity.Customer;
 import com.foodstore.model.entity.Food;
 import com.foodstore.model.extend.Comment;
-import com.foodstore.service.CategoryFoodService;
+import com.foodstore.model.extend.Discount;
+import com.foodstore.model.transaction.Review;
 import com.foodstore.service.CategoryService;
 import com.foodstore.service.CommentService;
+import com.foodstore.service.CustomerService;
+import com.foodstore.service.DiscountService;
 import com.foodstore.service.FoodService;
 import com.foodstore.service.ReviewService;
 import com.foodstore.util.constraints.Display;
@@ -42,11 +44,13 @@ public class FoodController {
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
-	private CategoryFoodService categoryFoodService;
-	@Autowired
 	private ReviewService reviewService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private CustomerService customerService;
+	@Autowired
+	private DiscountService discountService;
 
 	@RequestMapping({ "all", "{category}" })
 	public String list(Model model, @PathVariable(value = "category") Optional<String> cid,
@@ -78,30 +82,71 @@ public class FoodController {
 				,view
 				,create_date
 				,status
-				,is_display
+				,Optional.of(Display.SHOW)
 				,cate_id
 				,PageRequest.of(page.isPresent() ? page.get()-1 : 0, size.orElse(9),sortOption));
+		
+		Map<Long,Double> reviewScore = new HashMap<>();
+		for (Food food : list.getContent()) {
+			reviewScore.put(food.getId(), reviewService.getAverageRating(food.getId()));
+		}
+		
+		Map<Long,Discount> discounts = new HashMap<>();
+		List<Discount> list2 = discountService.getAll();
+		for (Discount discount : list2) {
+			if(discount.getStart_date().getTime() <= new Date().getTime()
+					&& discount.getEnd_date().getTime() >= new Date().getTime()
+					&& discount.is_display() == true) {
+				discounts.put(discount.getFood_d().getId(), discount);
+			}
+		}
+		
 		model.addAttribute("items", list);
+		model.addAttribute("reviewScore", reviewScore);
+		model.addAttribute("discounts", discounts);
 		model.addAttribute("cid", cid.orElse(""));
 		model.addAttribute("price_min", price_min.orElse(0.0));
 		model.addAttribute("price_max", price_max.orElse(0.0));
 		model.addAttribute("size", size.orElse(9));
 		model.addAttribute("sortBy",sort.orElse("create_dateDown"));
-		model.addAttribute("title","category");
+		model.addAttribute("title",cid.isPresent() ? categoryService.getByName(cid.get()).getDisplay_name() : ("category"));
 		return "product/list";
 	}
 
 	@GetMapping("/detail/{id}")
-	public String detail(Model model, @PathVariable("id") Long foodId) {
+	public String detail(Model model, @PathVariable("id") Long foodId,HttpServletRequest request) {
 		Food item = foodService.getById(foodId);
+		item.setView_count(item.getView_count()+1);
+		foodService.update(item);
 		
 		List<Comment> comments = commentService.getByFilter("", 
-				Optional.ofNullable(foodId), Optional.ofNullable(null),
+				Optional.ofNullable(null), Optional.ofNullable(foodId),
 				Optional.ofNullable(null), Optional.ofNullable(null), Optional.ofNullable(Display.SHOW));
-		
 		double  averageRating = reviewService.getAverageRating(foodId);
 		Map<Integer, Integer> ratingStatus = reviewService.getStatictisRating(foodId);
+		Page<Food> foods = foodService.getByFilter("",
+				Optional.ofNullable(null), Optional.ofNullable(null), Optional.ofNullable(null), Optional.ofNullable(null), Optional.ofNullable(null), Optional.ofNullable(null),
+				Optional.ofNullable(Display.SHOW), 
+				Optional.ofNullable( item.getCategory_foods().size() > 0 ? item.getCategory_foods().get(0).getCategory_f().getId():1),
+				PageRequest.of(0, 4));
+		
+		String username = request.getRemoteUser();
+		Customer customer = customerService.getByUsername(username);
+		if(customer!=null) {
+			Review review = reviewService.getByCustomerIdAndFoodId(customer.getId(),foodId);
+			if(review==null) {
+				review = new Review();
+				review.setCustomer_r(customer);
+				review.setFood_r(item);
+				review = reviewService.create(review);
+			}
+			review.setViews(review.getViews()+1);
+			reviewService.update(review);
+			model.addAttribute("review", review);
+		}
+		
 		model.addAttribute("item", item);
+		model.addAttribute("items", foods);
 		model.addAttribute("comments", comments);
 		model.addAttribute("averageRating", averageRating);
 		model.addAttribute("ratingStatus", ratingStatus);

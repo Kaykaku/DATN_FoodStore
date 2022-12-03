@@ -16,6 +16,9 @@ public interface NotificationDAO extends JpaRepository<Notification, Long>{
 	@Query("Select n From Notification n Where n.customer_n.id=?1")
 	Page<Notification> findByCustomerId(Long id,Pageable pageable);
 	
+	@Query("Select n From Notification n Where n.customer_n.id=?1")
+	List<Notification> findByCustomerId(Long id);
+	
 	@Query("Select n From Notification n Where n.is_watched=?1")
 	Page<Notification> findBySeenStatus(boolean isSeen,Pageable pageable);
 	

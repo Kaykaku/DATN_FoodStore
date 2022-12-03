@@ -42,20 +42,32 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items1.content}" th:if="${state.index}<8">
                     <div class="product d-flex flex-column">
-                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod d-flex justify-content-center align-items-center" style="text-align: center;height: 350px;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="max-width: 100%;" alt="Colorlib Template">
+                            <span class="status" th:if="${discounts.get(p.id)}">- [[${discounts.get(p.id).is_fixed ? discounts.get(p.id).amount +' VND' : discounts.get(p.id).amount +' %'}]] Off</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
-                                <div class="cat w-100">
+                                <div class="cat w-80">
                                     <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                </div>
+                                <div class="rating">
+                                    <p class="text-right mb-0"> 
+                                        <!-- <a href="#" class="mr-2">[[${#numbers.formatDecimal(reviewScore.get(p.id), 0, 'COMMA', 2, 'POINT')}]]</a> -->
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=0.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=0.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=1.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=1.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=2.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=2.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=3.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=3.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=4.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=4.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+                                    </p>
                                 </div>
                             </div>
                             <h3><a href="#">[[${p.name}]]</a></h3>
                             <div class="pricing">
-                                <p class="price"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
                                 <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
@@ -77,27 +89,38 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items2.content}" th:if="${state.index}<8">
                     <div class="product d-flex flex-column">
-                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod d-flex justify-content-center align-items-center" style="text-align: center;height: 350px;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="max-width: 100%;" alt="Colorlib Template">
+                            <span class="status" th:if="${discounts.get(p.id)}">- [[${discounts.get(p.id).is_fixed ? discounts.get(p.id).amount +' VND' : discounts.get(p.id).amount +' %'}]] Off</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
-                                <div class="cat w-100">
+                                <div class="cat w-80">
                                     <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                </div>
+                                <div class="rating">
+                                    <p class="text-right mb-0"> 
+                                        <!-- <a href="#" class="mr-2">[[${#numbers.formatDecimal(reviewScore.get(p.id), 0, 'COMMA', 2, 'POINT')}]]</a> -->
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=0.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=0.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=1.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=1.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=2.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=2.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=3.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=3.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=4.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=4.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+                                    </p>
                                 </div>
                             </div>
                             <h3><a href="#">[[${p.name}]]</a></h3>
                             <div class="pricing">
-                                <p class="price"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
                                 <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
                                 <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
-                    </div>
                 </div>
                 
             </div>
@@ -112,27 +135,38 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items3.content}" th:if="${state.index}<8">
                     <div class="product d-flex flex-column">
-                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod d-flex justify-content-center align-items-center" style="text-align: center;height: 350px;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="max-width: 100%;" alt="Colorlib Template">
+                            <span class="status" th:if="${discounts.get(p.id)}">- [[${discounts.get(p.id).is_fixed ? discounts.get(p.id).amount +' VND' : discounts.get(p.id).amount +' %'}]] Off</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
-                                <div class="cat w-100">
+                                <div class="cat w-80">
                                     <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                </div>
+                                <div class="rating">
+                                    <p class="text-right mb-0"> 
+                                        <!-- <a href="#" class="mr-2">[[${#numbers.formatDecimal(reviewScore.get(p.id), 0, 'COMMA', 2, 'POINT')}]]</a> -->
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=0.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=0.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=1.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=1.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=2.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=2.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=3.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=3.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=4.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=4.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+                                    </p>
                                 </div>
                             </div>
                             <h3><a href="#">[[${p.name}]]</a></h3>
                             <div class="pricing">
-                                <p class="price"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
                                 <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
                                 <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
-                    </div>
                 </div>
                 
             </div>
@@ -147,27 +181,38 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items.content}" th:if="${state.index}<8">
+                <div class="col-sm-12 col-md-6 col-lg-3 ftco-animate d-flex" th:each="p,state:${items4.content}" th:if="${state.index}<8">
                     <div class="product d-flex flex-column">
-                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod" style="text-align: center;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="height: 255px;" alt="Colorlib Template">
+                        <a th:href="@{|/shop/detail/${p.id}|}"  class="img-prod d-flex justify-content-center align-items-center" style="text-align: center;height: 350px;"><img class="img-fluid" th:src="@{|/images/${p.food_images[0].image_name}|}" style="max-width: 100%;" alt="Colorlib Template">
+                            <span class="status" th:if="${discounts.get(p.id)}">- [[${discounts.get(p.id).is_fixed ? discounts.get(p.id).amount +' VND' : discounts.get(p.id).amount +' %'}]] Off</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
-                                <div class="cat w-100">
+                                <div class="cat w-80">
                                     <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                </div>
+                                <div class="rating">
+                                    <p class="text-right mb-0"> 
+                                        <!-- <a href="#" class="mr-2">[[${#numbers.formatDecimal(reviewScore.get(p.id), 0, 'COMMA', 2, 'POINT')}]]</a> -->
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=0.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=0.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=1.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=1.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=2.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=2.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=3.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=3.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+								<a href="#"><span th:classappend="${reviewScore.get(p.id)} >=4.7 ? 'ion-ios-star' : (${reviewScore.get(p.id)} >=4.3 ? 'ion-ios-star-half' :'ion-ios-star-outline')"></span></a>
+                                    </p>
                                 </div>
                             </div>
                             <h3><a href="#">[[${p.name}]]</a></h3>
                             <div class="pricing">
-                                <p class="price"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
+                                <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
                                 <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
                                 <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
-                    </div>
                 </div>
                 
             </div>

@@ -1,5 +1,7 @@
 package com.foodstore.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +21,15 @@ public interface OrderDetailDAO extends JpaRepository<OrderDetail, Long>{
 	
 	@Query("Select o From OrderDetail o Where o.food_od.id=?1 and o.order.id=?2")
 	Page<OrderDetail> findByFoodIdAndOrderId(Long foodId , Long orderId,Pageable pageable);
+	
+	@Query("Select o From OrderDetail o Where o.food_od.id=?1")
+	List<OrderDetail> findByFoodId(Long id);
+	
+	@Query("Select o From OrderDetail o Where o.order.id=?1")
+	List<OrderDetail> findByOrderId(Long id);
+	
+	@Query("Select o From OrderDetail o Where o.food_od.id=?1 and o.order.id=?2")
+	List<OrderDetail> findByFoodIdAndOrderId(Long foodId , Long orderId);
 	
 	//Fix later
 	/*

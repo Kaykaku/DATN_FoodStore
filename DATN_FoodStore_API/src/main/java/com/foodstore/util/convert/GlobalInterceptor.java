@@ -1,6 +1,7 @@
 package com.foodstore.util.convert;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +17,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.foodstore.model.entity.Customer;
+import com.foodstore.model.extend.Notification;
 import com.foodstore.service.CategoryService;
 import com.foodstore.service.CustomerService;
+import com.foodstore.service.NotificationService;
 import com.foodstore.service.UserService;
 
 @Component
@@ -28,6 +31,8 @@ public class GlobalInterceptor implements HandlerInterceptor{
 	private UserService userService;
 	@Autowired
 	CustomerService customerService;
+	@Autowired
+	NotificationService notificationService;
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -35,7 +40,7 @@ public class GlobalInterceptor implements HandlerInterceptor{
 		request.setAttribute("cates", cateService.getAll());
 		String username = request.getRemoteUser();
 		if(username==null) return;
-			request.setAttribute("news",new ArrayList<>());
+		request.setAttribute("news",new ArrayList<>());
 		
 		//String username = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername(); 
 		String password=Long.toHexString(System.currentTimeMillis()); 
@@ -46,6 +51,9 @@ public class GlobalInterceptor implements HandlerInterceptor{
 			account = customerService.getByUsername(username);
 			username = ((Customer)account).getUsername();
 			roles = new String[]{"CUS"};
+			
+			List<Notification> list = notificationService.getByCustomerId(((Customer)account).getId()).stream().filter(n -> !n.is_watched()).toList();
+			request.setAttribute("news",list);
 		}else {
 			username = ((com.foodstore.model.entity.User)account).getUsername();
 			roles = userService.getAllPermission(((com.foodstore.model.entity.User) account).getUsername());

@@ -12,9 +12,30 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 				$location.path("/unauthorized");
 			}
         })
+        
+        $http.get("/rest/discount/active").then(resp => {
+		      $scope.discounts = resp.data;
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })
 	}
 	
 	$scope.init();
+	
+	$scope.loadDiscount = function(item){
+		if(!$scope.discounts) return '';
+		 let d = $scope.discounts.find(p => p.food_d.id == item.id);
+		 return d ? (d._fixed ? d.food_d.price - d.amount : d.food_d.price - d.amount * d.food_d.price/100 ) : "";
+	}
+	
+	$scope.loadDiscount2 = function(item){
+		if(!$scope.discounts) return '';
+		 let d = $scope.discounts.find(p => p.food_d.id == item.id);
+		 return d ? d : "";
+	}
 	
 	$scope.cart = {
 		items: [],
@@ -67,7 +88,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 		//Tổng thành tiền các mặt hàng trong giỏ
 		get amount() {
 			return this.items
-				.map(item => item.qty * item.price)
+				.map(item => item.qty * ($scope.loadDiscount(item) ? $scope.loadDiscount(item) : item.price))
 				.reduce((total, qty) => total += Number(qty), 0);
 		},
 		//Lưu giỏ hàng vào local storage
@@ -86,37 +107,53 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 	$scope.cart.loadFromLocalStorage();
 
 	$scope.order = {
-		createDate: new Date(),
-		address: $("#address").text(),
+		order_date: new Date(),
+		shipped_address: $("#address").text(),
 		status: "0",
-		account: { username: $("#username").text() },
-		get orderDetails() {
+		customer_o: { username: $("#username").text() },
+		get order_details() {
 			return $scope.cart.items.map(item => {
 				return {
-					product: { id: item.id },
+					food_od: { id: item.id },
 					price: item.price,
-					quantity: item.qty
+					quantity: item.qty,
+					amount : $scope.loadDiscount2(item) ? $scope.loadDiscount2(item).amount : 0,
+					_fixed : $scope.loadDiscount2(item) ? $scope.loadDiscount2(item)._fixed : false,
+					status : 0,
+					_display: true
 				}
 			})
 		},
 		purchase() {
 			var order = angular.copy(this);
 			//Thực hiện đặt hàng
-			if(order.orderDetails.length==0 || !order.address ){
+			if(order.order_details.length==0 || !order.shipped_address ){
 				Swal.fire({
 					icon: 'error',
 					title: 'Đặt hàng lỗi!',
-					text: order.orderDetails.length==0 ? 'Không có sản phẩm nào trong giỏ hàng!!!':"Bạn chưa nhập địa chỉ giao hàng!!!",
+					text: order.order_details.length==0 ? 'Không có sản phẩm nào trong giỏ hàng!!!':"Bạn chưa nhập địa chỉ giao hàng!!!",
 					showConfirmButton: false,
 					timer: 1500
 				});
 				return 0;
 			}
-			$http.post("/rest/orders", order).then(resp => {
+			
+			if(!order.paymentmethod){
+				Swal.fire({
+					icon: 'error',
+					title: 'Đặt hàng lỗi!',
+					text: 'Chưa chọn phương thức thanh toán!!!',
+					showConfirmButton: false,
+					timer: 1500
+				});
+				return 0;
+			}
+			$http.post("/rest/order/create", order).then(resp => {
+				console.log(order);
 				Swal.fire({
 					icon: 'success',
 					title: 'Đặt hàng thành công!',
-					text: 'Đơn hàng của bạn sẽ được xử lý trong vài giờ tới!!!',
+					text: 'Đơn hàng của bạn sẽ được xử lý trong 10-15 phút tới!!!',
 					showConfirmButton: false,
 					timer: 1500
 				});

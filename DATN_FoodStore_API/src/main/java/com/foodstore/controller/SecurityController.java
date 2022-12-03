@@ -1,4 +1,4 @@
-package com.foodstore.controller1;
+package com.foodstore.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +14,15 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.foodstore.model.entity.Customer;
 import com.foodstore.service.CustomerService;
 import com.foodstore.service.UserService;
+import com.foodstore.util.constraints.Display;
+import com.foodstore.util.constraints.Gender;
 
 @Controller
 @RequestMapping("security")
@@ -31,9 +35,33 @@ public class SecurityController {
 	@GetMapping({ "login/form" })
 	public String login(Model model) {
 		model.addAttribute("title", "Login");
-		userService.getAllPermission("admin");
-		//userService.getByUsername("admin");
 		return "security/login";
+	}
+	
+	@GetMapping({ "signup/form" })
+	public String signup(Model model) {
+		model.addAttribute("title", "Signup");
+		model.addAttribute("customer", new Customer());
+		return "security/signup";
+	}
+	
+	@PostMapping({ "signup" })
+	public String signupProcess(@ModelAttribute Customer customer,Model model) {
+		if(customerService.isExist(customer) || userService.isExist(customer)) {
+			model.addAttribute("message", "Your name or email address is registered . Please choose another one !");
+			model.addAttribute("title", "Login");
+			return "security/signup";
+		}else {
+			customer.setGender(Gender.MALE);
+			customer.set_display(Display.SHOW);
+			customerService.create(customer);
+			UserDetails cus  =
+					  User.withUsername(customer.getUsername()).password(customer.getPassword()).roles(new String[]{"CUS"}).build();
+					  Authentication authentication = new  UsernamePasswordAuthenticationToken(cus,null, cus.getAuthorities());
+					  SecurityContextHolder.getContext().setAuthentication(authentication);
+		}
+
+		return "redirect:/index";
 	}
 
 	@GetMapping({ "login/formz" })
@@ -50,7 +78,7 @@ public class SecurityController {
 		return "security/login";
 	}
 
-	@GetMapping("login/error")
+	@RequestMapping("login/error")
 	public String loginError(Model model) {
 		model.addAttribute("message", "Incorrect account information");
 		model.addAttribute("title", "Login");
@@ -84,22 +112,23 @@ public class SecurityController {
 		  account= userService.getByEmail(email);
 		  if(account == null) {
 			  account = customerService.getByEmail(email);
+			  if(account == null) {
+				  Customer customer = new Customer();
+				  customer.setUsername(email);
+				  customer.setEmail(email);
+				  customer.setPassword(password);
+				  customer.setGender(Gender.MALE);
+				  customer.set_display(Display.SHOW);
+				  account = customerService.create(customer);
+			  }
 			  username = ((Customer)account).getUsername();
 			  roles = new String[]{"CUS"};
+
 		  }else {
 			  username = ((com.foodstore.model.entity.User)account).getUsername();
 			  roles = userService.getAllPermission(((com.foodstore.model.entity.User) account).getUsername());
 		  }
-		  
-			/*
-			 * if(account.getUsername()==null) { account.setEmail(email);
-			 * account.setUsername(email); account.setFullname(name);
-			 * account.setPassword(password); account.setPhoto("no_avatar.png");
-			 * userService.create(account); authorityS.create(new Authority(null, account,
-			 * new Role("CUST","Customers",null))); roles = new String[]{"CUST"}; }else {
-			 * roles = account.getAuthorities().stream() .map(el->el.getRole().getId())
-			 * .collect(Collectors.toList()).toArray(new String[0]); }
-			 */
+
 		  
 		  System.out.println("Login : "+username);
 		  for (String string : roles) {

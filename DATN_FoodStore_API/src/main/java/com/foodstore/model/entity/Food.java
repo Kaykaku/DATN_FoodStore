@@ -101,4 +101,8 @@ public class Food implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "food_cp", cascade = CascadeType.ALL) 
     private List<FoodCoupon> food_coupons;
+    
+    public String getA() {
+    	return "A";
+    }
 }

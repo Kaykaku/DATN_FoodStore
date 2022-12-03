@@ -15,6 +15,8 @@ public interface CustomerService extends IService<Customer> {
 
 	Page<Customer> getByIsDisplay(Pageable pageable) throws Exception;
 	
+	Boolean isExist(Customer customer);
+	
 	Customer getByUsername(String username);
 	
 	Customer getByEmail(String email);

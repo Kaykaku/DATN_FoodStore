@@ -42,6 +42,7 @@
 						        <th>&nbsp;</th>
 						        <th>[[#{cart.product}]]</th>
 						        <th>[[#{cart.price}]]</th>
+						        <th>[[#{cart.price_discount}]]</th>
 						        <th>[[#{cart.quantity}]]</th>
 						        <th>[[#{cart.total}]]</th>
 						      </tr>
@@ -58,7 +59,9 @@
 						        	<h3>{{item.name}}</h3>
 						        </td>
 						        
-						        <td class="price">${{item.price}}</td>
+						        <td class="price" ng-if="loadDiscount(item)" style="text-decoration: line-through !important;">{{item.price}} </td>
+						        <td class="price" ng-if="!loadDiscount(item)">{{item.price}} </td>
+						        <td class="price" >{{loadDiscount(item) ? loadDiscount(item) : item.price}} </td>
 						        
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
@@ -66,7 +69,7 @@
 					          	</div>
 					          </td>
 						        
-						        <td class="total">${{item.qty*item.price}}</td>
+						        <td class="total">{{item.qty * (loadDiscount(item) ? loadDiscount(item) : item.price )}}  VND</td>
 						      </tr><!-- END TR-->
 						    </tbody>
 						  </table>
@@ -79,7 +82,7 @@
     					<h3>[[#{cart.carttotal}]]</h3>
     					<p class="d-flex total-price">
     						<span>[[#{cart.total}]]</span>
-    						<span style="text-align: right;">${{cart.amount}}</span>
+    						<span style="text-align: right;">{{cart.amount}} VND</span>
     					</p>
     				</div>
     				<p class="text-center"><a href="/cart/checkout" class="btn btn-primary py-3 px-4">[[#{cart.proceed}]]</a></p>

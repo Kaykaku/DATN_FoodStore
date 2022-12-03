@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.UserDAO;
+import com.foodstore.model.entity.Customer;
 import com.foodstore.model.entity.User;
 import com.foodstore.service.UserService;
 import com.foodstore.util.constraints.Display;
@@ -131,5 +132,10 @@ public class UserServiceImpl implements UserService {
 		if(role_id.isPresent()) list = list.stream().filter(o-> o.getUser_roles().stream().anyMatch(ur -> ur.getRole_u().getId() ==role_id.get())).toList();
 
 		return list ;
+	}
+
+	@Override
+	public Boolean isExist(Customer customer) {
+		return userDAO.findByEmail(customer.getEmail()).isPresent() || userDAO.findByUsername(customer.getUsername()).isPresent();
 	}
 }

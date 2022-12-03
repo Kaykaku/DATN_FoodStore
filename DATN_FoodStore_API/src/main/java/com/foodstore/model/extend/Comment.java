@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.foodstore.model.transaction.Review;
+import com.foodstore.util.constraints.Display;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,8 +49,8 @@ public class Comment implements Serializable {
     private Date update_date;
     
     @Column(name = "status", nullable = false)
-    private int status;
+    private int status=0;
     
     @Column(name = "is_display", nullable = false)
-    private boolean is_display;
+    private boolean is_display= Display.SHOW;
 }

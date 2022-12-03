@@ -60,14 +60,14 @@
 								<div class="form-group">
 									<label for="firstname">[[#{cart.purchaser}]]:</label> <input type="text" style="font-weight: bolder;"
 										class="form-control" placeholder=""
-										th:value="${order.account.username}" disabled="disabled">
+										th:value="${order.customer_o.username}" disabled="disabled">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="lastname">[[#{order.date}]]</label> <input type="text" style="font-weight: bolder;"
 										class="form-control" placeholder=""
-										th:value="${#dates.format(order.createDate,'dd-MM-yyyy')}"
+										th:value="${#dates.format(order.order_date,'hh:mm:ss dd-MM-yyyy')}"
 										disabled="disabled">
 								</div>
 							</div>
@@ -76,7 +76,16 @@
 								<div class="form-group">
 									<label for="lastname">[[#{cart.address}]]:</label>
 									<textarea type="text"  rows="3"
-										cols="10" class="form-control" disabled="disabled" style="font-weight: bolder;">[[${order.address}]]</textarea>
+										cols="10" class="form-control" disabled="disabled" style="font-weight: bolder;">[[${order.shipped_address}]]</textarea>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="lastname">[[#{cart.payment}]]:</label>
+									<input type="text" style="font-weight: bolder;"
+										class="form-control" placeholder=""
+										th:value="${order.paymentmethod.name}"
+										disabled="disabled">
 								</div>
 							</div>
 						</div>
@@ -91,23 +100,25 @@
 											<th>&nbsp;</th>
 											<th>[[#{cart.product}]]</th>
 									        <th>[[#{cart.price}]]</th>
+									        <th>[[#{cart.price_discount}]]</th>
 									        <th>[[#{cart.quantity}]]</th>
 									        <th>[[#{cart.total}]]</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr class="text-center"
-											th:each="item,state:${order.orderDetails}">
+											th:each="item,state:${order.order_details}">
 											<td class="price">[[${state.index+1}]]</td>
 											<td class="image-prod"><div class="img" 
-													th:style="@{|background-image:url(/images/${item.product.image});width:200px !important;|}"></div></td>
+													th:style="@{|background-image:url(/images/${item.food_od.food_images[0].image_name});width:200px !important;|}"></div></td>
 											<td class="product-name">
-												<h3>[[${item.product.name}]]</h3>
+												<h3>[[${item.food_od.name}]]</h3>
 											</td>
-											<td class="price">$[[${item.price}]]</td>
+											<td class="price" style="text-decoration: line-through;">[[${item.price}]] </td>
+											<td class="price">[[${item.price- (item.is_fixed ? item.amount :  item.price *item.amount /100)}]]</td>
 											<td class="quantity">[[${item.quantity}]]
 											</td>
-											<td class="total"><strong> $[[${item.quantity * item.price}]]</strong></td>
+											<td class="total"><strong>[[${item.quantity * (item.price - (item.is_fixed ? item.amount :  item.price *item.amount /100)) }]]  VND</strong></td>
 										</tr>
 										<!-- END TR-->
 									</tbody>
@@ -116,9 +127,10 @@
 											<th>&nbsp;</th>
 											<th>&nbsp;</th>
 											<th>&nbsp;</th>
-											<th>&nbsp;</th>								
+											<th>&nbsp;</th>		
+											<th>&nbsp;</th>									
 											<th>[[#{cart.total}]]</th>
-											<th>$[[${#aggregates.sum(order.orderDetails.![price*quantity])}]]</th>
+											<th>[[${#aggregates.sum(order.order_details.![(price - (is_fixed ? amount :  price * amount /100))*quantity])}]] VND</th>
 										</tr>
 									</tfoot>
 								</table>

@@ -121,4 +121,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 		return list ;
 	}
+
+	@Override
+	public Boolean isExist(Customer customer) {
+		return customerDAO.findByEmail(customer.getEmail()).isPresent() || customerDAO.findByUsername(customer.getUsername()).isPresent();
+	}
 }

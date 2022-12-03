@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.foodstore.model.entity.Food;
+import com.foodstore.util.constraints.Display;
 
 @Repository
 public interface FoodDAO extends JpaRepository<Food, Long> {
@@ -25,6 +26,9 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 	
 	@Query("SELECT f FROM Food f WHERE f.name LIKE %?1%")
 	List<Food> findByKeyword2(String keyword);
+	
+	@Query("SELECT f FROM Food f WHERE f.is_display =" + Display.SHOW)
+	List<Food> findByActive();
 
 	@Query("SELECT f FROM Food f WHERE f.name "
 			+ "LIKE %?1% AND f.is_display = ?2 AND f.quantity_limit > ?3")
