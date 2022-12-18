@@ -44,5 +44,51 @@ public interface FoodDAO extends JpaRepository<Food, Long> {
 	@Query("SELECT f.food_c FROM CategoryFood f WHERE f.category_f.name = ?1")
 	Page<Food> findByCategoryName(String name, Pageable pageable);
 	
-	
+	/*Summary*/
+	@Query(value="Select Count(*) from foods f where f.is_display = 1",nativeQuery = true)
+	Long getAvailable();
+
+	@Query(value="Select c.display_name, ISNULL(sum(odt.quantity),0) from categories c  "
+			+ "inner join category_foods f on c.id = f.category_id "
+			+ "inner join order_details odt on f.food_id = odt.food_id "
+			+ "inner join orders o on odt.order_id = o.id "
+			+ "Where cast(o.order_date as date) >= DateAdd(day,-365,cast(getdate() as date)) "
+			+ "group by c.display_name",nativeQuery = true)
+	List<Object[]> numberOfProductSoldByType();
+
+	@Query(value="Select c.display_name, ISNULL(sum(odt.quantity),0) from categories c  "
+			+ "inner join category_foods f on c.id = f.category_id "
+			+ "inner join order_details odt on f.food_id = odt.food_id "
+			+ "inner join orders o on odt.order_id = o.id "
+			+ "group by c.display_name",nativeQuery = true)
+	List<Object[]> getPercentByCate();
+
+	@Query(value = "with table1 as ( "
+			+ "	Select c.display_name as catename,  "
+			+ "	count(*) as available "
+			+ "	from categories c "
+			+ "	left join category_foods cf on cf.category_id = c.id "
+			+ "	left join foods f on cf.food_id = f.id "
+			+ "	where f.is_display = 1 "
+			+ "	group by c.display_name "
+			+ "), "
+			+ "table2 as ( "
+			+ "	Select c.display_name as catename,  "
+			+ "	count(*) as unavailable "
+			+ "	from categories c "
+			+ "	left join category_foods cf on cf.category_id = c.id "
+			+ "	left join foods f on cf.food_id = f.id "
+			+ "	where f.is_display = 0 "
+			+ "	group by c.display_name "
+			+ ") "
+			+ "Select t1.catename,t1.available,t2.unavailable  "
+			+ "from table1 t1 left join table2 t2 on t1.catename = t2.catename", nativeQuery = true)
+	List<Object[]> availableRate();
+
+	@Query(value="Select top 10 f.name, count(odt.food_id) as mostSold "
+			+ "From order_details odt inner join foods f  "
+			+ "on odt.food_id = f.id "
+			+ "group by f.Name "
+			+ "Order by mostSold desc",nativeQuery = true)
+	List<Object[]> top10Product();
 }

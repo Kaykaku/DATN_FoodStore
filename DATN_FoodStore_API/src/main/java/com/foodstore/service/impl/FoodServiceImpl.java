@@ -196,5 +196,34 @@ public class FoodServiceImpl implements FoodService {
 				|| Convert.toEngString(o.getDescription().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase()))).toList();
 		return list;
 	}
+	/* Summary Section */
+	@Override
+	public Long getAvailable() {
+		return foodDAO.getAvailable();
+	}
 
+	@Override
+	public Long getTotalProduct() {
+		return foodDAO.count();
+	}
+
+	@Override
+	public List<Object[]> numberOfProductSoldByType() {
+		return foodDAO.numberOfProductSoldByType();
+	}
+
+	@Override
+	public List<Object[]> getPercentByCate() {
+		return foodDAO.getPercentByCate();
+	}
+
+	@Override
+	public List<Object[]> availableRate() {
+		return foodDAO.availableRate();
+	}
+
+	@Override
+	public List<Object[]> top10Product() {
+		return foodDAO.top10Product();
+	}
 }

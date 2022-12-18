@@ -4,11 +4,15 @@ app.controller("order-ctrl", function($scope, $http) {
 	$scope.details = [];
 	$scope.total = 0;
 
+	$scope.keyword ="";
+    $scope.create_date;
+    $scope.display=-1;
+    $scope.sort="id";
+    $scope.status=-1;
+
 	$scope.initialize = function() {
 
-		$http.get(url + "/rest/order").then(resp => {
-			$scope.items = resp.data;
-		})
+		$scope.load(0); 
 		
 		$http.get("/rest/food/image/default").then(resp => {
             $scope.images = resp.data;
@@ -21,6 +25,25 @@ app.controller("order-ctrl", function($scope, $http) {
 			}
         })
 	}
+	
+	$scope.load = function(pageNumber) {
+		var link =url + "/rest/order/filter?page="+pageNumber;
+		if($scope.keyword) link +="&keyword="+ $scope.keyword ;
+		if($scope.display !='-1') link +="&is_display="+ $scope.display ;
+		if($scope.status >= 0) link +="&status="+ $scope.status ;
+		if($scope.create_date) link +="&create_date="+ $scope.create_date.getTime() ;
+		if($scope.sort) link +="&sort="+ $scope.sort ;
+		console.log(link)
+        $http.get(link).then(resp => {
+            $scope.items = resp.data;
+            console.log($scope.items)
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })
+    }
 
 	$scope.loadImageD = function(item){
 		if(!$scope.images) return '';
@@ -53,6 +76,7 @@ app.controller("order-ctrl", function($scope, $http) {
 		item.changedate = new Date();
 		if (item.status == 0) $http.put(url + '/rest/order/' + item.id, item)
 		console.log($scope.form)
+		$scope.tab('tab2');
 		$scope.showToast('warning', 'Edit order ' + $scope.form.id);
 	}
 	
@@ -70,6 +94,10 @@ app.controller("order-ctrl", function($scope, $http) {
 	$scope.getTotal = async function(id) {
 
 	}
+	
+	$scope.tab = function(tab) {
+        document.getElementById(tab).click();
+    }
 
 	//Thêm sản phẩm
 	$scope.create = function() {
@@ -91,8 +119,7 @@ app.controller("order-ctrl", function($scope, $http) {
 		item._watched = item.status == 0;
 		item.changedate = new Date();
 		$http.put(url + '/rest/order/update/' + item.id, item).then(resp => {
-			var index = $scope.items.findIndex(p => p.id == item.id);
-			$scope.items[index] = item;
+			$scope.load(0);
 			$scope.showToast('info', 'Update order successful ' + item.id);
 			console.log(resp.data);
 		}).catch(err => {
@@ -150,7 +177,7 @@ app.controller("order-ctrl", function($scope, $http) {
 		})
 	}
 
-	$scope.pager = {
+	/*$scope.pager = {
 		page: 0,
 		size: 10,
 		get items() {
@@ -178,21 +205,33 @@ app.controller("order-ctrl", function($scope, $http) {
 		last() {
 			this.page = this.count - 1;
 		},
-	}
+	}*/
+	
+	$scope.first= function() {
+            $scope.load(0);
+     }
+     
+     $scope.last= function() {
+        	$scope.load($scope.items.totalPages-1);
+     }
+    $scope.previous= function() {
+        if ($scope.items.pageable.pageNumber <= 0) {
+            $scope.first();
+            return;
+        };
+        $scope.load($scope.items.pageable.pageNumber-1);
+    }
+    $scope.next= function() {
+        if ($scope.items.pageable.pageNumber == $scope.items.totalPages-1) {
+            $scope.last();
+            return;
+        };
+        $scope.load($scope.items.pageable.pageNumber+1);
+    }
 
 	//Khởi đầu
 	$scope.initialize();
 	$scope.reset();
 
-	$scope.getItems = function(status) {
-		$http.get(url + "/rest/order").then(resp => {
-			$scope.items = resp.data;
-		}).then(a=>{
-			$scope.items = $scope.items.filter(x => {
-				return x.status == status;
-			}).sort((a, b) =>{
-				return a.id<b.id
-			})
-		})
-	}
+	
 })

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -144,10 +145,42 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public Long getToDayOrder() {
+		return orderDAO.getTodayOrder();
+	}
+	@Override
+	public Long totalOrder() {
+		return orderDAO.count();
+	}
+	
+	@Override
+	public List<Object[]> getRevenueLast7Days() {
+		return orderDAO.getRevenueLast7Days();
+	}
+	
+	@Override
+	public Page<Order> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> pay_id,
+			Optional<Long> create_date, Optional<Double> fee, Optional<Long> paid_date, Optional<Integer> status,
+			Optional<Boolean> is_watched, Optional<Boolean> is_display, Pageable pageable) {
+		
+		List<Order> list = getByKeywordEng(keyword, pageable);
+		if(cus_id.isPresent()) list = list.stream().filter(o-> o.getCustomer_o().getId() == cus_id.get()).toList();
+		if(pay_id.isPresent()) list = list.stream().filter(o-> o.getPaymentmethod().getId() == pay_id.get()).toList();
+		if(create_date.isPresent()) list = list.stream().filter(o-> o.getOrder_date().getTime() >= create_date.get()).toList();
+		if(fee.isPresent()) list = list.stream().filter(o-> o.getFee() >= fee.get()).toList();
+		if(paid_date.isPresent()) list = list.stream().filter(o-> o.getPaid_date().getTime() >=  paid_date.get()).toList();
+		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).toList();
+		if(is_display.isPresent()) list = list.stream().filter(o-> o.is_display() == is_display.get()).toList();
+		if(is_watched.isPresent()) list = list.stream().filter(o-> o.is_watched() == is_watched.get()).toList();
+		return (Page<Order>) Convert.toPage(list, pageable);
+	}
+	
+	@Override
 	public List<Order> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> pay_id,
 			Optional<Long> create_date, Optional<Double> fee, Optional<Long> paid_date, Optional<Integer> status,
 			Optional<Boolean> is_watched, Optional<Boolean> is_display) {
-		List<Order> list = getByKeywordEng(keyword);
+		
+		List<Order> list = getByKeywordEng(keyword, PageRequest.of(0, 100));
 		if(cus_id.isPresent()) list = list.stream().filter(o-> o.getCustomer_o().getId() == cus_id.get()).toList();
 		if(pay_id.isPresent()) list = list.stream().filter(o-> o.getPaymentmethod().getId() == pay_id.get()).toList();
 		if(create_date.isPresent()) list = list.stream().filter(o-> o.getOrder_date().getTime() >= create_date.get()).toList();
@@ -158,20 +191,13 @@ public class OrderServiceImpl implements OrderService {
 		if(is_watched.isPresent()) list = list.stream().filter(o-> o.is_watched() == is_watched.get()).toList();
 		return list;
 	}
-
-	@Override
-	public Page<Order> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> pay_id,
-			Optional<Long> create_date, Optional<Double> fee, Optional<Long> paid_date, Optional<Integer> status,
-			Optional<Boolean> is_watched, Optional<Boolean> is_display, Pageable pageable) {
-		List<Order> list = getByFilter(keyword, cus_id, pay_id, create_date, fee, paid_date, status, is_watched, is_display);
-		return (Page<Order>) Convert.toPage(list, pageable);
-	}
 	
 	@Override
-	public List<Order> getByKeywordEng(String keyword) {
-		List<Order> list = orderDAO.findAll();
+	public List<Order> getByKeywordEng(String keyword,Pageable pageable) {
+		List<Order> list = orderDAO.findAll(pageable.getSort());
+		
 		list = list.stream().filter(o -> Convert.toEngString(o.getShipped_address().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase())) 
-				|| Convert.toEngString(o.getShipped_phone().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase()))).toList();
+				||(o.getShipped_phone()!=null && Convert.toEngString(o.getShipped_phone().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase())))).toList();
 		return list;
 	}
 }

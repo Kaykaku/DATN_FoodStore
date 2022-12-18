@@ -27,6 +27,7 @@ import com.foodstore.model.entity.Food;
 import com.foodstore.model.entity.User;
 import com.foodstore.model.extend.Image;
 import com.foodstore.model.transaction.CategoryFood;
+import com.foodstore.model.transaction.RolePermission;
 import com.foodstore.service.CategoryFoodService;
 import com.foodstore.service.FoodService;
 import com.foodstore.service.ImageService;
@@ -197,5 +198,16 @@ public class FoodRestController {
 		}
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+
+	@PostMapping("/category/create")
+	public CategoryFood addPermission(@RequestBody CategoryFood categoryFood) {
+		return categoryFoodService.create(categoryFood);
+	}
+	
+	@DeleteMapping("/category/delete/{id}")
+	public void deletePermission(@PathVariable("id")Long id) {
+		categoryFoodService.delete(id);
 	}
 }

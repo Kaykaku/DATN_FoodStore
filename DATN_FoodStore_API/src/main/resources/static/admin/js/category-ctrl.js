@@ -4,7 +4,7 @@ app.controller("category-ctrl", function($scope, $http,$location) {
     $scope.cates = [];
     $scope.keyword ="";
     $scope.create_date;
-    $scope.display="-1";
+    $scope.display=-1;
     $scope.sort="id";
     $scope.image;
     

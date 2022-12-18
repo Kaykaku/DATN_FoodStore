@@ -30,18 +30,11 @@ public interface OrderService extends IService<Order> {
 	
 	Page<Order> getByWatchStatus( boolean isWatched,Pageable pageable);
 	
-	List<Order> getByKeywordEng(String keyword);
+	List<Order> getByKeywordEng(String keyword,Pageable pageable);
 	
-	List<Order> getByFilter(
-			String keyword,
-			Optional<Long> cus_id,
-			Optional<Long> pay_id ,
-			Optional<Long> create_date ,
-			Optional<Double> fee,
-			Optional<Long> paid_date, 
-			Optional<Integer> status,
-			Optional<Boolean> is_watched , 
-			Optional<Boolean> is_display);
+	List<Order> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> pay_id,
+			Optional<Long> create_date, Optional<Double> fee, Optional<Long> paid_date, Optional<Integer> status,
+			Optional<Boolean> is_watched, Optional<Boolean> is_display);
 	
 	Page<Order> getByFilter(
 			String keyword,
@@ -54,8 +47,9 @@ public interface OrderService extends IService<Order> {
 			Optional<Boolean> is_watched , 
 			Optional<Boolean> is_display,
 			Pageable pageable);
-	/*
-	 * Page<Order> getByAllStatus(Optional<Boolean>
-	 * isDisplay,Optional<Boolean> status,Optional<Boolean> isWatched,Pageable pageable);
-	 */
+	Long getToDayOrder();
+
+	Long totalOrder();
+	
+	List<Object[]> getRevenueLast7Days();
 }

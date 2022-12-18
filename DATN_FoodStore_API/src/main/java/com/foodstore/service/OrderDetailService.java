@@ -32,4 +32,8 @@ public interface OrderDetailService extends IService<OrderDetail> {
 	
 	@Query("Select o From OrderDetail o Where o.food_od.id=?1 and o.order.id=?2")
 	List<OrderDetail> getByFoodIdAndOrderId(Long foodId , Long orderId);
+	
+	Double getTodayIncome();
+
+	Double getTotalIncome();
 }

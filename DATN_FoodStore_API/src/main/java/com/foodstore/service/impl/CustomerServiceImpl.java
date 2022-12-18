@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.foodstore.dao.CustomerDAO;
 import com.foodstore.model.entity.Customer;
-import com.foodstore.model.entity.User;
 import com.foodstore.service.CustomerService;
 import com.foodstore.util.constraints.Display;
 import com.foodstore.util.convert.Convert;
@@ -125,5 +124,10 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Boolean isExist(Customer customer) {
 		return customerDAO.findByEmail(customer.getEmail()).isPresent() || customerDAO.findByUsername(customer.getUsername()).isPresent();
+	}
+	
+	@Override
+	public List<Object[]> top10Customer() {
+		return customerDAO.top10Customer();
 	}
 }

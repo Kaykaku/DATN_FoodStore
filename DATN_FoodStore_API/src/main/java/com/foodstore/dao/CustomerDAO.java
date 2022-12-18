@@ -42,4 +42,12 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
 	
 	@Query("SELECT u FROM Customer u WHERE u.username LIKE %?1% or u.fullname LIKE %?1% or u.email LIKE %?1%"  )
 	List<Customer> findByKeyword(String keyword);
+	
+	@Query(value="Select a.id,a.username, a.fullname, a.email, a.avatar, "
+			+ "sum(odt.price * odt.quantity) as totalPayment "
+			+ "From customers a inner join orders o on a.id = o.customer_id "
+			+ "inner join order_details odt on o.id = odt.order_id "
+			+ "Group by a.id,a.username, a.fullname, a.email, a.avatar "
+			+ "order by totalPayment desc",nativeQuery = true)
+	List<Object[]> top10Customer();
 }

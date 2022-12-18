@@ -221,8 +221,8 @@
 							<th>Status</th>
 						</tr>
 					</thead>
-					<tbody class="table-border-bottom-0" ng-init="getItems('4')">
-						<tr class="table-danger" ng-repeat="item in pager.items"
+					<tbody class="table-border-bottom-0" ng-init="status=4;load(0)">
+						<tr class="table-danger" ng-repeat="item in items.content"
 							ng-click="edit2(item)" data-bs-toggle="offcanvas"
 							data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
 							<td><strong>{{item.id
@@ -240,23 +240,22 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="justify-content-center mt-2 mb-2 w-100"
-					style="text-align: center;">
-					<button ng-click="pager.first()" class="btn btn-info">
-						<i class='bx bxs-chevrons-left mb-1'></i>
+				<div class="justify-content-center mt-2 mb-2 w-100" style="text-align: center;">
+                                    <button ng-click="first()" class="btn btn-info">
+						<i class='bx bxs-chevrons-left mb-1' ></i>
 					</button>
-					<button ng-click="pager.previous()" class="btn btn-info">
-						<i class='bx bxs-chevron-left mb-1'></i>
+                                    <button ng-click="previous()" class="btn btn-info">
+						<i class='bx bxs-chevron-left mb-1' ></i>
 					</button>
-					<button class="btn btn-success">{{pager.page+1}} of
-						{{pager.count}}</button>
-					<button ng-click="pager.next()" class="btn btn-info">
-						<i class='bx bxs-chevron-right mb-1'></i>
+                                    <button class="btn btn-success">{{items.pageable.pageNumber+1}} of
+						{{items.totalPages}}</button>
+                                    <button ng-click="next()" class="btn btn-info">
+						<i class='bx bxs-chevron-right mb-1' ></i>
 					</button>
-					<button ng-click="pager.last()" class="btn btn-info">
-						<i class='bx bxs-chevrons-right mb-1'></i>
+                                    <button ng-click="last()" class="btn btn-info">
+						<i class='bx bxs-chevrons-right mb-1' ></i>
 					</button>
-				</div>
+							</div>
 			</div>
 		</div>
 	</div>

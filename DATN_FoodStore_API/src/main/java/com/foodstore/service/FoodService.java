@@ -41,4 +41,16 @@ public interface FoodService extends IService<Food> {
 	List<Food> getByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Long> createDate , Optional<Integer> status , Optional<Boolean> isDisplay , Optional<Long> category_id  );
 	
 	Page<Food> findByCategoryName(String name, Pageable pageable);
+	
+	Long getAvailable();
+
+	Long getTotalProduct();
+
+	List<Object[]> numberOfProductSoldByType();
+
+	List<Object[]> getPercentByCate();
+
+	List<Object[]> availableRate();
+
+	List<Object[]> top10Product();
 }

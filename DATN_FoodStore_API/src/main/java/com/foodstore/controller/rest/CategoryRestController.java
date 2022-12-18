@@ -1,6 +1,7 @@
 package com.foodstore.controller.rest;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,13 @@ public class CategoryRestController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("")
+	@GetMapping("/all")
 	public ResponseEntity<?> doGetAllByPaginate(
 			@RequestParam(value = "page") Optional<Integer> page,
 			@RequestParam(value = "size") Optional<Integer> size) {
 		try {
-			Page<Category> pageCategories = categoryService.getAll(PageRequest.of(0, 10));
-			return ResponseEntity.ok(pageCategories);
+			List<Category> list = categoryService.getAll();
+			return ResponseEntity.ok(list);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

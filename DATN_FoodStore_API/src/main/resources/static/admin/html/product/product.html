@@ -208,6 +208,58 @@
                                     <div class="card mt-2 ">
                                     	<div class="card-header d-flex align-items-center justify-content-between">
                                         	<h5 class="mb-0">Category</h5>
+                                        	<button type="button"
+												class="btn rounded-pill btn-icon btn-secondary"
+												data-bs-toggle="modal" data-bs-target="#modalCenter">
+												<span class="tf-icons bx bx-plus"></span>
+											</button>
+											<div class="modal fade" id="modalCenter" tabindex="-1"
+												style="display: none;" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="modalCenterTitle">
+																Edit <b>{{form.name}}</b> Categories
+															</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															<div class="table-responsive">
+																<table class="table table-hover">
+																	<thead>
+																		<tr>
+																			<th>Id</th>
+																			<th>Display Name</th>
+																			<th>Actions</th>
+																		</tr>
+																	</thead>
+																	<tbody class="table-border-bottom-0">
+																		<tr class="table-light" ng-repeat="item in categories"
+																			ng-if="item._display==1 ">
+																			<td>{{item.id }}</td>
+																			<td><strong><span class="badge bg-secondary mr-1" style='margin:5px 5px;font-size: 14px;background-color: {{item.color}} !important;'>{{item.display_name}} </span></strong></td>
+																			<td><input
+																				ng-disabled="role.id==1 || user.id==1"
+																				ng-checked="foodcate_of(form,item)"
+																				class="form-check-input"
+																				ng-click="foodcate_changed(form,item)"
+																				type="checkbox" /></td>
+																		</tr>
+																	</tbody>
+																</table>
+
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-outline-secondary"
+																data-bs-dismiss="modal">Close</button>
+
+														</div>
+													</div>
+												</div>
+											</div>
                                     	</div>
                                     	<div class="card-body">
                                     	<span class="badge bg-secondary mr-1" ng-repeat="p in food_categories"   style='margin:5px 5px;font-size: 14px;background-color: {{p.category_f.color}} !important;'>{{p.category_f.display_name}} </span>

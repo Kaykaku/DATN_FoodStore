@@ -39,7 +39,7 @@ app.controller("product-ctrl", function($scope, $http,$location) {
 			}
         })  
 	        
-	    $http.get("/rest/category").then(resp => {
+	    $http.get("/rest/category/all").then(resp => {
             $scope.categories = resp.data;
             console.log(resp.data);
         }).catch(err => {
@@ -88,7 +88,45 @@ app.controller("product-ctrl", function($scope, $http,$location) {
 		 return image ? image.image_name : "";
 	}
 	
+	$scope.foodcate_of = function (food, cate) {
+		if ($scope.food_categories) {
+			return $scope.food_categories.find(fc => fc.category_f.id == cate.id)
+		}
+		return null;
+	}
+	
+	$scope.foodcate_changed = function (food, cate) {
 
+		var foodcate = $scope.foodcate_of(food, cate);
+		if (foodcate) {//đã cấp quyền => thu hồi quyền (xoá)
+			$scope.revoke_foodcate(foodcate);
+		} else {//chưa cấp quyền => cấp quyền mới
+			foodcate = { food_c: food, category_f: cate };
+			$scope.grant_foodcate(foodcate);
+		}
+	}
+	
+	//Thêm mới authority
+	$scope.grant_foodcate = function (foodcate) {
+		$http.post(`/rest/food/category/create`, foodcate).then(resp => {
+			$scope.edit(foodcate.food_c);
+			$scope.showToast('info', 'Grant category <b>' + foodcate.category_f.display_name + '</b> to food <b>' + foodcate.food_c.name + "</b>!!");
+		}).catch(err => {
+			console.log("Error ", err);
+			$scope.showToast('danger', 'Authorization failed! ');
+		})
+	}
+
+	//Xoá authority
+	$scope.revoke_foodcate = function (foodcate) {
+		$http.delete(`/rest/food/category/delete/${foodcate.id}`).then(resp => {
+			$scope.edit(foodcate.food_c);
+			$scope.showToast('dark', 'Revoked category <b>' + foodcate.category_f.display_name + '</b> from food <b>' + foodcate.food_c.name + "</b>!!");
+		}).catch(err => {
+			console.log("Error ", err);
+			$scope.showToast('danger', "Category has been revoked failed!");
+		})
+	}
 
     //Xoá form
     $scope.reset = function() {

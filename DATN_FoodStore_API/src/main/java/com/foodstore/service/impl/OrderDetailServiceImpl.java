@@ -1,5 +1,6 @@
 package com.foodstore.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -118,6 +119,19 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return orderDetailDAO.findByFoodIdAndOrderId(foodId,orderId);
 	}
 
-
+	@Override
+	public Double getTodayIncome() {
+		return orderDetailDAO.findAll().stream()
+				.filter(e->e.getOrder().getOrder_date().getTime() >= new Date().getTime()-86400 && e.getStatus()<4)
+				.mapToDouble(item->( item.is_fixed()? item.getPrice()-item.getAmount(): item.getPrice()*(1-item.getAmount()/100))*item.getQuantity())
+				.sum();
+	}
+	@Override
+	public Double getTotalIncome() {
+		return orderDetailDAO.findAll().stream()
+				.filter(e-> e.getStatus()<4)
+				.mapToDouble(item->( item.is_fixed()? item.getPrice()-item.getAmount(): item.getPrice()*(1-item.getAmount()/100))*item.getQuantity())
+				.sum();
+	}
 
 }

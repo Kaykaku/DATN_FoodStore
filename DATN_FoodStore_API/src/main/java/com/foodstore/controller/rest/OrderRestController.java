@@ -62,7 +62,6 @@ public class OrderRestController {
 			@RequestParam(value = "size") Optional<Integer> size,
 			@RequestParam(value = "sort") Optional<String> sort) {
 		try {
-			
 			Page<Order> pageCategories = orderService.getByFilter(
 					keyword.orElse(""),
 					cus_id,

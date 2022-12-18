@@ -150,6 +150,7 @@ app.controller("dashboard-ctrl", function($scope, $http, $location, $filter) {
                 $scope.thirdRowCateName.push(e[0]);
                 $scope.thirdRowPercentageByCate.push(e[1]);
             })
+            console.log(resp.data.productAvailableRate);
             resp.data.productAvailableRate.forEach(e => {
                     $scope.thirdRowCateName2.push(e[0]);
                     $scope.thirdRowAvailable.push(e[1]);
@@ -336,23 +337,37 @@ app.controller("dashboard-ctrl", function($scope, $http, $location, $filter) {
         })
         $http.get(url + "/rest/summary/fifthRow").then(resp => {
             $scope.fifRowContent = resp.data.topCustomer;
-            angular.element(document).ready(function() {
-                dTable = $('#tableTopCustomer')
-                dTable.DataTable({
-                    "pageLength": 5,
-                    "lengthMenu": [
-                        [5, 16, 24, -1],
-                        [5, 16, 24, "All"]
-                    ],
-                    "language": {
-                        "paginate": {
-                            'previous': '<i class="fas fa-backward"></i>',
-                            'next': '<i class="fas fa-forward"></i>'
-                        }
-                    }
-                });
-            });
+            console.log($scope.fifRowContent);
         })
+    }
+    $scope.pager = {
+        page: 0,
+        size: 10,
+        get items() {
+            var start = this.page * this.size;
+            return $scope.fifRowContent.slice(start, start + this.size);
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.fifRowContent.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        previous() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            };
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            };
+        },
+        last() {
+            this.page = this.count - 1;
+        },
     }
 
     //load dữ liệu thống kê

@@ -2,6 +2,8 @@ app.controller("administrator-ctrl", function ($scope, $http, $location) {
     $scope.items = [];
     $scope.user_roles = [];
     $scope.user_permissions = [];
+    $scope.permissions = [];
+    $scope.roles = [];
     $scope.form = {};
     $scope.keyword = "";
     $scope.create_date;
@@ -34,6 +36,19 @@ app.controller("administrator-ctrl", function ($scope, $http, $location) {
             }
         })
     }
+    
+    //load all perrmission
+	$scope.loadPermission = function () {
+		var link = url + "/rest/permission/filter/all?";
+		$http.get(link).then(resp => {
+			$scope.permissions = resp.data;
+		}).catch(err => {
+			if (err.status == 403) {
+				$scope.showToast('danger', "You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+		})
+	}
 
     $scope.load = function (pageNumber) {
         var link = url + "/rest/user/filter?page=" + pageNumber;
@@ -158,6 +173,107 @@ app.controller("administrator-ctrl", function ($scope, $http, $location) {
             }
         })
     }
+    
+    //Lấy bản ghi giữa user và role
+	$scope.authority_of = function (acc, role) {
+		if ($scope.user_roles) {
+			return $scope.user_roles.find(ur => ur.role_u.id == role.id)
+		}
+		return null;
+	}
+	
+	$scope.permission_of = function (permission) {
+		if ($scope.user_permissions) {
+			return $scope.user_permissions.find(up => up.permission_u.id == permission.id);
+		}
+		return null;
+	}
+
+	// Thay đổi trạng thái cấp Role cho User
+	$scope.authority_changed = function (acc, role) {
+
+		var authority = $scope.authority_of(acc, role);
+		if (authority) {//đã cấp quyền => thu hồi quyền (xoá)
+			$scope.revoke_authority(authority);
+		} else {//chưa cấp quyền => cấp quyền mới
+			authority = { user_r: acc, role_u: role };
+			$scope.grant_authority(authority);
+		}
+	}
+	
+	//Thêm mới authority
+	$scope.grant_authority = function (authority) {
+		$http.post(`/rest/user/role/create`, authority).then(resp => {
+			$scope.edit(authority.user_r);
+			$scope.showToast('info', 'Grant role <b>' + authority.role_u.display_name + '</b> to user <b>' + authority.user_r.username + "</b>!!");
+		}).catch(err => {
+			console.log("Error ", err);
+			$scope.showToast('danger', 'Authorization failed! ');
+		})
+	}
+
+	//Xoá authority
+	$scope.revoke_authority = function (authority) {
+		$http.delete(`/rest/user/role/delete/${authority.id}`).then(resp => {
+			$scope.edit(authority.user_r);
+			$scope.showToast('dark', 'Revoked role <b>' + authority.role_u.display_name + '</b> from user <b>' + authority.user_r.username + "</b>!!");
+		}).catch(err => {
+			console.log("Error ", err);
+			$scope.showToast('danger', "Permission has been revoked failed!");
+		})
+	}
+	
+		// Thay đổi trạng thái cấp Permission cho Role
+	$scope.permission_changed = function (user, permission) {
+
+		var u_permission = $scope.permission_of(permission);
+
+		if (u_permission) {
+			$scope.revoke_permission(u_permission);
+		} else {
+			u_permission = { user_p: user, permission_u: permission };
+			$scope.grant_permission(u_permission);
+		}
+	}
+
+	//Thêm Permission cho Role
+	$scope.grant_permission = function (user_per) {
+		$http.post(`/rest/user/permission/create`, user_per).then(resp => {
+			$scope.edit(user_per.user_p);
+			$scope.showToast('info', 'Grant permission <b>' + user_per.permission_u.display_name + '</b> to user <b>' + user_per.user_p.username + "</b>!!");
+		}).catch(err => {
+			if (err.status == 405) {
+				$scope.showToast('danger', "You are not authorized to perform this action!!!");
+				//$location.path("/unauthorized");
+			} else {
+				console.log("Error ", err);
+				$scope.showToast('danger', 'Authorization failed! ');
+			}
+
+		})
+	}
+
+	//Xoá Permission khỏi Role
+	$scope.revoke_permission = function (user_per) {
+		$http.delete(`/rest/user/permission/delete/${user_per.id}`).then(resp => {
+			$scope.edit(user_per.user_p);
+			$scope.showToast('dark', 'Revoked permission <b>' + user_per.permission_u.display_name + '</b> from user <b>' + user_per.user_p.username + "</b>!!");
+		}).catch(err => {
+			if (err.status == 405) {
+				$scope.showToast('danger', "You are not authorized to perform this action!!!");
+				//$location.path("/unauthorized");
+			} else {
+				console.log("Error ", err);
+				$scope.showToast('danger', "Permission has been revoked failed!");
+			}
+
+		})
+	}
+	
+	$scope.divPermission = function (start, end) {
+		let row = 20;
+		return $scope.permissions.slice(start, end);
+	}
 
     //Upload Hình
     $scope.imageChanged = function (files) {
