@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.foodstore.dao.DiscountDAO;
 import com.foodstore.model.extend.Discount;
 import com.foodstore.service.DiscountService;
+import com.foodstore.util.constraints.Display;
+import com.foodstore.util.convert.Convert;
 
 @Service
 public class DiscountServiceImpl implements DiscountService {
@@ -69,10 +71,11 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	public Page<Discount> getByFilter(String keyword, Optional<Boolean> is_fixed,Optional<Long> start_date
+	public Page<Discount> getByFilter(String keyword, Optional<Boolean> is_fixed,Optional<Long> create_date  ,Optional<Long> start_date
 			, Optional<Long> end_date, Optional<Boolean> isDisplay, Optional<Long> userId,Pageable pageable ) {
-		List<Discount> list = discountDAO.findByKeyword(keyword);
+		List<Discount> list = getByKeywordEng(keyword);
 		if(is_fixed.isPresent()) list = list.stream().filter(o-> o.is_fixed() == is_fixed.get()).collect(Collectors.toList());
+		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >= create_date.get()).collect(Collectors.toList());
 		if(start_date.isPresent()) list = list.stream().filter(o-> o.getStart_date().getTime() >= start_date.get()).collect(Collectors.toList());
 		if(end_date.isPresent()) list = list.stream().filter(o-> o.getEnd_date().getTime() <= end_date.get()).collect(Collectors.toList());
 		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).collect(Collectors.toList());
@@ -80,4 +83,11 @@ public class DiscountServiceImpl implements DiscountService {
 		return new PageImpl<Discount>(list, pageable, list.size());
 	}
 
+	public List<Discount> getByKeywordEng(String keyword) {
+		List<Discount> list = discountDAO.findAll();
+		list = list.stream()
+				.filter(o -> Convert.toEngString(o.getName().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase())) 
+				|| Convert.toEngString(o.getFood_d().getName().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase()))).toList();
+		return list;
+	}
 }

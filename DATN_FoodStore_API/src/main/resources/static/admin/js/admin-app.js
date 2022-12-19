@@ -20,6 +20,10 @@ app.config(function($routeProvider) {
             templateUrl: "../html/category/category.html",
             controller: "category-ctrl"
         })
+        .when("/discount", {
+            templateUrl: "../html/discount/discount.html",
+            controller: "discount-ctrl"
+        })
         .when("/order", {
             templateUrl: "../html/order/order.html",
             controller: "order-ctrl"

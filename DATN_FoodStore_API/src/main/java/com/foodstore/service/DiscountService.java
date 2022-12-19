@@ -16,6 +16,6 @@ public interface DiscountService extends IService<Discount> {
 	Page<Discount> getByKeyword(String keyword,Pageable pageable);
 	
 	Page<Discount> getByFilter(String keyword 
-			,Optional<Boolean> is_fixed , Optional<Long> start_date , Optional<Long> end_date 
+			,Optional<Boolean> is_fixed, Optional<Long> create_date  , Optional<Long> start_date , Optional<Long> end_date 
 			, Optional<Boolean> isDisplay , Optional<Long> userId,Pageable pageable);
 }

@@ -302,20 +302,14 @@
                                             <select class="form-select" ng-model="gender" ng-change="load(0)">
 												<option ng-value ="-1" selected="selected">Gender : All</option>
 												<option ng-value ="true" >Male</option>
-												<option ng-value ="false">Female : Inactive</option>
+												<option ng-value ="false">Female </option>
 											</select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mt-3">
+                                    <div class="col-md-6 mt-3">
                                         <input class="form-control" type="date" ng-model="create_date" ng-change="load(0)" value="2022-01-01" id="html5-date-input">
                                     </div>
-                                    <div class="col-sm-4 mt-3">
-                                        <select id="sendNotification" class="form-select" ng-model="role_id" ng-change="load(0)" name="sendNotification">
-											<option ng-value="0" ng-checked="true">Role : ALL</option>
-											<option ng-repeat="r in itemsAll" ng-value="r.id">{{r.display_name}}</option>
-										</select>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
+                                    <div class="col-md-6 mt-3">
                                         <div class="">
                                             <select class="form-select" ng-model="display" ng-change="load(0)">
 												<option ng-value ="-1" selected="selected">Status : All</option>

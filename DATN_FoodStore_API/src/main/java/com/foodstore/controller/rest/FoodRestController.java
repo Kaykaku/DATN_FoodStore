@@ -48,13 +48,13 @@ public class FoodRestController {
 	@Autowired
 	private CategoryFoodService categoryFoodService;
 	
-	@GetMapping("")
+	@GetMapping("/all")
 	public ResponseEntity<?> doGetAllByPaginate(
 			@RequestParam(value = "page") Optional<Integer> page,
 			@RequestParam(value = "size") Optional<Integer> size) {
 		try {
-			Page<Food> pageCategories = foodService.getAll(PageRequest.of(page.orElse(0), size.orElse(10)));
-			return ResponseEntity.ok(pageCategories);
+			List<Food> list = foodService.getAll();
+			return ResponseEntity.ok(list);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

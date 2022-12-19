@@ -191,7 +191,6 @@ public class FoodServiceImpl implements FoodService {
 	public List<Food> getByKeywordEng(String keyword) {
 		List<Food> list = foodDAO.findAll();
 		list = list.stream()
-				.filter(o -> o.is_display() == Display.SHOW)
 				.filter(o -> Convert.toEngString(o.getName().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase())) 
 				|| Convert.toEngString(o.getDescription().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase()))).toList();
 		return list;

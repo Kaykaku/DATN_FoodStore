@@ -23,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foodstore.model.entity.Food;
 import com.foodstore.model.entity.User;
 import com.foodstore.model.extend.Discount;
 import com.foodstore.service.DiscountService;
 import com.foodstore.service.UserService;
+import com.foodstore.util.constraints.Display;
+import com.foodstore.util.convert.Convert;
 
 @CrossOrigin("*")
 @RestController
@@ -73,6 +76,7 @@ public class DiscountRestController {
 	public ResponseEntity<?> doGetByFilter(
 			@RequestParam(value = "keyword") Optional<String> keyword,
 			@RequestParam(value = "is_fixed") Optional<Boolean> is_fixed,
+			@RequestParam(value = "create_date") Optional<Long> create_date,
 			@RequestParam(value = "start_date") Optional<Long> start_date,
 			@RequestParam(value = "end_date") Optional<Long> end_date,
 			@RequestParam(value = "is_display") Optional<Boolean> is_display,
@@ -85,6 +89,7 @@ public class DiscountRestController {
 			Page<Discount> pageD = discountService.getByFilter(
 					keyword.orElse("")
 					,is_fixed
+					,create_date
 					,start_date
 					,end_date
 					,is_display

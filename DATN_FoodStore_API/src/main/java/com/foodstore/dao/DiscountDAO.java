@@ -22,7 +22,7 @@ public interface DiscountDAO extends JpaRepository<Discount, Long>{
 	Page<Discount> findByKeyword(String keyword,Pageable pageable);
 	
 	@Query("Select c From Discount c"
-			+ " Where c.name like %?1%")
+			+ " Where c.name like %?1% or c.food_d.name like %?1%")
 	List<Discount> findByKeyword(String keyword);
 	
 	@Query("Select c From Discount c"

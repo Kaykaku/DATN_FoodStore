@@ -199,6 +199,11 @@
                             <div data-i18n="Form Elements">Food</div>
                         </a>
                     </li>
+                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Discount','menu-item':selectedTab !='Discount'}" ng-click="selectedTab = 'Discount'">
+                        <a href="#!discount" class="menu-link"> <i class="menu-icon tf-icons bx bxs-discount"></i>
+                            <div data-i18n="Form Elements">Discount</div>
+                        </a>
+                    </li>
                     <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order','menu-item':selectedTab !='Order'}" ng-click="selectedTab = 'Order'">
                         <a href="#!order" class="menu-link"> <i class="menu-icon tf-icons bx bx-package"></i>
                             <div data-i18n="Form Elements">Order</div>
@@ -318,6 +323,7 @@
     <script src="../js/role-ctrl.js"></script>
     <script src="../js/administrator-ctrl.js"></script>
     <script src="../js/customer-ctrl.js"></script>
+    <script src="../js/discount-ctrl.js"></script>
 </body>
 
 </html>
