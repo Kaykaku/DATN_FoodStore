@@ -24,12 +24,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodstore.model.entity.User;
-import com.foodstore.model.transaction.RolePermission;
 import com.foodstore.model.transaction.UserPermission;
 import com.foodstore.model.transaction.UserRole;
 import com.foodstore.service.UserPermissionService;
 import com.foodstore.service.UserRoleService;
 import com.foodstore.service.UserService;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @CrossOrigin("*")
 @RestController
@@ -42,6 +43,8 @@ public class UserRestController {
 	private UserRoleService userRoleService;
 	@Autowired
 	private UserPermissionService userPermissionService;
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
@@ -96,16 +99,22 @@ public class UserRestController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User currentUser = userService.getByUsername(((UserDetails)principal).getUsername());
 		user.setCreate_by(currentUser.getId());
-		return userService.create(user);
+		User u =userService.create(user);
+		remoteCurrentUser.createHistory(" create a new record '"+ u.getUsername()+"' with ID", TableName.User , u.getId());
+		return u;
 	}
 	
 	@PutMapping("/update/{id}")
 	public User update(@RequestBody User user,@PathVariable("id")Integer id) {
-		return userService.update(user);
+		User u =userService.update(user);
+		remoteCurrentUser.createHistory(" update record '"+ u.getUsername()+"' with ID", TableName.User , u.getId());
+		return u;
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
+		User u =userService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ u.getUsername()+"' with ID", TableName.User , u.getId());
 		userService.delete(id);
 	}
 	@GetMapping("/role/all")
@@ -125,21 +134,29 @@ public class UserRestController {
 	
 	@PostMapping("/permission/create")
 	public UserPermission addPermission(@RequestBody UserPermission userPermission) {
-		return userPermissionService.create(userPermission);
+		UserPermission u =userPermissionService.create(userPermission);
+		remoteCurrentUser.createHistory(" create a new record '"+ u.getPermission_u().getName()+"' of '"+u.getUser_p().getUsername()+"' with ID", TableName.UserPermission , u.getId());
+		return u;
 	}
 	
 	@DeleteMapping("/permission/delete/{id}")
 	public void deletePermission(@PathVariable("id")Long id) {
+		UserPermission u =userPermissionService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ u.getPermission_u().getName()+"' of '"+u.getUser_p().getUsername()+"' with ID", TableName.UserPermission , u.getId());
 		userPermissionService.delete(id);
 	}
 	
 	@PostMapping("/role/create")
 	public UserRole addRole(@RequestBody UserRole userRole) {
-		return userRoleService.create(userRole);
+		UserRole u =userRoleService.create(userRole);
+		remoteCurrentUser.createHistory(" create a new record '"+ u.getRole_u().getName()+"' of '"+u.getUser_r().getUsername()+"' with ID", TableName.UserRole , u.getId());
+		return u;
 	}
 	
 	@DeleteMapping("/role/delete/{id}")
 	public void deleteRole(@PathVariable("id")Long id) {
+		UserRole u =userRoleService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ u.getRole_u().getName()+"' of '"+u.getUser_r().getUsername()+"' with ID", TableName.UserRole , u.getId());
 		userRoleService.delete(id);
 	}
 	

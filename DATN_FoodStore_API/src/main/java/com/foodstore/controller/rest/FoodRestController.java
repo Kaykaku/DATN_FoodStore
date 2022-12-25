@@ -27,11 +27,12 @@ import com.foodstore.model.entity.Food;
 import com.foodstore.model.entity.User;
 import com.foodstore.model.extend.Image;
 import com.foodstore.model.transaction.CategoryFood;
-import com.foodstore.model.transaction.RolePermission;
 import com.foodstore.service.CategoryFoodService;
 import com.foodstore.service.FoodService;
 import com.foodstore.service.ImageService;
 import com.foodstore.service.UserService;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @CrossOrigin("*")
 @RestController
@@ -42,7 +43,8 @@ public class FoodRestController {
 	private FoodService foodService;
 	@Autowired
 	private ImageService imageService;
-
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -117,16 +119,22 @@ public class FoodRestController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = userService.getByUsername(((UserDetails)principal).getUsername());
 		food.setUser_f(user);
-		return foodService.create(food);
+		Food f =foodService.create(food);
+		remoteCurrentUser.createHistory(" create a new record '"+ f.getName()+"' with ID", TableName.Food , f.getId());
+		return f;
 	}
 	
 	@PutMapping("/update/{id}")
 	public Food update(@RequestBody Food food,@PathVariable("id")Integer id) {
-		return foodService.update(food);
+		Food f =foodService.update(food);
+		remoteCurrentUser.createHistory(" update record '"+ f.getName()+"' with ID", TableName.Food , f.getId());
+		return f;
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
+		Food f =foodService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ f.getName()+"' with ID", TableName.Food , f.getId());
 		foodService.delete(id);
 	}
 	
@@ -179,12 +187,16 @@ public class FoodRestController {
 	
 	@PostMapping("/image/create")
 	public Image createImage(@RequestBody Image image) {
-		return imageService.create(image);
+		Image i = imageService.create(image);
+		remoteCurrentUser.createHistory(" create a new record '"+ i.getImage_name()+"' with ID", TableName.Image , i.getId());
+		return i;
 	}
 	
 	
 	@DeleteMapping("/image/delete/{id}")
 	public void deleteImage(@PathVariable("id")Long id) {
+		Image i = imageService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ i.getImage_name()+"' with ID", TableName.Image , i.getId());
 		imageService.delete(id);
 	}
 	
@@ -203,11 +215,15 @@ public class FoodRestController {
 
 	@PostMapping("/category/create")
 	public CategoryFood addPermission(@RequestBody CategoryFood categoryFood) {
-		return categoryFoodService.create(categoryFood);
+		CategoryFood cf = categoryFoodService.create(categoryFood);
+		remoteCurrentUser.createHistory(" create a new record '"+ cf.getCategory_f().getName()+"' of '"+cf.getFood_c().getName()+"'  with ID", TableName.CategoryFood , cf.getId());
+		return cf;
 	}
 	
 	@DeleteMapping("/category/delete/{id}")
 	public void deletePermission(@PathVariable("id")Long id) {
+		CategoryFood cf = categoryFoodService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ cf.getCategory_f().getName()+"' of '"+cf.getFood_c().getName()+"'  with ID", TableName.CategoryFood , cf.getId());
 		categoryFoodService.delete(id);
 	}
 }

@@ -23,13 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodstore.model.entity.Food;
 import com.foodstore.model.entity.User;
 import com.foodstore.model.extend.Discount;
 import com.foodstore.service.DiscountService;
 import com.foodstore.service.UserService;
-import com.foodstore.util.constraints.Display;
-import com.foodstore.util.convert.Convert;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @CrossOrigin("*")
 @RestController
@@ -40,6 +39,8 @@ public class DiscountRestController {
 	private DiscountService discountService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
@@ -109,16 +110,22 @@ public class DiscountRestController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = userService.getByUsername(((UserDetails)principal).getUsername());
 		discount.setUser_d(user);
-		return discountService.create(discount);
+		Discount d =discountService.create(discount);
+		remoteCurrentUser.createHistory(" create a new record '"+ d.getName()+"' with ID", TableName.Discount , d.getId());
+		return d;
 	}
 	
 	@PutMapping("/update/{id}")
 	public Discount update(@RequestBody Discount discount,@PathVariable("id")Integer id) {
-		return discountService.update(discount);
+		Discount d =discountService.update(discount);
+		remoteCurrentUser.createHistory(" update record '"+ d.getName()+"' with ID", TableName.Discount , d.getId());
+		return d;
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
+		Discount d =discountService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ d.getName()+"' with ID", TableName.Discount , d.getId());
 		discountService.delete(id);
 	}
 	

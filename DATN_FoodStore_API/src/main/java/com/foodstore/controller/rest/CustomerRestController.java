@@ -26,6 +26,8 @@ import com.foodstore.model.extend.PhoneAddress;
 import com.foodstore.service.CustomerService;
 import com.foodstore.service.PhoneAddressService;
 import com.foodstore.util.constraints.Contact;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @CrossOrigin("*")
 @RestController
@@ -36,6 +38,8 @@ public class CustomerRestController {
 	private CustomerService customerService;
 	@Autowired
 	private PhoneAddressService phoneAddressService;
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAllByPaginate(
@@ -119,16 +123,22 @@ public class CustomerRestController {
 	@PostMapping("/create")
 	public Customer create(@RequestBody Customer customer) {
 		customer.setCreate_date(new Date());
-		return customerService.create(customer);
+		Customer c =customerService.create(customer);
+		remoteCurrentUser.createHistory(" create a new record '"+ c.getUsername()+"' with ID", TableName.Customer , c.getId());
+		return c;
 	}
 	
 	@PutMapping("/update/{id}")
 	public Customer update(@RequestBody Customer customer,@PathVariable("id")Integer id) {
-		return customerService.update(customer);
+		Customer c =customerService.update(customer);
+		remoteCurrentUser.createHistory(" update a record '"+ c.getUsername()+"' with ID", TableName.Customer , c.getId());
+		return c;
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
+		Customer c =customerService.getById(id);
+		remoteCurrentUser.createHistory(" delete a record '"+ c.getUsername()+"' with ID", TableName.Customer , c.getId());
 		customerService.delete(id);
 	}
 	

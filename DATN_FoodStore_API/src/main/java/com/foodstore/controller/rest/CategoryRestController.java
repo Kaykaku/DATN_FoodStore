@@ -27,6 +27,8 @@ import com.foodstore.model.entity.Category;
 import com.foodstore.model.entity.User;
 import com.foodstore.service.CategoryService;
 import com.foodstore.service.UserService;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @CrossOrigin("*")
 @RestController
@@ -37,6 +39,8 @@ public class CategoryRestController {
 	private CategoryService categoryService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	
 	@GetMapping("/all")
 	public ResponseEntity<?> doGetAllByPaginate(
@@ -84,16 +88,22 @@ public class CategoryRestController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = userService.getByUsername(((UserDetails)principal).getUsername());
 		category.setUser_c(user);
-		return categoryService.create(category);
+		Category c =categoryService.create(category);
+		remoteCurrentUser.createHistory(" create a new record '"+ c.getName()+"' with ID", TableName.Category , c.getId());
+		return c;
 	}
 	
 	@PutMapping("/update/{id}")
 	public Category update(@RequestBody Category category,@PathVariable("id")Integer id) {
-		return categoryService.update(category);
+		Category c =categoryService.update(category);
+		remoteCurrentUser.createHistory(" update record '"+ c.getName()+"' with ID", TableName.Category , c.getId());
+		return c;
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
+		Category c =categoryService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ c.getName()+"' with ID", TableName.Category , id);
 		categoryService.delete(id);
 	}
 	

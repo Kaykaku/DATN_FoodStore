@@ -32,7 +32,7 @@ public class History implements Serializable {
     
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    private Date create_date = new Date();
     
     @Column(name = "record_id", nullable = false)
     private Long record_id;
