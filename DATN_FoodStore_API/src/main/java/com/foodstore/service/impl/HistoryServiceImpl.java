@@ -1,6 +1,5 @@
 package com.foodstore.service.impl;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.foodstore.dao.HistoryDAO;
 import com.foodstore.model.extend.History;
 import com.foodstore.service.HistoryService;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.Convert;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {
@@ -59,28 +60,28 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public Page<History> findByKeyword( String keyword,Pageable pageable) {
+	public Page<History> getByKeyword( String keyword,Pageable pageable) {
 		return historyDAO.findByKeyword(keyword,pageable);
 	}
 
 	@Override
-	public Page<History> findByFilter(String keyword, String table_name, Optional<Long> userid,
-			Optional<Date> create_date, Optional<Long> record_id,Pageable pageable) {
+	public Page<History> getByFilter(String keyword, String table_name, Optional<Long> userid,
+			Optional<Long> create_date, Optional<Long> record_id,Pageable pageable) {
 		List<History> list = historyDAO.findAllByKeyword(keyword);
-		if(table_name==null) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).collect(Collectors.toList());
+		if(table_name != null && !table_name.equalsIgnoreCase(TableName.All)) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).collect(Collectors.toList());
 		if(userid.isPresent()) list = list.stream().filter(o-> o.getUser_h().getId() == userid.get()).collect(Collectors.toList());
-		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date() == create_date.get()).collect(Collectors.toList());
+		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >= create_date.get()).collect(Collectors.toList());
 		if(record_id.isPresent()) list = list.stream().filter(o-> o.getRecord_id() == record_id.get()).collect(Collectors.toList());
-		return new PageImpl<History>(list, pageable, list.size());
+		return (Page<History>) Convert.toPage(list, pageable);
 	}
 
 	@Override
-	public Page<History> findByUserId(Long id,Pageable pageable) {
+	public Page<History> getByUserId(Long id,Pageable pageable) {
 		return historyDAO.findByUserId(id,pageable);
 	}
 
 	@Override
-	public Page<History> findByTableName(String name,Pageable pageable) {
+	public Page<History> getByTableName(String name,Pageable pageable) {
 		return historyDAO.findByTableName(name,pageable);
 	}
 }

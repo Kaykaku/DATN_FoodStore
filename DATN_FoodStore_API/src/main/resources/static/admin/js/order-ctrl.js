@@ -1,5 +1,6 @@
 app.controller("order-ctrl", function($scope, $http) {
 	$scope.items = [];
+	$scope.customers = [];
 	$scope.form = {};
 	$scope.details = [];
 	$scope.total = 0;
@@ -11,9 +12,6 @@ app.controller("order-ctrl", function($scope, $http) {
     $scope.status=-1;
 
 	$scope.initialize = function() {
-
-		$scope.load(0); 
-		
 		$http.get("/rest/food/image/default").then(resp => {
             $scope.images = resp.data;
             console.log(resp.data);
@@ -24,6 +22,16 @@ app.controller("order-ctrl", function($scope, $http) {
 				$location.path("/unauthorized");
 			}
         })
+        
+        $http.get(url + "/rest/customer/all").then(resp => {
+			console.log(resp.data);
+            $scope.customers = resp.data;
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })   
 	}
 	
 	$scope.load = function(pageNumber) {
@@ -88,7 +96,7 @@ app.controller("order-ctrl", function($scope, $http) {
 		})
 		item._watched = item.status == 0;
 		item.changedate = new Date();
-		if (item.status == 0) $http.put(url + '/rest/order/' + item.id, item)
+		if (item.status == 0) $http.put(url + '/rest/order/update/' + item.id, item)
 	}
 	
 	$scope.getTotal = async function(id) {
@@ -116,7 +124,7 @@ app.controller("order-ctrl", function($scope, $http) {
 	//Update sản phẩm
 	$scope.update = function() {
 		var item = angular.copy($scope.form);
-		item._watched = item.status == 0;
+		item._watched = true;
 		item.changedate = new Date();
 		$http.put(url + '/rest/order/update/' + item.id, item).then(resp => {
 			$scope.load(0);
@@ -130,7 +138,7 @@ app.controller("order-ctrl", function($scope, $http) {
 	
 	$scope.updateStatus = function(itemz) {
 		var item = itemz;
-		item._watched = item.status == 0;
+		item._watched = true;
 		item.changedate = new Date();
 		item.status +=1
 		$http.put(url + '/rest/order/update/' + item.id, item).then(resp => {

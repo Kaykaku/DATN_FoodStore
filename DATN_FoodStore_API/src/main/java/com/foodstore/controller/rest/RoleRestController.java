@@ -29,6 +29,8 @@ import com.foodstore.model.transaction.RolePermission;
 import com.foodstore.service.RolePermissionService;
 import com.foodstore.service.RoleService;
 import com.foodstore.service.UserService;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @CrossOrigin("*")
 @RestController
@@ -41,6 +43,8 @@ public class RoleRestController {
 	private RolePermissionService rolePermissionService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAll() {
@@ -97,11 +101,15 @@ public class RoleRestController {
 	
 	@PostMapping("/permission/create")
 	public RolePermission addPermission(@RequestBody RolePermission rolePermission) {
-		return rolePermissionService.create(rolePermission);
+		RolePermission r = rolePermissionService.create(rolePermission);
+		remoteCurrentUser.createHistory(" create a new record '"+ r.getPermission_r().getName()+"' of '"+r.getRole_p().getName()+"'  with ID", TableName.RolePermission , r.getId());
+		return r;
 	}
 	
 	@DeleteMapping("/permission/delete/{id}")
 	public void deletePermission(@PathVariable("id")Long id) {
+		RolePermission r = rolePermissionService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ r.getPermission_r().getName()+"' of '"+r.getRole_p().getName()+"'  with ID", TableName.RolePermission , r.getId());
 		rolePermissionService.delete(id);
 	}
 	
@@ -111,16 +119,22 @@ public class RoleRestController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = userService.getByUsername(((UserDetails)principal).getUsername());
 		role.setCreate_by(user.getId());
-		return roleService.create(role);
+		Role r = roleService.create(role);
+		remoteCurrentUser.createHistory(" create a new record '"+ r.getDisplay_name()+"' with ID", TableName.Role , r.getId());
+		return r;
 	}
 	
 	@PutMapping("/update/{id}")
 	public Role update(@RequestBody Role role,@PathVariable("id")Integer id) {
-		return roleService.update(role);
+		Role r = roleService.update(role);
+		remoteCurrentUser.createHistory(" update record '"+ r.getDisplay_name()+"' with ID", TableName.Role , r.getId());
+		return r;
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
+		Role r = roleService.getById(id);
+		remoteCurrentUser.createHistory(" delete record '"+ r.getDisplay_name()+"' with ID", TableName.Role , r.getId());
 		roleService.delete(id);
 	}
 	

@@ -188,6 +188,46 @@ app.controller("customer-ctrl", function ($scope, $http, $location) {
         })
     }
 
+	$scope.addcontact = function (phone,isPhone) {
+		let customer ={id:$scope.form.id};
+		let contact = {
+			customer_pa : customer,
+			_address : isPhone,
+			phone_or_address: phone
+		}
+		$http.post(`/rest/customer/contact/create`, contact).then(resp => {
+			$scope.edit($scope.form);
+			$scope.load(0);
+            $scope.reset();
+			$scope.showToast('warning', 'Add contact <b>' + phone + '</b> to customer <b>' + $scope.form.username + "</b>!!");
+		}).catch(err => {
+			console.log("Error ", err);
+			$scope.showToast('danger', 'Add contact failed! ');
+		})
+	}
+	
+	$scope.updatecontact = function (item) {
+		$http.put(url + `/rest/customer/contact/default`, item).then(resp => {
+			$scope.edit($scope.form);
+			$scope.load(0);
+            $scope.reset();
+			$scope.showToast('info', 'Set default contact <b>' + item.phone_or_address + '</b> to customer <b>' + $scope.form.username + "</b>!!");
+		}).catch(err => {
+			console.log("Error ", err);
+			$scope.showToast('danger', 'Set default contact failed! ');
+		})
+	}
+	
+	$scope.deletecontact = function (item) {
+		$http.delete(url + `/rest/customer/contact/delete/${item.id}`).then(resp => {
+			$scope.edit($scope.form);
+			$scope.showToast('info', 'Delete  contact <b>' + phone + '</b> to customer <b>' + $scope.form.username + "</b>!!");
+		}).catch(err => {
+			console.log("Error ", err);
+			$scope.showToast('danger', 'Delete contact failed! ');
+		})
+	}
+
     //Upload Hình
     $scope.imageChanged = function (files) {
         var data = new FormData();

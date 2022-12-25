@@ -64,6 +64,10 @@ app.config(function($routeProvider) {
             templateUrl: "../html/authority/unauthorized.html",
             controller: "authority-ctrl"
         })
+        .when("/history", {
+            templateUrl: "../html/history/history.html",
+            controller: "history-ctrl"
+        })
         .otherwise({
             redirectTo: "/dashboard",
             controller: "dashboard-ctrl"

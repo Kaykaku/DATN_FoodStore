@@ -184,6 +184,11 @@
                             <div data-i18n="Form Elements">Role & Permission</div>
                         </a>
                     </li>
+                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'History','menu-item':selectedTab !='History'}" ng-click="selectedTab = 'History'">
+                        <a href="#!history" class="menu-link"> <i class="menu-icon tf-icons bx bx-stopwatch"></i>
+                            <div data-i18n="Form Elements">History</div>
+                        </a>
+                    </li>
                     <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Customer','menu-item':selectedTab !='Customer'}" ng-click="selectedTab = 'Customer'">
                         <a href="#!customer" class="menu-link "> <i class='menu-icon tf-icons bx bx-group' ></i>
                             <div data-i18n="Form Elements">Customer</div>
@@ -324,6 +329,7 @@
     <script src="../js/administrator-ctrl.js"></script>
     <script src="../js/customer-ctrl.js"></script>
     <script src="../js/discount-ctrl.js"></script>
+    <script src="../js/history-ctrl.js"></script>
 </body>
 
 </html>

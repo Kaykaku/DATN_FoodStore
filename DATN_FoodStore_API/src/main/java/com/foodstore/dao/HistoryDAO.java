@@ -24,6 +24,6 @@ public interface HistoryDAO extends JpaRepository<History, Long>{
 	Page<History> findByKeyword(String keyword,Pageable pageable);
 	
 	@Query("Select o From History o"
-			+ " Where o.memo like %?1%")
+			+ " Where o.memo like %?1% or o.id like %?1% or o.record_id like %?1% or o.table_name like %?1%")
 	List<History> findAllByKeyword(String keyword);
 }

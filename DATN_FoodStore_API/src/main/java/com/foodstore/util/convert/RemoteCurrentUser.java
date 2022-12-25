@@ -36,7 +36,7 @@ public class RemoteCurrentUser {
 	
 	public  void createHistory(String mess,String tableName , long record) {
 		History history = new History();
-		history.setUser_h(getCurrentUser());
+		history.setUser_h(getCurrentUser() != null ? getCurrentUser() : userService.getById(1L));
 		history.setRecord_id(record);
 		history.setTable_name(tableName);
 		history.setMemo(mess);

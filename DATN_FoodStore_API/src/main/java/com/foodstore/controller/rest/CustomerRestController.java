@@ -55,6 +55,18 @@ public class CustomerRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/all")
+	public ResponseEntity<?> doGetAll() {
+		try {
+			List<Customer> list = customerService.getAll();
+			return ResponseEntity.ok(list);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
 	@GetMapping("/filter")
 	public ResponseEntity<?> doGetByFilter(
 			@RequestParam(value = "keyword") Optional<String> keyword,
@@ -118,6 +130,33 @@ public class CustomerRestController {
 		}
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@PostMapping("/contact/create")
+	public PhoneAddress createContact(@RequestBody PhoneAddress phoneAddress) {
+		PhoneAddress p = phoneAddressService.create(phoneAddress);
+		remoteCurrentUser.createHistory(" create a new record '"+ p.getPhone_or_address()+"' of customer '"+p.getCustomer_pa().getUsername()+"' with ID", TableName.Contact , p.getId());
+		return p;
+	}
+	
+	@PutMapping("/contact/default")
+	public PhoneAddress updateContact(@RequestBody PhoneAddress phoneAddress) {
+		List<PhoneAddress> list = phoneAddressService.getByFilter("",Optional.ofNullable(phoneAddress.getCustomer_pa().getId()), Optional.ofNullable(phoneAddress.is_address()),Optional.ofNullable(null));
+		phoneAddress.set_default(true);
+		PhoneAddress p = phoneAddressService.update(phoneAddress);
+		for (PhoneAddress obj : list) {
+			obj.set_default(false);
+			phoneAddressService.create(phoneAddress);
+		}
+		remoteCurrentUser.createHistory(" set default record '"+ p.getPhone_or_address()+"' of customer '"+p.getCustomer_pa().getUsername()+"' with ID", TableName.Contact , p.getId());
+		return p;
+	}
+	
+	@DeleteMapping("/contact/delete/{id}")
+	public void deleteContact(@PathVariable("id")Long id) {
+		PhoneAddress p = phoneAddressService.getById(id);
+		remoteCurrentUser.createHistory(" delete a new record '"+ p.getPhone_or_address()+"' of customer '"+p.getCustomer_pa().getUsername()+"' with ID", TableName.Contact , p.getId());
+		phoneAddressService.delete(id);
 	}
 	
 	@PostMapping("/create")

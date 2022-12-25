@@ -60,6 +60,18 @@ public class UserRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/all")
+	public ResponseEntity<?> doGetAll() {
+		try {
+			List<User> list = userService.getAll();
+			return ResponseEntity.ok(list);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
 	@GetMapping("/filter")
 	public ResponseEntity<?> doGetByFilter(
 			@RequestParam(value = "keyword") Optional<String> keyword,

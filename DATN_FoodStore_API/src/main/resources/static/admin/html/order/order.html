@@ -167,12 +167,13 @@
 														for="basic-icon-default-fullname">Username</label>
 													<div class="col-sm-9">
 														<div class="input-group input-group-merge">
-															<span id="basic-icon-default-fullname2"
+															<span id="basic-icon-default-fullname2" style="background-color: #ECEEF1;"
 																class="input-group-text"><i class='bx bx-tag'></i></span>
-															<input type="text" class="form-control"
-																ng-model="form.customer_o.username" placeholder="Name"
-																aria-label="John Doe"
-																aria-describedby="basic-icon-default-fullname2" />
+															 <select disabled="disabled"
+																class="form-select" ng-model="form.customer_o.id">
+																<option ng-repeat="item in customers" ng-value="item.id">#{{item.id}}
+																	- {{item.fullname}}</option>
+															</select>
 														</div>
 														<!--<div class="form-text badge bg-label-danger">abc</div>-->
 													</div>
@@ -182,10 +183,11 @@
 														for="basic-icon-default-fullname">Address</label>
 													<div class="col-sm-9">
 														<div class="input-group input-group-merge">
-															<span id="price" class="input-group-text"><i
+															<span id="price" class="input-group-text"
+																style="background-color: #ECEEF1;"><i
 																class='bx bx-location-plus'></i></span> <input type="text"
 																class="form-control" ng-model="form.shipped_address"
-																placeholder="HCM city" aria-label="0.0"
+																disabled="true" placeholder="HCM city" aria-label="0.0"
 																aria-describedby="price" />
 														</div>
 													</div>
@@ -195,11 +197,12 @@
 														for="basic-icon-default-fullname">Phone</label>
 													<div class="col-sm-9">
 														<div class="input-group input-group-merge">
-															<span id="phone" class="input-group-text"><i
-																class='bx bx-location-plus'></i></span> <input type="text"
+															<span id="phone" class="input-group-text"
+																style="background-color: #ECEEF1;"><i
+																class='bx bx-phone'></i></span> <input type="text"
 																class="form-control" ng-model="form.shipped_phone"
-																placeholder="+## #### ### ###" aria-label="0.0"
-																aria-describedby="price" />
+																disabled="true" placeholder="+## #### ### ###"
+																aria-label="0.0" aria-describedby="price" />
 														</div>
 													</div>
 												</div>
@@ -211,11 +214,12 @@
 																class="input-group-text"><i
 																class="bx bx-calendar"></i></span> <input type="datetime"
 																id="creation" class="form-control"
-																ng-model="form.order_date|date:'hh:mm:ss dd-MM-yyyy'" disabled="true"
-																placeholder="01/01/1990" aria-label="ACME Inc."
+																ng-model="form.order_date|date:'hh:mm:ss dd-MM-yyyy'"
+																disabled="true" placeholder="01/01/1990"
+																aria-label="ACME Inc."
 																aria-describedby="basic-icon-default-company2" />
 														</div>
-														
+
 													</div>
 												</div>
 												<div class="row mb-3">
@@ -313,10 +317,10 @@
 																</ul>
 															</td>
 															<td><strong>{{item.food_od.name }}</strong></td>
-															<td>{{item.price }} VND</td>
+															<td ng-hide="item.amount">{{item.price }}</td>
+															<td ng-if="item.amount"><p style="text-decoration: line-through !important;">{{item.price }}</p> {{item._fixed ? item.price - item.amount : item.price - (item.price * item.amount /100)}} </td>
 															<td>{{item.quantity }}</td>
-															<td
-																ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>{{item.quantity*item.price}}
+															<td ng-init="$parent.total = $parent.total + (item.quantity *item.price)"><strong>{{item.quantity*( item._fixed ? item.price - item.amount : item.price - (item.price * item.amount /100) )}}
 																	VND</strong></td>
 														</tr>
 													</tbody>
@@ -386,14 +390,15 @@
 											<th>Actions</th>
 										</tr>
 									</thead>
-									<tbody class="table-border-bottom-0">
+									<tbody class="table-border-bottom-0"
+										ng-init="status=-1;load(0)">
 										<tr class="table-primary" ng-repeat="item in items.content"
 											ng-click="edit(item)">
 											<td><span class="badge bg-label-success"
 												ng-if="!item._watched && item.status==0">New</span><strong>
 													{{item.id }}</strong></td>
 											<td>{{item.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</td>
-											<td><strong>{{item.customer_o.username}}</strong></td>
+											<td><strong>#{{item.customer_o.id}} - {{item.customer_o.fullname}}</strong></td>
 											<td>{{item.shipped_address }}</td>
 											<td><span class="badge bg-primary"
 												ng-if="item.status==0">Order confirmation</span> <span

@@ -25,6 +25,8 @@ import com.foodstore.model.transaction.Order;
 import com.foodstore.model.transaction.OrderDetail;
 import com.foodstore.service.OrderDetailService;
 import com.foodstore.service.OrderService;
+import com.foodstore.util.constraints.TableName;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @CrossOrigin("*")
 @RestController
@@ -35,6 +37,8 @@ public class OrderRestController {
 	private OrderService orderService;
 	@Autowired
 	private OrderDetailService orderDetailService;
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	
 	@GetMapping("")
 	public ResponseEntity<?> doGetAll() {
@@ -62,7 +66,7 @@ public class OrderRestController {
 			@RequestParam(value = "size") Optional<Integer> size,
 			@RequestParam(value = "sort") Optional<String> sort) {
 		try {
-			Page<Order> pageCategories = orderService.getByFilter(
+			Page<Order> pageO = orderService.getByFilter(
 					keyword.orElse(""),
 					cus_id,
 					pay_id,
@@ -73,7 +77,7 @@ public class OrderRestController {
 					is_watched,
 					is_display,
 					PageRequest.of(page.orElse(0), size.orElse(10),Sort.by(sort.orElse("id")).descending()));
-			return ResponseEntity.ok(pageCategories);
+			return ResponseEntity.ok(pageO);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -93,16 +97,22 @@ public class OrderRestController {
 	
 	@PostMapping("/create")
 	public Order create(@RequestBody JsonNode orderData) {
-		return orderService.create(orderData);
+		Order o = orderService.create(orderData);
+		remoteCurrentUser.createHistory(" (AUTO CREATE BY CUSTOMER) create new record of customer '"+ o.getCustomer_o().getUsername()+"' with ID", TableName.Order , o.getId());
+		return o;
 	}
 	
 	@PutMapping("/update/{id}")
 	public Order update(@RequestBody Order order,@PathVariable("id")Integer id) {
-		return orderService.update(order);
+		Order o = orderService.update(order);
+		remoteCurrentUser.createHistory(" update record of customer '"+ o.getCustomer_o().getUsername()+"' with ID", TableName.Order , o.getId());
+		return o;
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable("id")Long id) {
+		Order o = orderService.getById(id);
+		remoteCurrentUser.createHistory(" delete record of customer '"+ o.getCustomer_o().getUsername()+"' with ID", TableName.Order , o.getId());
 		orderService.delete(id);
 	}
 	
