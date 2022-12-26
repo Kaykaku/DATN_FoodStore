@@ -72,6 +72,11 @@ public class UserRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/self")
+	public User doGetSelf() {
+		return remoteCurrentUser.getCurrentUser();
+	}
+	
 	@GetMapping("/filter")
 	public ResponseEntity<?> doGetByFilter(
 			@RequestParam(value = "keyword") Optional<String> keyword,

@@ -11,10 +11,13 @@
 					<div class="row">
 						<div class="col-3 sidebar-box-2 mb-1">
 							<label for="guests">[[#{product.sortby}]]</label>
-							<form method="get" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+							<form method="get" class="colorlib-form-2" th:action="@{|/shop/${cid==''?'all':cid}|}">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
+											<input type="hidden" name="price_min" th:value="${price_min}">
+											<input type="hidden" name="price_max" th:value="${price_max}">
+											<input type="hidden" name="size" th:value="${size}">
 											<div class="form-field">
 												<i class="icon icon-arrow-down3"></i> <select name="sortBy" onchange="this.form.submit()"
 													id="people" class="form-control">
@@ -28,12 +31,15 @@
 						</div>
 						<div class="col-3 sidebar-box-2">
 						<label for="guests">Price from:</label>
-                            <form method="post" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+                            <form method="get" class="colorlib-form-2" th:action="@{|/shop/${cid==''?'all':cid}|}">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-field">
                                                 <i class="icon icon-arrow-down3"></i>
+											<input type="hidden" name="price_max" th:value="${price_max}">
+											<input type="hidden" name="size" th:value="${size}">
+											<input type="hidden" name="sortBy" th:value="${sortBy}">
                                                 <select id="people" class="form-control" name="price_min" onchange="this.form.submit()">
 							                        <option th:selected="${price_min==0}" value="0">All</option>
 							                        <option th:selected="${price_min==20000}" value="20000">20000</option>
@@ -49,12 +55,15 @@
                         </div>	
                         <div class="col-3 sidebar-box-2">
                         <label for="guests">Price To:</label>
-                            <form method="post" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+                            <form method="get" class="colorlib-form-2" th:action="@{|/shop/${cid==''?'all':cid}|}">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="form-field">
                                                 <i class="icon icon-arrow-down3"></i>
+                                                <input type="hidden" name="price_min" th:value="${price_min}">
+											<input type="hidden" name="size" th:value="${size}">
+											<input type="hidden" name="sortBy" th:value="${sortBy}">
                                                 <select name="price_max" onchange="this.form.submit()" id="people" class="form-control">
 							                        <option th:selected="${price_max==0}" value="0">All</option>
 							                        <option th:selected="${price_max==50000}" value="50000">50000</option>
@@ -70,12 +79,15 @@
                         </div>		
                         <div class="col-3 sidebar-box-2">
                         <label for="guests">View size:</label>
-                            <form method="post" class="colorlib-form-2" th:action="@{|/shop/detail/${cid==''?'all':cid}|}">
+                            <form method="get" class="colorlib-form-2" th:action="@{|/shop/${cid==''?'all':cid}|}">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             
                                             <div class="form-field">
+                                            <input type="hidden" name="price_min" th:value="${price_min}">
+											<input type="hidden" name="price_max" th:value="${price_max}">
+											<input type="hidden" name="sortBy" th:value="${sortBy}">
                                                 <i class="icon icon-arrow-down3"></i>
                                                 <select name="size" onchange="this.form.submit()" id="people" class="form-control">
 							                        <option th:selected="${size==6}" value="6">6</option>
@@ -101,7 +113,8 @@
 		                        <div class="text py-3 pb-4 px-3">
 		                            <div class="d-flex">
 		                                <div class="cat w-80">
-		                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+		                                    <span >[[${p.category_foods[0].category_f.display_name}]]</span>
+                                    		<span th:if="${p.category_foods.size>1}">+[[${p.category_foods.size-1}]]</span>
 		                                </div>
 		                                <div class="rating">
 		                                    <p class="text-right mb-0"> 
@@ -114,13 +127,13 @@
 		                                    </p>
 		                                </div>
 		                            </div>
-		                            <h3><a href="#">[[${p.name}]]</a></h3>
+		                            <h3><a th:href="@{|/shop/detail/${p.id}|}">[[${p.name}]]</a></h3>
 		                            <div class="pricing">
 		                                <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
 		                                <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
 		                            </div>
 		                            <p class="bottom-area d-flex px-3">
-		                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+		                                <a th:if="${p.quantity_limit>0}"  href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
 		                                <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
 		                            </p>
 		                        </div>
@@ -132,7 +145,7 @@
 							<div class="block-27">
 								<ul>
 									<li><a href="#">&lt;</a></li>
-									<li th:each="p : ${#numbers.sequence(1, items.totalPages, 1)}" th:class="${items.number+1==p?'active':''}" ><a th:href="@{|/shop/${cid==''?'all':cid}?page=${p}&sortBy=${sortBy}|}">[[${p}]]</a></li>																
+									<li th:each="p : ${#numbers.sequence(1, items.totalPages, 1)}" th:class="${items.number+1==p?'active':''}" ><a th:href="@{|/shop/${cid==''?'all':cid}?page=${p}&sortBy=${sortBy}&price_min=${price_min}&price_max=${price_max}|}">[[${p}]]</a></li>																
 									<li><a href="#">&gt;</a></li>
 								</ul>
 							</div>

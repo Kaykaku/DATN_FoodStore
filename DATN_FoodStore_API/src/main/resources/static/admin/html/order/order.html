@@ -302,7 +302,7 @@
 															<th>Total</th>
 														</tr>
 													</thead>
-													<tbody class="table-border-bottom-0" ng-init='total=0'>
+													<tbody class="table-border-bottom-0" >
 														<tr class="table-success" ng-repeat="item in details">
 															<td>{{item.id }}</td>
 															<td>
@@ -320,7 +320,7 @@
 															<td ng-hide="item.amount">{{item.price }}</td>
 															<td ng-if="item.amount"><p style="text-decoration: line-through !important;">{{item.price }}</p> {{item._fixed ? item.price - item.amount : item.price - (item.price * item.amount /100)}} </td>
 															<td>{{item.quantity }}</td>
-															<td ng-init="$parent.total = $parent.total + (item.quantity *item.price)"><strong>{{item.quantity*( item._fixed ? item.price - item.amount : item.price - (item.price * item.amount /100) )}}
+															<td ><strong>{{item.quantity*( item._fixed ? item.price - item.amount : item.price - (item.price * item.amount /100) )}}
 																	VND</strong></td>
 														</tr>
 													</tbody>

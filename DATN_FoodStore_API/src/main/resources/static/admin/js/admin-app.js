@@ -69,7 +69,6 @@ app.config(function($routeProvider) {
             controller: "history-ctrl"
         })
         .otherwise({
-            redirectTo: "/dashboard",
-            controller: "dashboard-ctrl"
+            templateUrl: "../html/dashboard/home.html",
         })
 })

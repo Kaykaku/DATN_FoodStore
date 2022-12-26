@@ -140,33 +140,33 @@
                         </a>
                     </li>
                     <!-- Dashboard -->
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Dashboard','menu-item':selectedTab != 'Dashboard'}" ng-click="selectedTab = 'Dashboard'">
+                    <li ng-if="checkPermisson('SUM01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Dashboard','menu-item':selectedTab != 'Dashboard'}" ng-click="selectedTab = 'Dashboard'">
                         <a href="#!dashboard" class="menu-link"> <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Order Processing</span></li>
                     <!-- Cards -->
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order0','menu-item':selectedTab !='Order0'}" ng-click="selectedTab = 'Order0'"><a href="#!order_confirm" class="menu-link "><i
+                    <li ng-if="checkPermisson('ORD01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order0','menu-item':selectedTab !='Order0'}" ng-click="selectedTab = 'Order0'"><a href="#!order_confirm" class="menu-link "><i
 				class="menu-icon tf-icons bx bx-file"></i>
 							<div data-i18n="Form Elements" >Order Confirm <span class="badge badge-center bg-success "><i class='bx bxs-up-arrow-alt mb-0'></i>{{news}}</span> <span class="badge badge-center bg-primary ">{{orz[0]}}</span></div>
 					</a></li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order1','menu-item':selectedTab !='Order1'}" ng-click="selectedTab = 'Order1'">
+                    <li ng-if="checkPermisson('ORD01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order1','menu-item':selectedTab !='Order1'}" ng-click="selectedTab = 'Order1'">
                         <a href="#!order_packing" class="menu-link "> <i class="menu-icon tf-icons bx bx-gift"></i>
                             <div data-i18n="Form Elements">Order Packing <span class="badge badge-center bg-primary">{{orz[1]}}</span></div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order2','menu-item':selectedTab !='Order2'}" ng-click="selectedTab = 'Order2'">
+                    <li ng-if="checkPermisson('ORD01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order2','menu-item':selectedTab !='Order2'}" ng-click="selectedTab = 'Order2'">
                         <a href="#!order_shipping" class="menu-link "> <i class="menu-icon tf-icons bx bx-car"></i>
                             <div data-i18n="Form Elements">Order Shipping <span class="badge badge-center bg-primary">{{orz[2]}}</span></div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order3','menu-item':selectedTab !='Order3'}" ng-click="selectedTab = 'Order3'">
+                    <li ng-if="checkPermisson('ORD01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order3','menu-item':selectedTab !='Order3'}" ng-click="selectedTab = 'Order3'">
                         <a href="#!order_success" class="menu-link "> <i class="menu-icon tf-icons bx bx-check-circle"></i>
                             <div data-i18n="Form Elements">Order Success <span class="badge badge-center bg-primary">{{orz[3]}}</span></div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order4','menu-item':selectedTab !='Order4'}" ng-click="selectedTab = 'Order4'">
+                    <li ng-if="checkPermisson('ORD01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order4','menu-item':selectedTab !='Order4'}" ng-click="selectedTab = 'Order4'">
                         <a href="#!order_cancel" class="menu-link "> <i class="menu-icon tf-icons bx bx-task-x"></i>
                             <div data-i18n="Form Elements">Order Cancel <span class="badge badge-center bg-primary">{{orz[4]}}</span></div>
                         </a>
@@ -174,42 +174,42 @@
                     <!-- Components -->
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Management</span></li>
                     <!-- Cards -->
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'administrator','menu-item':selectedTab !='administrator'}" ng-click="selectedTab = 'administrator'">
+                    <li ng-if="checkPermisson('USE01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'administrator','menu-item':selectedTab !='administrator'}" ng-click="selectedTab = 'administrator'">
                         <a href="#!administrator" class="menu-link "> <i class="menu-icon tf-icons bx bx-ghost"></i>
                             <div data-i18n="Form Elements">Administrators</div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Authority','menu-item':selectedTab !='Authority'}" ng-click="selectedTab = 'Authority'">
+                    <li ng-if="checkPermisson('ROL01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Authority','menu-item':selectedTab !='Authority'}" ng-click="selectedTab = 'Authority'">
                         <a href="#!role" class="menu-link"> <i class="menu-icon tf-icons bx bx-shield"></i>
                             <div data-i18n="Form Elements">Role & Permission</div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'History','menu-item':selectedTab !='History'}" ng-click="selectedTab = 'History'">
+                    <li ng-if="checkPermisson('HIS01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'History','menu-item':selectedTab !='History'}" ng-click="selectedTab = 'History'">
                         <a href="#!history" class="menu-link"> <i class="menu-icon tf-icons bx bx-stopwatch"></i>
                             <div data-i18n="Form Elements">History</div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Customer','menu-item':selectedTab !='Customer'}" ng-click="selectedTab = 'Customer'">
+                    <li ng-if="checkPermisson('CUS01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Customer','menu-item':selectedTab !='Customer'}" ng-click="selectedTab = 'Customer'">
                         <a href="#!customer" class="menu-link "> <i class='menu-icon tf-icons bx bx-group' ></i>
                             <div data-i18n="Form Elements">Customer</div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Category','menu-item':selectedTab !='Category'}" ng-click="selectedTab = 'Category'">
+                    <li ng-if="checkPermisson('CAT01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Category','menu-item':selectedTab !='Category'}" ng-click="selectedTab = 'Category'">
                         <a href="#!category" class="menu-link"> <i class="menu-icon tf-icons bx bx-category"></i>
                             <div data-i18n="Form Elements">Category</div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Product','menu-item':selectedTab !='Product'}" ng-click="selectedTab = 'Product'">
+                    <li ng-if="checkPermisson('FOO01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Product','menu-item':selectedTab !='Product'}" ng-click="selectedTab = 'Product'">
                         <a href="#!product" class="menu-link"> <i class="menu-icon tf-icons bx bx-spa"></i>
                             <div data-i18n="Form Elements">Food</div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Discount','menu-item':selectedTab !='Discount'}" ng-click="selectedTab = 'Discount'">
+                    <li ng-if="checkPermisson('DIS01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Discount','menu-item':selectedTab !='Discount'}" ng-click="selectedTab = 'Discount'">
                         <a href="#!discount" class="menu-link"> <i class="menu-icon tf-icons bx bxs-discount"></i>
                             <div data-i18n="Form Elements">Discount</div>
                         </a>
                     </li>
-                    <li class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order','menu-item':selectedTab !='Order'}" ng-click="selectedTab = 'Order'">
+                    <li ng-if="checkPermisson('ORD01')" class="menu-item" ng-class="{'menu-item active':selectedTab === 'Order','menu-item':selectedTab !='Order'}" ng-click="selectedTab = 'Order'">
                         <a href="#!order" class="menu-link"> <i class="menu-icon tf-icons bx bx-package"></i>
                             <div data-i18n="Form Elements">Order</div>
                         </a>
@@ -237,7 +237,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img ng-src="/avatar/{{user.photo}}" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img ng-src="/avatars/{{user.avatar}}"  class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -246,11 +246,11 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img ng-src="/avatar/{{user.photo}}" alt class="w-px-40 h-auto rounded-circle" />
+                                                        <img ng-src="/avatars/{{user.avatar}}" alt class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">{{user.username}}</span> <small class="text-muted">Admin</small>
+                                                    <span class="fw-semibold d-block">{{user.fullname}} </span> <small class="text-muted">{{user.username}}</small>
                                                 </div>
                                             </div>
                                         </a>

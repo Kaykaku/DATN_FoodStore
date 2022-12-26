@@ -45,7 +45,8 @@ public class HomeController {
 		List<Discount> listDiscounts = discountService.getAll();
 		for (Discount discount : listDiscounts) {
 			if(discount.getStart_date().getTime() <= new Date().getTime()
-					&& discount.getEnd_date().getTime() >= new Date().getTime()) {
+					&& discount.getEnd_date().getTime() >= new Date().getTime()
+					&& discount.is_display() == true) {
 				discounts.put(discount.getFood_d().getId(), discount);
 			}
 		}

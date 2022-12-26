@@ -84,7 +84,8 @@
 						</p>
 					</div>
 					<p class="price mb-0">
-						<span>[[${item.price}]] VND</span>
+						<span th:if="!${discounts.get(item.id)}">[[${item.price}]] VND</span>
+						<span th:if="${discounts.get(item.id)}"><span style="color: gray;"><del>[[${item.price}]]</del></span>   <span class="price-sale">[[${item.price -(discounts.get(item.id).is_fixed ? discounts.get(item.id).amount : item.price * discounts.get(item.id).amount / 100)}]] VND</span></span>
 					</p>
 					<div class="col-md-12 pl-0 mb-2">
 						<span class="badge badge-info" style="font-size: 16px;">[[${item.quantity_limit >0 ?'Available':'Out of sock'}]]</span>
@@ -93,7 +94,10 @@
 						[[#{product.date}]] : <span class="badge badge-secondary" style="font-size: 16px;">[[${item.create_date}]]</span>
 					</div>
 					<div class="col-md-12 pl-0 mb-1" style="font-weight: bold;">
-						Danh mục : <span class="badge badge-secondary"  th:each="c,state:${item.category_foods}" th:style="@{|font-size: 16px;background-color:${c.category_f.color} !important;|}" th:href="@{|/shop/${c.category_f.name}|}">[[${c.category_f.display_name}]]</span>
+						Danh mục : <span class="badge badge-secondary mr-1"  th:each="c,state:${item.category_foods}" th:style="@{|font-size: 16px;background-color:${c.category_f.color} !important;|}" th:href="@{|/shop/${c.category_f.name}|}">[[${c.category_f.display_name}]]</span>
+					</div>
+					<div class="col-md-12 pl-0 mb-1" style="font-weight: bold;">
+						Số lượng còn lại : <span class="badge badge-secondary mr-1"  style="font-size: 16px;">[[${item.quantity_limit}]]</span>
 					</div>
 					<p>[[${item.description}]]</p>
 					<div class="row mt-4">
@@ -120,7 +124,8 @@
 
 					</div>
 					<p>
-						<a href="" th:attr="ng-click=@{|cart.add(${item.id},count)|}" class="btn btn-black py-3 px-5 mr-2">[[#{product.addcart}]]</a>
+						<a th:if="${item.quantity_limit>0}"  th:attr="ng-click=@{|cart.add(${item.id},count)|}" class="btn btn-black py-3 px-5 mr-2">[[#{product.addcart}]]</a>
+						<a th:if="${item.quantity_limit<=0}" style="background-color: white !important;" class="btn btn-black py-3 px-5 mr-2"><i class='bx bxs-lock'></i> [[#{product.addcart}]]</a>
 					</p>
 				</div>
 			</div>
@@ -239,7 +244,8 @@
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
                                 <div class="cat w-80">
-                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                    <span >[[${p.category_foods[0].category_f.display_name}]]</span>
+                                    <span th:if="${p.category_foods.size>1}">+[[${p.category_foods.size-1}]]</span>
                                 </div>
                                 <div class="rating">
                                     <p class="text-right mb-0">
@@ -251,7 +257,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <h3><a th:href="@{|/shop/detail/${p.id}|}">[[${p.name}]]</a></h3>
                             <div class="pricing">
                                 <p class="price"><span>[[${p.price}]] VND</span></p>
                             </div>

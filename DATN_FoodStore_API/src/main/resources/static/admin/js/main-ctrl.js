@@ -3,11 +3,21 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 	$scope.user = {};
 	$scope.news = {};
 	$scope.orz = [];
+	$scope.permissionOfMine = [];
+	
 	$scope.initialize = function() {
-		$http.get("/rest/user").then(resp => {
+		$http.get("/rest/user/self").then(resp => {
 			$scope.user = resp.data;
 			console.log(resp.data)
 		})
+		$http.get("/rest/permission/selfpermission/").then(resp => {
+            $scope.permissionOfMine = resp.data;
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })
 	}
 
 	const toastPlacementExample = document.querySelector('.toast-placement-ex');
@@ -53,10 +63,27 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 			}
 		})
 	}
+	
+	$scope.checkPermisson = function(permission) {
+		return $scope.permissionOfMine.find(e => e ==permission) != null;
+	}
+	
+	$scope.loadSelfPermisson = function() {
+		$http.get("/rest/permission/selfpermission/").then(resp => {
+            $scope.permissionOfMine = resp.data;
+        }).catch(err => {
+            if(err.status == 403){
+				$scope.showToast('danger',"You are not authorized to perform this action!!!");
+				$location.path("/unauthorized");
+			}
+        })
+	}
 
+	$scope.initialize()
 	$scope.showNew()
 	setInterval(() => {
-		$scope.showNew()
+		$scope.showNew();
+		$scope.loadSelfPermisson();
 	}, 3000)
-	$scope.initialize()
+	
 })

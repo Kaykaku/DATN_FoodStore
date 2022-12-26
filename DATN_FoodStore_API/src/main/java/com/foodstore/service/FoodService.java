@@ -20,7 +20,7 @@ public interface FoodService extends IService<Food> {
 	
 	List<Food> getByKeyword(String keyword);
 	
-	List<Food> getByKeywordEng(String keyword);
+	List<Food> getByKeywordEng(String keyword, Pageable pageable);
 
 	void deleteLogical(Long id) throws Exception;
 	
@@ -38,7 +38,7 @@ public interface FoodService extends IService<Food> {
 	
 	Page<Food> getByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Long> createDate , Optional<Integer> status , Optional<Boolean> isDisplay , Optional<Long> category_id ,Pageable pageable);
 
-	List<Food> getByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Long> createDate , Optional<Integer> status , Optional<Boolean> isDisplay , Optional<Long> category_id  );
+	List<Food> getPageByFilter( String keyword , Optional<Double> priceMin , Optional<Double> priceMax , Optional<Integer> quantity , Optional<Integer> view , Optional<Long> createDate , Optional<Integer> status , Optional<Boolean> isDisplay , Optional<Long> category_id ,Pageable pageable );
 	
 	Page<Food> findByCategoryName(String name, Pageable pageable);
 	

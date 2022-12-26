@@ -104,7 +104,7 @@ public class FoodRestController {
 					,status
 					,is_display
 					,category_id
-					,PageRequest.of(page.orElse(0), size.orElse(10),Sort.by(sort.orElse("id")).descending()));
+					,PageRequest.of(page.orElse(0), size.orElse(10),Sort.by(sort.orElse("id"))));
 			return ResponseEntity.ok(pageFood);
 		} catch (Exception ex) {
 			ex.printStackTrace();

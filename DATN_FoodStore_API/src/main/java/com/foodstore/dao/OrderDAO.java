@@ -38,7 +38,7 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 	List<Order> findByFilter(String keyword);
 	
 	/*Summary*/
-	@Query(value = "Select count(*) from Orders where order_date = CAST( GETDATE() AS Date)",nativeQuery= true)
+	@Query(value = "Select count(*) from Orders where CAST( order_date AS Date) = CAST( GETDATE() AS Date)",nativeQuery= true)
 	Long getTodayOrder();
 
 	@Query(value = "Select t.last7Days as 'date', ISNULL(sum(price*quantity),0) as ' totalPayment' "

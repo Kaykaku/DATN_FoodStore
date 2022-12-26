@@ -70,7 +70,6 @@ public class FoodController {
 		boolean up = sort.orElse("").contains("Up");
 		Sort sortOption = Sort.by(up ? Direction.ASC : Direction.DESC
 				, sort.orElse("name").replace("Down","").replace("Up", ""));
-		
 		Optional<Long> cate_id = Optional.ofNullable(null);
 		if(cid.isPresent()) cate_id = Optional.ofNullable(categoryService.getByName(cid.get()).getId());
 		
@@ -105,10 +104,10 @@ public class FoodController {
 		model.addAttribute("reviewScore", reviewScore);
 		model.addAttribute("discounts", discounts);
 		model.addAttribute("cid", cid.orElse(""));
-		model.addAttribute("price_min", price_min.orElse(0.0));
-		model.addAttribute("price_max", price_max.orElse(0.0));
+		model.addAttribute("price_min", price_min.orElse(-1.0));
+		model.addAttribute("price_max", price_max.orElse(-1.0));
 		model.addAttribute("size", size.orElse(9));
-		model.addAttribute("sortBy",sort.orElse("create_dateDown"));
+		model.addAttribute("sortBy",sort.orElse("idDown"));
 		model.addAttribute("title",cid.isPresent() ? categoryService.getByName(cid.get()).getDisplay_name() : ("category"));
 		return "product/list";
 	}
@@ -116,6 +115,7 @@ public class FoodController {
 	@GetMapping("/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Long foodId,HttpServletRequest request) {
 		Food item = foodService.getById(foodId);
+		if(!item.is_display()) return "redirect:/security/unauthorized";
 		item.setView_count(item.getView_count()+1);
 		foodService.update(item);
 		
@@ -145,24 +145,34 @@ public class FoodController {
 			model.addAttribute("review", review);
 		}
 		
+		Map<Long,Discount> discounts = new HashMap<>();
+		List<Discount> list2 = discountService.getAll();
+		for (Discount discount : list2) {
+			if(discount.getStart_date().getTime() <= new Date().getTime()
+					&& discount.getEnd_date().getTime() >= new Date().getTime()
+					&& discount.is_display() == true) {
+				discounts.put(discount.getFood_d().getId(), discount);
+			}
+		}
 		model.addAttribute("item", item);
 		model.addAttribute("items", foods);
 		model.addAttribute("comments", comments);
 		model.addAttribute("averageRating", averageRating);
 		model.addAttribute("ratingStatus", ratingStatus);
 		model.addAttribute("title", item.getName());
+		model.addAttribute("discounts", discounts);
 		return "product/detail";
 	}
 
 	@ModelAttribute("sortList")
 	public Map<String, String> get() {
 		Map<String, String> map = new LinkedHashMap<>();
-		map.put("Date up", "create_dateUp");
-		map.put("Date down", "create_dateDown");
+		map.put("Date up", "idUp");
+		map.put("Date down", "idDown");
 		map.put("Price up", "priceUp");
 		map.put("Price down", "priceDown");
-		map.put("Name up", "nameUp");
-		map.put("Name down", "nameDown");
+		map.put("A-Z", "nameUp");
+		map.put("Z-A", "nameDown");
 		return map;
 	}
 }

@@ -143,7 +143,8 @@
 								<tr>
 									<td><small class="text-light fw-semibold">Date</small></td>
 									<td class="py-3">
-										<h6 class="mb-0">{{form.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</h6>
+										<h6 class="mb-0">{{form.order_date|date:'hh:mm:ss
+											dd-MM-yyyy'}}</h6>
 									</td>
 								</tr>
 								<tr>
@@ -184,11 +185,13 @@
 									ng-if="form.status+1==4">Canceled Order</span>
 							</div>
 						</div>
-						<button ng-click="updateStatus(form)"
+						<button ng-click="updateStatus(form)" data-bs-toggle="offcanvas"
+									data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"
 							class="col-5 offset-1 mt-2 btn btn-info">
 							<i class='bx bxs-save mb-1'></i>Update Order
 						</button>
-						<button ng-click="cancel(form)" class="col-5 mt-2 btn  btn-danger">
+						<button ng-click="cancel(form)" class="col-5 mt-2 btn  btn-danger" data-bs-toggle="offcanvas"
+									data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
 							<i class="bx bx-trash mb-1"></i>Cancel Order
 						</button>
 					</div>
@@ -206,7 +209,7 @@
 								<th>Total</th>
 							</tr>
 						</thead>
-						<tbody class="table-border-bottom-0" ng-init='total=0'>
+						<tbody class="table-border-bottom-0">
 							<tr class="table-success" ng-repeat="item in details">
 								<td>{{item.id }}</td>
 								<td>
@@ -220,10 +223,11 @@
 									</ul>
 								</td>
 								<td><strong>{{item.food_od.name }}</strong></td>
-								<td>{{item.price }}  VND</td>
+								<td>{{item.price }} VND</td>
 								<td>{{item.quantity }}</td>
-								<td
-									ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>{{item.quantity*item.price}} VND</strong></td>
+								<td><strong>{{item.quantity*( item._fixed ?
+										item.price - item.amount : item.price - (item.price *
+										item.amount /100) )}} VND</strong></td>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -257,10 +261,9 @@
 					</thead>
 					<tbody class="table-border-bottom-0" ng-init="status=0;load(0)">
 						<tr class="table-primary" ng-repeat="item in items.content"
-							ng-click="edit2(item)" data-bs-toggle="offcanvas"
-							data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
-							<td><span class="badge bg-label-success" ng-if="!item._watched">New</span><strong> {{item.id
-									}}</strong></td>
+							ng-click="edit2(item)">
+							<td><span class="badge bg-label-success"
+								ng-if="!item._watched">New</span><strong> {{item.id }}</strong></td>
 							<td>{{item.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</td>
 							<td><strong>{{item.customer_o.username}}</strong></td>
 							<td>{{item.shipped_address }}</td>
@@ -271,33 +274,37 @@
 								class="badge bg-success" ng-if="item.status==3">Successful
 									Order</span> <span class="badge bg-danger" ng-if="item.status==4">Canceled
 									Order</span></td>
-							<td><button ng-click="updateStatus(item)"
-									class=" btn btn-info">
+							<td><button data-bs-toggle="offcanvas"
+									data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"
+									class=" btn btn-primary">
+									<i class='bx bx-detail mb-1'></i>View
+								</button>
+								<button ng-click="updateStatus(item)" class=" btn btn-info">
 									<i class='bx bxs-save mb-1'></i>Update
 								</button>
-								<button ng-click="cancel(item)"
-									class="btn btn-danger">
-									<i class="bx bx-trash mb-1"></i>Cancel 
+								<button ng-click="cancel(item)" class="btn btn-danger">
+									<i class="bx bx-trash mb-1"></i>Cancel
 								</button></td>
 						</tr>
 					</tbody>
 				</table>
-				<div class="justify-content-center mt-2 mb-2 w-100" style="text-align: center;">
-                                    <button ng-click="first()" class="btn btn-info">
-						<i class='bx bxs-chevrons-left mb-1' ></i>
+				<div class="justify-content-center mt-2 mb-2 w-100"
+					style="text-align: center;">
+					<button ng-click="first()" class="btn btn-info">
+						<i class='bx bxs-chevrons-left mb-1'></i>
 					</button>
-                                    <button ng-click="previous()" class="btn btn-info">
-						<i class='bx bxs-chevron-left mb-1' ></i>
+					<button ng-click="previous()" class="btn btn-info">
+						<i class='bx bxs-chevron-left mb-1'></i>
 					</button>
-                                    <button class="btn btn-success">{{items.pageable.pageNumber+1}} of
-						{{items.totalPages}}</button>
-                                    <button ng-click="next()" class="btn btn-info">
-						<i class='bx bxs-chevron-right mb-1' ></i>
+					<button class="btn btn-success">{{items.pageable.pageNumber+1}}
+						of {{items.totalPages}}</button>
+					<button ng-click="next()" class="btn btn-info">
+						<i class='bx bxs-chevron-right mb-1'></i>
 					</button>
-                                    <button ng-click="last()" class="btn btn-info">
-						<i class='bx bxs-chevrons-right mb-1' ></i>
+					<button ng-click="last()" class="btn btn-info">
+						<i class='bx bxs-chevrons-right mb-1'></i>
 					</button>
-							</div>
+				</div>
 			</div>
 		</div>
 	</div>

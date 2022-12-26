@@ -97,24 +97,24 @@ public class FoodServiceImpl implements FoodService {
 	public Page<Food> getByFilter(String keyword, Optional<Double> priceMin, Optional<Double> priceMax,
 			Optional<Integer> quantity, Optional<Integer> view, Optional<Long> createDate, Optional<Integer> status,
 			Optional<Boolean> isDisplay , Optional<Long> category_id, Pageable pageable) {
-		List<Food> list = getByKeywordEng(keyword);
-		if(priceMin.isPresent()) list = list.stream().filter(o-> o.getPrice() >= priceMin.get()).toList();
-		if(priceMax.isPresent()) list = list.stream().filter(o-> o.getPrice() <= priceMax.get()).toList();
+		List<Food> list = getByKeywordEng(keyword,pageable);
+		if(priceMin.isPresent() && priceMin.get()>=0) list = list.stream().filter(o-> o.getPrice() >= priceMin.get()).toList();
+		if(priceMax.isPresent() && priceMax.get()>=0 ) list = list.stream().filter(o-> o.getPrice() <= priceMax.get()).toList();
 		if(quantity.isPresent()) list = list.stream().filter(o-> o.getQuantity_limit() >= quantity.get()).toList();
 		if(view.isPresent()) list = list.stream().filter(o-> o.getView_count() >= view.get()).toList();
 		if(createDate.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >=  createDate.get()).toList();
 		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).toList();
 		if(isDisplay.isPresent()) list = list.stream().filter(o-> o.is_display() == isDisplay.get()).toList();
 		if(category_id.isPresent()) list = list.stream().filter(o-> o.getCategory_foods().stream().anyMatch(c -> c.getCategory_f().getId() == category_id.get()) ).toList();
-		return (Page<Food>)Convert.toPage(list, pageable);
+		return (Page<Food>) Convert.toPage(list, pageable);
 	}
 	
 	@Override
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
-	public List<Food> getByFilter(String keyword, Optional<Double> priceMin, Optional<Double> priceMax,
+	public List<Food> getPageByFilter(String keyword, Optional<Double> priceMin, Optional<Double> priceMax,
 			Optional<Integer> quantity, Optional<Integer> view, Optional<Long> createDate, Optional<Integer> status,
-			Optional<Boolean> isDisplay , Optional<Long> category_id) {
-		List<Food> list = getByKeywordEng(keyword);
+			Optional<Boolean> isDisplay , Optional<Long> category_id,Pageable pageable) {
+		List<Food> list = getByKeywordEng(keyword,pageable);
 		if(priceMin.isPresent()) list = list.stream().filter(o-> o.getPrice() >= priceMin.get()).toList();
 		if(priceMax.isPresent()) list = list.stream().filter(o-> o.getPrice() <= priceMax.get()).toList();
 		if(quantity.isPresent()) list = list.stream().filter(o-> o.getQuantity_limit() >= quantity.get()).toList();
@@ -129,7 +129,7 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Page<Food> getTopNewProducts(Pageable pageable) {
-		List<Food> list = getByKeywordEng("");
+		List<Food> list = getByKeywordEng("",pageable);
 		list = list.stream().sorted((o1,o2) -> (o2.getCreate_date()).compareTo(o1.getCreate_date())).toList();
 		return (Page<Food>) (Page<Food>)Convert.toPage(list, pageable);
 	}
@@ -170,7 +170,7 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	@Transactional(rollbackOn = { Exception.class, Throwable.class })
 	public Page<Food> getTopViewProducts(Pageable pageable) {
-		List<Food> list = getByKeywordEng("");
+		List<Food> list = getByKeywordEng("",pageable);
 		list = list.stream().sorted((o1,o2) -> ((Integer)o2.getView_count()).compareTo((Integer)o1.getView_count())).toList();
 		return (Page<Food>) (Page<Food>)Convert.toPage(list, pageable);
 	}
@@ -188,8 +188,8 @@ public class FoodServiceImpl implements FoodService {
 	}
 	
 	@Override
-	public List<Food> getByKeywordEng(String keyword) {
-		List<Food> list = foodDAO.findAll();
+	public List<Food> getByKeywordEng(String keyword,Pageable pageable) {
+		List<Food> list = foodDAO.findAll(pageable.getSort());
 		list = list.stream()
 				.filter(o -> Convert.toEngString(o.getName().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase())) 
 				|| Convert.toEngString(o.getDescription().toLowerCase()).contains(Convert.toEngString(keyword.toLowerCase()))).toList();

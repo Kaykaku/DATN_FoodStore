@@ -63,10 +63,69 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/user/**").hasRole("CUS")
 			.antMatchers("/cart/checkout").hasRole("CUS")
 			.antMatchers("/admin/**").not().hasRole("CUS")
+			
 			.antMatchers("/rest/category/filter").hasRole("CAT01")
 			.antMatchers("/rest/category/update/**").hasRole("CAT02")
 			.antMatchers("/rest/category/create/**").hasRole("CAT03")
 			.antMatchers("/rest/category/delete/**").hasRole("CAT04")
+			
+			.antMatchers("/rest/customer/filter").hasRole("CUS01")
+			.antMatchers("/rest/customer/update/**").hasRole("CUS02")
+			.antMatchers("/rest/customer/create/**").hasRole("CUS03")
+			.antMatchers("/rest/customer/delete/**").hasRole("CUS04")
+			
+			.antMatchers("/rest/customer/contact/filter").hasRole("PHO01")
+			.antMatchers("/rest/customer/contact/update/**").hasRole("PHO02")
+			.antMatchers("/rest/customer/contact/create/**").hasRole("PHO03")
+			.antMatchers("/rest/customer/contact/delete/**").hasRole("PHO04")
+			
+			.antMatchers("/rest/discount/filter").hasRole("DIS01")
+			.antMatchers("/rest/discount/update/**").hasRole("DIS02")
+			.antMatchers("/rest/discount/create/**").hasRole("DIS03")
+			.antMatchers("/rest/discount/delete/**").hasRole("DIS04")
+			
+			.antMatchers("/rest/food/filter").hasRole("FOO01")
+			.antMatchers("/rest/food/update/**").hasRole("FOO02")
+			.antMatchers("/rest/food/create/**").hasRole("FOO03")
+			.antMatchers("/rest/food/delete/**").hasRole("FOO04")
+			
+			.antMatchers("/rest/food/image/filter").hasRole("IMA01")
+			.antMatchers("/rest/food/image/update/**").hasRole("IMA02")
+			.antMatchers("/rest/food/image/create/**").hasRole("IMA03")
+			.antMatchers("/rest/food/image/delete/**").hasRole("IMA04")
+			
+			.antMatchers("/rest/history/filter").hasRole("HIS01")
+			.antMatchers("/rest/history/update/**").hasRole("HIS02")
+			.antMatchers("/rest/history/create/**").hasRole("HIS03")
+			.antMatchers("/rest/history/delete/**").hasRole("HIS04")
+			
+			.antMatchers("/rest/order/filter").hasRole("ORD01")
+			.antMatchers("/rest/order/update/**").hasRole("ORD02")
+			.antMatchers("/rest/order/create/**").hasRole("ORD03")
+			.antMatchers("/rest/order/delete/**").hasRole("ORD04")
+			
+			.antMatchers("/rest/role/filter").hasRole("ROL01")
+			.antMatchers("/rest/role/update/**").hasRole("ROL02")
+			.antMatchers("/rest/role/create/**").hasRole("ROL03")
+			.antMatchers("/rest/role/delete/**").hasRole("ROL04")
+			
+			.antMatchers("/rest/role/permission/filter").hasRole("ROL01")
+			.antMatchers("/rest/role/permission/update/**").hasRole("ROL02")
+			.antMatchers("/rest/role/permission/create/**").hasRole("ROL03")
+			.antMatchers("/rest/role/permission/delete/**").hasRole("ROL04")
+			
+			.antMatchers("/rest/user/filter").hasRole("USE01")
+			.antMatchers("/rest/user/update/**").hasRole("USE02")
+			.antMatchers("/rest/user/create/**").hasRole("USE03")
+			.antMatchers("/rest/user/delete/**").hasRole("USE04")
+			
+			.antMatchers("/rest/user/role/filter","/rest/user/permission/filter").hasRole("ROL01")
+			.antMatchers("/rest/user/role/update/**","/rest/user/permission/update/**").hasRole("ROL02")
+			.antMatchers("/rest/user/role/create/**","/rest/user/permission/create/**").hasRole("ROL03")
+			.antMatchers("/rest/user/role/delete/**","/rest/user/permission/delete/**").hasRole("ROL04")
+
+			.antMatchers("/rest/summary/**").hasRole("SUM01")
+			
 			.anyRequest().permitAll();
 		
 		http.formLogin()

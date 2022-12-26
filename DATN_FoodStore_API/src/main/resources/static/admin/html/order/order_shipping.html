@@ -185,11 +185,13 @@
 									ng-if="form.status+1==4">Canceled Order</span>
 							</div>
 						</div>
-						<button ng-click="updateStatus(form)"
+						<button ng-click="updateStatus(form)" data-bs-toggle="offcanvas"
+									data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"
 							class="col-5 offset-1 mt-2 btn btn-info">
 							<i class='bx bxs-save mb-1'></i>Update Order
 						</button>
-						<button ng-click="cancel(form)" class="col-5 mt-2 btn  btn-danger">
+						<button ng-click="cancel(form)" class="col-5 mt-2 btn  btn-danger" data-bs-toggle="offcanvas"
+									data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
 							<i class="bx bx-trash mb-1"></i>Cancel Order
 						</button>
 					</div>
@@ -207,7 +209,7 @@
 								<th>Total</th>
 							</tr>
 						</thead>
-						<tbody class="table-border-bottom-0" ng-init='total=0'>
+						<tbody class="table-border-bottom-0">
 							<tr class="table-success" ng-repeat="item in details">
 								<td>{{item.id }}</td>
 								<td>
@@ -223,9 +225,9 @@
 								<td><strong>{{item.food_od.name }}</strong></td>
 								<td>{{item.price }} VND</td>
 								<td>{{item.quantity }}</td>
-								<td
-									ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>{{item.quantity*item.price}}
-										VND</strong></td>
+								<td><strong>{{item.quantity*( item._fixed ?
+										item.price - item.amount : item.price - (item.price *
+										item.amount /100) )}} VND</strong></td>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -259,8 +261,7 @@
 					</thead>
 					<tbody class="table-border-bottom-0" ng-init="status=2;load(0)">
 						<tr class="table-info" ng-repeat="item in items.content"
-							ng-click="edit2(item)" data-bs-toggle="offcanvas"
-							data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
+							ng-click="edit2(item)" >
 							<td><strong>{{item.id }}</strong></td>
 							<td>{{item.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</td>
 							<td><strong>{{item.customer_o.username}}</strong></td>
@@ -272,7 +273,11 @@
 								class="badge bg-success" ng-if="item.status==3">Successful
 									Order</span> <span class="badge bg-danger" ng-if="item.status==4">Canceled
 									Order</span></td>
-							<td><button ng-click="updateStatus(item)"
+							<td><button data-bs-toggle="offcanvas"
+									data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"
+									class=" btn btn-primary">
+									<i class='bx bx-detail mb-1'></i>View
+								</button> <button ng-click="updateStatus(item)"
 									class=" btn btn-info">
 									<i class='bx bxs-save mb-1'></i>Update
 								</button>

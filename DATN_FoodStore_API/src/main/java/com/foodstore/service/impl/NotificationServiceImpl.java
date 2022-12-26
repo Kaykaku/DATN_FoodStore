@@ -103,7 +103,7 @@ public class NotificationServiceImpl implements NotificationService {
 		notification.setRecord_id(id);
 		notification.setTable_name(table_name);
 		notification.setColor(color);
-		return create(notification);
+		return notificationDAO.save(notification);
 	}
 
 	@Override

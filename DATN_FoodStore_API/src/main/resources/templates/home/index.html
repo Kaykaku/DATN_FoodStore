@@ -51,7 +51,8 @@
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
                                 <div class="cat w-80">
-                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                    <span >[[${p.category_foods[0].category_f.display_name}]]</span>
+                                    <span th:if="${p.category_foods.size>1}">+[[${p.category_foods.size-1}]]</span>
                                 </div>
                                 <div class="rating">
                                     <p class="text-right mb-0"> 
@@ -64,13 +65,13 @@
                                     </p>
                                 </div>
                             </div>
-                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <h3><a th:href="@{|/shop/detail/${p.id}|}">[[${p.name}]]</a></h3>
                             <div class="pricing">
                                 <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
                                 <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
-                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:if="${p.quantity_limit>0}" href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
                                 <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
@@ -98,7 +99,8 @@
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
                                 <div class="cat w-80">
-                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                    <span >[[${p.category_foods[0].category_f.display_name}]]</span>
+                                    <span th:if="${p.category_foods.size>1}">+[[${p.category_foods.size-1}]]</span>
                                 </div>
                                 <div class="rating">
                                     <p class="text-right mb-0"> 
@@ -111,13 +113,13 @@
                                     </p>
                                 </div>
                             </div>
-                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <h3><a th:href="@{|/shop/detail/${p.id}|}">[[${p.name}]]</a></h3>
                             <div class="pricing">
                                 <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
                                 <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
-                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:if="${p.quantity_limit>0}" href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
                                 <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
@@ -144,7 +146,8 @@
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
                                 <div class="cat w-80">
-                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                    <span >[[${p.category_foods[0].category_f.display_name}]]</span>
+                                    <span th:if="${p.category_foods.size>1}">+[[${p.category_foods.size-1}]]</span>
                                 </div>
                                 <div class="rating">
                                     <p class="text-right mb-0"> 
@@ -157,13 +160,13 @@
                                     </p>
                                 </div>
                             </div>
-                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <h3><a th:href="@{|/shop/detail/${p.id}|}">[[${p.name}]]</a></h3>
                             <div class="pricing">
                                 <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
                                 <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
-                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:if="${p.quantity_limit>0}" href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
                                 <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
@@ -190,7 +193,8 @@
                         <div class="text py-3 pb-4 px-3">
                             <div class="d-flex">
                                 <div class="cat w-80">
-                                    <span th:each="c,state:${p.category_foods}">[[${c.category_f.display_name}]]</span>
+                                    <span >[[${p.category_foods[0].category_f.display_name}]]</span>
+                                    <span th:if="${p.category_foods.size>1}">+[[${p.category_foods.size-1}]]</span>
                                 </div>
                                 <div class="rating">
                                     <p class="text-right mb-0"> 
@@ -203,13 +207,13 @@
                                     </p>
                                 </div>
                             </div>
-                            <h3><a href="#">[[${p.name}]]</a></h3>
+                            <h3><a th:href="@{|/shop/detail/${p.id}|}">[[${p.name}]]</a></h3>
                             <div class="pricing">
                                 <p class="price" th:if="!${discounts.get(p.id)}"><span>[[${p.price}]] VND</span></p>
                                 <p class="price" th:if="${discounts.get(p.id)}"><span class="mr-2 price-dc">[[${p.price}]]</span><span class="price-sale">[[${p.price -(discounts.get(p.id).is_fixed ? discounts.get(p.id).amount : p.price * discounts.get(p.id).amount / 100)}]] VND</span></p>
                             </div>
                             <p class="bottom-area d-flex px-3">
-                                <a href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
+                                <a th:if="${p.quantity_limit>0}" href="" th:attr="ng-click=@{|cart.add(${p.id})|}" class="add-to-cart text-center py-2 mr-1"><span>[[#{product.addcart}]]<i class="ion-ios-add ml-1"></i></span></a>
                                 <a th:href="@{|/shop/detail/${p.id}|}" class="buy-now text-center py-2">[[#{product.viewdetail}]]<span><i class="ion-ios-cart ml-1"></i></span></a>
                             </p>
                         </div>
@@ -219,7 +223,7 @@
         </div>
     </section>
     <div th:replace="/layout/_collection.html"></div>
-    <div th:replace="/layout/_deal.html"></div>
+    <!-- <div th:replace="/layout/_deal.html"></div> -->
     <div th:replace="/layout/_feedback.html"></div>
     <div th:replace="/layout/_follow.html"></div>
 </body>

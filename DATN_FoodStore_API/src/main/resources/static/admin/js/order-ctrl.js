@@ -1,4 +1,4 @@
-app.controller("order-ctrl", function($scope, $http) {
+app.controller("order-ctrl", function($scope, $http,$location) {
 	$scope.items = [];
 	$scope.customers = [];
 	$scope.form = {};
@@ -52,6 +52,18 @@ app.controller("order-ctrl", function($scope, $http) {
 			}
         })
     }
+    
+    $scope.totalOrder = function(id) {
+		$http.get(url + "/rest/order/detail/" + id).then(resp => {
+			$scope.details = resp.data;
+			$scope.total=0;
+			for (let i = 0; i < $scope.details.length; i++) {
+				let item = $scope.details[i];
+			    $scope.total +=  item.quantity *( item._fixed ? item.price - item.amount : item.price - (item.price * item.amount /100));
+			}
+			console.log($scope.details);
+		})
+	}
 
 	$scope.loadImageD = function(item){
 		if(!$scope.images) return '';
@@ -82,10 +94,11 @@ app.controller("order-ctrl", function($scope, $http) {
 		})
 		item._watched = item.status == 0;
 		item.changedate = new Date();
-		if (item.status == 0) $http.put(url + '/rest/order/' + item.id, item)
+		if (item.status == 0) $http.put(url + '/rest/order/update/' + item.id, item)
 		console.log($scope.form)
 		$scope.tab('tab2');
 		$scope.showToast('warning', 'Edit order ' + $scope.form.id);
+		$scope.totalOrder($scope.form.id);
 	}
 	
 	$scope.edit2 = function(item) {
@@ -97,10 +110,7 @@ app.controller("order-ctrl", function($scope, $http) {
 		item._watched = item.status == 0;
 		item.changedate = new Date();
 		if (item.status == 0) $http.put(url + '/rest/order/update/' + item.id, item)
-	}
-	
-	$scope.getTotal = async function(id) {
-
+		$scope.totalOrder($scope.form.id);
 	}
 	
 	$scope.tab = function(tab) {
@@ -142,12 +152,9 @@ app.controller("order-ctrl", function($scope, $http) {
 		item.changedate = new Date();
 		item.status +=1
 		$http.put(url + '/rest/order/update/' + item.id, item).then(resp => {
-			var index = $scope.items.findIndex(p => p.id == item.id);
-			$scope.items[index] = item;
 			$scope.showToast('info', 'Update STATUS #' + item.id);
-			$scope.initialize()
-			$scope.getItems(item.status-1);
-			console.log(resp.data);
+			$scope.status=item.status-1;
+			$scope.load(0);
 		}).catch(err => {
 			$scope.showToast('danger', 'Update STATUS' + item.id +' ERROR');
 			console.log("Error ", err);
@@ -156,14 +163,14 @@ app.controller("order-ctrl", function($scope, $http) {
 	
 	$scope.cancel = function(itemz) {
 		var item = itemz;
-		item._watched = item.status == 0;
+		item._watched = true;
+		let status =item.status;
 		item.status =4;
 		item.changedate = new Date();
-		$http.put(url + '/rest/order/' + item.id, item).then(resp => {
-			var index = $scope.items.findIndex(p => p.id == item.id);
-			$scope.items[index] = item;
+		$http.put(url + '/rest/order/update/' + item.id, item).then(resp => {
+			$scope.status=status;
+			$scope.load(0);
 			$scope.showToast('info', 'Cancel ORDER #' + item.id);
-			$scope.initialize()
 			console.log(resp.data);
 		}).catch(err => {
 			$scope.showToast('danger', 'Cancel ORDER #' + item.id +' ERROR');

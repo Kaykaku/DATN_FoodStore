@@ -63,7 +63,6 @@ public class Food implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date create_date =new Date();
     
-    
     @Column(name = "is_display", nullable = false)
     private boolean is_display = Display.SHOW;
     

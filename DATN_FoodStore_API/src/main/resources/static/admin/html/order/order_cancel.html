@@ -173,7 +173,7 @@
 								<th>Total</th>
 							</tr>
 						</thead>
-						<tbody class="table-border-bottom-0" ng-init='total=0'>
+						<tbody class="table-border-bottom-0" >
 							<tr class="table-success" ng-repeat="item in details">
 								<td>{{item.id }}</td>
 								<td>
@@ -189,8 +189,8 @@
 								<td><strong>{{item.food_od.name }}</strong></td>
 								<td>{{item.price }} VND</td>
 								<td>{{item.quantity }}</td>
-								<td
-									ng-init="$parent.total = $parent.total + (item.quantity*item.price)"><strong>{{item.quantity*item.price}} VND </strong></td>
+								<td ><strong>{{item.quantity*( item._fixed ? item.price - item.amount : item.price - (item.price * item.amount /100) )}}
+																	VND</strong></td>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -225,8 +225,7 @@
 						<tr class="table-danger" ng-repeat="item in items.content"
 							ng-click="edit2(item)" data-bs-toggle="offcanvas"
 							data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
-							<td><strong>{{item.id
-									}}</strong></td>
+							<td><strong>{{item.id }}</strong></td>
 							<td>{{item.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</td>
 							<td><strong>{{item.customer_o.username}}</strong></td>
 							<td>{{item.shipped_address }}</td>

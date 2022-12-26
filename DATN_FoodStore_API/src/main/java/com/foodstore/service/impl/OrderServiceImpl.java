@@ -28,7 +28,9 @@ import com.foodstore.service.CustomerService;
 import com.foodstore.service.NotificationService;
 import com.foodstore.service.OrderService;
 import com.foodstore.util.constraints.Colorful;
+import com.foodstore.util.constraints.TableName;
 import com.foodstore.util.convert.Convert;
+import com.foodstore.util.convert.RemoteCurrentUser;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -44,6 +46,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired 
 	private NotificationService notificationService;
+	@Autowired
+	private RemoteCurrentUser remoteCurrentUser;
 	
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
@@ -76,17 +80,19 @@ public class OrderServiceImpl implements OrderService {
 		
 		Order order = mapper.convertValue(orderData, Order.class);
 		order.setOrder_date(new Date());
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Customer customer = customerService.getByUsername(((UserDetails)principal).getUsername());
-		order.setCustomer_o(customer);
+		
+		order.setCustomer_o(remoteCurrentUser.getCurrentCustomer());
 		orderDAO.save(order);
 		
 		TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {};
 		List<OrderDetail> details = mapper.convertValue(orderData.get("order_details"), type)
 				.stream().peek(d->d.setOrder(order)).collect(Collectors.toList());
 		detailDAO.saveAll(details);
+		try {
+			notificationService.createMess("Bạn đã đặt đơn hàng #"+order.getId() +" thành công!", order.getId(), TableName.Order, order.getCustomer_o(), Colorful.Info);
+		} catch (Exception e) {
+		}
 		
-		notificationService.createMess("Bạn đã đặt đơn hàng #"+order.getId() +" thành công!", order.getId(), "order", customer, Colorful.Info);
 		return order;
 	}
 	
