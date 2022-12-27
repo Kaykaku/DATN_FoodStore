@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,5 @@ public interface CommentDAO extends JpaRepository<Comment, Long>{
 	@Query("Select c From Comment c "
 			+ "Where c.title like %?1%"
 			+ " or c.content like %?1%")
-	List<Comment> findAllByKeyword(String keyword);
+	List<Comment> findAllByKeyword(String keyword,Sort sort);
 }

@@ -99,9 +99,31 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public Order update(Order entiy) {
-		return orderDAO.save(entiy);
+		Order o = orderDAO.save(entiy);
+		if(o.getStatus()==0) {
+			notificationService.createMess("Quản trị viên @"+ remoteCurrentUser.getCurrentUser().getId() +" đã thay đổi trạng thái đơn hàng của bạn - #"+o.getId() +" chờ xác nhận !", o.getId(), TableName.Order, o.getCustomer_o(), Colorful.Primary);
+		}else if(o.getStatus()==1) {
+			notificationService.createMess("Quản trị viên @"+ remoteCurrentUser.getCurrentUser().getId() +" đã thay đổi trạng thái đơn hàng của bạn - #"+o.getId() +" đang đóng gói!", o.getId(), TableName.Order, o.getCustomer_o(), Colorful.Info);
+		}else if(o.getStatus()==2) {
+			notificationService.createMess("Quản trị viên @"+ remoteCurrentUser.getCurrentUser().getId() +" đã thay đổi trạng thái đơn hàng của bạn - #"+o.getId() +" đang vận chuyển!", o.getId(), TableName.Order, o.getCustomer_o(), Colorful.Warning);
+		}else if(o.getStatus()==3) {
+			notificationService.createMess("Quản trị viên @"+ remoteCurrentUser.getCurrentUser().getId() +" đã thay đổi trạng thái đơn hàng của bạn - #"+o.getId() +" thành công!", o.getId(), TableName.Order, o.getCustomer_o(), Colorful.Success);
+		}else if(o.getStatus()==4) {
+			notificationService.createMess("Quản trị viên @"+ remoteCurrentUser.getCurrentUser().getId() +" đã thay đổi trạng thái đơn hàng của bạn - #"+o.getId() +" đã hủy!", o.getId(), TableName.Order, o.getCustomer_o(), Colorful.Danger);
+		}
+		return o;
 	}
 
+	@Override
+	@Transactional(rollbackOn = {Exception.class, Throwable.class})
+	public Order updateByCustomer(Order entiy) {
+		Order o = orderDAO.save(entiy);
+		if(o.getStatus()==4) {
+			notificationService.createMess("Bạn đã hủy đơn hàng #"+entiy.getId() +" thành công!", entiy.getId(), TableName.Order, entiy.getCustomer_o(), Colorful.Danger);
+		}
+		return o;
+	}
+	
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
 	public void delete(Long id) {

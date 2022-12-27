@@ -119,9 +119,11 @@ public class FoodController {
 		item.setView_count(item.getView_count()+1);
 		foodService.update(item);
 		
-		List<Comment> comments = commentService.getByFilter("", 
+		Sort sortOption = Sort.by(Direction.DESC
+				, "id");
+		List<Comment> comments = commentService.getAllByFilter("", 
 				Optional.ofNullable(null), Optional.ofNullable(foodId),
-				Optional.ofNullable(null), Optional.ofNullable(null), Optional.ofNullable(Display.SHOW));
+				Optional.ofNullable(null), Optional.ofNullable(null), Optional.ofNullable(Display.SHOW),PageRequest.of(0, 100,sortOption));
 		double  averageRating = reviewService.getAverageRating(foodId);
 		Map<Integer, Integer> ratingStatus = reviewService.getStatictisRating(foodId);
 		Page<Food> foods = foodService.getByFilter("",

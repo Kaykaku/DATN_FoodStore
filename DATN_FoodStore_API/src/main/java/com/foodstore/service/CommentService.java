@@ -19,7 +19,7 @@ public interface CommentService extends IService<Comment> {
 	
 	Page<Comment> getByFilter(String keyword ,Optional<Long> cus_id ,Optional<Long> food_id  ,Optional<Integer> status , Optional<Date> createDate , Optional<Boolean> isDisplay,Pageable pageable);
 	
-	List<Comment> getByFilter(String keyword ,Optional<Long> cus_id ,Optional<Long> food_id  ,Optional<Integer> status , Optional<Date> createDate , Optional<Boolean> isDisplay);
+	List<Comment> getAllByFilter(String keyword ,Optional<Long> cus_id ,Optional<Long> food_id  ,Optional<Integer> status , Optional<Date> createDate , Optional<Boolean> isDisplay,Pageable pageable);
 	
 	Page<Comment> getByKeyword(String keyword ,int status,Pageable pageable);
 	

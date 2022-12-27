@@ -18,6 +18,8 @@ public interface OrderService extends IService<Order> {
 	
 	public Order create(JsonNode orderData);
 	
+	public Order updateByCustomer(Order order);
+	
 	Page<Order> getAllByOrderIdLike(String id,Pageable pageable);
 	
 	Page<Order> getByPaymentmethodId(Long id,Pageable pageable);

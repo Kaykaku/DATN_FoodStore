@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+    <title>FoodStore - Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body class="goto-here">
+    <!-- Style -->
+    <link rel="stylesheet" href="/shopz/login/css/style.css">
+
+    <div th:replace="/layout/_header_title.html"></div>
+    <div class="d-lg-flex half">
+        <div class="bg order-2 order-md-1" style="background-image: url('/shopz/login/images/bg_1.jpg');"></div>
+        <div class="contents order-1 order-md-2">
+
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7">
+                        <div class="mb-4">
+                            <h1 style="font-size: 50px;">[[${title}]]</h1>
+                            <h4 class="badge badge-danger" style="font-size: 30px;">[[${message}]]</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

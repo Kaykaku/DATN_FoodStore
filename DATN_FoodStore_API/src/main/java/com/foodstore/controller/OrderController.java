@@ -65,4 +65,16 @@ public class OrderController {
 		return "order/detail";
 	}
 
+	@GetMapping({"cancel/{id}"})
+	public String cancel(@PathVariable("id") Long id, Model model , HttpServletRequest request,@RequestParam("read") Optional<Boolean> read) {
+		String username = request.getRemoteUser();
+		Customer customer = customerService.getByUsername(username);
+		Order order = orderService.getById(id);
+		if(order == null || order.getCustomer_o().getId() !=customer.getId() || order.getStatus()==4) return "redirect:/security/unauthorized";
+		order.setStatus(4);
+		orderService.updateByCustomer(order);
+		model.addAttribute("order", order);
+		model.addAttribute("title", "Order #"+id);
+		return "redirect:/user/order/detail/"+order.getId();
+	}
 }

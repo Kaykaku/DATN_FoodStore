@@ -102,6 +102,13 @@ public class OrderRestController {
 		return o;
 	}
 	
+	@PostMapping("/createOrder")
+	public Order createOrder(@RequestBody JsonNode orderData) {
+		Order o = orderService.create(orderData);
+		remoteCurrentUser.createHistory(" (AUTO CREATE BY CUSTOMER) create new record of customer '"+ o.getCustomer_o().getUsername()+"' with ID", TableName.Order , o.getId());
+		return o;
+	}
+	
 	@PutMapping("/update/{id}")
 	public Order update(@RequestBody Order order,@PathVariable("id")Integer id) {
 		Order o = orderService.update(order);

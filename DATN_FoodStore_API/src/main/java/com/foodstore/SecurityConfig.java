@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				
 				String password = pe.encode(user.getPassword());
 				String[] roles = userService.getAllPermission(username);
+				
 				return User.withUsername(username).password(password).roles(roles).build();
 			} catch (Exception e) {
 				throw new UsernameNotFoundException(username + "not found!");
@@ -45,7 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		auth.userDetailsService(username->{
 			try {
 				Customer customer = customerService.getByUsername(username);
-				
 				String password = pe.encode(customer.getPassword());
 				String[] roles =  {"CUS"};
 				return User.withUsername(username).password(password).roles(roles).build();

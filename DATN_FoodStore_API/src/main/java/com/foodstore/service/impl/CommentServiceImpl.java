@@ -73,21 +73,21 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Page<Comment> getByKeyword(String keyword, int status,Pageable pageable) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.getStatus()==status).collect(Collectors.toList());
+		List<Comment> list = commentDAO.findAllByKeyword(keyword,pageable.getSort()).stream().filter(c->c.getStatus()==status).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Page<Comment> getByKeyword(String keyword, boolean isDislay,Pageable pageable ) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay).collect(Collectors.toList());
+		List<Comment> list = commentDAO.findAllByKeyword(keyword,pageable.getSort()).stream().filter(c->c.is_display()==isDislay).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
 	@Override
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Page<Comment> getByKeyword(String keyword, int status, boolean isDislay,Pageable pageable) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword).stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).collect(Collectors.toList());
+		List<Comment> list = commentDAO.findAllByKeyword(keyword,pageable.getSort()).stream().filter(c->c.is_display()==isDislay && c.getStatus()==status).collect(Collectors.toList());
 		return new PageImpl<Comment>(list, pageable, list.size());
 	}
 
@@ -95,7 +95,7 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional(rollbackFor = {Exception.class, Throwable.class})
 	public Page<Comment> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> food_id,
 			Optional<Integer> status, Optional<Date> createDate, Optional<Boolean> isDisplay, Pageable pageable) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword);
+		List<Comment> list = commentDAO.findAllByKeyword(keyword,pageable.getSort());
 		if(cus_id.isPresent()) list = list.stream().filter(o-> o.getReview().getCustomer_r().getId() == cus_id.get()).collect(Collectors.toList());
 		if(food_id.isPresent()) list = list.stream().filter(o-> o.getReview().getFood_r().getId() == food_id.get()).collect(Collectors.toList());
 		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).collect(Collectors.toList());
@@ -105,9 +105,9 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<Comment> getByFilter(String keyword, Optional<Long> cus_id, Optional<Long> food_id,
-			Optional<Integer> status, Optional<Date> createDate, Optional<Boolean> isDisplay) {
-		List<Comment> list = commentDAO.findAllByKeyword(keyword);
+	public List<Comment> getAllByFilter(String keyword, Optional<Long> cus_id, Optional<Long> food_id,
+			Optional<Integer> status, Optional<Date> createDate, Optional<Boolean> isDisplay, Pageable pageable) {
+		List<Comment> list = commentDAO.findAllByKeyword(keyword,pageable.getSort());
 		if(cus_id.isPresent()) list = list.stream().filter(o-> o.getReview().getCustomer_r().getId() == cus_id.get()).collect(Collectors.toList());
 		if(food_id.isPresent()) list = list.stream().filter(o-> o.getReview().getFood_r().getId() == food_id.get()).collect(Collectors.toList());
 		if(status.isPresent()) list = list.stream().filter(o-> o.getStatus() == status.get()).collect(Collectors.toList());

@@ -32,7 +32,7 @@ public class NotificationController {
 		Notification notification = notificationService.getById(id);
 		notification.set_watched(true);
 		notificationService.update(notification);
-		return "redirect:/user/"+notification.getTable_name()+"/"+notification.getRecord_id();
+		return "redirect:/user/"+notification.getTable_name().toLowerCase()+"/detail/"+notification.getRecord_id();
 	}
 	
 	@GetMapping("/rating/{id}")

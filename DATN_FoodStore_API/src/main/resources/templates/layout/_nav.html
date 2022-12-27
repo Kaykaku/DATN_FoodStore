@@ -5,6 +5,55 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
+<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+  background: #f2f2f2;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}</style>
 </head>
 <body>
 	<nav
@@ -20,40 +69,55 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
+					<li class="nav-item mt-2 ml-1"><form method="get" class="colorlib-form-2" th:action="@{|/shop/all|}"><a><input type="text"
+						style="border-left-color: transparent !important;border-right-color: transparent !important;border-top-color: transparent !important; border-bottom-color: black; width: 200px !important; height: 40px !important; background-color: transparent !important;"
+						class="form-control" placeholder="Search" name="keyword" onblur="this.form.submit()"></a></form></li>
 					<li class="nav-item"><a href="/home/index"
 						class="nav-link pl-0 ">[[#{menu.home}]]</a></li>
-					<li class="nav-item"><a href="/shop/all" class="nav-link pl-0 ">[(#{menu.shop})]</a></li>
-					<li class="nav-item"><a href="/home/about" class="nav-link pl-0 ">[[#{menu.about}]]</a></li>
-					<li class="nav-item"><a href="/home/contact" class="nav-link pl-0 ">[[#{menu.contact}]]</a></li>
+					<li class="nav-item"><a href="/shop/all"
+						class="nav-link pl-0 ">[(#{menu.shop})]</a></li>
+					<li class="nav-item"><a href="/home/about"
+						class="nav-link pl-0 ">[[#{menu.about}]]</a></li>
+					<li class="nav-item"><a href="/home/contact"
+						class="nav-link pl-0 ">[[#{menu.contact}]]</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle pl-0 " href="#" id="dropdown06"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[[#{menu.language}]]</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown06">
-							<a class="dropdown-item" href="?lang=en">English</a>
-							<a class="dropdown-item" href="?lang=vi">Tiếng Việt</a>
+							<a class="dropdown-item" href="?lang=en">English</a> <a
+								class="dropdown-item" href="?lang=vi">Tiếng Việt</a>
 						</div></li>
 					<li class="nav-item cta cta-colored"><a
 						class="nav-link cart js-show-cart"><span
 							class="icon-shopping_cart"></span>[{{cart.count}}]</a></li>
-							<li class="nav-item"><a href="/security/login/form" class="nav-link" th:unless="${#request.remoteUser}">[[#{menu.login}]]</a></li>
-							<li class="nav-item"><a href="/security/signup/form" class="nav-link" th:unless="${#request.remoteUser}">Đăng ký</a></li>
+					<li class="nav-item"><a href="/security/login/form"
+						class="nav-link" th:unless="${#request.remoteUser}">[[#{menu.login}]]</a></li>
+					<li class="nav-item"><a href="/security/signup/form"
+						class="nav-link" th:unless="${#request.remoteUser}">Đăng ký</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle " href="#" id="dropdown04"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#request.remoteUser}">[[${#request.remoteUser}]]</a>
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+						th:if="${#request.remoteUser}">[[${#request.remoteUser}]]</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a th:if="${!#request.isUserInRole('CUS')}" class="dropdown-item" href="/admin">[[#{menu.administration}]]</a>
-							<a class="dropdown-item" href="/cart/view">[[#{menu.cart}]]</a>
-							<a class="dropdown-item" href="/user/order/list">[[#{menu.order}]]</a>
+							<a th:if="${!#request.isUserInRole('CUS')}" class="dropdown-item"
+								href="/admin">[[#{menu.administration}]]</a> <a
+								class="dropdown-item" href="/cart/view">[[#{menu.cart}]]</a> <a
+								class="dropdown-item" href="/user/order/list">[[#{menu.order}]]</a>
 							<a class="dropdown-item" href="/security/logoff">[[#{menu.logout}]]</a>
 						</div></li>
-						<li class="nav-item dropdown cta cta-colored" ><a
+					<li class="nav-item dropdown cta cta-colored"><a
 						class="nav-link dropdown-toggle" href="#" id="dropdown05"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#request.remoteUser}"><i class="icon-bell"></i>([[${news==null?0: #lists.size(news)}]])</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown05" >
-							<a class="dropdown-item" style="font-size: 12px;width: 250px;white-space: normal;" th:each="n:${news}"  th:href="@{|/user/notification/${n.id}|}">
-							[[${#dates.format(n.create_at,'hh:mm:ss dd-MM-yyyy')}]] [[${n.content}]]
-							<span class="badge badge-primary"  style="font-size: 12px;background-color:[[${n.color}]]">[[${n.table_name}]]#[[${n.record_id}]]</span>
-<!-- 							<span class="badge badge-primary" th:if="${n.status==0}" style="font-size: 12px;">[[#{order.status0}]]</span>
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+						th:if="${#request.remoteUser}"><i class="icon-bell"></i>([[${news==null?0:
+							#lists.size(news)}]])</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown05">
+							<a class="dropdown-item"
+								style="font-size: 12px; width: 250px; white-space: normal;"
+								th:each="n:${news}" th:href="@{|/user/notification/${n.id}|}">
+								[[${#dates.format(n.create_at,'hh:mm:ss dd-MM-yyyy')}]]
+								[[${n.content}]] <span class="badge badge-primary"
+								th:style="@{|font-size: 12px; background-color: ${n.color} !important|}">[[${n.table_name}]]#[[${n.record_id}]]</span>
+								<!-- 							<span class="badge badge-primary" th:if="${n.status==0}" style="font-size: 12px;">[[#{order.status0}]]</span>
 							<span class="badge badge-warning" th:if="${n.status==1}" style="font-size: 12px;">[[#{order.status1}]]</span>
 							<span class="badge badge-info" th:if="${n.status==2}" style="font-size: 12px;">[[#{order.status2}]]</span>
 							<span class="badge badge-success" th:if="${n.status==3}" style="font-size: 12px;">[[#{order.status3}]]</span>
@@ -81,17 +145,21 @@
 
 			<div class="header-cart-content flex-w js-pscroll"
 				style="overflow-x: hidden;">
-				<ul class="header-cart-wrapitem w-full pl-0" >
-					<li class="header-cart-item flex-w flex-t m-b-12" ng-repeat="item in cart.items"><a
-						href="" ng-click="cart.remove(item.id)">
+				<ul class="header-cart-wrapitem w-full pl-0">
+					<li class="header-cart-item flex-w flex-t m-b-12"
+						ng-repeat="item in cart.items"><a href=""
+						ng-click="cart.remove(item.id)">
 							<div class="header-cart-item-img">
-								<img ng-src="/images/{{cart.loadImage(item)}}" alt="IMG" style="height: 100px;">
+								<img ng-src="/images/{{cart.loadImage(item)}}" alt="IMG"
+									style="height: 100px;">
 							</div>
 					</a>
 						<div class="header-cart-item-txt p-t-8">
-							<a href="/shop/{{item.category.id}}/{{item.id}}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+							<a href="/shop/{{item.category.id}}/{{item.id}}"
+								class="header-cart-item-name m-b-18 hov-cl1 trans-04">
 								{{item.name}} </a> <span class="header-cart-item-info">
-								{{item.qty}} x {{ loadDiscount(item) ? loadDiscount(item) : item.price }} VND </span>
+								{{item.qty}} x {{ loadDiscount(item) ? loadDiscount(item) :
+								item.price }} VND </span>
 						</div></li>
 				</ul>
 

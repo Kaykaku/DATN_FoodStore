@@ -148,7 +148,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 				});
 				return 0;
 			}
-			$http.post("/rest/order/create", order).then(resp => {
+			$http.post("/rest/order/createOrder", order).then(resp => {
 				console.log(order);
 				Swal.fire({
 					icon: 'success',
