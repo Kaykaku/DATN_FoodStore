@@ -2,7 +2,9 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 
 	$scope.user = {};
 	$scope.news = {};
+	$scope.news2 = {};
 	$scope.orz = [];
+	$scope.selectedTab = {};
 	$scope.permissionOfMine = [];
 	
 	$scope.initialize = function() {
@@ -53,6 +55,9 @@ app.controller("main-ctrl", function($scope, $http, $location) {
 		}).then(() => {
 			$scope.news = $scope.items.filter(x => {
 				return x.status == 0 && x._watched == false;
+			}).length
+			$scope.news2 = $scope.items.filter(x => {
+				return x.status == 4 && x._watched == false;
 			}).length
 			$scope.orz = [];
 			for (let i = 0; i < 5; i++) {

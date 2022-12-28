@@ -225,7 +225,8 @@
 						<tr class="table-danger" ng-repeat="item in items.content"
 							ng-click="edit2(item)" data-bs-toggle="offcanvas"
 							data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">
-							<td><strong>{{item.id }}</strong></td>
+							<td><span class="badge bg-label-danger"
+								ng-if="!item._watched">New</span><strong>{{item.id }}</strong></td>
 							<td>{{item.order_date|date:'hh:mm:ss dd-MM-yyyy'}}</td>
 							<td><strong>{{item.customer_o.username}}</strong></td>
 							<td>{{item.shipped_address }}</td>

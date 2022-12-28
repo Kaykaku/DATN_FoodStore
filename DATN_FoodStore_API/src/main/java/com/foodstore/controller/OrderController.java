@@ -72,6 +72,7 @@ public class OrderController {
 		Order order = orderService.getById(id);
 		if(order == null || order.getCustomer_o().getId() !=customer.getId() || order.getStatus()==4) return "redirect:/security/unauthorized";
 		order.setStatus(4);
+		order.set_watched(false);
 		orderService.updateByCustomer(order);
 		model.addAttribute("order", order);
 		model.addAttribute("title", "Order #"+id);

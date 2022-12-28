@@ -67,7 +67,7 @@ public class HistoryServiceImpl implements HistoryService {
 	@Override
 	public Page<History> getByFilter(String keyword, String table_name, Optional<Long> userid,
 			Optional<Long> create_date, Optional<Long> record_id,Pageable pageable) {
-		List<History> list = historyDAO.findAllByKeyword(keyword);
+		List<History> list = historyDAO.findAllByKeyword(keyword,pageable.getSort());
 		if(table_name != null && !table_name.equalsIgnoreCase(TableName.All)) list = list.stream().filter(o-> o.getTable_name().equalsIgnoreCase(table_name)).collect(Collectors.toList());
 		if(userid.isPresent()) list = list.stream().filter(o-> o.getUser_h().getId() == userid.get()).collect(Collectors.toList());
 		if(create_date.isPresent()) list = list.stream().filter(o-> o.getCreate_date().getTime() >= create_date.get()).collect(Collectors.toList());

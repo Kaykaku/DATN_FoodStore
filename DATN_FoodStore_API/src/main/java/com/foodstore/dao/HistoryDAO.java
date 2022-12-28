@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -25,5 +26,5 @@ public interface HistoryDAO extends JpaRepository<History, Long>{
 	
 	@Query("Select o From History o"
 			+ " Where o.memo like %?1% or o.id like %?1% or o.record_id like %?1% or o.table_name like %?1%")
-	List<History> findAllByKeyword(String keyword);
+	List<History> findAllByKeyword(String keyword,Sort sort);
 }
